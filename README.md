@@ -53,10 +53,10 @@ List of factors that are critical to the project's success.
 **Pre Coding**
 
 - [x] Find Idea
-- [ ] Create Project Skeleton
-- [ ] Create Repo
-- [ ] Invite Members
-- [ ] Assign tasks
+- [x] Create Project Skeleton
+- [x] Create Repo
+- [x] Invite Members
+- [x] Assign tasks
 
 **Coding**
 
