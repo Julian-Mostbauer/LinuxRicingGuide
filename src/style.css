@@ -1,0 +1,39 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+footer,
+header {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+h1 {
+  color: red;
+  font-size: 50px;
+}
+h2 {
+  color: blue;
+  font-size: 30px;
+}
+h3 {
+  color: green;
+  font-size: 20px;
+}
+h4 {
+  color: black;
+  font-size: 15px;
+}
+article {
+  background-image: linear-gradient(to right, yellow, right);
+}
+
+section {
+  border: 5px solid;
+  border-image: linear-gradient(to right, red, yellow) 1;
+  padding: 1rem;
+  margin: 1rem;
+}
