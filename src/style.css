@@ -27,6 +27,7 @@ header {
 h1 {
     color: #eaeaea;
     background: linear-gradient(to right, #e35e1d, #f10ad2);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     width: fit-content;
