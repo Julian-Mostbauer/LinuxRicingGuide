@@ -92,6 +92,11 @@ section {
     border-radius: 20px;
     padding: 1rem;
     margin: 1rem;
+
+}
+
+article>section {
+    box-shadow: -10px 0 20px -10px #e35e1d, 10px 0 20px -10px #f10ad2;
 }
 
 dl {
