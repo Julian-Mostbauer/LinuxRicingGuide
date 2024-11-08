@@ -1,7 +1,7 @@
 # Linux ricing guide
 
 **Team members**
-Mostbauer, Reitbauer, Hassani
+Mostbauer, Reitbauer, Hassani, Dirnberger
 
 **Project Name:**  
 Linux ricing
