@@ -3,15 +3,7 @@ body {
     margin: 0;
     padding: 0;
     text-align: left;
-    background: linear-gradient(to bottom, #2c2c2c, #1c1c1c);
-}
-
-footer {
-    background-color: #3d3d3d;
-    outline: #1c1c1c solid 3px;
-    color: white;
-    text-align: center;
-    padding: 1rem;
+    background: linear-gradient(to bottom, #1f1f1f, #1c1c1c);
 }
 
 code {
@@ -19,16 +11,16 @@ code {
     font-family: monospace;
     white-space: pre;
     padding: 0 1em;
-    background-color: #656565;
-    border: #727272 solid 2px;
+    background-color: #232323;
+    border: #3d3d3d solid 2px;
     color: #eaeaea;
     border-radius: 10px;
     margin: 1rem;
 }
 
 header {
-    background-color: #3d3d3d;
-    outline: #1c1c1c solid 3px;
+    background-color: #1c1c1c;
+    outline: #2c2c2c solid 3px;
     color: white;
     text-align: center;
     padding: 1rem;
@@ -37,10 +29,9 @@ header {
 }
 
 h1 {
-    font-family: "Source Code Pro", sans-serif;
+    font-family: "Source Code Pro", monospace;
     color: #eaeaea;
     background: linear-gradient(to right, #e35e1d, #f10ad2);
-    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     width: fit-content;
@@ -48,9 +39,8 @@ h1 {
 }
 
 h2 {
-    font-family: "Source Code Pro", sans-serif;
+    font-family: "Source Code Pro", monospace;
     background: linear-gradient(to right, #e35e1d, #f10ad2);
-    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 30px;
@@ -77,7 +67,7 @@ p {
 }
 
 a {
-    font-family: "Source Code Pro", sans-serif;
+    font-family: "Source Code Pro", monospace;
     background: linear-gradient(to right, #e35e1d, #f10ad2);
     background-clip: text;
     -webkit-background-clip: text;
@@ -101,8 +91,9 @@ img {
 }
 
 section {
-    background-color: #484848;
-    border: 2px solid #646464;
+    background-color: #1c1c1c;
+    border: 2px solid #2c2c2c;
+
     border-radius: 20px;
     padding: 1rem;
     margin: 1rem;
