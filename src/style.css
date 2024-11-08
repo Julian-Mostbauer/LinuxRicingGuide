@@ -32,6 +32,7 @@ h1 {
     font-family: 'Source Code Pro', monospace;
     color: #eaeaea;
     background: linear-gradient(to right, #e35e1d, #f10ad2);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     width: fit-content;
@@ -41,6 +42,7 @@ h1 {
 h2 {
     font-family: 'Source Code Pro', monospace;
     background: linear-gradient(to right, #e35e1d, #f10ad2);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 30px;
