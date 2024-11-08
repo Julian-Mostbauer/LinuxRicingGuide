@@ -1,5 +1,5 @@
 body {
-    font-family: "Dialog", sans-serif;
+    font-family: 'Dialog', sans-serif;
     margin: 0;
     padding: 0;
     text-align: left;
@@ -29,7 +29,7 @@ header {
 }
 
 h1 {
-    font-family: "Source Code Pro", monospace;
+    font-family: 'Source Code Pro', monospace;
     color: #eaeaea;
     background: linear-gradient(to right, #e35e1d, #f10ad2);
     -webkit-background-clip: text;
@@ -39,26 +39,22 @@ h1 {
 }
 
 h2 {
-    font-family: "Source Code Pro", monospace;
+    font-family: 'Source Code Pro', monospace;
     background: linear-gradient(to right, #e35e1d, #f10ad2);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-size: 30px;
     width: fit-content;
-
 }
 
 h3 {
-
     color: #dcdcdc;
     font-size: 20px;
-
 }
 
 h4 {
     color: #eaeaea;
     font-size: 15px;
-
 }
 
 p {
@@ -67,16 +63,16 @@ p {
 }
 
 a {
-    font-family: "Source Code Pro", monospace;
+    font-family: 'Source Code Pro', monospace;
     background: linear-gradient(to right, #e35e1d, #f10ad2);
     background-clip: text;
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;    font-size: 15px;
+    -webkit-text-fill-color: transparent;
+    font-size: 15px;
     text-decoration: none;
     font-weight: bold;
     width: fit-content;
     transition: all 0.3s ease;
-
 }
 
 article {
@@ -87,7 +83,6 @@ img {
     width: 100%;
     border-radius: 20px;
     height: auto;
-
 }
 
 section {
