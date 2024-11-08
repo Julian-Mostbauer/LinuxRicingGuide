@@ -1,7 +1,7 @@
 # Linux ricing guide
 
-**Teammembers**
-Mostbauer, Reitbauer, Hassani
+**Team members**
+Mostbauer, Reitbauer, Hassani, Dirnberger
 
 **Project Name:**  
 Linux ricing
@@ -10,29 +10,34 @@ Linux ricing
 
 ## Initial Situation
 
-Ricing linux can be a lot for beginners. A guide for beginners can help a lot, to get the results you want.
+Ricing(customizing) linux can be a lot for beginners. A guide for beginners can help a lot, to get the results you want.
 
 ---
 
 ## Goals | Non-Goals
 
 **Project Goals:**
-Showcasing how to costumize the terminal, the window manager, etc.
+Showcasing how to customize the terminal, the window manager, etc.
 
 **Non-Goals:**
 Showcasing base linux usage. Knowledge of linux is required.
+A step by step installation guide for each program.
 
 ---
 
 ## Project Contents
 
-Tutorial on how to costumize certain aspects of your linux enviroment.
+Tutorial on how to customize certain aspects of your linux environment.
 
 ---
 
 ## Critical Success Factors
 
 List of factors that are critical to the project's success.
+
+- Listing technologies for customization
+  - Adding links to the repo and/or home page of each program.
+- Styling for desktop and mobile devices.
 
 ---
 
@@ -50,6 +55,10 @@ List of factors that are critical to the project's success.
 
 **Milestones:**
 
+- [ ] Ricing introduction complete
+- [ ] Content complete
+- [ ] Styling complete
+
 **Pre Coding**
 
 - [x] Find Idea
@@ -59,5 +68,18 @@ List of factors that are critical to the project's success.
 - [x] Assign tasks
 
 **Coding**
+
+- [x] Personal Setup
+  - [x] styling
+  - [x] content
+- [x] Overview of possibilities for customization
+  - [x] styling
+  - [x] content
+- [ ] Adding links to listed technologies
+  - [ ] Github
+  - [ ] HomePage
+- [ ] Finish Styling
+  - [ ] Mobile
+  - [ ] Web
 
 **Post Coding**
