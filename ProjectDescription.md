@@ -81,5 +81,3 @@ List of factors that are critical to the project's success.
 - [ ] Finish Styling
   - [ ] Mobile
   - [ ] Web
-
-**Post Coding**
