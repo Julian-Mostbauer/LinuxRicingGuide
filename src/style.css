@@ -99,6 +99,7 @@ section {
 
 article>section {
     box-shadow: -10px 0 20px -5px #e35e1d, 10px 0 20px -5px #f10ad2;
+    margin-bottom: 40px;
 }
 
 dl {
