@@ -9,6 +9,7 @@ body {
 
 html {
     background-color: #1c1c1c;
+    scrollbar-color: #3d3d3d transparent;
 }
 
 code {
