@@ -107,3 +107,7 @@ dl {
     grid-gap: 1rem;
     color: #d5d5d5;
 }
+
+i {
+    margin-right: 10px;
+}
