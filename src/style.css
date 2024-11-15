@@ -3,7 +3,13 @@ body {
     margin: 0;
     padding: 0;
     text-align: left;
-    background: linear-gradient(to bottom, #1f1f1f, #1c1c1c);
+    background: url('../assets/background_dot.svg') repeat;
+    background-size: 30px;
+}
+
+html {
+    background-color: #1c1c1c;
+    scrollbar-color: #3d3d3d transparent;
 }
 
 code {
@@ -99,6 +105,7 @@ section {
 
 article>section {
     box-shadow: -10px 0 20px -5px #e35e1d, 10px 0 20px -5px #f10ad2;
+    margin-bottom: 40px;
 }
 
 dl {
