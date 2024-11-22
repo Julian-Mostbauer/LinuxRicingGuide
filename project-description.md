@@ -53,17 +53,6 @@ List of factors that are critical to the project's success.
 -   Event: Initial meeting in class during wmc lesson
 -   Date: 18.10.2024
 
-**Project End:**
-
--   Event: Showcase of final site
--   Date: 12. Dez.
-
-**Milestones:**
-
--   [ ] Ricing introduction complete: 1. Dez.
--   [ ] Content complete: 10. Dez.
--   [ ] Styling complete: 12. Dez.
-
 **Pre Coding**
 
 -   [x] Find Idea
@@ -72,9 +61,14 @@ List of factors that are critical to the project's success.
 -   [x] Invite Members
 -   [x] Assign tasks
 
-**Coding**
+**Milestones:**
 
--   [x] Personal Setup
--   [x] Overview of possibilities for customization
-    -   [ ] Adding links to listed technologies
--   [ ] Landing page
+-   [ ] Ricing introduction complete: 1. Dez.
+-   [ ] Personal-Setups complete: 10. Dez.
+-   [ ] Main page complete: 11. Dez.
+-   [ ] Styling complete: 12. Dez.
+
+**Project End:**
+
+-   Event: Showcase of final site
+-   Date: 12. Dez.
