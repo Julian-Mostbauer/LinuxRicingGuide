@@ -6,7 +6,7 @@ School project for WMC. Guide to ricing linux systems
 
 ## Description
 
-[Project Description](./ProjectDescription.md)
+[Project Description](./project-description.md)
 
 ## Site
 
