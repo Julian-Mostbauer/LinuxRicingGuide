@@ -8,3 +8,6 @@ Hyprland;https://hyprland.org/
 GNOME Terminal;https://help.gnome.org/users/gnome-terminal/stable/
 Konsole;https://konsole.kde.org/
 xfce4-terminal;https://docs.xfce.org/apps/xfce4-terminal/start
+Bash;https://www.gnu.org/software/bash/
+Zsh;https://ohmyz.sh/
+Fish;https://fishshell.com/
