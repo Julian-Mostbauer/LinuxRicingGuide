@@ -14,19 +14,33 @@ Hyprland;https://hyprland.org/
 https://github.com/hyprwm/Hyprland
 GNOME Terminal;https://help.gnome.org/users/gnome-terminal/stable/
 Konsole;https://konsole.kde.org/
+https://github.com/KDE/konsole
 xfce4-terminal;https://docs.xfce.org/apps/xfce4-terminal/start
+https://github.com/Gogh-Co/Gogh
 Bash;https://www.gnu.org/software/bash/
+https://github.com/Bash-it/bash-it
 Zsh;https://ohmyz.sh/
+https://github.com/zsh-users/zsh
 Fish;https://fishshell.com/
+https://github.com/oh-my-fish/oh-my-fish
 Nord;https://www.nordtheme.com/
+https://github.com/nordtheme/nord
 Dracula;https://draculatheme.com/
+https://github.com/dracula/dracula-theme
 Solarized;https://ethanschoonover.com/solarized/
+https://github.com/altercation/solarized
 Vim;https://www.vim.org/
+https://github.com/vim/vim
 Emacs;https://www.gnu.org/software/emacs/
+https://github.com/emacs-mirror/emacs
 Visual Studio Code;https://code.visualstudio.com/
+https://github.com/microsoft/vscode
 One Dark;https://marketplace.visualstudio.com/items?itemName=zhuangtongfa.Material-theme
 Solarized;https://marketplace.visualstudio.com/items?itemName=AnnaOwens.solarizedDarkThemeVS
 Monokai;https://marketplace.visualstudio.com/items?itemName=monokai.theme-monokai-pro-vscode
 Nautilus;https://apps.gnome.org/de/Nautilus/
+https://github.com/GNOME/nautilus
 Dolphin;https://apps.kde.org/de/dolphin/
+https://github.com/dolphin-emu/dolphin
 Thunar;https://docs.xfce.org/xfce/thunar/start
+https://github.com/xfce-mirror/thunar
