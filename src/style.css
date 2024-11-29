@@ -4,12 +4,20 @@ body {
     padding: 0;
     text-align: left;
     background: url('../assets/background-dot.svg') repeat;
-    background-size: 30px;
+    background-size: 2rem;
+    min-height: 100vh; /* Ensure body takes at least the full viewport height */
+    display: flex;
+    flex-direction: column; /* Allows content to stretch */
 }
 
 html {
     background-color: #1c1c1c;
     scrollbar-color: #3d3d3d transparent;
+    height: 100%; /* Ensure HTML takes up the full viewport height */
+}
+
+main {
+    flex: 1; /* Push footer to the bottom if content is short */
 }
 
 code {
@@ -100,10 +108,9 @@ section {
     border-radius: 20px;
     padding: 1rem;
     margin: 1rem;
-
 }
 
-article>section {
+article > section {
     box-shadow: -10px 0 20px -5px #e35e1d, 10px 0 20px -5px #f10ad2;
     margin-bottom: 40px;
 }
