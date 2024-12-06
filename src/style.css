@@ -17,7 +17,7 @@ html {
 }
 
 main {
-    flex: 1; /* Push footer to the bottom if content is short */
+    margin-top: 1rem;
 }
 
 code {
