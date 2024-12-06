@@ -4,6 +4,7 @@ body {
 }
 
 ul {
+    height: fit-content;
     display: flex;
     flex-direction: row;
     justify-content: center;

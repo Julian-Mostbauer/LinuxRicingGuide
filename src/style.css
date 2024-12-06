@@ -51,7 +51,7 @@ header {
 
 iframe {
     overflow: hidden;
-    height: fit-content;
+    height: 3rem;
 }
 
 h1 {
