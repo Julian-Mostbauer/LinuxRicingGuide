@@ -3,7 +3,7 @@ body {
     height: fit-content;
 }
 
-ul {
+.container {
     height: fit-content;
     display: flex;
     flex-direction: row;
@@ -26,4 +26,8 @@ a {
     font-weight: bold;
     width: fit-content;
     transition: all 0.3s ease;
+}
+
+i {
+    margin-right: 5px;
 }
