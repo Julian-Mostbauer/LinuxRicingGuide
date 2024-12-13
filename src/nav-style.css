@@ -14,3 +14,16 @@ ul {
     gap: 20px;
     width: 100%;
 }
+
+a {
+    font-family: 'Source Code Pro', monospace;
+    background: linear-gradient(to right, #e35e1d, #f10ad2);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 15px;
+    text-decoration: none;
+    font-weight: bold;
+    width: fit-content;
+    transition: all 0.3s ease;
+}
