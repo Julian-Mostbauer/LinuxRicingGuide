@@ -18,7 +18,7 @@ html {
 
 main {
     flex: 1;
-    margin-top: 50px;
+    margin-top: 10rem;
     animation: fadeIn 0.5s cubic-bezier(0, 1, 0, 1);
 }
 
@@ -49,6 +49,8 @@ header {
     flex-direction: column;
     overflow: hidden;
     height: fit-content;
+    right: 0;
+
 }
 
 iframe {
@@ -177,4 +179,39 @@ table th {
         opacity: 1;
         transform: perspective(1px) scale3d(1, 1, 1);
     }
+}
+
+.carousel-container {
+    width: 90%;
+    height: 100%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.carousel-control-next {
+    background-color: #333;
+    overflow: hidden;
+    max-height: 100%;
+}
+
+.carousel-control-prev {
+    background-color: #333;
+}
+
+#slider .carousel-item {
+    height: 500px;
+    display: flex;
+}
+
+.carousel-caption {
+    font-size: 18px;
+}
+
+.carousel.slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
 }
