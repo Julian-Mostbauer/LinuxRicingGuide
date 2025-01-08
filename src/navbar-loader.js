@@ -48,6 +48,13 @@ const navbarHTML = `
                                 >Entry Page</a
                             >
                         </li>
+                                                <li>
+                            <a
+                                class="dropdown-item"
+                                href="/src/introduction.html"
+                                >Introduction</a
+                            >
+                        </li>
                         <li>
                             <a
                                 class="dropdown-item"
@@ -67,14 +74,6 @@ const navbarHTML = `
                                 class="dropdown-item"
                                 href="/src/personal-setups.html"
                                 >Setups</a
-                            >
-                        </li>
-
-                        <li>
-                            <a
-                                class="dropdown-item"
-                                href="/src/introduction.html"
-                                >Introduction</a
                             >
                         </li>
 
