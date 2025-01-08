@@ -37,8 +37,15 @@ const navbarHTML = `
                         <li>
                             <a
                                 class="dropdown-item"
-                                href="/src/bootstrap-test.html"
+                                href="/src/main.html"
                                 >Main Page</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                href="/src/index.html"
+                                >Entry Page</a
                             >
                         </li>
                         <li>
