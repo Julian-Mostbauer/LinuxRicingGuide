@@ -1,4 +1,4 @@
-import Component from './component.js'
+import ComponentBuilder from './component-builder.js'
 
 const navbarCode = `
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
@@ -90,5 +90,5 @@ const navbarCode = `
     </div>
 </nav>`
 
-const comp = new Component(navbarCode, 'navbar-component')
-comp.placeComponent()
+const navbarBuilder = new ComponentBuilder(navbarCode, 'navbar')
+navbarBuilder.build()

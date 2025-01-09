@@ -1,4 +1,4 @@
-import Component from './component.js'
+import ComponentBuilder from './component-builder.js'
 
 const cardCode = `
 <div class="col-12 mb-4">
@@ -22,5 +22,5 @@ const cardCode = `
                 </div>
 `
 
-const comp = new Component(cardCode, 'card-component')
-comp.placeComponent()
+const cardBuilder = new ComponentBuilder(cardCode, 'card')
+cardBuilder.build()

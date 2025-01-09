@@ -24,12 +24,13 @@
             }
         </style>
         <link rel="stylesheet" href="bootstrap-style-extension.css" />
+        <script type="module" src="components/card.js"></script>
     </head>
     <body data-bs-theme="dark">
         <script
             type="module"
             src="components/navbar.js"
-            id="navbar-component"
+            data-component="navbar"
         ></script>
         <div
             class="container text-center"
@@ -37,13 +38,27 @@
         >
             <div class="row" style="margin-top: 3rem">
                 <script
-                    type="module"
-                    src="components/card.js"
-                    id="card-component"
+                    data-component="card"
                     data-image-path="../assets/img/card-main-page.png"
-                    data-title="test"
+                    data-title="Test"
                     data-description="test"
                     data-link="test"
+                ></script>
+
+                <script
+                    data-component="card"
+                    data-image-path="../assets/img/card-main-page.png"
+                    data-title="Test2"
+                    data-description="test2"
+                    data-link="test2"
+                ></script>
+
+                <script
+                    data-component="card"
+                    data-image-path="../assets/img/card-main-page.png"
+                    data-title="test3"
+                    data-description="test3"
+                    data-link="test3"
                 ></script>
 
                 <div class="col-12 mb-4">
