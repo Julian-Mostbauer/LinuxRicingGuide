@@ -1,9 +1,13 @@
+:root {
+    --gradient-primary: linear-gradient(to right, #b28da8 0%, #78586F 100%);
+}
+
 .btn {
     border-radius: 20rem;
 }
 
 .btn-primary {
-    background-image: linear-gradient(to right, #ff7300 0%, #e80ba9 100%);
+    background-image: var(--gradient-primary);
     background-size: 200%;
     border: none;
     transition: all 0.3s;
@@ -39,5 +43,5 @@
 }
 
 .dropdown-item:active {
-    background-image: linear-gradient(to right, #ff7300 0%, #e80ba9 100%);
+    background-image: var(--gradient-primary);
 }

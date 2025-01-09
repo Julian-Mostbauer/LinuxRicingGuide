@@ -1,7 +1,7 @@
 const navbarHTML = `
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">${document.title}</a>
+        <a class="navbar-brand" href="index.html"><i class="fa-solid fa-house"></i> ${document.title}</a>
         <button
             class="navbar-toggler"
             type="button"
