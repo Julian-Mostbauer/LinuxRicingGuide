@@ -80,7 +80,7 @@ const navbarHTML = `
                     placeholder="Search"
                     aria-label="Search"
                 />
-                <button class="btn btn-outline-success" type="submit">
+                <button class="btn btn-primary" type="submit">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
