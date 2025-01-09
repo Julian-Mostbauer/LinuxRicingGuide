@@ -3,6 +3,10 @@
     scrollbar-color: #495057 #2B3035;
 }
 
+html {
+    scroll-behavior: auto !important;
+}
+
 .btn {
     border-radius: 20rem;
 }
