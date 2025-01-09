@@ -1,7 +1,7 @@
 const navbarHTML = `
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Linux Ricing Guide</a>
+        <a class="navbar-brand" href="index.html">Linux Ricing Guide</a>
         <button
             class="navbar-toggler"
             type="button"
@@ -19,7 +19,7 @@ const navbarHTML = `
         >
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#"
+                    <a class="nav-link" aria-current="page" href="intro.html"
                         >Introduction</a
                     >
                 </li>
@@ -37,42 +37,28 @@ const navbarHTML = `
                         <li>
                             <a
                                 class="dropdown-item"
-                                href="/src/main.html"
-                                >Main Page</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                                class="dropdown-item"
-                                href="/src/index.html"
-                                >Entry Page</a
-                            >
-                        </li>
-                                                <li>
-                            <a
-                                class="dropdown-item"
-                                href="/src/introduction.html"
+                                href="intro.html"
                                 >Introduction</a
                             >
                         </li>
                         <li>
                             <a
                                 class="dropdown-item"
-                                href="/src/distros.html"
+                                href="distros.html"
                                 >Distributions</a
                             >
                         </li>
                         <li>
                             <a
                                 class="dropdown-item"
-                                href="/src/package-managers.html"
+                                href="package-managers.html"
                                 >Package Managers</a
                             >
                         </li>
                         <li>
                             <a
                                 class="dropdown-item"
-                                href="/src/personal-setups.html"
+                                href="personal-setups.html"
                                 >Setups</a
                             >
                         </li>
@@ -80,7 +66,7 @@ const navbarHTML = `
                         <li>
                             <a
                                 class="dropdown-item"
-                                href="/src/window-managers.html"
+                                href="window-managers.html"
                                 >Window Managers</a
                             >
                         </li>
