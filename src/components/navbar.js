@@ -1,7 +1,7 @@
 const navbarHTML = `
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">Linux Ricing Guide</a>
+        <a class="navbar-brand" href="index.html">${document.title}</a>
         <button
             class="navbar-toggler"
             type="button"
@@ -93,5 +93,5 @@ const template = document.createElement('template')
 template.innerHTML = navbarHTML.trim()
 
 document
-    .getElementById('navbar-wrapper')
+    .getElementById('navbar-component')
     .replaceWith(template.content.firstChild)
