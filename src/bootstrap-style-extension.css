@@ -1,5 +1,6 @@
 :root {
     --gradient-primary: linear-gradient(to right, #b28da8 0%, #78586F 100%);
+    scrollbar-color: #495057 #2B3035;
 }
 
 .btn {
