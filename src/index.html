@@ -23,143 +23,67 @@
                 scroll-behavior: smooth;
             }
         </style>
-        <link rel="stylesheet" href="bootstrap-style-extension.css">
+        <link rel="stylesheet" href="bootstrap-style-extension.css" />
+        <script type="module" src="components/card.js"></script>
     </head>
     <body data-bs-theme="dark">
-        <script src="components/navbar.js" id="navbar-component"></script>
-        <script type="module" src="components/card.js" id="card-component"></script>
+        <script
+            type="module"
+            src="components/navbar.js"
+            data-component="navbar"
+        ></script>
         <div
             class="container text-center"
             style="margin-top: 5rem; margin-bottom: 5rem"
         >
             <div class="row" style="margin-top: 3rem">
-                <div class="col-12 mb-4">
-                    <div class="card w-100">
-                        <img
-                            src="../assets/img/card-main-page.png"
-                            class="card-img-top"
-                            alt="..."
-                            style="object-fit: cover; height: 15rem"
-                        />
-                        <div id="Main-Page" class="card-body text-start">
-                            <h5 class="card-title">Main Page</h5>
-                            <p class="card-text">
-                                Visit the main page about linux ricing and about
-                                the main technologies.
-                            </p>
-                            <a href="main.html" class="btn btn-primary"
-                                ><i class="fa-solid fa-link"></i> Visit</a
-                            >
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mb-4">
-                    <div class="card w-100">
-                        <img
-                            src="https://picsum.photos/1000"
-                            class="card-img-top"
-                            alt="..."
-                            style="object-fit: cover; height: 15rem"
-                        />
-                        <div id="Introduction" class="card-body text-start">
-                            <h5 class="card-title">Introduction</h5>
-                            <p class="card-text">
-                                If you are new to ricing, please start here for
-                                a small introduction on the topic.
-                            </p>
-                            <a href="intro.html" class="btn btn-primary"
-                                ><i class="fa-solid fa-link"></i> Visit</a
-                            >
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mb-4">
-                    <div class="card w-100">
-                        <img
-                            src="https://picsum.photos/1000"
-                            class="card-img-top"
-                            alt="..."
-                            style="object-fit: cover; height: 15rem"
-                        />
-                        <div id="Distributions" class="card-body text-start">
-                            <h5 class="card-title">Distributions</h5>
-                            <p class="card-text">
-                                List of some linux distributions you can use.
-                                These range from common distros like Ubuntu all
-                                the way to some exotic ones like Qubes.
-                            </p>
-                            <a href="distros.html" class="btn btn-primary"
-                                ><i class="fa-solid fa-link"></i> Visit</a
-                            >
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mb-4">
-                    <div class="card w-100">
-                        <img
-                            src="https://picsum.photos/1000"
-                            class="card-img-top"
-                            alt="..."
-                            style="object-fit: cover; height: 15rem"
-                        />
-                        <div class="card-body text-start">
-                            <h5 class="card-title">Package Managers</h5>
-                            <p class="card-text">
-                                Selection of Package Managers you can use to
-                                install software on your linux machine.
-                            </p>
-                            <a
-                                href="package-managers.html"
-                                class="btn btn-primary"
-                                ><i class="fa-solid fa-link"></i> Visit</a
-                            >
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mb-4">
-                    <div class="card w-100">
-                        <img
-                            src="https://picsum.photos/1000"
-                            class="card-img-top"
-                            alt="..."
-                            style="object-fit: cover; height: 15rem"
-                        />
-                        <div id="Setups" class="card-body text-start">
-                            <h5 class="card-title">Setups</h5>
-                            <p class="card-text">
-                                Showcase of our personal setups we use on our
-                                machines. Feel free to copy and reuse any
-                                elements you may find.
-                            </p>
-                            <a
-                                href="personal-setups.html"
-                                class="btn btn-primary"
-                                ><i class="fa-solid fa-link"></i> Visit</a
-                            >
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mb-4">
-                    <div class="card w-100">
-                        <img
-                            src="https://picsum.photos/1000"
-                            class="card-img-top"
-                            alt="..."
-                            style="object-fit: cover; height: 15rem"
-                        />
-                        <div id="Window-Managers" class="card-body text-start">
-                            <h5 class="card-title">Window-Managers</h5>
-                            <p class="card-text">Controls the appearance,
-                                placement, and behavior of application windows
-                                in a graphical interface.</p>
-                            <a
-                                href="window-managers.html"
-                                class="btn btn-primary"
-                                ><i class="fa-solid fa-link"></i> Visit</a
-                            >
-                        </div>
-                    </div>
-                </div>
+                <script
+                    data-component="card"
+                    data-image-path="../assets/img/card-main-page.png"
+                    data-title="Main Page"
+                    data-description="Visit the main page about linux ricing and about the main technologies."
+                    data-link="main.html"
+                ></script>
+
+                <script
+                    data-component="card"
+                    data-image-path="../assets/img/card-main-page.png"
+                    data-title="Introduction"
+                    data-description="If you are new to ricing, please start here for a small introduction on the topic."
+                    data-link="intro.html"
+                ></script>
+
+                <script
+                    data-component="card"
+                    data-image-path="../assets/img/card-main-page.png"
+                    data-title="Distributions"
+                    data-description="List of some linux distributions you can use. These range from common distros like Ubuntu all the way to some exotic ones like Qubes."
+                    data-link="distros.html"
+                ></script>
+
+                <script
+                    data-component="card"
+                    data-image-path="../assets/img/card-main-page.png"
+                    data-title="Package Managers"
+                    data-description="Selection of Package Managers you can use to install software on your linux machine."
+                    data-link="package-managers.html"
+                ></script>
+
+                <script
+                    data-component="card"
+                    data-image-path="../assets/img/card-main-page.png"
+                    data-title="Setups"
+                    data-description="Showcase of our personal setups we use on our machines. Feel free to copy and reuse any elements you may find."
+                    data-link="personal-setups.html"
+                ></script>
+
+                <script
+                    data-component="card"
+                    data-image-path="../assets/img/card-main-page.png"
+                    data-title="Window-Managers"
+                    data-description="Controls the appearance, placement, and behavior of application windows in a graphical interface."
+                    data-link="window-managers.html"
+                ></script>
             </div>
         </div>
     </body>
