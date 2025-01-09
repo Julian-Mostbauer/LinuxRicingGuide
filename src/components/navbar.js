@@ -93,5 +93,5 @@ const template = document.createElement('template')
 template.innerHTML = navbarHTML.trim()
 
 document
-    .getElementById('navbar-wrapper')
+    .getElementById('navbar-component')
     .replaceWith(template.content.firstChild)
