@@ -1,0 +1,39 @@
+.btn {
+    border-radius: 20rem;
+}
+
+.btn-primary {
+    background-image: linear-gradient(to right, #ff7300 0%, #e80ba9 100%);
+    background-size: 200%;
+    border: none;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background-position: 100%;
+    border: none;
+}
+
+.card {
+    border-radius: 2rem;
+}
+
+.card-img-top {
+    -moz-border-radius-topleft: 2rem;
+    -moz-border-radius-topright: 2rem;
+    -webkit-border-top-left-radius: 2rem;
+    -webkit-border-top-right-radius: 2rem;
+}
+
+.form-control {
+    border-radius: 20rem;
+}
+
+.dropdown-menu {
+    border-radius: 1rem;
+    padding: 0.5rem;
+}
+
+.dropdown-item {
+    border-radius: 1rem;
+}
