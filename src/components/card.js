@@ -4,7 +4,7 @@ const cardCode = `
 <div class="col-12 mb-4">
                     <div class="card w-100">
                         <img
-                            src="../assets/img/card-main-page.png"
+                            src="{{image-path}}"
                             class="card-img-top"
                             alt="..."
                             style="object-fit: cover; height: 15rem"
@@ -12,10 +12,9 @@ const cardCode = `
                         <div id="Main-Page" class="card-body text-start">
                             <h5 class="card-title">{{title}}</h5>
                             <p class="card-text">
-                                Visit the main page about linux ricing and about
-                                the main technologies.
+                                {{description}}
                             </p>
-                            <a href="main.html" class="btn btn-primary"
+                            <a href="{{link}}" class="btn btn-primary"
                                 ><i class="fa-solid fa-link"></i> Visit</a
                             >
                         </div>
