@@ -1,4 +1,6 @@
-const navbarHTML = `
+import Component from './component.js'
+
+const navbarCode = `
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="index.html"><i class="fa-solid fa-house"></i> ${document.title}</a>
@@ -88,10 +90,5 @@ const navbarHTML = `
     </div>
 </nav>`
 
-// Dummy DOM element to hold navbar
-const template = document.createElement('template')
-template.innerHTML = navbarHTML.trim()
-
-document
-    .getElementById('navbar-component')
-    .replaceWith(template.content.firstChild)
+const comp = new Component(navbarCode, 'navbar-component')
+comp.placeComponent()

@@ -23,16 +23,27 @@
                 scroll-behavior: smooth;
             }
         </style>
-        <link rel="stylesheet" href="bootstrap-style-extension.css">
+        <link rel="stylesheet" href="bootstrap-style-extension.css" />
     </head>
     <body data-bs-theme="dark">
-        <script src="components/navbar.js" id="navbar-component"></script>
-        <script type="module" src="components/card.js" id="card-component"></script>
+        <script
+            type="module"
+            src="components/navbar.js"
+            id="navbar-component"
+        ></script>
         <div
             class="container text-center"
             style="margin-top: 5rem; margin-bottom: 5rem"
         >
             <div class="row" style="margin-top: 3rem">
+                <script
+                    type="module"
+                    src="components/card.js"
+                    id="card-component"
+                    data-title="test"
+                    data-text="test"
+                ></script>
+
                 <div class="col-12 mb-4">
                     <div class="card w-100">
                         <img
@@ -149,9 +160,10 @@
                         />
                         <div id="Window-Managers" class="card-body text-start">
                             <h5 class="card-title">Window-Managers</h5>
-                            <p class="card-text">Controls the appearance,
-                                placement, and behavior of application windows
-                                in a graphical interface.</p>
+                            <p class="card-text">
+                                Controls the appearance, placement, and behavior
+                                of application windows in a graphical interface.
+                            </p>
                             <a
                                 href="window-managers.html"
                                 class="btn btn-primary"
