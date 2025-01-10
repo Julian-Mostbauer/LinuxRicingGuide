@@ -39,6 +39,13 @@ const navbarCode = `
                         <li>
                             <a
                                 class="dropdown-item"
+                                href="overview.html"
+                                >Overview</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                class="dropdown-item"
                                 href="distros.html"
                                 >Distributions</a
                             >
