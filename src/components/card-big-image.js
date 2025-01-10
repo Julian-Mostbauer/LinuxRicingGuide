@@ -9,7 +9,7 @@ const cardCode = `
                             alt="..."
                             style="object-fit: cover; height: 15rem"
                         />
-                        <div id="Main-Page" class="card-body text-start">
+                        <div class="card-body text-start">
                             <h5 class="card-title">{{title}}</h5>
                             <p class="card-text">
                                 {{description}}
@@ -22,5 +22,5 @@ const cardCode = `
                 </div>
 `
 
-const cardBuilder = new ComponentBuilder(cardCode, 'card')
+const cardBuilder = new ComponentBuilder(cardCode, 'card-big-image')
 cardBuilder.build()
