@@ -19,7 +19,8 @@
             crossorigin="anonymous"
         />
         <link rel="stylesheet" href="bootstrap-style-extension.css" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script type="module" src="components/card-small-image.js"></script>
     </head>
     <body data-bs-theme="dark">
         <script
@@ -32,202 +33,70 @@
             style="margin-top: 5rem; margin-bottom: 5rem"
         >
             <div class="row" style="margin-top: 3rem">
-                <div class="col-12 mb-4">
-                    <div class="card w-100">
-                        <div class="card-body text-start">
-                            <h5 class="card-title">Snap</h5>
-                            <p class="card-text">
-                                Snap is a software packaging and deployment
-                                system developed by Canonical for operating
-                                systems that use the Linux kernel. The packages,
-                                called snaps, and the tool for using them,
-                                snapd, work across a range of Linux
-                                distributions and allow upstream software
-                                developers to distribute their applications
-                                directly to users.
-                            </p>
-                            <a
-                                href="https://snapcraft.io/"
-                                target="_blank"
-                                class="btn btn-primary"
-                                ><i class="fa-solid fa-link"></i> Visit</a
-                            >
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mb-4">
-                    <div class="card w-100">
-                        <div class="card-body text-start">
-                            <h5 class="card-title">Flatpak</h5>
-                            <p class="card-text">
-                                Flatpak is a software utility for software
-                                deployment, package management, and application
-                                virtualization for Linux desktop computers. It
-                                provides a sandbox environment in which users
-                                can run applications in isolation from the rest
-                                of the system.
-                            </p>
-                            <a
-                                href="https://flatpak.org/"
-                                target="_blank"
-                                class="btn btn-primary"
-                                ><i class="fa-solid fa-link"></i> Visit</a
-                            >
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mb-4">
-                    <div class="card w-100">
-                        <div class="card-body text-start">
-                            <h5 class="card-title">AppImage</h5>
-                            <p class="card-text">
-                                AppImage is a format for distributing portable
-                                software on Linux without needing superuser
-                                permissions to install the application. It tries
-                                also to allow Linux distribution-agnostic binary
-                                software deployment for application developers,
-                                also called Upstream packaging.
-                            </p>
-                            <a
-                                href="https://appimage.org/"
-                                target="_blank"
-                                class="btn btn-primary"
-                                ><i class="fa-solid fa-link"></i> Visit</a
-                            >
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mb-4">
-                    <div class="card w-100">
-                        <div class="card-body text-start">
-                            <h5 class="card-title">APT</h5>
-                            <p class="card-text">
-                                Advanced Package Tool, or APT, is a
-                                free-software user interface that works with
-                                core libraries to handle the installation and
-                                removal of software on Debian, Ubuntu, and
-                                related Linux distributions. APT simplifies the
-                                process of managing software on Unix-like
-                                computer systems by automating the retrieval,
-                                configuration, and installation of software
-                                packages, either from precompiled files or by
-                                compiling source code.
-                            </p>
-                            <a
-                                href="https://wiki.debian.org/Apt"
-                                target="_blank"
-                                class="btn btn-primary"
-                                ><i class="fa-solid fa-link"></i> Visit</a
-                            >
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mb-4">
-                    <div class="card w-100">
-                        <div class="card-body text-start">
-                            <h5 class="card-title">YUM</h5>
-                            <p class="card-text">
-                                Yellowdog Updater, Modified (YUM) is a free and
-                                open-source command-line package-management
-                                utility for computers running the Linux
-                                operating system using the RPM Package Manager.
-                                Though YUM has a command-line interface, several
-                                other tools provide graphical user interfaces to
-                                YUM functionality.
-                            </p>
-                            <a
-                                href="https://linux.die.net/"
-                                target="_blank"
-                                class="btn btn-primary"
-                                ><i class="fa-solid fa-link"></i> Visit</a
-                            >
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mb-4">
-                    <div class="card w-100">
-                        <div class="card-body text-start">
-                            <h5 class="card-title">Pacman</h5>
-                            <p class="card-text">
-                                Pacman is a package manager utility that tracks
-                                installed packages on a Linux system. It
-                                features dependency support, package groups,
-                                install and uninstall scripts, and the ability
-                                to sync your local machine with a remote
-                                repository to automatically upgrade packages.
-                            </p>
-                            <a
-                                href="https://wiki.archlinux.org/index.php/Pacman"
-                                target="_blank"
-                                class="btn btn-primary"
-                                ><i class="fa-solid fa-link"></i> Visit</a
-                            >
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mb-4">
-                    <div class="card w-100">
-                        <div class="card-body text-start">
-                            <h5 class="card-title">Zypper</h5>
-                            <p class="card-text">
-                                Zypper is a command-line package manager for
-                                installing, updating, and removing packages on
-                                the openSUSE and SUSE Linux Enterprise
-                                distributions. It is similar to apt or yum, but
-                                with some differences in the way it works.
-                            </p>
-                            <a
-                                href="https://en.opensuse.org/Portal:Zypper"
-                                target="_blank"
-                                class="btn btn-primary"
-                                ><i class="fa-solid fa-link"></i> Visit</a
-                            >
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mb-4">
-                    <div class="card w-100">
-                        <div class="card-body text-start">
-                            <h5 class="card-title">DNF</h5>
-                            <p class="card-text">
-                                DNF is a software package manager for RPM-based
-                                Linux distributions such as Fedora, RHEL,
-                                CentOS, and others. It is the next-generation
-                                version of the Yellowdog Updater, Modified (YUM)
-                                package manager.
-                            </p>
-                            <a
-                                href="https://dnf.readthedocs.io/en/latest/"
-                                target="_blank"
-                                class="btn btn-primary"
-                                ><i class="fa-solid fa-link"></i> Visit</a
-                            >
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 mb-4">
-                    <div class="card w-100">
-                        <div class="card-body text-start">
-                            <h5 class="card-title">Portage</h5>
-                            <p class="card-text">
-                                Portage is a package management system
-                                originally created for and used by Gentoo Linux
-                                and also by Chrome OS, Sabayon, and Funtoo Linux
-                                among others. Portage is based on the concept of
-                                ports collections. Gentoo is sometimes referred
-                                to as a meta-distribution due to the extreme
-                                flexibility of Portage, which makes it
-                                operating-system-independent.
-                            </p>
-                            <a
-                                href="https://wiki.gentoo.org/wiki/Portage"
-                                target="_blank"
-                                class="btn btn-primary"
-                                ><i class="fa-solid fa-link"></i> Visit</a
-                            >
-                        </div>
-                    </div>
-                </div>
+                <script
+                    data-component="card-small-image"
+                    data-title="Snap"
+                    data-description="Snap is a software packaging and deployment system developed by Canonical for operating systems that use the Linux kernel. The packages, called snaps, and the tool for using them, snapd, work across a range of Linux distributions and allow upstream software developers to distribute their applications directly to users."
+                    data-link="https://snapcraft.io/"
+                    data-image-path=".disable.https://dashboard.snapcraft.io/site_media/appmedia/2018/07/io.snapcraft.Store.png"
+                ></script>
+
+                <script
+                    data-component="card-small-image"
+                    data-title="Flatpak"
+                    data-description="Flatpak is a software utility for software deployment, package management, and application virtualization for Linux desktop computers. It provides a sandbox environment in which users can run applications in isolation from the rest of the system."
+                    data-link="https://flatpak.org/"
+                    data-image-path=".disable.http://pclosmag.com/html/Issues/202304/images/page03/Flatpak_Logo-cropped.png"
+                ></script>
+
+
+                <script
+                    data-component="card-small-image"
+                    data-title="APT"
+                    data-description="Advanced Package Tool, or APT, is a free-software user interface that works with core libraries to handle the installation and removal of software on Debian, Ubuntu, and related Linux distributions. APT simplifies the process of managing software on Unix-like computer systems by automating the retrieval, configuration, and installation of software packages, either from precompiled files or by compiling source code."
+                    data-link="https://wiki.debian.org/Apt"
+                    data-image-path=".disable.https://logodix.com/logo/1171807.png"
+                ></script>
+
+                <script
+                    data-component="card-small-image"
+                    data-title="YUM"
+                    data-description="Yellowdog Updater, Modified (YUM) is a free and open-source command-line package-management utility for computers running the Linux operating system using the RPM Package Manager. Though YUM has a command-line interface, several other tools provide graphical user interfaces to YUM functionality."
+                    data-link="https://linux.die.net/"
+                    data-image-path=".disable.https://upload.wikimedia.org/wikipedia/commons/thumb/6/67/YUM_logo.svg/1920px-YUM_logo.svg.png"
+                ></script>
+
+                <script
+                    data-component="card-small-image"
+                    data-title="Pacman"
+                    data-description="Pacman is a package manager utility that tracks installed packages on a Linux system. It features dependency support, package groups, install and uninstall scripts, and the ability to sync your local machine with a remote repository to automatically upgrade packages."
+                    data-link="https://wiki.archlinux.org/index.php/Pacman"
+                    data-image-path=".disable.https://wiki.installgentoo.com/images/f/f9/Arch-linux-logo.png"
+                ></script>
+
+                <script
+                    data-component="card-small-image"
+                    data-title="Zypper"
+                    data-description="Zypper is a command-line package manager for installing, updating, and removing packages on the openSUSE and SUSE Linux Enterprise distributions. It is similar to apt or yum, but with some differences in the way it works."
+                    data-link="https://en.opensuse.org/Portal:Zypper"
+                    data-image-path=".disable.https://cdn0.iconfinder.com/data/icons/flat-round-system/512/opensuse-512.png"
+                ></script>
+
+                <script
+                    data-component="card-small-image"
+                    data-title="DNF"
+                    data-description="DNF is a software package manager for RPM-based Linux distributions such as Fedora, RHEL, CentOS, and others. It is the next-generation version of the Yellowdog Updater, Modified (YUM) package manager."
+                    data-link="https://dnf.readthedocs.io/en/latest/"
+                    data-image-path=".disable.https://upload.wikimedia.org/wikipedia/commons/9/95/DNF_logo.png"
+                ></script>
+
+                <script
+                    data-component="card-small-image"
+                    data-title="Portage"
+                    data-description="Portage is a package management system originally created for and used by Gentoo Linux and also by Chrome OS, Sabayon, and Funtoo Linux among others. Portage is based on the concept of ports collections. Gentoo is sometimes referred to as a meta-distribution due to the extreme flexibility of Portage, which makes it operating-system-independent."
+                    data-link="https://wiki.gentoo.org/wiki/Portage"
+                    data-image-path=".disable.https://freepngimg.com/thumb/ubuntu/62619-vector-gentoo-icons-graphics-scalable-computer-linux.png"
+                ></script>
             </div>
         </div>
     </body>
