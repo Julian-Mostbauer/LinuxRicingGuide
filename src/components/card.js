@@ -1,7 +1,7 @@
 import ComponentBuilder from './component-builder.js'
 
 const cardCode = `
-<div class="col-12 mb-4">
+<div class="col-12 mb-4 mt-4">
                     <div class="card w-100">
                         <img
                             src="{{image-path}}"
