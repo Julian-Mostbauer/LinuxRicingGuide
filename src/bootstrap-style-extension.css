@@ -27,6 +27,10 @@ html {
     border-radius: 2rem;
 }
 
+.navbar {
+    height: 5rem;
+}
+
 .card-img-top {
     -moz-border-radius-topleft: 2rem;
     -moz-border-radius-topright: 2rem;

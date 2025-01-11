@@ -58,13 +58,11 @@ class Component {
             return
         }
 
-        console.debug('Placing component with props:', this.props)
-
         const template = document.createElement('template')
         template.innerHTML = this.componentCode.trim()
 
         const content = template.content.cloneNode(true)
-        this.scriptElement.replaceWith(content) // Replace <script> tag with the component
+        this.scriptElement.replaceWith(content)
     }
 }
 
@@ -78,8 +76,18 @@ export default class ComponentBuilder {
         document
             .querySelectorAll(`script[data-component="${this.name}"]`)
             .forEach((scriptTag) => {
+                const startTime = performance.now()
+
                 const comp = new Component(this.code, scriptTag)
                 comp.placeComponent()
+
+                console.log(
+                    `Component "${comp.props['component']}" rendered in ${
+                        performance.now() - startTime
+                    }ms`
+                )
+
+                console.table(comp.props)
             })
     }
 }
