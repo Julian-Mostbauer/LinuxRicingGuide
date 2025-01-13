@@ -2,112 +2,130 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Linux Ricing Guide</title>
+        <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css"
+            rel="stylesheet"
+        />
         <script
             src="https://kit.fontawesome.com/0a7e2ccef9.js"
             crossorigin="anonymous"
         ></script>
-        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="bootstrap-style-extension.css" />
+        <style>
+            .container{
+                margin-top: 3rem;
+            }
+            .card{
+                overflow: hidden;
+            }
+        </style>
     </head>
-    <body>
-        <header>
-            <h1><i class="fa-solid fa-computer"></i>Our Setups</h1>
-            <iframe src="navbar.html" frameborder="0" width="100%"></iframe>
-        </header>
-        <main>
-            <article>
-                <section>
-                    <h2><i class="fa-brands fa-ubuntu"></i>Julian (Ubuntu)</h2>
-                    <section>
-                        <h3><i class="fa-solid fa-desktop"></i>Desktop</h3>
-                        <dl>
-                            <dt>Desktop Environment</dt>
-                            <dd>Gnome</dd>
+    <body data-bs-theme="dark">
+        <script
+            src="components/navbar.js"
+            type="module"
+            data-component="navbar"
+        ></script>
 
-                            <dt>Window Manager</dt>
+        <div class="container py-5">
+            <div class="row g-4">
 
-                            <dd>Forge</dd>
-                        </dl>
-                    </section>
-                    <section>
-                        <h3><i class="fa-solid fa-terminal"></i>Terminal</h3>
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <i class="fa-brands fa-ubuntu"></i> Julian
+                                (Ubuntu)
+                            </h2>
+                        </div>
+                        <div class="card-body">
+                            <h3><i class="fa-solid fa-desktop"></i> Desktop</h3>
+                            <dl>
+                                <dt>Desktop Environment</dt>
+                                <dd>Gnome</dd>
+                                <dt>Window Manager</dt>
+                                <dd>Forge</dd>
+                            </dl>
+                            <h3>
+                                <i class="fa-solid fa-terminal"></i> Terminal
+                            </h3>
+                            <dl>
+                                <dt>Terminal Emulator</dt>
+                                <dd>Gnome-Terminal</dd>
+                                <dt>Theme</dt>
+                                <dd>Dracula</dd>
+                                <dt>Shell Configurations</dt>
+                                <dd>Fish</dd>
+                                <dt>Font</dt>
+                                <dd>Terminus Nerd Font</dd>
+                                <dt>Starship Preset</dt>
+                                <dd>Tokyo Night</dd>
+                            </dl>
+                            <h3><i class="fa-solid fa-list"></i> Misc.</h3>
+                            <dl>
+                                <dt>File Manager</dt>
+                                <dd>Nautilus</dd>
+                            </dl>
+                        </div>
+                        <div class="card-footer text-center">
+                            <img
+                                src="../assets/img/desktop-julian.webp"
+                                alt="Julian's desktop"
+                                class="img-fluid"
+                            />
+                        </div>
+                    </div>
+                </div>
 
-                        <dl>
-                            <dt>Terminal emulator</dt>
-                            <dd>Gnome-Terminal</dd>
+                <!-- Erik Section -->
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <i class="fa-brands fa-linux"></i> Erik (Arch)
+                            </h2>
+                        </div>
+                        <div class="card-body">
+                            <h3><i class="fa-solid fa-desktop"></i> Desktop</h3>
+                            <dl>
+                                <dt>Desktop Environment</dt>
+                                <dd>Wayland</dd>
+                                <dt>Window Manager</dt>
+                                <dd>Wayland - Hyprland</dd>
+                            </dl>
+                            <h3>
+                                <i class="fa-solid fa-terminal"></i> Terminal
+                            </h3>
+                            <dl>
+                                <dt>Terminal Emulator</dt>
+                                <dd>Foot</dd>
+                                <dt>Theme</dt>
+                                <dd>adw-gtk3-dark</dd>
+                                <dt>Shell Configurations</dt>
+                                <dd>Fish</dd>
+                                <dt>Starship Preset</dt>
+                                <dd>Custom</dd>
+                            </dl>
+                            <h3><i class="fa-solid fa-list"></i> Misc.</h3>
+                            <dl>
+                                <dt>File Manager</dt>
+                                <dd>Nemo</dd>
+                            </dl>
+                        </div>
+                        <div class="card-footer text-center">
+                            <img
+                                src="../assets/img/desktop-erik.webp"
+                                alt="Erik's desktop"
+                                class="img-fluid"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-                            <dt>Theme</dt>
-                            <dd>Dracula</dd>
-
-                            <dt>Shell Configurations</dt>
-                            <dd>Fish</dd>
-
-                            <dt>Font</dt>
-                            <dd>Terminus Nerd Font</dd>
-
-                            <dt>Starship preset</dt>
-                            <dd>Tokyo Night</dd>
-                        </dl>
-                    </section>
-                    <section>
-                        <h3><i class="fa-solid fa-list"></i>Misc.</h3>
-                        <dl>
-                            <dt>File Manager</dt>
-                            <dd>Nautilus</dd>
-                        </dl>
-                    </section>
-                    <section>
-                        <img
-                            src="../assets/img/desktop-julian.webp"
-                            alt="image showcasing my desktop and some terminal windows"
-                        />
-                    </section>
-                </section>
-
-                <section>
-                    <h2><i class="fa-brands fa-linux"></i>Erik (Arch)</h2>
-                    <section>
-                        <h3><i class="fa-solid fa-desktop"></i>Desktop</h3>
-                        <dl>
-                            <dt>Desktop Environment</dt>
-                            <dd>Wayland</dd>
-
-                            <dt>Window Manager</dt>
-                            <dd>Wayland - Hyprland</dd>
-                        </dl>
-                    </section>
-                    <section>
-                        <h3><i class="fa-solid fa-terminal"></i>Terminal</h3>
-
-                        <dl>
-                            <dt>Terminal emulator</dt>
-                            <dd>Foot</dd>
-
-                            <dt>Theme</dt>
-                            <dd>adw-gtk3-dark</dd>
-
-                            <dt>Shell Configurations</dt>
-                            <dd>Fish</dd>
-
-                            <dt>Starship preset</dt>
-                            <dd>Custom</dd>
-                        </dl>
-                    </section>
-                    <section>
-                        <h3><i class="fa-solid fa-list"></i>Misc.</h3>
-                        <dl>
-                            <dt>File Manager</dt>
-                            <dd>Nemo</dd>
-                        </dl>
-                    </section>
-                    <section>
-                        <img
-                            src="../assets/img/desktop-erik.webp"
-                            alt="image showcasing my desktop and some terminal windows"
-                        />
-                    </section>
-                </section>
-            </article>
-        </main>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
