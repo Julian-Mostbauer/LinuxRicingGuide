@@ -2,7 +2,7 @@ import ComponentBuilder from './component-builder.js'
 
 const cardStyle = `
 box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 1);
-max-width: 25rem;
+max-width: 100%;
 `
 
 const cardCode = `
