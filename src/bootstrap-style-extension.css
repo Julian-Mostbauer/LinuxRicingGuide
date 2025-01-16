@@ -1,13 +1,13 @@
 :root {
-    --gradient-primary: linear-gradient(to right, #b28da8 0%, #78586F 100%);
-    scrollbar-color: #495057 #2B3035;
+    --gradient-primary: linear-gradient(to right, #b28da8 0%, #78586f 100%);
+    scrollbar-color: #495057 #2b3035;
 }
 
 html {
     scroll-behavior: auto !important;
 }
 
-nav{
+nav {
     margin-bottom: 10rem;
 }
 
@@ -28,7 +28,25 @@ nav{
 }
 
 .card {
-    border-radius: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 1);
+    max-width: 100%;
+    transition: all 0.2s ease-in-out;
+}
+
+.card.big-img:hover {
+    transform: rotate3d(0, 0, 1, 1.8deg);
+}
+
+.container {
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 1);
+    border-radius: 1.5rem;
+}
+
+.container.top-lvl {
+    margin-top: 6rem;
+    margin-bottom: 5rem;
+    padding: 2rem;
 }
 
 .navbar {
@@ -36,10 +54,10 @@ nav{
 }
 
 .card-img-top {
-    -moz-border-radius-topleft: 2rem;
-    -moz-border-radius-topright: 2rem;
-    -webkit-border-top-left-radius: 2rem;
-    -webkit-border-top-right-radius: 2rem;
+    -moz-border-radius-topleft: 1.5rem;
+    -moz-border-radius-topright: 1.5rem;
+    -webkit-border-top-left-radius: 1.5rem;
+    -webkit-border-top-right-radius: 1.5rem;
 }
 
 .form-control {

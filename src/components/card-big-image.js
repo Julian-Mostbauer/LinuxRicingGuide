@@ -1,13 +1,8 @@
 import ComponentBuilder from './component-builder.js'
 
-const cardStyle = `
-box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 1);
-max-width: 100%;
-`
-
 const cardCode = `
 <div class="col-12 mt-4">
-    <div class="card w-100" style="${cardStyle}">
+    <div class="card big-img">
         <img
             src="{{image-path}}"
             class="card-img-top"
@@ -19,7 +14,7 @@ const cardCode = `
             <p class="card-text">
                 {{description}}
             </p>
-            <a href="{{link}}" class="btn btn-primary" style="width: 100%;"
+            <a href="{{link}}" class="btn btn-primary" style="max-width: 100%"
                 ><i class="fa-solid fa-link"></i> Visit</a
             >
         </div>
