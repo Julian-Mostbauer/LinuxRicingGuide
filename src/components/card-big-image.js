@@ -19,7 +19,7 @@ const cardCode = `
             <p class="card-text">
                 {{description}}
             </p>
-            <a href="{{link}}" class="btn btn-primary"
+            <a href="{{link}}" class="btn btn-primary" style="width: 100%;"
                 ><i class="fa-solid fa-link"></i> Visit</a
             >
         </div>

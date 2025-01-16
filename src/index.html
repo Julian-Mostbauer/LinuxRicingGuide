@@ -21,6 +21,12 @@
         <link rel="stylesheet" href="bootstrap-style-extension.css" />
         <script type="module" src="components/card-big-image.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+        <style>
+            .container {
+                box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 1);
+            }
+        </style>
     </head>
     <body data-bs-theme="dark">
         <script
@@ -30,15 +36,93 @@
         ></script>
 
         <div
-            class="container text-center rounded-5"
-            style="
-                margin-top: 6rem;
-                margin-bottom: 5rem;
-                padding: 1rem;
-                box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 1);
-            "
+            class="container rounded-5"
+            style="margin-top: 6rem; margin-bottom: 5rem; padding: 2rem"
         >
-            <div class="row row-cols-1 row-cols-md-2 g-4">
+            <!-- Article -->
+            <div class="container bg-dark text-light p-4 rounded-5 mb-5">
+                <article>
+                    <section class="mb-4">
+                        <h2 class="mb-3">
+                            <i class="fa-solid fa-bowl-rice"></i> What is Linux
+                            <i>Ricing?</i>
+                        </h2>
+                        <p>
+                            <i>Ricing</i> is similar to the modding or tuning
+                            community, but for your computer. It involves
+                            customizing your desktop to make it look more
+                            visually appealing by changing themes, icons, fonts,
+                            and other visual elements.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2 class="mb-3">
+                            <i class="fa-solid fa-circle-info"></i> General
+                            Overview
+                        </h2>
+                        <ul class="list-group list-group-flush">
+                            <li
+                                class="list-group-item bg-transparent text-light"
+                            >
+                                <strong
+                                    >Window-Manager/Desktop-Environment:</strong
+                                >
+                                Users may prefer lightweight options like i3 or
+                                Openbox or complex ones like GNOME or KDE
+                                Plasma.
+                            </li>
+                            <li
+                                class="list-group-item bg-transparent text-light"
+                            >
+                                <strong>Wallpaper:</strong> Choose from various
+                                wallpapers to personalize your desktop.
+                            </li>
+                            <li
+                                class="list-group-item bg-transparent text-light"
+                            >
+                                <strong>Icons:</strong> Replace desktop icons to
+                                match your system's aesthetic.
+                            </li>
+                            <li
+                                class="list-group-item bg-transparent text-light"
+                            >
+                                <strong>Fonts:</strong> Select fonts like
+                                <a
+                                    target="_blank"
+                                    href="https://github.com/ryanoasis/nerd-fonts"
+                                    class="link-info"
+                                    >Nerd-Fonts</a
+                                >
+                                or
+                                <a
+                                    target="_blank"
+                                    href="https://github.com/powerline/powerline"
+                                    class="link-info"
+                                    >Powerline</a
+                                >
+                                to enhance your system's look.
+                            </li>
+                            <li
+                                class="list-group-item bg-transparent text-light"
+                            >
+                                <strong>Themes:</strong>
+                                <ul>
+                                    <li>
+                                        GTK or QT Themes for colors and widgets.
+                                    </li>
+                                    <li>Icon packs for system-wide icons.</li>
+                                    <li>
+                                        Terminal themes for colors and fonts.
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+                </article>
+            </div>
+            <!-- Cards -->
+            <div class="row row-cols-1 row-cols-md-4 g-4">
                 <div class="col">
                     <script
                         data-component="card-big-image"
@@ -74,7 +158,7 @@
                         data-component="card-big-image"
                         data-image-path="../assets/img/card-window-manager.jpg"
                         data-title="Window-Managers"
-                        data-description="Controls the appearance, placement, and behavior of application windows in a graphical interface."
+                        data-description="Controls the appearance, and behavior of application windows in a graphical interface."
                         data-link="window-managers.html"
                     ></script>
                 </div>
