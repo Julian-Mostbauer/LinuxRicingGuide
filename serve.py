@@ -1,4 +1,4 @@
-# Usage: python serve.py [port: 8000]
+# Usage: python3 serve.py [port: 8080]
 import os
 import socket
 import socketserver
@@ -9,7 +9,8 @@ from rich.console import Console
 from rich.table import Table
 import traceback
 
-# rich console init
+# setup
+default_port = 8080
 console = Console()
 
 class LoggingHTTPRequestHandler(http.server.SimpleHTTPRequestHandler):
@@ -99,7 +100,7 @@ def serve(dir: str, port: int) -> None:
 
 
 def main():
-    port = int(sys.argv[1]) if len(sys.argv) > 1 else 8000
+    port = int(sys.argv[1]) if len(sys.argv) > 1 else default_port
     serve(".", port)
 
 
