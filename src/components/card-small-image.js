@@ -9,12 +9,14 @@ const cardCode = `
         alt="..."
         style="object-fit: cover; width: 15rem; height: 15rem; border-right: 2px solid #ddd; padding: 1rem;"
         />
-        <div class="card-body text-start">
-            <h5 class="card-title">{{title}}</h5>
-            <p class="card-text">
-                {{description}}
-            </p>
-            <a href="{{link}}" target="blank" class="btn btn-primary">
+        <div class="card-body text-start d-flex flex-column justify-content-between">
+            <div>
+                <h5 class="card-title">{{title}}</h5>
+                <p class="card-text">
+                    {{description}}
+                </p>
+            </div>
+            <a href="{{link}}" target="blank" class="btn btn-primary mt-3" style="">
                 <i class="fa-solid fa-link"></i> Visit
             </a>
         </div>
