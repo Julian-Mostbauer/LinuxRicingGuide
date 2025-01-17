@@ -45,7 +45,6 @@ nav {
 
 @media (min-width: 768px) {
     .card-img-top {
-        border-radius: 0 !important;
         border-right: 1px solid #424549; /* Border for desktop */
         border-bottom: none; /* Remove bottom border on desktop */
     }
