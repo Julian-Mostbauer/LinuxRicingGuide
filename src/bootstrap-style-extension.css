@@ -39,7 +39,19 @@ nav {
     flex-direction: column;
 }
 
-.card-footer{
+.card-img-top {
+    border-bottom: 1px solid #424549; /* Default border for mobile */
+}
+
+@media (min-width: 768px) {
+    .card-img-top {
+        border-radius: 0 !important;
+        border-right: 1px solid #424549; /* Border for desktop */
+        border-bottom: none; /* Remove bottom border on desktop */
+    }
+}
+
+.card-footer {
     border-radius: 0 0 1.5rem 1.5rem !important;
 }
 
