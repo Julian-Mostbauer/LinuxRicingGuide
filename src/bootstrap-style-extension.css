@@ -33,6 +33,16 @@ nav {
     transition: all 0.2s ease-in-out;
 }
 
+.card.big-img {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-footer{
+    border-radius: 0 0 1.5rem 1.5rem !important;
+}
+
 .card.big-img:hover {
     transform: rotate3d(0, 0, 1, 1.8deg);
 }
