@@ -14,7 +14,7 @@ const cardCode = `
             <p class="card-text">
                 {{description}}
             </p>
-            <a href="{{link}}" class="btn btn-primary" style="max-width: 100%"
+            <a href="{{link}}" class="btn btn-primary" style="min-width: 100%"
                 ><i class="fa-solid fa-link"></i> Visit</a
             >
         </div>
