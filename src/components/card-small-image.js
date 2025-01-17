@@ -2,7 +2,7 @@ import ComponentBuilder from './component-builder.js'
 
 const cardCode = `
 <div class="col-12 mt-4">
-    <div class="card w-100 d-flex flex-row align-items-stretch">
+    <div class="card small-img w-100 d-flex flex-row align-items-stretch">
         <img
         src="{{image-path}}"
         class="card-img-left"

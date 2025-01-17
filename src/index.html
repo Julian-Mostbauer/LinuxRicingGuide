@@ -28,58 +28,133 @@
             src="components/navbar.js"
             data-component="navbar"
         ></script>
+
         <div
-            class="container text-center"
-            style="margin-top: 5rem; margin-bottom: 5rem"
+            class="container top-lvl"
         >
-            <div class="row" style="margin-top: 3rem">
-                <script
-                    data-component="card-big-image"
-                    data-image-path="../assets/img/city-7094641_1920.jpg"
-                    data-title="Overview"
-                    data-description="Visit the main page about linux ricing and about the main technologies."
-                    data-link="overview.html"
-                ></script>
+            <!-- Article -->
+            <div class="container bg-dark text-light p-4 mb-5">
+                <article>
+                    <section class="mb-4">
+                        <h2 class="mb-3">
+                            <i class="fa-solid fa-bowl-rice"></i> What is Linux
+                            <i>Ricing?</i>
+                        </h2>
+                        <p>
+                            <i>Ricing</i> is similar to the modding or tuning
+                            community, but for your computer. It involves
+                            customizing your desktop to make it look more
+                            visually appealing by changing themes, icons, fonts,
+                            and other visual elements.
+                        </p>
+                    </section>
 
-                <script
-                    data-component="card-big-image"
-                    data-image-path="../assets/img/card-introduction.jpg"
-                    data-title="Introduction"
-                    data-description="If you are new to ricing, please start here for a small introduction on the topic."
-                    data-link="intro.html"
-                ></script>
+                    <section>
+                        <h2 class="mb-3">
+                            <i class="fa-solid fa-circle-info"></i> General
+                            Overview
+                        </h2>
+                        <ul class="list-group list-group-flush">
+                            <li
+                                class="list-group-item bg-transparent text-light"
+                            >
+                                <strong
+                                    >Window-Manager/Desktop-Environment:</strong
+                                >
+                                Users may prefer lightweight options like i3 or
+                                Openbox or complex ones like GNOME or KDE
+                                Plasma.
+                            </li>
+                            <li
+                                class="list-group-item bg-transparent text-light"
+                            >
+                                <strong>Wallpaper:</strong> Choose from various
+                                wallpapers to personalize your desktop.
+                            </li>
+                            <li
+                                class="list-group-item bg-transparent text-light"
+                            >
+                                <strong>Icons:</strong> Replace desktop icons to
+                                match your system's aesthetic.
+                            </li>
+                            <li
+                                class="list-group-item bg-transparent text-light"
+                            >
+                                <strong>Fonts:</strong> Select fonts like
+                                <a
+                                    target="_blank"
+                                    href="https://github.com/ryanoasis/nerd-fonts"
+                                    class="link-info"
+                                    >Nerd-Fonts</a
+                                >
+                                or
+                                <a
+                                    target="_blank"
+                                    href="https://github.com/powerline/powerline"
+                                    class="link-info"
+                                    >Powerline</a
+                                >
+                                to enhance your system's look.
+                            </li>
+                            <li
+                                class="list-group-item bg-transparent text-light"
+                            >
+                                <strong>Themes:</strong>
+                                <ul>
+                                    <li>
+                                        GTK or QT Themes for colors and widgets.
+                                    </li>
+                                    <li>Icon packs for system-wide icons.</li>
+                                    <li>
+                                        Terminal themes for colors and fonts.
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+                </article>
+            </div>
+            <!-- Cards -->
+            <div class="row row-cols-1 row-cols-md-4 g-4">
+                <div class="col">
+                    <script
+                        data-component="card-big-image"
+                        data-image-path="../assets/img/card-distributions.jpeg"
+                        data-title="Distributions"
+                        data-description="List of some linux distributions you can use. These contain common but also some exotic ones."
+                        data-link="distros.html"
+                    ></script>
+                </div>
 
-                <script
-                    data-component="card-big-image"
-                    data-image-path="../assets/img/card-distributions.jpeg"
-                    data-title="Distributions"
-                    data-description="List of some linux distributions you can use. These range from common distros like Ubuntu all the way to some exotic ones like Qubes."
-                    data-link="distros.html"
-                ></script>
+                <div class="col">
+                    <script
+                        data-component="card-big-image"
+                        data-image-path="../assets/img/card-package-managers.png"
+                        data-title="Package Managers"
+                        data-description="Selection of Package Managers you can use to install software on your linux machine."
+                        data-link="package-managers.html"
+                    ></script>
+                </div>
 
-                <script
-                    data-component="card-big-image"
-                    data-image-path="../assets/img/card-package-managers.png"
-                    data-title="Package Managers"
-                    data-description="Selection of Package Managers you can use to install software on your linux machine."
-                    data-link="package-managers.html"
-                ></script>
+                <div class="col">
+                    <script
+                        data-component="card-big-image"
+                        data-image-path="../assets/img/card-setups.jpg"
+                        data-title="Setups"
+                        data-description="Showcase of our personal setups we use on our machines. Feel free to get inspired and copy some aspects."
+                        data-link="personal-setups.html"
+                    ></script>
+                </div>
 
-                <script
-                    data-component="card-big-image"
-                    data-image-path="../assets/img/card-setups.jpg"
-                    data-title="Setups"
-                    data-description="Showcase of our personal setups we use on our machines. Feel free to copy and reuse any elements you may find."
-                    data-link="personal-setups.html"
-                ></script>
-
-                <script
-                    data-component="card-big-image"
-                    data-image-path="../assets/img/card-window-manager.jpg"
-                    data-title="Window-Managers"
-                    data-description="Controls the appearance, placement, and behavior of application windows in a graphical interface."
-                    data-link="window-managers.html"
-                ></script>
+                <div class="col">
+                    <script
+                        data-component="card-big-image"
+                        data-image-path="../assets/img/card-window-manager.jpg"
+                        data-title="Window-Managers"
+                        data-description="Controls the appearance, and behavior of application windows in a graphical interface."
+                        data-link="window-managers.html"
+                    ></script>
+                </div>
             </div>
         </div>
     </body>
