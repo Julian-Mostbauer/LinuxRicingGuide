@@ -7,7 +7,7 @@ const cardCode = `
         src="{{image-path}}"
         class="card-img-left"
         alt="..."
-        style="object-fit: cover; width: 15rem; height: 15rem; border-right: 2px solid #ddd; padding: 1rem;"
+        style="object-fit: cover; width: 15rem; height: 15rem; border-right: 1px solid #424549; padding: 1rem;"
         />
         <div class="card-body text-start">
             <h5 class="card-title">{{title}}</h5>
