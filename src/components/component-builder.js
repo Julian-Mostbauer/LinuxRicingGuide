@@ -40,7 +40,7 @@ class Component {
         requiredProps.forEach((prop) => {
             if (!(prop in this.props)) {
                 this.errors.push(
-                    `Property "${prop}" is required but not provided.`
+                    `Property <mark>${prop}</mark> is required but not provided.`
                 )
                 this.props[prop] = null
             }
@@ -54,7 +54,7 @@ class Component {
         unexpectedProps.forEach((prop) => {
             if (prop === 'component') return // Ignore the component name
             this.errors.push(
-                `Property "${prop}" is not recognized by the component.`
+                `Property <mark>${prop}</mark> is not recognized by the component.`
             )
             delete this.props[prop]
         })
@@ -65,9 +65,14 @@ class Component {
             // Build error component
             this.componentCode = `
                 <div style="${errorCompStyle}">
-                    <h2>!Component Error! ${this.props.component}</h2>
-                    <div style="color: red;">
-                        ${this.errors.join('<br>')}
+                    <h2 style="color: red">Component Error</h2>
+                    <h3 style="color: yellow">${this.props.component}</h3>
+                    <div style="color: grey;">
+                        <ul>
+                        ${this.errors
+                            .map((error) => `<li>${error}</li>`)
+                            .join('')}
+                        </ul>
                     </div>
                 <div>
             `
