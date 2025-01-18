@@ -5,10 +5,9 @@ const cardCode = `
     <div class="card small-img w-100 d-flex flex-column flex-md-row align-items-center justify-content-center">
         <img
         src="{{image-path}}"
-        class="card-img-top card-img-md-left"
+        class="card-img-top no-round"
         alt="..."
         style="object-fit: cover; width: 15rem; height: 15rem; padding: 1rem;"
-        class="card-img-top"
         />
         <div class="card-body text-start d-flex flex-column justify-content-between">
             <div>

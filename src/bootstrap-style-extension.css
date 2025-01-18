@@ -40,7 +40,11 @@ nav {
 }
 
 .card-img-top {
-    border-bottom: 1px solid #424549; /* Default border for mobile */
+    border-bottom: 1px solid hsl(214, 5%, 27%); /* Default border for mobile */
+}
+
+.no-round {
+    border-radius: 0 !important;
 }
 
 @media (min-width: 768px) {
