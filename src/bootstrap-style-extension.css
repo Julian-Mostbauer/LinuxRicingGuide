@@ -80,7 +80,9 @@ nav {
     -moz-border-radius-topleft: 1.5rem;
     -moz-border-radius-topright: 1.5rem;
     -webkit-border-top-left-radius: 1.5rem;
+    border-top-left-radius: 1.5rem;
     -webkit-border-top-right-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
 }
 
 .form-control {
