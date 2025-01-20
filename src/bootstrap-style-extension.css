@@ -33,6 +33,31 @@ nav {
     transition: all 0.2s ease-in-out;
 }
 
+.card.big-img {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-img-top {
+    border-bottom: 1px solid hsl(214, 5%, 27%); /* Default border for mobile */
+}
+
+.no-round {
+    border-radius: 0 !important;
+}
+
+@media (min-width: 768px) {
+    .card-img-top {
+        border-right: 1px solid #424549; /* Border for desktop */
+        border-bottom: none; /* Remove bottom border on desktop */
+    }
+}
+
+.card-footer {
+    border-radius: 0 0 1.5rem 1.5rem !important;
+}
+
 .card.big-img:hover {
     transform: rotate3d(0, 0, 1, 1.8deg);
 }
@@ -55,7 +80,9 @@ nav {
     -moz-border-radius-topleft: 1.5rem;
     -moz-border-radius-topright: 1.5rem;
     -webkit-border-top-left-radius: 1.5rem;
+    border-top-left-radius: 1.5rem;
     -webkit-border-top-right-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
 }
 
 .form-control {

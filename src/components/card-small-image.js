@@ -2,12 +2,12 @@ import ComponentBuilder from './component-builder.js'
 
 const cardCode = `
 <div class="col-12 mt-4">
-    <div class="card small-img w-100 d-flex flex-row align-items-stretch">
+    <div class="card small-img w-100 d-flex flex-column flex-md-row align-items-center justify-content-center">
         <img
         src="{{image-path}}"
-        class="card-img-left"
+        class="card-img-top no-round"
         alt="..."
-        style="object-fit: cover; width: 15rem; height: 15rem; border-right: 1px solid #424549; padding: 1rem;"
+        style="object-fit: cover; width: 15rem; height: 15rem; padding: 1rem;"
         />
         <div class="card-body text-start d-flex flex-column justify-content-between">
             <div>
