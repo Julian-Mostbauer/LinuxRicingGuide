@@ -48,7 +48,7 @@ nav {
 }
 
 @media (min-width: 768px) {
-    .card-img-top {
+    .small-img > .card-img-top {
         border-right: 1px solid #424549; /* Border for desktop */
         border-bottom: none; /* Remove bottom border on desktop */
     }
@@ -56,6 +56,9 @@ nav {
 
 .card-footer {
     border-radius: 0 0 1.5rem 1.5rem !important;
+    background-color: transparent;
+    border: none;
+    padding: 0.6rem !important;
 }
 
 .card.big-img:hover {
