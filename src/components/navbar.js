@@ -62,6 +62,12 @@ const navbarCode = `
                                 href="terminal-themes.html"
                             >Terminal Themes</a>
                         </li>
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                href="shells.html"
+                            >Shells</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
