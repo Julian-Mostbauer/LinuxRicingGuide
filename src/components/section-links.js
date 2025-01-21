@@ -1,36 +1,38 @@
 import ComponentBuilder from './component-builder.js'
 
 const code = `
-<h4>{{title}}</h4>
-
-<p>
-  {{description}}
+<h4 class="mb-3">{{title}}</h4>
+<p class="mb-3">
+    {{description}}
 </p>
-
-<table>
-    <tr>
-        <th colspan="2">Links</th>
-    </tr>
-    <tr>
-        <td>Github</td>
-        <td>
-            <a
-                target="_blank"
-                href="{{link-gh}}"
-                >{{link-gh}}</a
-            >
-        </td>
-    </tr>
-    <tr>
-        <td>Home page</td>
-        <td>
-            <a
-                target="_blank"
-                href="{{link-hp}}"
-                >{{link-hp}}</a
-            >
-        </td>
-    </tr>
+<table class="table table-striped">
+        <thead>
+                <tr>
+                        <th colspan="2">Links</th>
+                </tr>
+        </thead>
+        <tbody>
+                <tr>
+                        <td>Github</td>
+                        <td>
+                                <a
+                                        target="_blank"
+                                        href="{{link-gh}}"
+                                        >{{link-gh}}</a
+                                >
+                        </td>
+                </tr>
+                <tr>
+                        <td>Home page</td>
+                        <td>
+                                <a
+                                        target="_blank"
+                                        href="{{link-hp}}"
+                                        >{{link-hp}}</a
+                                >
+                        </td>
+                </tr>
+        </tbody>
 </table>
 `
 
