@@ -21,24 +21,79 @@ const navbarCode = `
         >
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="window-managers.html"
-                        >Window Managers</a
-                    >
+                    <a class="nav-link" aria-current="page" href="distros.html">Distributions</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >Desktop</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                href="window-managers.html"
+                            >Window Managers</a>
+                        </li>
+                       <li>
+                            <a
+                                class="dropdown-item"
+                                href="desktop-environments.html"
+                            >Desktop Environments</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >Terminal</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                href="terminals.html"
+                            >Terminals</a>
+                        </li>
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                href="terminal-themes.html"
+                            >Terminal Themes</a>
+                        </li>
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                href="shells.html"
+                            >Shells</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >Software</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a
+                                class="dropdown-item"
+                                href="package-managers.html"
+                            >Package Managers</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="package-managers.html"
-                        >Package Managers</a
-                    >
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="distros.html"
-                        >Distributions</a
-                    >
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="personal-setups.html"
-                        >Our Setups</a
-                    >
+                    <a class="nav-link" aria-current="page" href="personal-setups.html">Our Setups</a>
                 </li>
             </ul>
             <form class="d-flex" role="search">
