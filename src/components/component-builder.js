@@ -9,17 +9,27 @@ margin-top: 1rem;
 border-radius: 5px;`
 
 class Component {
-    componentCode = ''
-    scriptElement = null
-    props = {}
-    errors = []
-
-    constructor(componentCode, scriptElement) {
+    constructor(scriptElement, componentCode, onMount) {
         this.componentCode = componentCode
         this.scriptElement = scriptElement
+        this.onMount = onMount
 
+        this.props = {}
+        this.errors = []
+        this.buildInProps = []
+
+        this.generateBuildInProps()
         this.collectProps()
         this.insertProps()
+    }
+
+    generateBuildInProps() {
+        this.buildInProps = {
+            'component-name': '{{component}}',
+            'component-code': this.componentCode,
+            'component-props': JSON.stringify(this.props),
+            'component-unique-id': crypto.randomUUID(),
+        }
     }
 
     collectProps() {
@@ -79,6 +89,16 @@ class Component {
             return
         }
 
+        // Replace internal props ||name||
+        for (const [prop, value] of Object.entries(this.buildInProps)) {
+            const internalPropRegex = new RegExp(`\\|\\|${prop}\\|\\|`, 'g')
+            this.componentCode = this.componentCode.replace(
+                internalPropRegex,
+                value || ''
+            )
+        }
+
+        // Replace custom props {{name}}
         for (const [prop, value] of Object.entries(this.props)) {
             const propRegex = new RegExp(`{{${prop}}}`, 'g')
             this.componentCode = this.componentCode.replace(
@@ -88,7 +108,7 @@ class Component {
         }
     }
 
-    placeComponent() {
+    buildComponent() {
         if (this.errors.length > 0) {
             console.error('Invalid component. Cannot place component.')
             this.errors.forEach((error) => console.error(error))
@@ -100,12 +120,18 @@ class Component {
         const content = template.content.cloneNode(true)
         this.scriptElement.replaceWith(content)
     }
+
+    placeComponent() {
+        this.buildComponent()
+        this.onMount()
+    }
 }
 
 export default class ComponentBuilder {
-    constructor(code, name) {
+    constructor(name, code, onMount = () => {}) {
         this.name = name
         this.code = code
+        this.onMount = onMount
     }
 
     build() {
@@ -114,7 +140,7 @@ export default class ComponentBuilder {
             .forEach((scriptTag) => {
                 const startTime = performance.now()
 
-                const comp = new Component(this.code, scriptTag)
+                const comp = new Component(scriptTag, this.code, this.onMount)
                 comp.placeComponent()
 
                 console.log(

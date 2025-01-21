@@ -111,5 +111,5 @@ const navbarCode = `
     </div>
 </nav>`
 
-const navbarBuilder = new ComponentBuilder(navbarCode, 'navbar')
+const navbarBuilder = new ComponentBuilder('navbar', navbarCode)
 navbarBuilder.build()
