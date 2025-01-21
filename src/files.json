@@ -1,0 +1,14 @@
+{
+    "files": [
+        "shells.html",
+        "index.html",
+        "terminals.html",
+        "configurator.html",
+        "package-managers.html",
+        "terminal-themes.html",
+        "desktop-environments.html",
+        "personal-setups.html",
+        "window-managers.html",
+        "distros.html"
+    ]
+}

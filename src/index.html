@@ -22,6 +22,7 @@
         <script type="module" src="components/card-big-image.js"></script>
         <script type="module" src="components/section-links.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <script src="search.js"></script>
     </head>
     <body data-bs-theme="dark">
         <script
@@ -30,6 +31,9 @@
             data-component="navbar"
         ></script>
         <div class="container top-lvl">
+
+            <button onclick="searchDocuments('test')">Test Button</button>
+
             <div class="card bg-dark text-light p-4 mb-4">
                 <article>
                     <section class="mb-4">
@@ -52,21 +56,29 @@
                             Overview
                         </h2>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item bg-transparent text-light">
+                            <li
+                                class="list-group-item bg-transparent text-light"
+                            >
                                 <strong>Window-Manager:</strong>
                                 Users may prefer lightweight options like i3 or
                                 Openbox or complex ones like GNOME or KDE
                                 Plasma.
                             </li>
-                            <li class="list-group-item bg-transparent text-light">
+                            <li
+                                class="list-group-item bg-transparent text-light"
+                            >
                                 <strong>Wallpaper:</strong> Choose from various
                                 wallpapers to personalize your desktop.
                             </li>
-                            <li class="list-group-item bg-transparent text-light">
+                            <li
+                                class="list-group-item bg-transparent text-light"
+                            >
                                 <strong>Icons:</strong> Replace desktop icons to
                                 match your system's aesthetic.
                             </li>
-                            <li class="list-group-item bg-transparent text-light">
+                            <li
+                                class="list-group-item bg-transparent text-light"
+                            >
                                 <strong>Fonts:</strong> Select fonts like
                                 <a
                                     target="_blank"
@@ -77,7 +89,9 @@
 
                                 to enhance your system's look.
                             </li>
-                            <li class="list-group-item bg-transparent text-light">
+                            <li
+                                class="list-group-item bg-transparent text-light"
+                            >
                                 <strong>Themes:</strong>
                                 <ul>
                                     <li>
