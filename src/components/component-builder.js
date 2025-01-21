@@ -20,7 +20,8 @@ class Component {
 
         this.generateBuildInProps()
         this.collectProps()
-        this.insertProps()
+
+        this.totalProps = { ...this.buildInProps, ...this.props }
     }
 
     generateBuildInProps() {
@@ -122,13 +123,20 @@ class Component {
     }
 
     placeComponent() {
+        this.insertProps()
         this.buildComponent()
-        this.onMount()
+        try {
+            this.onMount(this.totalProps)
+        } catch (e) {
+            console.error('Error: onMount function failed')
+            console.error(e)
+        }
     }
 }
 
 export default class ComponentBuilder {
-    constructor(name, code, onMount = () => {}) {
+    // eslint-disable-next-line no-unused-vars
+    constructor(name, code, onMount = (props) => {}) {
         this.name = name
         this.code = code
         this.onMount = onMount
