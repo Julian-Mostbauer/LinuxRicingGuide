@@ -1,8 +1,18 @@
+const errorCompStyle = `border: 1px solid red;
+padding: 10px; display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+max-width: fit-content;
+margin: 0 auto;
+margin-top: 1rem;
+border-radius: 5px;`
+
 class Component {
     componentCode = ''
     scriptElement = null
-    validComponent = true
     props = {}
+    errors = []
 
     constructor(componentCode, scriptElement) {
         this.componentCode = componentCode
@@ -26,20 +36,46 @@ class Component {
         const requiredProps = [
             ...this.componentCode.matchAll(/{{(.*?)}}/g),
         ].map((match) => match[1])
+
         requiredProps.forEach((prop) => {
             if (!(prop in this.props)) {
-                console.error(
-                    `Property "${prop}" is required but not provided.`
+                this.errors.push(
+                    `Property <mark>${prop}</mark> is required but not provided.`
                 )
-                this.validComponent = false
                 this.props[prop] = null
             }
+        })
+
+        // Check for unexpected props in the component code
+        const unexpectedProps = Object.keys(this.props).filter(
+            (prop) => !requiredProps.includes(prop)
+        )
+
+        unexpectedProps.forEach((prop) => {
+            if (prop === 'component') return // Ignore the component name
+            this.errors.push(
+                `Property <mark>${prop}</mark> is not recognized by the component.`
+            )
+            delete this.props[prop]
         })
     }
 
     insertProps() {
-        if (!this.validComponent) {
-            console.error('Invalid component. Cannot insert props.')
+        if (this.errors.length > 0) {
+            // Build error component
+            this.componentCode = `
+                <div style="${errorCompStyle}">
+                    <h2 style="color: red">Component Error</h2>
+                    <h3 style="color: yellow">${this.props.component}</h3>
+                    <div style="color: grey;">
+                        <ul>
+                        ${this.errors
+                            .map((error) => `<li>${error}</li>`)
+                            .join('')}
+                        </ul>
+                    </div>
+                <div>
+            `
             return
         }
 
@@ -53,9 +89,9 @@ class Component {
     }
 
     placeComponent() {
-        if (!this.validComponent) {
+        if (this.errors.length > 0) {
             console.error('Invalid component. Cannot place component.')
-            return
+            this.errors.forEach((error) => console.error(error))
         }
 
         const template = document.createElement('template')
