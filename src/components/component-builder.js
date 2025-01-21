@@ -122,11 +122,11 @@ class Component {
         this.scriptElement.replaceWith(content)
     }
 
-    placeComponent() {
+    async placeComponent() {
         this.insertProps()
         this.buildComponent()
         try {
-            this.onMount(this.totalProps)
+            await this.onMount(this.totalProps)
         } catch (e) {
             console.error('Error: onMount function failed')
             console.error(e)
@@ -136,7 +136,7 @@ class Component {
 
 export default class ComponentBuilder {
     // eslint-disable-next-line no-unused-vars
-    constructor(name, code, onMount = (props) => {}) {
+    constructor(name, code, onMount = async (props) => {}) {
         this.name = name
         this.code = code
         this.onMount = onMount
@@ -145,11 +145,11 @@ export default class ComponentBuilder {
     build() {
         document
             .querySelectorAll(`script[data-component="${this.name}"]`)
-            .forEach((scriptTag) => {
+            .forEach(async (scriptTag) => {
                 const startTime = performance.now()
 
                 const comp = new Component(scriptTag, this.code, this.onMount)
-                comp.placeComponent()
+                await comp.placeComponent()
 
                 console.log(
                     `Component "${comp.props['component']}" rendered in ${
