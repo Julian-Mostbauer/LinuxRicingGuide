@@ -43,7 +43,4 @@ async function searchDocuments(searchString) {
     return results
 }
 
-// Example usage:
-searchDocuments('terminal').then((results) => {
-    console.log('Files containing the search term:', results)
-})
+export default searchDocuments

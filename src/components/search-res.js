@@ -11,32 +11,23 @@ const code = `
   </div>
 `
 
-const onMount = (props) => {
+const onMount = async (props) => {
+    const { default: searchDocuments } = await import('./../search.js')
     console.log('---Start Mount---')
-    // eslint-disable-next-line no-unused-vars
-    const searchDocuments = async (s) => {
-        return new Promise(() => {
-            return [
-                {
-                    file: 'file1.txt',
-                    line: 1,
-                    content: 'content1',
-                },
-            ]
-        })
-    }
+    const results = await searchDocuments('terminal')
 
-    searchDocuments(props.query).then((results) => {
-        const file = document.getElementById(props['unique-id'] + '-file')
-        const line = document.getElementById(props['unique-id'] + '-line')
-        const content = document.getElementById(props['unique-id'] + '-content')
+    const result = results[0]
+    const file = document.getElementById(props['component-unique-id'] + '-file')
+    const line = document.getElementById(props['component-unique-id'] + '-line')
+    const content = document.getElementById(
+        props['component-unique-id'] + '-content'
+    )
 
-        console.table(results)
+    console.table(result)
 
-        file.textContent = 'File: ' + results[0].file
-        line.textContent = 'Line: ' + results[0].line
-        content.textContent = 'Content: ' + results[0].content
-    })
+    file.textContent = 'File: ' + result.file
+    line.textContent = 'Line: ' + result.line
+    content.textContent = 'Content: ' + result.content
 
     console.log('---Stop Mount---')
 }
