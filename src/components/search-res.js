@@ -14,7 +14,7 @@ const code = `
 const onMount = async (props) => {
     const { default: searchDocuments } = await import('./../search.js')
     console.log('---Start Mount---')
-    const results = await searchDocuments('terminal')
+    const results = await searchDocuments(props.query)
 
     const result = results[0]
     const file = document.getElementById(props['component-unique-id'] + '-file')
