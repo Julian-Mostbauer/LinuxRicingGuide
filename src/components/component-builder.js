@@ -142,22 +142,31 @@ export default class ComponentBuilder {
         this.onMount = onMount
     }
 
-    build() {
-        document
-            .querySelectorAll(`script[data-component="${this.name}"]`)
-            .forEach(async (scriptTag) => {
-                const startTime = performance.now()
+    async build() {
+        const scriptTags = document.querySelectorAll(
+            `script[data-component="${this.name}"]`
+        )
 
-                const comp = new Component(scriptTag, this.code, this.onMount)
-                await comp.placeComponent()
+        const startTimes = new Map() // To track start times for each component
 
-                console.log(
-                    `Component "${comp.props['component']}" rendered in ${
-                        performance.now() - startTime
-                    }ms`
-                )
+        // Convert NodeList to Array and map to promises for parallel processing
+        const promises = Array.from(scriptTags).map(async (scriptTag) => {
+            const startTime = performance.now()
+            startTimes.set(scriptTag, startTime)
 
-                console.table(comp.props)
-            })
+            const comp = new Component(scriptTag, this.code, this.onMount)
+            await comp.placeComponent()
+
+            console.info(
+                `Component "${comp.props['component']}" rendered in ${
+                    performance.now() - startTime
+                }ms`
+            )
+            return comp
+        })
+
+        // Wait for all components to render
+        await Promise.all(promises)
+        console.info(`All components of ${this.name} rendered.`)
     }
 }

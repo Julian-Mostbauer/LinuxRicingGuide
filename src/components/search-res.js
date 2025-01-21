@@ -23,8 +23,6 @@ const onMount = async (props) => {
         props['component-unique-id'] + '-content'
     )
 
-    console.table(result)
-
     file.textContent = 'File: ' + result.file
     line.textContent = 'Line: ' + result.line
     content.textContent = 'Content: ' + result.content
