@@ -38,7 +38,12 @@ const navbarCode = `
                                 href="window-managers.html"
                             >Window Managers</a>
                         </li>
-                       
+                       <li>
+                            <a
+                                class="dropdown-item"
+                                href="desktop-environments.html"
+                            >Desktop Environments</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item dropdown">
