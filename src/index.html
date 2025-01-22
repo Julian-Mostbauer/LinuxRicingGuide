@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!-- Components -->
+        <script async type="module" src="components/card-big-image.js"></script>
+        <script async type="module" src="components/search-res.js"></script>
+        <script async type="module" src="components/navbar.js"></script>
+        <!-- /Components -->
+        
         <meta charset="UTF-8" />
         <script
             src="https://kit.fontawesome.com/0a7e2ccef9.js"
@@ -18,31 +24,17 @@
             integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
             crossorigin="anonymous"
         />
-        <link rel="stylesheet" href="bootstrap-style-extension.css" />
-        <script type="module" src="components/card-big-image.js"></script>
-        <script type="module" src="components/section-links.js"></script>
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="icon" href="data:,">
+        <link rel="icon" href="data:," />
+
+        <link rel="stylesheet" href="bootstrap-style-extension.css" />
     </head>
     <body data-bs-theme="dark">
-        <script
-            type="module"
-            src="components/navbar.js"
-            data-component="navbar"
-        ></script>
+        <script data-component="navbar"></script>
         <div class="container top-lvl">
-            <script
-                type="module"
-                src="components/search-res.js"
-                data-component="search-res"
-                data-query="test1"
-            ></script>
-            <script
-                type="module"
-                src="components/search-res.js"
-                data-component="search-res"
-                data-query="test2"
-            ></script>
+            <script data-component="search-res" data-query="test1"></script>
+            <script data-component="search-res" data-query="test2"></script>
             <div class="card bg-dark text-light p-4 mb-4">
                 <article>
                     <section class="mb-4">

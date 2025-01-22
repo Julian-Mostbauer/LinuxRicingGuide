@@ -125,18 +125,22 @@ class Component {
     async placeComponent() {
         this.insertProps()
         this.buildComponent()
+        if (this.onMount === undefined) return
+
         try {
+            var startTime = performance.now()
             await this.onMount(this.totalProps)
         } catch (e) {
             console.error('Error: onMount function failed')
             console.error(e)
+        } finally {
+            console.info('OnMount ran in', performance.now() - startTime, 'ms')
         }
     }
 }
 
 export default class ComponentBuilder {
-    // eslint-disable-next-line no-unused-vars
-    constructor(name, code, onMount = async (props) => {}) {
+    constructor(name, code, onMount = undefined) {
         this.name = name
         this.code = code
         this.onMount = onMount
