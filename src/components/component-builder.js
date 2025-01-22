@@ -9,17 +9,28 @@ margin-top: 1rem;
 border-radius: 5px;`
 
 class Component {
-    componentCode = ''
-    scriptElement = null
-    props = {}
-    errors = []
-
-    constructor(componentCode, scriptElement) {
+    constructor(scriptElement, componentCode, onMount) {
         this.componentCode = componentCode
         this.scriptElement = scriptElement
+        this.onMount = onMount
 
+        this.props = {}
+        this.errors = []
+        this.buildInProps = []
+
+        this.generateBuildInProps()
         this.collectProps()
-        this.insertProps()
+
+        this.totalProps = { ...this.buildInProps, ...this.props }
+    }
+
+    generateBuildInProps() {
+        this.buildInProps = {
+            'component-name': '{{component}}',
+            'component-code': this.componentCode,
+            'component-props': JSON.stringify(this.props),
+            'component-unique-id': crypto.randomUUID(),
+        }
     }
 
     collectProps() {
@@ -79,6 +90,16 @@ class Component {
             return
         }
 
+        // Replace internal props ||name||
+        for (const [prop, value] of Object.entries(this.buildInProps)) {
+            const internalPropRegex = new RegExp(`\\|\\|${prop}\\|\\|`, 'g')
+            this.componentCode = this.componentCode.replace(
+                internalPropRegex,
+                value || ''
+            )
+        }
+
+        // Replace custom props {{name}}
         for (const [prop, value] of Object.entries(this.props)) {
             const propRegex = new RegExp(`{{${prop}}}`, 'g')
             this.componentCode = this.componentCode.replace(
@@ -88,7 +109,7 @@ class Component {
         }
     }
 
-    placeComponent() {
+    buildComponent() {
         if (this.errors.length > 0) {
             console.error('Invalid component. Cannot place component.')
             this.errors.forEach((error) => console.error(error))
@@ -100,30 +121,52 @@ class Component {
         const content = template.content.cloneNode(true)
         this.scriptElement.replaceWith(content)
     }
+
+    async placeComponent() {
+        this.insertProps()
+        this.buildComponent()
+        try {
+            await this.onMount(this.totalProps)
+        } catch (e) {
+            console.error('Error: onMount function failed')
+            console.error(e)
+        }
+    }
 }
 
 export default class ComponentBuilder {
-    constructor(code, name) {
+    // eslint-disable-next-line no-unused-vars
+    constructor(name, code, onMount = async (props) => {}) {
         this.name = name
         this.code = code
+        this.onMount = onMount
     }
 
-    build() {
-        document
-            .querySelectorAll(`script[data-component="${this.name}"]`)
-            .forEach((scriptTag) => {
-                const startTime = performance.now()
+    async build() {
+        const scriptTags = document.querySelectorAll(
+            `script[data-component="${this.name}"]`
+        )
 
-                const comp = new Component(this.code, scriptTag)
-                comp.placeComponent()
+        const startTimes = new Map() // To track start times for each component
 
-                console.log(
-                    `Component "${comp.props['component']}" rendered in ${
-                        performance.now() - startTime
-                    }ms`
-                )
+        // Convert NodeList to Array and map to promises for parallel processing
+        const promises = Array.from(scriptTags).map(async (scriptTag) => {
+            const startTime = performance.now()
+            startTimes.set(scriptTag, startTime)
 
-                console.table(comp.props)
-            })
+            const comp = new Component(scriptTag, this.code, this.onMount)
+            await comp.placeComponent()
+
+            console.info(
+                `Component "${comp.props['component']}" rendered in ${
+                    performance.now() - startTime
+                }ms`
+            )
+            return comp
+        })
+
+        // Wait for all components to render
+        await Promise.all(promises)
+        console.info(`All components of ${this.name} rendered.`)
     }
 }
