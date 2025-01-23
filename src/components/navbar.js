@@ -1,4 +1,4 @@
-import ComponentBuilder from './component-builder.js';
+import ComponentBuilder from './component-builder.js'
 
 const navbarCode = `
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
@@ -113,65 +113,66 @@ const navbarCode = `
         </div>
     </div>
 </div>
-`;
+`
 
 const onMount = async () => {
-  const searchForm = document.getElementById('navbar-search-form');
-  const searchInput = document.getElementById('navbar-search-input');
-  // eslint-disable-next-line no-undef
-  const modal = new bootstrap.Modal(document.getElementById('search-results-modal'));
-  const searchResultsList = document.getElementById('search-results-list');
-  const searchQueryText = document.getElementById('search-query-text');
+    const searchForm = document.getElementById('navbar-search-form')
+    const searchInput = document.getElementById('navbar-search-input')
+    // eslint-disable-next-line no-undef
+    const modal = new bootstrap.Modal(
+        document.getElementById('search-results-modal')
+    )
+    const searchResultsList = document.getElementById('search-results-list')
+    const searchQueryText = document.getElementById('search-query-text')
 
-  const performSearch = async () => {
-    const query = searchInput.value.trim();
+    const performSearch = async () => {
+        const query = searchInput.value.trim()
 
-    if (!query) {
-      alert('Please enter a search query.');
-      return;
-    }
+        if (!query) {
+            alert('Please enter a search query.')
+            return
+        }
 
-    // Clear previous results
-    searchResultsList.innerHTML = '';
-    searchQueryText.textContent = `Search results for: "${query}"`;
+        // Clear previous results
+        searchResultsList.innerHTML = ''
+        searchQueryText.textContent = `Search results for: "${query}"`
 
-    try {
-      const { default: searchDocuments } = await import('./../search.js');
-      const results = await searchDocuments(query);
+        try {
+            const { default: searchDocuments } = await import('./../search.js')
+            const results = await searchDocuments(query)
 
-      if (results.length === 0) {
-        searchResultsList.innerHTML = '<li class="list-group-item">No results found.</li>';
-      } else {
-        results.forEach((result) => {
-          const listItem = document.createElement('li');
-          listItem.className = 'list-group-item';
-          listItem.innerHTML = `
+            if (results.length === 0) {
+                searchResultsList.innerHTML =
+                    '<li class="list-group-item">No results found.</li>'
+            } else {
+                results.forEach((result) => {
+                    const listItem = document.createElement('li')
+                    listItem.className = 'list-group-item'
+                    listItem.innerHTML = `
             <a href="${result.file}" target="_blank">${result.file}</a>
             <span class="text-muted"> - Line ${result.line}</span>
             <p class="mb-0">${result.content}</p>
-          `;
-          searchResultsList.appendChild(listItem);
-        });
-      }
+          `
+                    searchResultsList.appendChild(listItem)
+                })
+            }
 
-      // Show the modal
-      modal.show();
-    } catch (error) {
-      console.error('Error fetching search results:', error);
-      searchResultsList.innerHTML = '<li class="list-group-item text-danger">An error occurred while fetching results.</li>';
+            modal.show()
+        } catch (error) {
+            console.error('Error fetching search results:', error)
+            searchResultsList.innerHTML =
+                '<li class="list-group-item text-danger">An error occurred while fetching results.</li>'
+        }
     }
-  };
 
-  // Handle form submission (Enter key)
-  searchForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    performSearch();
-  });
+    searchForm.addEventListener('submit', (event) => {
+        event.preventDefault()
+        performSearch()
+    })
 
-  // Handle search button click
-  const searchButton = document.getElementById('navbar-search-button');
-  searchButton.addEventListener('click', performSearch);
-};
+    const searchButton = document.getElementById('navbar-search-button')
+    searchButton.addEventListener('click', performSearch)
+}
 
-const navbarBuilder = new ComponentBuilder('navbar', navbarCode, onMount);
-navbarBuilder.build();
+const navbarBuilder = new ComponentBuilder('navbar', navbarCode, onMount)
+navbarBuilder.build()
