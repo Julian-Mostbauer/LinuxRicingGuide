@@ -1,3 +1,4 @@
 .vscode
 *.pdf
 node_modules
+*.py

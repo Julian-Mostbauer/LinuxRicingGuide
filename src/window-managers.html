@@ -1,12 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <!-- Components -->
+        <script
+            async
+            type="module"
+            src="components/card-small-image.js"
+        ></script>
+        <script async type="module" src="components/navbar.js"></script>
+        <!-- /Components -->
+
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta
+            name="description"
+            content="A list of popular Linux distributions."
+        />
+        <meta name="keywords" content="Linux, Window-Manager" />
+        <title>Window Managers</title>
+
         <script
             src="https://kit.fontawesome.com/0a7e2ccef9.js"
             crossorigin="anonymous"
         ></script>
-        <title>Window Managers</title>
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
             integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -19,8 +35,6 @@
             crossorigin="anonymous"
         />
         <link rel="stylesheet" href="bootstrap-style-extension.css" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <script type="module" src="components/card-small-image.js"></script>
     </head>
     <body data-bs-theme="dark">
         <script
@@ -28,45 +42,38 @@
             src="components/navbar.js"
             data-component="navbar"
         ></script>
-        <div
-            class="container top-lvl"
-        >
+        <div class="container top-lvl">
             <div class="row">
-                <script
-                    data-component="card-small-image"
+                <card-small-image
                     data-title="Hyprland"
                     data-description="Hyprland is a lightweight, highly configurable window manager for X11. It is designed to be fast and efficient, while still providing a high degree of customization. Hyprland is written in C and uses the Xlib library for communication with the X server."
                     data-link="https://hyprland.org"
                     data-image-path="https://th.bing.com/th/id/OIP.C5AN8XiYqirdqGfnqpMlnAHaEK?w=299&h=180&c=7&r=0&o=5&pid=1.7"
-                ></script>
-                <script
-                    data-component="card-small-image"
+                ></card-small-image>
+                <card-small-image
                     data-title="i3"
                     data-description="i3 is a tiling window manager designed for X11. It is primarily targeted at advanced users and developers. i3 is written in C and uses the Xlib library for communication with the X server."
                     data-link="https://i3wm.org"
                     data-image-path="https://kifarunix.com/wp-content/uploads/2021/11/i3-wm.png"
-                ></script>
-                <script
-                    data-component="card-small-image"
+                ></card-small-image>
+                <card-small-image
                     data-title="Openbox"
                     data-description="Openbox is a lightweight, highly configurable window manager for X11. It is designed to be fast and efficient, while still providing a high degree of customization. Openbox is written in C and uses the Xlib library for communication with the X server."
                     data-link="http://openbox.org"
                     data-image-path="https://th.bing.com/th/id/OIP.ZzXPMkiO4Y2-WxDP9yluQQHaG5?w=191&h=180&c=7&r=0&o=5&pid=1.7"
-                ></script>
-                <script
-                    data-component="card-small-image"
+                ></card-small-image>
+                <card-small-image
                     data-title="Awesome"
                     data-description="Awesome is a highly configurable, tiling window manager for X11. It is designed to be fast and efficient, while still providing a high degree of customization. Awesome is written in C and uses the Xlib library for communication with the X server."
                     data-link="https://wiki.debian.org/Apt"
                     data-image-path="https://logodix.com/logo/1171807.png"
-                ></script>
-                <script
-                    data-component="card-small-image"
+                ></card-small-image>
+                <card-small-image
                     data-title="bspwm"
                     data-description="bspwm is a tiling window manager that represents windows as the leaves of a full binary tree. It is designed to be fast and efficient, while still providing a high degree of customization. bspwm is written in C and uses the Xlib library for communication with the X server."
                     data-link="https://linux.die.net/"
                     data-image-path="https://linux.die.net/style/logo.svg"
-                ></script>
+                ></card-small-image>
             </div>
         </div>
     </body>
