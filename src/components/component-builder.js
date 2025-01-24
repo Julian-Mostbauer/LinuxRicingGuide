@@ -15,7 +15,6 @@ class Component {
         if (this.errors.length > 0) return
 
         this.totalProps = { ...this.buildInProps, ...this.props }
-        console.table(this.totalProps)
     }
 
     generateBuildInProps() {

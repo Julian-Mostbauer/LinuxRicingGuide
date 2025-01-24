@@ -1,9 +1,9 @@
 import ComponentBuilder from './component-builder.js'
 
 // fix links for nested pages
-const location = document.location.pathname.split('src')[1]
+const location = document.location.pathname.split('src/')[1]
 const slashCount = location.split('/').length - 1
-const linkPrefix = '../'.repeat(slashCount - 1)
+const linkPrefix = '../'.repeat(slashCount)
 
 const navbarCode = `
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
@@ -144,7 +144,7 @@ const onMount = async () => {
         searchQueryText.textContent = `Search results for: "${query}"`
 
         try {
-            const { default: searchDocuments } = await import('./../search.js')
+            const { default: searchDocuments } = await import('../utils/search.js')
             const results = await searchDocuments(query)
 
             if (results.length === 0) {
