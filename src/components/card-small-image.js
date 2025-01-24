@@ -24,5 +24,5 @@ const cardCode = `
 </div>
 `
 
-const cardBuilder = new ComponentBuilder(cardCode, 'card-small-image')
+const cardBuilder = new ComponentBuilder('card-small-image', cardCode)
 cardBuilder.build()

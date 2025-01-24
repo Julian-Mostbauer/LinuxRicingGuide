@@ -36,5 +36,5 @@ const code = `
 </table>
 `
 
-const navbarBuilder = new ComponentBuilder(code, 'section-links')
+const navbarBuilder = new ComponentBuilder('section-links', code)
 navbarBuilder.build()
