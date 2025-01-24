@@ -1,9 +1,9 @@
 import ComponentBuilder from './component-builder.js'
 
 // fix links for nested pages
-const slashCount = document.location.pathname.split('/').length - 1
-const linkPrefix = '../'.repeat(slashCount - 2)
-
+const location = document.location.pathname.split('src')[1]
+const slashCount = location.split('/').length - 1
+const linkPrefix = '../'.repeat(slashCount - 1)
 
 const navbarCode = `
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
