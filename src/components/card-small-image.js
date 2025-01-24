@@ -7,7 +7,7 @@ const cardCode = `
         src="{{image-path}}"
         class="card-img-top no-round"
         alt="..."
-        style="object-fit: cover; width: 15rem; height: 15rem; padding: 1rem;"
+        style="object-fit: cover; width: 11rem; height: 11rem; padding: 2rem;"
         />
         <div class="card-body text-start d-flex flex-column justify-content-between">
             <div>

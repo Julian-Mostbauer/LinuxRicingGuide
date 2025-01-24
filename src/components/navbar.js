@@ -70,6 +70,7 @@ const navbarCode = `
                     <ul class="dropdown-menu">
                         <li>
                             <a class="dropdown-item" href="package-managers.html">Package Managers</a>
+                            <a class="dropdown-item" href="configurator.html">Configurator</a>
                         </li>
                     </ul>
                 </li>
