@@ -70,6 +70,8 @@ class Component {
     }
 
     insertProps() {
+        logger.table('Inserting props:', this.totalProps, PRIORITY.DEBUG)
+
         // Replace internal props ||name||
         for (const [prop, value] of Object.entries(this.buildInProps)) {
             const internalPropRegex = new RegExp(`\\|\\|${prop}\\|\\|`, 'g')
@@ -98,8 +100,8 @@ class Component {
     }
 
     generateErrorComponent() {
-        console.error('Invalid component. Cannot place component.')
-        this.errors.forEach((error) => console.error(error))
+        logger.log('Invalid component. Cannot place component.', PRIORITY.ERROR)
+        this.errors.forEach((error) => logger.log(error, PRIORITY.ERROR))
 
         this.componentCode = `
         <div style="border: 1px solid red;
@@ -126,8 +128,8 @@ class Component {
             var startTime = performance.now()
             await this.onMount(this.totalProps)
         } catch (e) {
-            console.error('Error: onMount function failed')
-            console.error(e)
+            logger.log('Error: onMount function failed', PRIORITY.WARN)
+            logger.log(e, PRIORITY.WARN)
         } finally {
             logger.log(
                 'OnMount ran in',

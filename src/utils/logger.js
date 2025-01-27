@@ -1,33 +1,36 @@
 const PRIORITY = {
-    DISABLED: 0,
     DEBUG: 1,
     INFO: 2,
     WARN: 3,
     ERROR: 4,
+    DISABLED: 99,
 }
 
 class Logger {
-    constructor(enabled = true, priorityLevel = PRIORITY.INFO) {
-        this.enabled = enabled
+    constructor(priorityLevel = PRIORITY.INFO) {
         this.priorityLevel = priorityLevel
+        this.logFuncTable = {
+            [PRIORITY.DEBUG]: [console.debug, 'gray'],
+            [PRIORITY.INFO]: [console.info, 'blue'],
+            [PRIORITY.WARN]: [console.warn, 'yellow'],
+            [PRIORITY.ERROR]: [console.error, 'red'],
+        }
     }
 
     log(message, priority = PRIORITY.INFO) {
         if (priority < this.priorityLevel) return
-        console.log(
-            `[LOG] ${new Date().toISOString()} [${this.getPriorityString(
-                priority
-            )}]: ${message}`
-        )
+
+        const msg = `[LOG-${this.getPriorityString(priority)}] ${new Date().toLocaleTimeString()}:\n${message}`
+
+        const [logFunc, color] = this.logFuncTable[priority]
+
+        logFunc('%c' + msg, 'color:' + color + ';font-weight:bold;')
     }
 
-    table(obj, priority = PRIORITY.INFO) {
+    table(msg, obj, priority = PRIORITY.INFO) {
         if (priority < this.priorityLevel) return
-        console.log(
-            `[LOG] ${new Date().toISOString()} [${this.getPriorityString(
-                priority
-            )}]:`
-        )
+
+        this.log(msg, priority)
         console.table(obj)
     }
 
@@ -36,7 +39,7 @@ class Logger {
     }
 }
 
-const logger = new Logger(PRIORITY.DISABLED)
+const logger = new Logger(PRIORITY.INFO)
 
 // immutable global instance
 Object.freeze(logger)
