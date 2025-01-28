@@ -1,0 +1,16 @@
+.customContainer {
+    display: flex;
+    gap: 20px;
+    border: 2px solid #424549;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.paragraph {
+    text-align: justify;
+    margin-right: 100px;
+}
+
+.imageMurdock {
+    margin-top: 50px;
+}
