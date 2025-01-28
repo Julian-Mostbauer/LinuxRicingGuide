@@ -20,7 +20,9 @@ class Logger {
     log(message, priority = PRIORITY.INFO) {
         if (priority < this.priorityLevel) return
 
-        const msg = `[LOG-${this.getPriorityString(priority)}] ${new Date().toLocaleTimeString()}:\n${message}`
+        const msg = `[LOG-${this.getPriorityString(
+            priority
+        )}] ${new Date().toLocaleTimeString()}:\n${message}`
 
         const [logFunc, color] = this.logFuncTable[priority]
 
@@ -39,7 +41,12 @@ class Logger {
     }
 }
 
-const logger = new Logger(PRIORITY.INFO)
+const logger = new Logger(PRIORITY.DEBUG)
+
+const DebugLocations = ['127.0.0.1', 'localhost']
+if (!DebugLocations.includes(window.location.hostname)) {
+    logger.priorityLevel = PRIORITY.ERROR
+}
 
 // immutable global instance
 Object.freeze(logger)
