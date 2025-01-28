@@ -1,6 +1,5 @@
 import ComponentBuilder from './component-builder.js'
 
-// fix links for nested pages
 const location = document.location.pathname.split('src/')[1]
 const slashCount = location.split('/').length - 1
 const linkPrefix = '../'.repeat(slashCount)
@@ -124,10 +123,7 @@ const navbarCode = `
 const onMount = async () => {
     const searchForm = document.getElementById('navbar-search-form')
     const searchInput = document.getElementById('navbar-search-input')
-    // eslint-disable-next-line no-undef
-    const modal = new bootstrap.Modal(
-        document.getElementById('search-results-modal')
-    )
+
     const searchResultsList = document.getElementById('search-results-list')
     const searchQueryText = document.getElementById('search-query-text')
 
@@ -139,12 +135,19 @@ const onMount = async () => {
             return
         }
 
+        // eslint-disable-next-line no-undef
+        const modal = new bootstrap.Modal(
+            document.getElementById('search-results-modal')
+        )
+
         // Clear previous results
         searchResultsList.innerHTML = ''
         searchQueryText.textContent = `Search results for: "${query}"`
 
         try {
-            const { default: searchDocuments } = await import('../utils/search.js')
+            const { default: searchDocuments } = await import(
+                '../utils/search.js'
+            )
             const results = await searchDocuments(query)
 
             if (results.length === 0) {

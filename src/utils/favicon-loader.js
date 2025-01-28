@@ -1,26 +1,62 @@
-document.addEventListener('DOMContentLoaded', function () {
-    const linkAppleTouchIcon = document.createElement('link')
-    linkAppleTouchIcon.rel = 'apple-touch-icon'
-    linkAppleTouchIcon.sizes = '180x180'
-    linkAppleTouchIcon.href = '/assets/favicon_io/apple-touch-icon.png'
-    document.head.appendChild(linkAppleTouchIcon)
+const addFaviconLinks = (icons, manifestPath) => {
+    const createLink = ({ rel, sizes, href, type }) => {
+        const link = document.createElement('link')
+        link.rel = rel
+        link.href = href
+        if (sizes) link.sizes = sizes
+        if (type) link.type = type
+        document.head.appendChild(link)
+    }
 
-    const linkIcon32 = document.createElement('link')
-    linkIcon32.rel = 'icon'
-    linkIcon32.type = 'image/png'
-    linkIcon32.sizes = '32x32'
-    linkIcon32.href = '/assets/favicon_io/favicon-32x32.png'
-    document.head.appendChild(linkIcon32)
+    // Add each icon to the document head
+    icons.forEach(({ rel, sizes, href, type }) => {
+        createLink({ rel, sizes, href, type })
+    })
 
-    const linkIcon16 = document.createElement('link')
-    linkIcon16.rel = 'icon'
-    linkIcon16.type = 'image/png'
-    linkIcon16.sizes = '16x16'
-    linkIcon16.href = '/assets/favicon_io/favicon-16x16.png'
-    document.head.appendChild(linkIcon16)
+    // Add the manifest link
+    if (manifestPath) {
+        createLink({ rel: 'manifest', href: manifestPath })
+    }
+}
 
-    const linkManifest = document.createElement('link')
-    linkManifest.rel = 'manifest'
-    linkManifest.href = '/assets/favicon_io/site.webmanifest'
-    document.head.appendChild(linkManifest)
+// Load icons dynamically
+document.addEventListener('DOMContentLoaded', () => {
+    const manifestPath = '/assets/favicon_io/site.webmanifest'
+
+    fetch(manifestPath)
+        .then((response) => response.json())
+        .then((data) => {
+            const icons = data.icons.map((icon) => ({
+                rel: 'icon',
+                sizes: icon.sizes,
+                href: icon.src,
+                type: icon.type,
+            }))
+
+            // Add additional icons not in the manifest
+            icons.push(
+                {
+                    rel: 'apple-touch-icon',
+                    href: '/assets/favicon_io/apple-touch-icon.png',
+                },
+                {
+                    rel: 'icon',
+                    sizes: '32x32',
+                    href: '/assets/favicon_io/favicon-32x32.png',
+                    type: 'image/png',
+                },
+                {
+                    rel: 'icon',
+                    sizes: '16x16',
+                    href: '/assets/favicon_io/favicon-16x16.png',
+                    type: 'image/png',
+                }
+            )
+
+            // Dynamically add icons and manifest
+            addFaviconLinks(icons, manifestPath)
+        })
+        .catch((error) => {
+            console.error('Error loading manifest:', error)
+        })
 })

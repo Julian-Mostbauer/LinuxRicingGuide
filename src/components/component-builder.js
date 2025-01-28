@@ -1,9 +1,12 @@
+import { logger, PRIORITY } from '../utils/logger.js'
+
 class Component {
     constructor(componentSpawnElement, componentName, componentCode, onMount) {
         this.componentCode = componentCode
         this.componentSpawnElement = componentSpawnElement
         this.onMount = onMount
         this.componentName = componentName
+        this.uuid = crypto.randomUUID()
 
         this.props = {}
         this.errors = []
@@ -22,7 +25,7 @@ class Component {
             'component-name': this.componentName,
             'component-code': this.componentCode,
             'component-props': JSON.stringify(this.props),
-            'component-unique-id': crypto.randomUUID(),
+            'component-unique-id': this.uuid,
         }
     }
 
@@ -67,6 +70,8 @@ class Component {
     }
 
     insertProps() {
+        logger.table('Inserting props:', this.totalProps, PRIORITY.DEBUG)
+
         // Replace internal props ||name||
         for (const [prop, value] of Object.entries(this.buildInProps)) {
             const internalPropRegex = new RegExp(`\\|\\|${prop}\\|\\|`, 'g')
@@ -95,8 +100,8 @@ class Component {
     }
 
     generateErrorComponent() {
-        console.error('Invalid component. Cannot place component.')
-        this.errors.forEach((error) => console.error(error))
+        logger.log('Invalid component. Cannot place component.', PRIORITY.ERROR)
+        this.errors.forEach((error) => logger.log(error, PRIORITY.ERROR))
 
         this.componentCode = `
         <div style="border: 1px solid red;
@@ -123,10 +128,15 @@ class Component {
             var startTime = performance.now()
             await this.onMount(this.totalProps)
         } catch (e) {
-            console.error('Error: onMount function failed')
-            console.error(e)
+            logger.log('Error: onMount function failed', PRIORITY.WARN)
+            logger.log(e, PRIORITY.WARN)
         } finally {
-            console.info('OnMount ran in', performance.now() - startTime, 'ms')
+            logger.log(
+                'OnMount ran in',
+                performance.now() - startTime,
+                'ms',
+                PRIORITY.DEBUG
+            )
         }
     }
 
@@ -160,7 +170,10 @@ export default class ComponentBuilder {
             ...document.querySelectorAll(newSyntax),
         ]
 
-        console.log(componentTags)
+        logger.log(
+            `Found ${componentTags.length} instances of ${this.componentName}`,
+            PRIORITY.INFO
+        )
 
         const startTimes = new Map() // To track start times for each component
 
@@ -177,16 +190,20 @@ export default class ComponentBuilder {
             )
             await comp.placeComponent()
 
-            console.info(
+            logger.log(
                 `Component "${comp.componentName}" rendered in ${
                     performance.now() - startTime
-                }ms`
+                }ms`,
+                PRIORITY.DEBUG
             )
             return comp
         })
 
         // Wait for all components to render
         await Promise.all(promises)
-        console.info(`All components of ${this.componentName} rendered.`)
+        logger.log(
+            `All components of ${this.componentName} rendered.`,
+            PRIORITY.INFO
+        )
     }
 }
