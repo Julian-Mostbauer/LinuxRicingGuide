@@ -19,6 +19,7 @@ const fileCache = new Map(JSON.parse(localStorage.getItem(CACHE_KEY)) || []);
 
 // Clean up expired entries on load
 const currentTime = Date.now();
+
 // eslint-disable-next-line no-unused-vars
 for (const [file, { _, timestamp }] of fileCache) {
     if (currentTime - timestamp >= CACHE_EXPIRATION_TIME) {

@@ -1,9 +1,13 @@
 import ComponentBuilder from './component-builder.js'
 
+const location = document.location.pathname.split('src/')[1]
+const slashCount = location.split('/').length - 1
+const linkPrefix = '../'.repeat(slashCount)
+
 const navbarCode = `
 <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="index.html">
+        <a class="navbar-brand" href="${linkPrefix}index.html">
             <i class="fa-solid fa-house"></i> ${document.title}
         </a>
         <button
@@ -20,7 +24,7 @@ const navbarCode = `
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="distros.html">Distributions</a>
+                    <a class="nav-link" aria-current="page" href="${linkPrefix}distros.html">Distributions</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a
@@ -32,10 +36,10 @@ const navbarCode = `
                     >Desktop</a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="window-managers.html">Window Managers</a>
+                            <a class="dropdown-item" href="${linkPrefix}window-managers.html">Window Managers</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="desktop-environments.html">Desktop Environments</a>
+                            <a class="dropdown-item" href="${linkPrefix}desktop-environments.html">Desktop Environments</a>
                         </li>
                     </ul>
                 </li>
@@ -49,13 +53,13 @@ const navbarCode = `
                     >Terminal</a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="terminals.html">Terminals</a>
+                            <a class="dropdown-item" href="${linkPrefix}terminals.html">Terminals</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="terminal-themes.html">Terminal Themes</a>
+                            <a class="dropdown-item" href="${linkPrefix}terminal-themes.html">Terminal Themes</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="shells.html">Shells</a>
+                            <a class="dropdown-item" href="${linkPrefix}shells.html">Shells</a>
                         </li>
                     </ul>
                 </li>
@@ -69,13 +73,13 @@ const navbarCode = `
                     >Software</a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="package-managers.html">Package Managers</a>
-                            <a class="dropdown-item" href="configurator.html">Configurator</a>
+                            <a class="dropdown-item" href="${linkPrefix}package-managers.html">Package Managers</a>
+                            <a class="dropdown-item" href="${linkPrefix}configurator.html">Configurator</a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="personal-setups.html">Our Setups</a>
+                    <a class="nav-link" aria-current="page" href="${linkPrefix}personal-setups.html">Our Setups</a>
                 </li>
             </ul>
             <form class="d-flex" role="search" id="navbar-search-form">
@@ -119,10 +123,7 @@ const navbarCode = `
 const onMount = async () => {
     const searchForm = document.getElementById('navbar-search-form')
     const searchInput = document.getElementById('navbar-search-input')
-    // eslint-disable-next-line no-undef
-    const modal = new bootstrap.Modal(
-        document.getElementById('search-results-modal')
-    )
+
     const searchResultsList = document.getElementById('search-results-list')
     const searchQueryText = document.getElementById('search-query-text')
 
@@ -134,12 +135,19 @@ const onMount = async () => {
             return
         }
 
+        // eslint-disable-next-line no-undef
+        const modal = new bootstrap.Modal(
+            document.getElementById('search-results-modal')
+        )
+
         // Clear previous results
         searchResultsList.innerHTML = ''
         searchQueryText.textContent = `Search results for: "${query}"`
 
         try {
-            const { default: searchDocuments } = await import('./../search.js')
+            const { default: searchDocuments } = await import(
+                '../utils/search.js'
+            )
             const results = await searchDocuments(query)
 
             if (results.length === 0) {
@@ -150,7 +158,7 @@ const onMount = async () => {
                     const listItem = document.createElement('li')
                     listItem.className = 'list-group-item'
                     listItem.innerHTML = `
-            <a href="${result.file}" target="_blank">${result.file}</a>
+            <a href="${linkPrefix}${result.file}" target="_blank">${result.file}</a>
             <span class="text-muted"> - Line ${result.line}</span>
             <p class="mb-0">${result.content}</p>
           `

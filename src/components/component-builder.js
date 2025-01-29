@@ -1,9 +1,12 @@
+import { logger, PRIORITY } from '../utils/logger.js'
+
 class Component {
     constructor(componentSpawnElement, componentName, componentCode, onMount) {
         this.componentCode = componentCode
         this.componentSpawnElement = componentSpawnElement
         this.onMount = onMount
         this.componentName = componentName
+        this.uuid = crypto.randomUUID()
 
         this.props = {}
         this.errors = []
@@ -15,7 +18,6 @@ class Component {
         if (this.errors.length > 0) return
 
         this.totalProps = { ...this.buildInProps, ...this.props }
-        console.table(this.totalProps)
     }
 
     generateBuildInProps() {
@@ -23,7 +25,7 @@ class Component {
             'component-name': this.componentName,
             'component-code': this.componentCode,
             'component-props': JSON.stringify(this.props),
-            'component-unique-id': crypto.randomUUID(),
+            'component-unique-id': this.uuid,
         }
     }
 
@@ -68,6 +70,8 @@ class Component {
     }
 
     insertProps() {
+        logger.table('Inserting props:', this.totalProps, PRIORITY.DEBUG)
+
         // Replace internal props ||name||
         for (const [prop, value] of Object.entries(this.buildInProps)) {
             const internalPropRegex = new RegExp(`\\|\\|${prop}\\|\\|`, 'g')
@@ -96,8 +100,8 @@ class Component {
     }
 
     generateErrorComponent() {
-        console.error('Invalid component. Cannot place component.')
-        this.errors.forEach((error) => console.error(error))
+        logger.log('Invalid component. Cannot place component.', PRIORITY.ERROR)
+        this.errors.forEach((error) => logger.log(error, PRIORITY.ERROR))
 
         this.componentCode = `
         <div style="border: 1px solid red;
@@ -124,12 +128,44 @@ class Component {
             var startTime = performance.now()
             await this.onMount(this.totalProps)
         } catch (e) {
-            console.error('Error: onMount function failed')
-            console.error(e)
+            logger.log('Error: onMount function failed', PRIORITY.WARN)
+            logger.log(e, PRIORITY.WARN)
         } finally {
-            console.info('OnMount ran in', performance.now() - startTime, 'ms')
+            logger.log(
+                'OnMount ran in',
+                performance.now() - startTime,
+                'ms',
+                PRIORITY.DEBUG
+            )
         }
     }
+
+    preloadImages(){
+        document.querySelectorAll('img[data-src]').forEach((img) => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'image';
+            link.href = img.getAttribute('data-src');
+            document.head.appendChild(link);
+        });
+    };
+    
+    lazyLoadImages() {
+        const images = this.componentSpawnElement.querySelectorAll('img[data-src]');
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.getAttribute('data-src');
+                    img.onload = () => img.removeAttribute('data-src');
+                    observer.unobserve(img);
+                }
+            });
+        });
+    
+        images.forEach((img) => observer.observe(img));
+    };
+    
 
     async placeComponent() {
         if (this.errors.length > 0) {
@@ -139,6 +175,23 @@ class Component {
         }
 
         this.buildComponent()
+        
+        this.preloadImages()
+        this.lazyLoadImages()
+
+        const images = document.querySelectorAll('img[data-src]');
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.getAttribute('data-src');
+                    img.onload = () => img.removeAttribute('data-src');
+                    observer.unobserve(img);
+                }
+            });
+        });
+    
+        images.forEach((img) => observer.observe(img));
 
         if (this.onMount === undefined || this.errors.length > 0) return
         await this.onMountPerfWrapper()
@@ -152,16 +205,23 @@ export default class ComponentBuilder {
         this.onMount = onMount
     }
 
-    async build() {
+    collectComponentTags() {
         const oldSyntax = `script[data-component="${this.componentName}"]`
         const newSyntax = `${this.componentName}`
 
-        const componentTags = [
+        return [
             ...document.querySelectorAll(oldSyntax),
             ...document.querySelectorAll(newSyntax),
         ]
+    }
 
-        console.log(componentTags)
+    async build() {
+        const componentTags = this.collectComponentTags()
+        
+        logger.log(
+            `Found ${componentTags.length} instances of ${this.componentName}`,
+            PRIORITY.INFO
+        )
 
         const startTimes = new Map() // To track start times for each component
 
@@ -178,16 +238,20 @@ export default class ComponentBuilder {
             )
             await comp.placeComponent()
 
-            console.info(
+            logger.log(
                 `Component "${comp.componentName}" rendered in ${
                     performance.now() - startTime
-                }ms`
+                }ms`,
+                PRIORITY.DEBUG
             )
             return comp
         })
 
         // Wait for all components to render
         await Promise.all(promises)
-        console.info(`All components of ${this.componentName} rendered.`)
+        logger.log(
+            `All components of ${this.componentName} rendered.`,
+            PRIORITY.INFO
+        )
     }
 }
