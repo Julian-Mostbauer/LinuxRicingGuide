@@ -140,6 +140,33 @@ class Component {
         }
     }
 
+    preloadImages(){
+        document.querySelectorAll('img[data-src]').forEach((img) => {
+            const link = document.createElement('link');
+            link.rel = 'preload';
+            link.as = 'image';
+            link.href = img.getAttribute('data-src');
+            document.head.appendChild(link);
+        });
+    };
+    
+    lazyLoadImages() {
+        const images = this.componentSpawnElement.querySelectorAll('img[data-src]');
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.getAttribute('data-src');
+                    img.onload = () => img.removeAttribute('data-src');
+                    observer.unobserve(img);
+                }
+            });
+        });
+    
+        images.forEach((img) => observer.observe(img));
+    };
+    
+
     async placeComponent() {
         if (this.errors.length > 0) {
             this.generateErrorComponent()
@@ -148,6 +175,23 @@ class Component {
         }
 
         this.buildComponent()
+        
+        this.preloadImages()
+        this.lazyLoadImages()
+
+        const images = document.querySelectorAll('img[data-src]');
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.getAttribute('data-src');
+                    img.onload = () => img.removeAttribute('data-src');
+                    observer.unobserve(img);
+                }
+            });
+        });
+    
+        images.forEach((img) => observer.observe(img));
 
         if (this.onMount === undefined || this.errors.length > 0) return
         await this.onMountPerfWrapper()
@@ -161,15 +205,19 @@ export default class ComponentBuilder {
         this.onMount = onMount
     }
 
-    async build() {
+    collectComponentTags() {
         const oldSyntax = `script[data-component="${this.componentName}"]`
         const newSyntax = `${this.componentName}`
 
-        const componentTags = [
+        return [
             ...document.querySelectorAll(oldSyntax),
             ...document.querySelectorAll(newSyntax),
         ]
+    }
 
+    async build() {
+        const componentTags = this.collectComponentTags()
+        
         logger.log(
             `Found ${componentTags.length} instances of ${this.componentName}`,
             PRIORITY.INFO
