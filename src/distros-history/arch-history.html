@@ -1,33 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <script src="/src/utils/dependency-loader.js"></script>
+<head>
+    <script src="/src/utils/dependency-loader.js"></script>
 
-        <!-- Components -->
-        <script
-            async
-            type="module"
-            src="../components/card-big-image.js"
-        ></script>
-        <script async type="module" src="../components/navbar.js"></script>
-        <!-- Components -->
+    <!-- Components -->
+    <script
+        async
+        type="module"
+        src="../components/card-big-image.js"
+    ></script>
+    <script async type="module" src="../components/navbar.js"></script>
+    <!-- Components -->
 
-        <!-- Meta -->
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>History Of Arch Linux</title>
-        <!-- Meta -->
+    <!-- Meta -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>History Of Arch Linux</title>
+    <!-- Meta -->
 
-        <link rel="stylesheet" href="../bootstrap-style-extension.css" />
-        <script src="/src/utils/favicon-loader.js"></script>
-    </head>
-    <body data-bs-theme="dark">
-        <navbar></navbar>
-        <div class="container top-lvl">
-            <div class="card bg-dark text-light p-4 mb-4">
-                <article>
-                    <section class="mb-4">
-                        <h2 class="mb-3"><i></i> Arch Linux History</h2>
+    <link rel="stylesheet" href="../bootstrap-style-extension.css" />
+    <link rel="stylesheet" href="style-histories.css" />
+    <script src="/src/utils/favicon-loader.js"></script>
+</head>
+<body data-bs-theme="dark">
+<navbar></navbar>
+<div class="container top-lvl">
+    <div class="card bg-dark text-light p-4 mb-4">
+        <article>
+
+            <section class="mb-4">
+
+                <h2 class="mb-3"><i></i> Arch Linux History</h2>
+
+                <div class="customContainer">
+
+                    <div class="paragraph">
                         <p>
                             Arch Linux is a lightweight and flexible Linux
                             distribution that tries to Keep It Simple. It is
@@ -36,83 +43,94 @@
                             rolling release system, which means it is
                             continuously updated.
                         </p>
-                    </section>
+                    </div>
 
-                    <section>
-                        <h2 class="mb-3">
-                            <i></i> Year-by-Year Summary of Arch Linux's History
-                        </h2>
-                        <ul class="list-group list-group-flush">
-                            <li
-                                class="list-group-item bg-transparent text-light"
-                            >
-                                <strong>2002 – The Beginning</strong>
-                                <p>
-                                    Arch Linux was created by Judd Vinet, a
-                                    Canadian programmer, in March 2002. The
-                                    first official release was Arch Linux 0.1,
-                                    codenamed "Homer".
-                                </p>
-                            </li>
-                            <li
-                                class="list-group-item bg-transparent text-light"
-                            >
-                                <strong>2007 – Pacman 3.0</strong>
-                                <p>
-                                    In 2007, Pacman 3.0 was released,
-                                    introducing many new features and
-                                    improvements to the package manager, which
-                                    is a core component of Arch Linux.
-                                </p>
-                            </li>
-                            <li
-                                class="list-group-item bg-transparent text-light"
-                            >
-                                <strong>2012 – Systemd Adoption</strong>
-                                <p>
-                                    In 2012, Arch Linux adopted systemd as its
-                                    default init system, replacing the
-                                    traditional init system. This change aimed
-                                    to improve boot performance and system
-                                    management.
-                                </p>
-                            </li>
-                            <li
-                                class="list-group-item bg-transparent text-light"
-                            >
-                                <strong>2017 – 15th Anniversary</strong>
-                                <p>
-                                    Arch Linux celebrated its 15th anniversary
-                                    in 2017, marking a significant milestone in
-                                    its development and community growth.
-                                </p>
-                            </li>
-                            <li
-                                class="list-group-item bg-transparent text-light"
-                            >
-                                <strong>2020 – Arch Linux 2020.01.01</strong>
-                                <p>
-                                    The first ISO release of 2020, Arch Linux
-                                    2020.01.01, included updated packages and
-                                    improvements, continuing the tradition of
-                                    providing a cutting-edge Linux distribution.
-                                </p>
-                            </li>
-                            <li
-                                class="list-group-item bg-transparent text-light"
-                            >
-                                <strong>2023 – Arch Linux 2023.04.01</strong>
-                                <p>
-                                    Arch Linux 2023.04.01 was released,
-                                    featuring the latest software and updates,
-                                    ensuring users have access to the most
-                                    recent advancements in the Linux ecosystem.
-                                </p>
-                            </li>
-                        </ul>
-                    </section>
-                </article>
-            </div>
-        </div>
-    </body>
+                    <img src="https://wiki.installgentoo.com/images/f/f9/Arch-linux-logo.png"
+                         alt="Arch Linux" height="100" width="150">
+                </div>
+
+            </section>
+
+            <section>
+                <div class="customContainer">
+                    <ul class="list-group list-group-flush">
+                        <li
+                            class="list-group-item bg-transparent text-light"
+                        >
+                            <strong>2002 – The Beginning</strong>
+                            <p>
+                                Arch Linux was created by Judd Vinet, a
+                                Canadian programmer, in March 2002. The
+                                first official release was Arch Linux 0.1,
+                                codenamed "Homer".
+                            </p>
+                        </li>
+                        <li
+                            class="list-group-item bg-transparent text-light"
+                        >
+                            <strong>2007 – Pacman 3.0</strong>
+                            <p>
+                                In 2007, Pacman 3.0 was released,
+                                introducing many new features and
+                                improvements to the package manager, which
+                                is a core component of Arch Linux.
+                            </p>
+                        </li>
+                        <li
+                            class="list-group-item bg-transparent text-light"
+                        >
+                            <strong>2012 – Systemd Adoption</strong>
+                            <p>
+                                In 2012, Arch Linux adopted systemd as its
+                                default init system, replacing the
+                                traditional init system. This change aimed
+                                to improve boot performance and system
+                                management.
+                            </p>
+                        </li>
+                        <li
+                            class="list-group-item bg-transparent text-light"
+                        >
+                            <strong>2017 – 15th Anniversary</strong>
+                            <p>
+                                Arch Linux celebrated its 15th anniversary
+                                in 2017, marking a significant milestone in
+                                its development and community growth.
+                            </p>
+                        </li>
+                        <li
+                            class="list-group-item bg-transparent text-light"
+                        >
+                            <strong>2020 – Arch Linux 2020.01.01</strong>
+                            <p>
+                                The first ISO release of 2020, Arch Linux
+                                2020.01.01, included updated packages and
+                                improvements, continuing the tradition of
+                                providing a cutting-edge Linux distribution.
+                            </p>
+                        </li>
+                        <li
+                            class="list-group-item bg-transparent text-light"
+                        >
+                            <strong>2023 – Arch Linux 2023.04.01</strong>
+                            <p>
+                                Arch Linux 2023.04.01 was released,
+                                featuring the latest software and updates,
+                                ensuring users have access to the most
+                                recent advancements in the Linux ecosystem.
+                            </p>
+                        </li>
+                    </ul>
+
+                    <div class="imageFounder">
+                        <img src="/assets/img-distros-history/judd-vinet.webp"
+                             alt="Judd Vinet">
+                    </div>
+
+                </div>
+            </section>
+        </article>
+    </div>
+</div>
+</body>
 </html>
