@@ -1,23 +1,46 @@
 import { logger, PRIORITY } from '../utils/logger.js'
 
 class Component {
-    constructor(componentSpawnElement, componentName, componentCode, onMount) {
+    constructor(
+        componentSpawnElement,
+        componentName,
+        componentCode,
+        onMount,
+        additionalProps
+    ) {
+        this.errors = []
+
         this.componentCode = componentCode
         this.componentSpawnElement = componentSpawnElement
         this.onMount = onMount
         this.componentName = componentName
         this.uuid = crypto.randomUUID()
+        this.additionalProps = additionalProps || []
 
         this.props = {}
-        this.errors = []
-        this.buildInProps = []
+        this.buildInProps = {}
 
         this.generateBuildInProps()
         this.collectProps()
         this.validateProps()
-        if (this.errors.length > 0) return
 
-        this.totalProps = { ...this.buildInProps, ...this.props }
+        this.totalProps = {
+            ...this.buildInProps,
+            ...this.props,
+            ...this.additionalProps,
+        }
+    }
+
+    hasErrors() {
+        return this.errors.length > 0
+    }
+
+    hasOnMount() {
+        return this.onMount !== undefined
+    }
+
+    hasAdditionalProps() {
+        return this.additionalProps !== undefined
     }
 
     generateBuildInProps() {
@@ -50,23 +73,27 @@ class Component {
             )
         )
 
-        Object.keys(this.props).forEach((prop) => {
-            if (!requiredProps.has(prop)) {
-                this.errors.push(
-                    `Property <mark>${prop}</mark> is not recognized by the component.`
-                )
-                delete this.props[prop]
-            }
-        })
+        this.additionalProps.forEach((prop) => requiredProps.add(prop))
 
-        requiredProps.forEach((prop) => {
-            if (!(prop in this.props)) {
-                this.errors.push(
-                    `Property <mark>${prop}</mark> is required but not provided.`
+        // Check for unrecognized props
+        this.errors.push(
+            ...Object.keys(this.props)
+                .filter((prop) => !requiredProps.has(prop))
+                .map(
+                    (prop) =>
+                        `Property <mark>${prop}</mark> is not recognized by the component.`
                 )
-                delete this.props[prop]
-            }
-        })
+        )
+
+        // Check for missing required props
+        this.errors.push(
+            ...[...requiredProps]
+                .filter((prop) => !(prop in this.props))
+                .map(
+                    (prop) =>
+                        `Property <mark>${prop}</mark> is required but not provided.`
+                )
+        )
     }
 
     insertProps() {
@@ -132,40 +159,38 @@ class Component {
             logger.log(e, PRIORITY.WARN)
         } finally {
             logger.log(
-                'OnMount ran in',
-                performance.now() - startTime,
-                'ms',
+                `OnMount ran in ${performance.now() - startTime}ms`,
                 PRIORITY.DEBUG
             )
         }
     }
 
-    preloadImages(){
+    preloadImages() {
         document.querySelectorAll('img[data-src]').forEach((img) => {
-            const link = document.createElement('link');
-            link.rel = 'preload';
-            link.as = 'image';
-            link.href = img.getAttribute('data-src');
-            document.head.appendChild(link);
-        });
-    };
-    
+            const link = document.createElement('link')
+            link.rel = 'preload'
+            link.as = 'image'
+            link.href = img.getAttribute('data-src')
+            document.head.appendChild(link)
+        })
+    }
+
     lazyLoadImages() {
-        const images = this.componentSpawnElement.querySelectorAll('img[data-src]');
+        const images =
+            this.componentSpawnElement.querySelectorAll('img[data-src]')
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.getAttribute('data-src');
-                    img.onload = () => img.removeAttribute('data-src');
-                    observer.unobserve(img);
+                    const img = entry.target
+                    img.src = img.getAttribute('data-src')
+                    img.onload = () => img.removeAttribute('data-src')
+                    observer.unobserve(img)
                 }
-            });
-        });
-    
-        images.forEach((img) => observer.observe(img));
-    };
-    
+            })
+        })
+
+        images.forEach((img) => observer.observe(img))
+    }
 
     async placeComponent() {
         if (this.errors.length > 0) {
@@ -175,34 +200,44 @@ class Component {
         }
 
         this.buildComponent()
-        
+
         this.preloadImages()
         this.lazyLoadImages()
 
-        const images = document.querySelectorAll('img[data-src]');
+        const images = document.querySelectorAll('img[data-src]')
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.getAttribute('data-src');
-                    img.onload = () => img.removeAttribute('data-src');
-                    observer.unobserve(img);
+                    const img = entry.target
+                    img.src = img.getAttribute('data-src')
+                    img.onload = () => img.removeAttribute('data-src')
+                    observer.unobserve(img)
                 }
-            });
-        });
-    
-        images.forEach((img) => observer.observe(img));
+            })
+        })
 
-        if (this.onMount === undefined || this.errors.length > 0) return
-        await this.onMountPerfWrapper()
+        images.forEach((img) => observer.observe(img))
+
+        if (!this.hasErrors() && this.hasOnMount()) {
+            await this.onMountPerfWrapper()
+        }
     }
 }
 
 export default class ComponentBuilder {
-    constructor(componentName, code, onMount = undefined) {
+    constructor(componentName, code) {
         this.componentName = componentName
         this.code = code
+        this.onMount = undefined
+        this.additionalProps = undefined
+    }
+
+    addOnMount(onMount) {
         this.onMount = onMount
+    }
+
+    addAdditionalProps(additionalProps) {
+        this.additionalProps = additionalProps
     }
 
     collectComponentTags() {
@@ -217,7 +252,7 @@ export default class ComponentBuilder {
 
     async build() {
         const componentTags = this.collectComponentTags()
-        
+
         logger.log(
             `Found ${componentTags.length} instances of ${this.componentName}`,
             PRIORITY.INFO
@@ -234,7 +269,8 @@ export default class ComponentBuilder {
                 componentTag,
                 this.componentName,
                 this.code,
-                this.onMount
+                this.onMount,
+                this.additionalProps
             )
             await comp.placeComponent()
 

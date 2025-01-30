@@ -197,5 +197,6 @@ const onMount = async () => {
     searchButton.addEventListener('click', performSearch)
 }
 
-const navbarBuilder = new ComponentBuilder('navbar', navbarCode, onMount)
+const navbarBuilder = new ComponentBuilder('navbar', navbarCode)
+navbarBuilder.addOnMount(onMount)
 navbarBuilder.build()
