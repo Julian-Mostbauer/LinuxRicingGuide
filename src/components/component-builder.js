@@ -176,8 +176,7 @@ class Component {
     }
 
     lazyLoadImages() {
-        const images =
-            this.componentSpawnElement.querySelectorAll('img[data-src]')
+        const images = document.querySelectorAll('img[data-src]')
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
@@ -193,7 +192,7 @@ class Component {
     }
 
     async placeComponent() {
-        if (this.errors.length > 0) {
+        if (this.hasErrors()) {
             this.generateErrorComponent()
         } else {
             this.insertProps()
@@ -203,20 +202,6 @@ class Component {
 
         this.preloadImages()
         this.lazyLoadImages()
-
-        const images = document.querySelectorAll('img[data-src]')
-        const observer = new IntersectionObserver((entries, observer) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    const img = entry.target
-                    img.src = img.getAttribute('data-src')
-                    img.onload = () => img.removeAttribute('data-src')
-                    observer.unobserve(img)
-                }
-            })
-        })
-
-        images.forEach((img) => observer.observe(img))
 
         if (!this.hasErrors() && this.hasOnMount()) {
             await this.onMountPerfWrapper()
