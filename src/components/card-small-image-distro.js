@@ -21,7 +21,7 @@ const cardCode = `
                     <i class="fa-solid fa-link"></i> Homepage
                 </a>
                 
-                <a href="{{history-link}}" target="blank" class="btn btn-primary mt-3" style="width: 100%; margin: 5px">
+                <a href="{{history-link}}" class="btn btn-primary mt-3" style="width: 100%; margin: 5px">
                     <i class="fa-solid fa-link"></i> History
                 </a>
             </div>
