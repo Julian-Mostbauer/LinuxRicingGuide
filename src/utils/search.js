@@ -10,6 +10,7 @@ const files = [
     'window-managers.html',
     'distros.html',
 ]
+files.map((file) => `/src/${file}`)
 
 const CACHE_KEY = "fileCache"; // Key for storing cache in localStorage
 const CACHE_EXPIRATION_TIME = 5 * 60 * 1000; // 5 minutes in milliseconds
