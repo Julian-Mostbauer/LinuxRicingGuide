@@ -3,10 +3,6 @@
     scrollbar-color: #495057 #2b3035;
 }
 
-html {
-    scroll-behavior: auto !important;
-}
-
 nav {
     margin-bottom: 10rem;
 }
