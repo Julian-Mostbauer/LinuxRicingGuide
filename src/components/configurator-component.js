@@ -1,4 +1,5 @@
 import ComponentBuilder from './component-builder.js'
+import downloadFile from '../utils/downloader.js'
 
 const cardCode = `
 <div>
@@ -17,25 +18,37 @@ const ConfiguratorData = {
     }
 }
 
-const onMount = (props) => {
-    let form = document.getElementById('configurator')
+const onSubmit = (event) => {
+    event.preventDefault()
+
+    const form = document.getElementById('configurator')
+    const dropdowns = form.getElementsByTagName('select')
+
+    for (const dropdown of dropdowns) {
+        const downloadLink = ConfiguratorData.dropdowns[dropdown.previousElementSibling.innerText][dropdown.value]
+        downloadFile(downloadLink)
+    }
+}
+
+const onMount = () => {
+    const form = document.getElementById('configurator')
     for (const key in ConfiguratorData.dropdowns) {
-        let div = document.createElement('div')
+        const div = document.createElement('div')
         div.className = 'form-group'
 
-        let label = document.createElement('label')
+        const label = document.createElement('label')
         label.for = `${key}-select`
         label.innerText = key
 
         div.appendChild(label)
 
-        let select = document.createElement('select')
+        const select = document.createElement('select')
         select.className = 'form-control'
         select.id = `${key}-select`
 
 
         for(const key2 in ConfiguratorData.dropdowns[key]) {
-            let opt = document.createElement('option')
+            const opt = document.createElement('option')
             opt.innerText = key2
             select.appendChild(opt)
         }
@@ -44,10 +57,11 @@ const onMount = (props) => {
         form.appendChild(div)
     }
 
-    let button = document.createElement('button')
+    const button = document.createElement('button')
     button.className = 'btn btn-primary mt-3'
     button.type = 'submit'
     button.innerText = 'Submit'
+    button.onclick = (event) => onSubmit(event)
     form.appendChild(button)
 }
 
