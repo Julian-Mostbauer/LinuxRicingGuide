@@ -9,20 +9,27 @@ nav {
 
 /* Container for the grid */
 .grid-container {
-    width: 100%; /* Adjust as needed */
-    height: 100%; /* Adjust as needed */
-    max-width: 800px; /* Optional: Set a max width for the grid */
+    width: 80%; /* Adjust as needed */
+    height: 80%; /* Adjust as needed */
     margin: 0 auto; /* Center the grid */
 }
 
-/* Individual grid cells */
-.grid-container img {
-    border: 1px solid #ddd; /* Optional: Add a border to each cell */
-    box-sizing: border-box; /* Ensure borders are included in the cell size */
+/* Grid cell styling */
+.grid-cell {
+    border: 1px solid var(--bs-border-color-translucent);
+    border-radius: 2rem;
+    padding: 1rem; /* Add padding inside the cell */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.grid-cell {
-    border: 2px solid red;
+/* Image styling */
+.grid-cell img {
+    max-width: 90%; /* Ensure the image is smaller than the cell */
+    max-height: 90%;
+    border-radius: 1.5rem; /* Optional: Add border radius to the image */
+    object-fit: cover; /* Maintain aspect ratio */
 }
 
 .btn {
