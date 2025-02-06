@@ -33,7 +33,7 @@ const navbarCode = `
                     >Distros</a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="${linkPrefix}distros.html">Distro list</a>
+                            <a class="dropdown-item" href="${linkPrefix}distros.html">Distro List</a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="${linkPrefix}distros-history">History</a>
@@ -197,5 +197,6 @@ const onMount = async () => {
     searchButton.addEventListener('click', performSearch)
 }
 
-const navbarBuilder = new ComponentBuilder('navbar', navbarCode, onMount)
+const navbarBuilder = new ComponentBuilder('navbar', navbarCode)
+navbarBuilder.addOnMount(onMount)
 navbarBuilder.build()

@@ -41,7 +41,7 @@ class Logger {
     }
 }
 
-const logger = new Logger(PRIORITY.INFO)
+const logger = new Logger(PRIORITY.DEBUG)
 
 const DebugLocations = ['127.0.0.1', 'localhost']
 if (!DebugLocations.includes(window.location.hostname)) {
