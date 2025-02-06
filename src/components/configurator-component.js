@@ -1,5 +1,4 @@
 import ComponentBuilder from './component-builder.js'
-import downloadFile from '../utils/downloader.js'
 
 const cardCode = `
 <div>
@@ -7,13 +6,16 @@ const cardCode = `
     <form id="configurator">
         
     </form>
+    <div id="download-links">
+    </div>
 </div>
 `
 
 const ConfiguratorData = {
     dropdowns: {
         'Distros': {
-            'Arch': 'https://www.archlinux.de/download/iso/2025.01.01/archlinux-2025.01.01-x86_64.iso'
+            'Arch': 'https://www.archlinux.de/download/',
+            'Ubuntu': 'https://ubuntu.com/download/desktop',
         }
     }
 }
@@ -24,10 +26,25 @@ const onSubmit = (event) => {
     const form = document.getElementById('configurator')
     const dropdowns = form.getElementsByTagName('select')
 
+    const downloadLinks = document.getElementById('download-links')
+    downloadLinks.innerHTML = '<h5 class="card-title mt-3">Download Links</h5>'
+
     for (const dropdown of dropdowns) {
         const downloadLink = ConfiguratorData.dropdowns[dropdown.previousElementSibling.innerText][dropdown.value]
-        downloadFile(downloadLink)
+
+        appendDownloadLink(downloadLink, `${dropdown.previousElementSibling.innerText} - ${dropdown.value}`)
     }
+}
+
+const appendDownloadLink = (link, text) => {
+    const downloadLinks = document.getElementById('download-links')
+    const a = document.createElement('a')
+    a.className = 'btn btn-primary'
+    a.target = '_blank'
+    a.href = link
+    a.innerHTML = `<i class="fa-solid fa-link" style="margin-right: 3px"></i>${text}`
+
+    downloadLinks.appendChild(a)
 }
 
 const onMount = () => {
