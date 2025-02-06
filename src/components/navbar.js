@@ -33,7 +33,7 @@ const navbarCode = `
                     >Distros</a>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="${linkPrefix}distros.html">Distro list</a>
+                            <a class="dropdown-item" href="${linkPrefix}distros.html">Distro List</a>
                         </li>
                         <li>
                             <a class="dropdown-item" href="${linkPrefix}distros-history">History</a>

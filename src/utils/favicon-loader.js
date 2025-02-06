@@ -21,7 +21,10 @@ const addFaviconLinks = (icons, manifestPath) => {
 
 // Load icons dynamically
 document.addEventListener('DOMContentLoaded', () => {
-    const manifestPath = '/assets/favicon_io/site.webmanifest'
+    const manifestPath =
+        (window.location.hostname.includes('github')
+            ? '/LinuxRicingGuide'
+            : '') + '/assets/favicon_io/site.webmanifest'
 
     fetch(manifestPath)
         .then((response) => response.json())
