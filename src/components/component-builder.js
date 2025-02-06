@@ -61,7 +61,8 @@ class Component {
                 attr.name !== 'data-component' // do not collect the data-component of old syntax
             ) {
                 const prop = attr.name.replace('data-', '')
-                this.props[prop] = attr.value
+                // replace single quotes with double quotes, because JSON.parse() does not accept single quotes
+                this.props[prop] = attr.value.replace(/'/g, '"')
             }
         }
     }
