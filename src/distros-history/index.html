@@ -1,114 +1,103 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <script src="../utils/dependency-loader.js"></script>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <script src="../utils/dependency-loader.js"></script>
 
-        <!-- Components -->
-        <script
-            async
-            type="module"
-            src="../components/card-big-image.js"
-        ></script>
-        <script async type="module" src="../components/navbar.js"></script>
-        <!-- Components -->
+    <!-- Components -->
+    <script
+        async
+        type="module"
+        src="../components/card-small-image-distro.js"
+    ></script>
+    <script async type="module" src="../components/navbar.js"></script>
+    <!-- Components -->
 
-        <!-- Meta -->
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Distros Histories</title>
-        <!-- Meta -->
+    <!-- Meta -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+        name="description"
+        content="A list of popular Linux distributions and their histories."
+    />
+    <meta name="keywords" content="Linux, Distributions" />
+    <title>Distros History</title>
+    <!-- Meta -->
 
-        <link rel="stylesheet" href="../bootstrap-style-extension.css" />
-        <script src="/src/utils/favicon-loader.js"></script>
-    </head>
-    <body data-bs-theme="dark">
-        <navbar></navbar>
-        <div class="container top-lvl">
-            <div class="card bg-dark text-light p-4 mb-4 mt-4">
-                <article>
-                    <section>
-                        <h2 class="mb-3">
-                            <i class="fa-solid fa-circle-info"></i> History
-                        </h2>
-                    </section>
-                </article>
-            </div>
-            <div class="card content-wrapper mb-4">
-                <div class="row row-cols-1 row-cols-md-4 g-4">
-                    <div class="col">
-                        <card-big-image
-                            data-image-path="../../assets/img/card-distributions.webp"
-                            data-title="Distributions"
-                            data-description="List of some linux distributions you can use. These contain common but also some exotic ones."
-                            data-link="distros.html"
-                        ></card-big-image>
-                    </div>
+    <link rel="stylesheet" href="../bootstrap-style-extension.css" />
+    <link rel="stylesheet" href="../style-histories.css" />
+    <script src="/src/utils/favicon-loader.js"></script>
+</head>
+<body data-bs-theme="dark">
+<navbar></navbar>
+<div class="container top-lvl">
+    <div class="card bg-dark text-light p-4 mb-4 mt-4">
+        <article>
+            <section>
+                <h2 class="mb-3">
+                    <i class="fa-solid fa-circle-info"></i> History of Distrobutions
+                </h2>
 
-                    <div class="col">
-                        <card-big-image
-                            data-image-path="../../assets/img/card-package-managers.webp"
-                            data-title="Package Managers"
-                            data-description="Selection of Package Managers you can use to install software on your linux machine."
-                            data-link="package-managers.html"
-                        ></card-big-image>
-                    </div>
+                <div class="customContainer">
 
-                    <div class="col">
-                        <card-big-image
-                            data-image-path="../../assets/img/card-setups.webp"
-                            data-title="Setups"
-                            data-description="Showcase of our personal setups we use on our machines. Feel free to get inspired and copy some aspects."
-                            data-link="personal-setups.html"
-                        ></card-big-image>
-                    </div>
+                    <img src="/assets/img-distros-history/linux-penguin.webp" alt="Linux Penguin" width="120"
+                         align="right">
 
-                    <div class="col">
-                        <card-big-image
-                            data-image-path="../../assets/img/card-window-manager.webp"
-                            data-title="Window-Managers"
-                            data-description="Controls the appearance, and behavior of application windows in a graphical interface."
-                            data-link="window-managers.html"
-                        ></card-big-image>
+                    <div class="paragraph">
+                        <p>
+                            In this section, we will take a look at the history of some of the most popular Linux
+                            distributions.
+
+                            <br>
+
+                            Some of the most important distributions are:
+                        <ul>
+                            <li>Debian</li>
+                            <li>Ubuntu</li>
+                            <li>Arch Linux</li>
+                            <li>and many more...</li>
+                        </ul>
+
+                        These distributions are the pioneers of the Linux world and have a rich history full of
+                        interesting
+                        facts and events.
+                        </p>
                     </div>
                 </div>
-                <div class="row row-cols-1 row-cols-md-4 g-4 mt-4">
-                    <div class="col">
-                        <card-big-image
-                            data-image-path="../../assets/img/card-terminals.webp"
-                            data-title="Terminals"
-                            data-description="List of linux terminals you can install."
-                            data-link="terminals.html"
-                        ></card-big-image>
-                    </div>
+            </section>
+        </article>
+    </div>
+    <div class="row">
+        <card-small-image-distro
+            data-title="Ubuntu"
+            data-description="Ubuntu is a free and open-source Linux distribution based on Debian. Ubuntu is officially
+             released in three editions: Desktop, Server, and Core for Internet of things devices and robots. All the
+              editions can run on the computer alone, or in a virtual machine."
+            data-link="ubuntu-history.html"
+            data-history-link="distros-history/ubuntu-history.html"
+            data-image-path="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flogos-marcas.com%2Fwp-content%2Fuploads%2F2020%2F11%2FUbuntu-Emblema.png&f=1&nofb=1&ipt=9131eaa826134a968cf6350785fe0819a49120ed17985e272f01b0b51452798a&ipo=images"
+        ></card-small-image-distro>
 
-                    <div class="col">
-                        <card-big-image
-                            data-image-path="../../assets/img/card-terminal-themes.webp"
-                            data-title="Terminal themes"
-                            data-description="A small selection of themes for your terminal."
-                            data-link="terminal-themes.html"
-                        ></card-big-image>
-                    </div>
+        <card-small-image-distro
+            data-title="Debian"
+            data-description="Debian is a Unix-like operating system consisting entirely of free software. Ian Murdock
+             started the Debian Project on August 16, 1993. Debian 0.01 was released on September 15, 1993, and the
+              first stable version, 1.1, was released on June 17, 1996."
+            data-link="debian-history.html"
+            data-history-link="distros-history/debian-history.html"
+            data-image-path="https://logodix.com/logo/1171807.png"
+        ></card-small-image-distro>
 
-                    <div class="col">
-                        <card-big-image
-                            data-image-path="../../assets/img/card-shells.webp"
-                            data-title="Shells"
-                            data-description="Some shells you can use on your linux machine."
-                            data-link="shells.html"
-                        ></card-big-image>
-                    </div>
-
-                    <div class="col">
-                        <card-big-image
-                            data-image-path="../../assets/img/card-desktop-environments.webp"
-                            data-title="Desktop Environments"
-                            data-description="Desktop Environments are the graphical interfaces that you see on your screen."
-                            data-link="desktop-environments.html"
-                        ></card-big-image>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </body>
+        <card-small-image-distro
+            data-title="Arch Linux"
+            data-description="Arch Linux is a Linux distribution for computers with x86-64 processors. Arch Linux
+             adheres to five principles: simplicity, modernity, pragmatism, user centrality, and versatility. In
+              practice, this means the project attempts to have minimal distribution-specific changes, minimal
+               breakage with updates, pragmatic over ideological design choices, user-friendliness, and minimal bloat."
+            data-link="arch-history.html"
+            data-history-link="distros-history/arch-history.html"
+            data-image-path="https://wiki.installgentoo.com/images/f/f9/Arch-linux-logo.png"
+        ></card-small-image-distro>
+    </div>
+</div>
+</body>
 </html>
