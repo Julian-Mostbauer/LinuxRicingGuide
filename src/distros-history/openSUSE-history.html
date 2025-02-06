@@ -19,6 +19,7 @@
         <!-- Meta -->
 
         <link rel="stylesheet" href="../bootstrap-style-extension.css" />
+        <link rel="stylesheet" href="style-histories.css" />
         <script src="/src/utils/favicon-loader.js"></script>
     </head>
     <body data-bs-theme="dark">
@@ -28,21 +29,25 @@
                 <article>
                     <section class="mb-4">
                         <h2 class="mb-3"><i></i> openSUSE History</h2>
-                        <p>
-                            openSUSE is a Linux distribution sponsored by SUSE
-                            Software Solutions Germany GmbH and other companies.
-                            It is widely used throughout the world. The focus of
-                            its development is creating usable open-source tools
-                            for software developers and system administrators,
-                            while providing a user-friendly desktop and
-                            feature-rich server environment.
-                        </p>
+                        <div class="customContainer">
+                            <div class="paragraph">
+                                <p>
+                                    openSUSE is a Linux distribution sponsored by SUSE
+                                    Software Solutions Germany GmbH and other companies.
+                                    It is widely used throughout the world. The focus of
+                                    its development is creating usable open-source tools
+                                    for software developers and system administrators,
+                                    while providing a user-friendly desktop and
+                                    feature-rich server environment.
+                                </p>
+                            </div>
+                            <img src="https://static.opensuse.org/favicon.svg"
+                                 width="250" height="120" align="right">
+                        </div>
                     </section>
 
                     <section>
-                        <h2 class="mb-3">
-                            <i></i> Year-by-Year Summary of openSUSE's History
-                        </h2>
+                        <div class="container">
                         <ul class="list-group list-group-flush">
                             <li
                                 class="list-group-item bg-transparent text-light"
@@ -134,6 +139,7 @@
                                 </p>
                             </li>
                         </ul>
+                        </div>
                     </section>
                 </article>
             </div>
