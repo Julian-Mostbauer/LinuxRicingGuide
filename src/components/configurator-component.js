@@ -6,7 +6,7 @@ const cardCode = `
     <form id="configurator">
         
     </form>
-    <div id="download-links" style="display: flex; flex-direction: column">
+    <div id="links" style="display: flex; flex-direction: column">
     </div>
 </div>
 `
@@ -44,15 +44,30 @@ const ConfiguratorData = {
             'Xfce': 'https://xfce.org/download', // Works
         },
         'Package Managers': {
-            'Snap': 'https://snapcraft.io/docs/installing-snapd',
-            'Flatpak': 'https://flatpak.org/setup/',
-            'APT': 'https://packages.debian.org/bookworm/apt',
-            'YUM': 'http://yum.baseurl.org/',
-            'Pacman': 'https://wiki.archlinux.org/index.php/Pacman',
-            'Zypper': 'https://en.opensuse.org/Portal:Zypper',
-            'DNF': 'https://dnf.readthedocs.io/en/latest/index.html',
-            'Portage': 'https://wiki.gentoo.org/wiki/Portage#Installation',
-        }
+            'Snap': 'https://snapcraft.io/docs/installing-snapd', // Works
+            'Flatpak': 'https://flatpak.org/setup/', // Works
+            'APT': 'https://packages.debian.org/bookworm/apt', // Works
+            'YUM': 'http://yum.baseurl.org/', // Works
+            'Pacman': 'https://wiki.archlinux.org/index.php/Pacman', // Works
+            'Zypper': 'https://en.opensuse.org/Portal:Zypper', // Works
+            'DNF': 'https://dnf.readthedocs.io/en/latest/index.html', // Works
+            'Portage': 'https://wiki.gentoo.org/wiki/Portage#Installation', // Works
+        },
+        'Shells': {
+            'Bash': 'https://www.gnu.org/software/bash/', // Works
+            'Zsh': 'https://ohmyz.sh/#install', // Works
+            'Fish': 'https://fishshell.com/', // Works
+        },
+        'Terminals': {
+            'GNOME Terminal': 'https://help.gnome.org/users/gnome-terminal/stable/', // Works
+            'Konsole': 'https://konsole.kde.org/download.html', // Works
+            'xfce4-terminal': 'https://docs.xfce.org/apps/xfce4-terminal/start', // Works
+        },
+        'Terminal Themes': {
+            'Nord': 'https://github.com/nordtheme/nord', // Works
+            'Dracula': 'https://github.com/dracula/dracula-theme', // Works
+            'Solarized': 'https://github.com/altercation/solarized', // Works
+        },
     }
 }
 
@@ -62,8 +77,8 @@ const onSubmit = (event) => {
     const form = document.getElementById('configurator')
     const dropdowns = form.getElementsByTagName('select')
 
-    const downloadLinks = document.getElementById('download-links')
-    downloadLinks.innerHTML = '<h5 class="card-title mt-3">Download Links</h5>'
+    const downloadLinks = document.getElementById('links')
+    downloadLinks.innerHTML = '<h5 class="card-title mt-3">Links</h5>'
 
     for (const dropdown of dropdowns) {
         const downloadLink = ConfiguratorData.dropdowns[dropdown.previousElementSibling.innerText][dropdown.value]
@@ -73,7 +88,7 @@ const onSubmit = (event) => {
 }
 
 const appendDownloadLink = (link, text) => {
-    const downloadLinks = document.getElementById('download-links')
+    const downloadLinks = document.getElementById('links')
     const a = document.createElement('a')
     a.className = 'btn btn-primary mt-3'
     a.target = '_blank'
@@ -87,7 +102,7 @@ const onMount = () => {
     const form = document.getElementById('configurator')
     for (const key in ConfiguratorData.dropdowns) {
         const div = document.createElement('div')
-        div.className = 'form-group'
+        div.className = 'form-group mt-2'
 
         const label = document.createElement('label')
         label.for = `${key}-select`
