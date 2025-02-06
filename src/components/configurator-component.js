@@ -14,8 +14,29 @@ const cardCode = `
 const ConfiguratorData = {
     dropdowns: {
         'Distros': {
-            'Arch': 'https://www.archlinux.de/download/',
-            'Ubuntu': 'https://ubuntu.com/download/desktop',
+            'Ubuntu': 'https://ubuntu.com/download', // Works
+            'Debian': 'https://www.debian.org/distrib/', // Works
+            'Arch Linux': 'https://www.archlinux.de/download/', // Works
+            'Manjaro': 'https://manjaro.org/products', // Works
+            'Pop!_OS': 'https://pop.system76.com/', // Works
+            'Linux Mint': 'https://linuxmint.com/download.php', // Works
+            'Elementary OS': 'https://elementary.io/', // Works
+            'CentOS': 'https://www.centos.org/download/', // Works
+            'Fedora': 'https://fedoraproject.org/workstation/download', // Works
+            'Void Linux': 'https://voidlinux.org/download/', // Works
+            'openSUSE': 'https://get.opensuse.org/leap/15.6/#download', // Works
+            'Qubes OS': 'https://www.qubes-os.org/downloads/', // Works
+            'Slackware': 'https://mirrors.slackware.com/slackware/slackware-iso/', // Works
+            'Gentoo': 'https://www.gentoo.org/downloads/', // Works
+            'Alpine Linux': 'https://alpinelinux.org/downloads/', // Works
+            'MX Linux': 'https://mxlinux.org/download-links/', // Works
+            'Ubuntu Studio': 'https://ubuntustudio.org/download/', // Works
+            'Parrot Security OS': 'https://parrotsec.org/download/', // Works
+            'Kali Linux': 'https://www.kali.org/get-kali/#kali-platforms', // Works
+            'BlackArch Linux': 'https://blackarch.org/downloads.html', // Works
+            'Artix Linux': 'https://artixlinux.org/download.php', // Works
+            'EndeavourOS': 'https://endeavouros.com/', // Works
+            'Garuda Linux': 'https://garudalinux.org/downloads', // Works
         }
     }
 }
