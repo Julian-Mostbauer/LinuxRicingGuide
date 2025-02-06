@@ -6,35 +6,39 @@ const code = `
 `
 
 const onMount = (props) => {
-  const gridElement = document.getElementById(
-    `${props['component-unique-id']}`
-  )
-  const imageList = JSON.parse(props['image-list'])
-  const [colCount, rowCount] = props['dimensions'].split('x')
-
-  if (imageList.length !== colCount * rowCount) {
-    throw new Error(
-      'The number of images does not match the grid dimensions'
+    const gridElement = document.getElementById(
+        `${props['component-unique-id']}`
     )
-  }
+    const imageList = JSON.parse(props['image-list'])
+    const [colCount, rowCount] = props['dimensions'].split('x').map(Number)
 
-  for (let row = 0; row < rowCount; row++) {
-    const rowElement = document.createElement('div')
-    rowElement.classList.add('row')
-
-    for (let col = 0; col < colCount; col++) {
-      const colElement = document.createElement('div')
-      colElement.classList.add('col')
-
-      const imgElement = document.createElement('img')
-      imgElement.src = imageList[row * colCount + col]
-      colElement.appendChild(imgElement)
-
-      rowElement.appendChild(colElement)
+    // Validate the number of images matches the grid dimensions
+    if (imageList.length !== colCount * rowCount) {
+        throw new Error(
+            'The number of images does not match the grid dimensions'
+        )
     }
 
-    gridElement.appendChild(rowElement)
-  }
+    // Create the grid container
+    gridElement.style.display = 'grid'
+    gridElement.style.gridTemplateColumns = `repeat(${colCount}, 1fr)`
+    gridElement.style.gridTemplateRows = `repeat(${rowCount}, 1fr)`
+    gridElement.style.gap = '10px' // Adjust the gap between cells as needed
+
+    // Populate the grid with images
+    imageList.forEach((imageUrl, index) => {
+        const gridCell = document.createElement('div')
+        gridCell.className = "grid-cell"
+        const imgElement = document.createElement('img')
+        imgElement.src = imageUrl
+        imgElement.alt = `Image ${index + 1}`
+        imgElement.style.width = '100%' // Ensure the image fills the cell
+        imgElement.style.height = '100%'
+        imgElement.style.objectFit = 'cover' // Maintain aspect ratio
+        gridCell.appendChild(imgElement)
+
+        gridElement.appendChild(gridCell)
+    })
 }
 
 const gridBuilder = new ComponentBuilder('image-grid', code)

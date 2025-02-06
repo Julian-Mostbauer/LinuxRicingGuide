@@ -7,6 +7,24 @@ nav {
     margin-bottom: 10rem;
 }
 
+/* Container for the grid */
+.grid-container {
+    width: 100%; /* Adjust as needed */
+    height: 100%; /* Adjust as needed */
+    max-width: 800px; /* Optional: Set a max width for the grid */
+    margin: 0 auto; /* Center the grid */
+}
+
+/* Individual grid cells */
+.grid-container img {
+    border: 1px solid #ddd; /* Optional: Add a border to each cell */
+    box-sizing: border-box; /* Ensure borders are included in the cell size */
+}
+
+.grid-cell {
+    border: 2px solid red;
+}
+
 .btn {
     border-radius: 20rem;
 }
