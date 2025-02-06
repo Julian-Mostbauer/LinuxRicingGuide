@@ -42,6 +42,16 @@ const ConfiguratorData = {
             'GNOME': 'https://www.gnome.org/getting-gnome/', // Works
             'KDE': 'https://kde.org/distributions/', // Works
             'Xfce': 'https://xfce.org/download', // Works
+        },
+        'Package Managers': {
+            'Snap': 'https://snapcraft.io/docs/installing-snapd',
+            'Flatpak': 'https://flatpak.org/setup/',
+            'APT': 'https://packages.debian.org/bookworm/apt',
+            'YUM': 'http://yum.baseurl.org/',
+            'Pacman': 'https://wiki.archlinux.org/index.php/Pacman',
+            'Zypper': 'https://en.opensuse.org/Portal:Zypper',
+            'DNF': 'https://dnf.readthedocs.io/en/latest/index.html',
+            'Portage': 'https://wiki.gentoo.org/wiki/Portage#Installation',
         }
     }
 }
