@@ -6,7 +6,7 @@ const cardCode = `
     <form id="configurator">
         
     </form>
-    <div id="download-links">
+    <div id="download-links" style="display: flex; flex-direction: column">
     </div>
 </div>
 `
@@ -37,6 +37,11 @@ const ConfiguratorData = {
             'Artix Linux': 'https://artixlinux.org/download.php', // Works
             'EndeavourOS': 'https://endeavouros.com/', // Works
             'Garuda Linux': 'https://garudalinux.org/downloads', // Works
+        },
+        'Desktop Environments': {
+            'GNOME': 'https://www.gnome.org/getting-gnome/', // Works
+            'KDE': 'https://kde.org/distributions/', // Works
+            'Xfce': 'https://xfce.org/download', // Works
         }
     }
 }
@@ -60,7 +65,7 @@ const onSubmit = (event) => {
 const appendDownloadLink = (link, text) => {
     const downloadLinks = document.getElementById('download-links')
     const a = document.createElement('a')
-    a.className = 'btn btn-primary'
+    a.className = 'btn btn-primary mt-3'
     a.target = '_blank'
     a.href = link
     a.innerHTML = `<i class="fa-solid fa-link" style="margin-right: 3px"></i>${text}`
