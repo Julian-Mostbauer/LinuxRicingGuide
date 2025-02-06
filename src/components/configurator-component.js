@@ -68,6 +68,13 @@ const ConfiguratorData = {
             'Dracula': 'https://github.com/dracula/dracula-theme', // Works
             'Solarized': 'https://github.com/altercation/solarized', // Works
         },
+        'Window Managers': {
+            'Hyprland': 'https://wiki.hyprland.org/Getting-Started/Installation/', // Works
+            'i3': 'https://i3wm.org/downloads/', // Works
+            'Openbox': 'http://openbox.org', // Works
+            'Awesome': 'https://awesomewm.org/download/', // Works
+            'bspwm': 'https://wiki.archlinux.org/title/Bspwm', // Works
+        }
     }
 }
 
