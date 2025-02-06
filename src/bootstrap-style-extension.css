@@ -22,6 +22,11 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: ease-in-out 0.2s
+}
+
+.grid-cell:hover{
+    background-color: #2b3035;
 }
 
 /* Image styling */

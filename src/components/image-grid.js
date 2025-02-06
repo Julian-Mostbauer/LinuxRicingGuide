@@ -35,6 +35,10 @@ const onMount = (props) => {
         const gridCell = document.createElement('div')
         gridCell.className = 'grid-cell'
 
+        gridCell.addEventListener('click', () => {
+            window.open(pageLink, '_blank') // Open link in a new tab
+        })
+
         const imgElement = document.createElement('img')
 
         imgElement.src = imageUrl
