@@ -173,7 +173,6 @@ const onMount = async () => {
                     listItem.className = 'list-group-item'
                     listItem.innerHTML = `
             <a href="${linkPrefix}${result.file}" target="_blank">${result.file}</a>
-            <span class="text-muted"> - Line ${result.line}</span>
             <p class="mb-0">${result.content}</p>
           `
                     searchResultsList.appendChild(listItem)

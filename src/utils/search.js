@@ -36,10 +36,9 @@ const files = [
 ]
 files.map((file) => `/src/${file}`)
 
-const CACHE_KEY = 'fileCache' // Key for storing cache in localStorage
+const CACHE_KEY = 'fileCache'
 const CACHE_EXPIRATION_TIME = 5 * 60 * 1000 // 5 minutes in milliseconds
 
-// Load the cache from localStorage on initialization
 const fileCache = new Map(JSON.parse(localStorage.getItem(CACHE_KEY)) || [])
 
 // Clean up expired entries on load
@@ -90,22 +89,17 @@ async function getFileContent(file) {
 
 async function searchDocuments(searchString) {
     const fileContents = await Promise.all(
-        files.map((file) =>
-            getFileContent(file).then((text) => ({ file, text }))
-        )
+        files.map(async (file) => {
+            const text = await getFileContent(file)
+            return { file, text }
+        })
     )
 
-    const results = []
-
-    fileContents.forEach(({ file, text }) => {
-        text.split('\n').forEach((line, i) => {
-            if (line.includes(searchString)) {
-                results.push({ file, line: i, content: line })
-            }
-        })
-    })
-
-    return results
+    return fileContents.flatMap(({ file, text }) =>
+        text.split('\n')
+            .filter((line) => line.includes(searchString))
+            .map((line) => ({ file, content: line }))
+    )
 }
 
 export default searchDocuments
