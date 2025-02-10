@@ -1,30 +1,54 @@
 const files = [
-    'shells.html',
-    'index.html',
-    'terminals.html',
     'configurator.html',
-    'package-managers.html',
-    'terminal-themes.html',
     'desktop-environments.html',
-    'personal-setups.html',
-    'window-managers.html',
     'distros.html',
+    'index.html',
+    'package-managers.html',
+    'personal-setups.html',
+    'shells.html',
+    'terminals.html',
+    'terminal-themes.html',
+    'window-managers.html',
+    'distros-history/alpine-linux-history.html',
+    'distros-history/arch-history.html',
+    'distros-history/artix-linux-history.html',
+    'distros-history/black-arch-linux.html',
+    'distros-history/cent-os-history.html',
+    'distros-history/debian-history.html',
+    'distros-history/elementary-os-history.html',
+    'distros-history/endeavour-os-history.html',
+    'distros-history/fedora-history.html',
+    'distros-history/garuda-linux-history.html',
+    'distros-history/gentoo-history.html',
+    'distros-history/index.html',
+    'distros-history/kali-linux-history.html',
+    'distros-history/manjaro-history.html',
+    'distros-history/mint-history.html',
+    'distros-history/mx-linux-history.html',
+    'distros-history/openSUSE-history.html',
+    'distros-history/parrot-security-os-history.html',
+    'distros-history/pop!-os-history.html',
+    'distros-history/qubes-os-history.html',
+    'distros-history/slackware-history.html',
+    'distros-history/ubuntu-history.html',
+    'distros-history/ubuntu-studio-history.html',
+    'distros-history/void-linux-history.html',
 ]
 files.map((file) => `/src/${file}`)
 
-const CACHE_KEY = "fileCache"; // Key for storing cache in localStorage
-const CACHE_EXPIRATION_TIME = 5 * 60 * 1000; // 5 minutes in milliseconds
+const CACHE_KEY = 'fileCache' // Key for storing cache in localStorage
+const CACHE_EXPIRATION_TIME = 5 * 60 * 1000 // 5 minutes in milliseconds
 
 // Load the cache from localStorage on initialization
-const fileCache = new Map(JSON.parse(localStorage.getItem(CACHE_KEY)) || []);
+const fileCache = new Map(JSON.parse(localStorage.getItem(CACHE_KEY)) || [])
 
 // Clean up expired entries on load
-const currentTime = Date.now();
+const currentTime = Date.now()
 
 // eslint-disable-next-line no-unused-vars
 for (const [file, { _, timestamp }] of fileCache) {
     if (currentTime - timestamp >= CACHE_EXPIRATION_TIME) {
-        fileCache.delete(file);
+        fileCache.delete(file)
     }
 }
 
@@ -33,35 +57,35 @@ function saveCacheToLocalStorage() {
     localStorage.setItem(
         CACHE_KEY,
         JSON.stringify(Array.from(fileCache.entries()))
-    );
+    )
 }
 
 // Fetch file content with caching
 async function getFileContent(file) {
-    const currentTime = Date.now();
+    const currentTime = Date.now()
 
     // Check if the file content is already cached and not expired
     if (fileCache.has(file)) {
-        const { content, timestamp } = fileCache.get(file);
+        const { content, timestamp } = fileCache.get(file)
         if (currentTime - timestamp < CACHE_EXPIRATION_TIME) {
-            return content;
+            return content
         }
         // Remove expired cache entry
-        fileCache.delete(file);
+        fileCache.delete(file)
     }
 
     // Fetch the file content
-    const response = await fetch(file);
+    const response = await fetch(file)
     if (!response.ok) {
-        throw new Error(`Failed to fetch file: ${file}`);
+        throw new Error(`Failed to fetch file: ${file}`)
     }
-    const text = await response.text();
+    const text = await response.text()
 
     // Store the content in the cache with a timestamp
-    fileCache.set(file, { content: text, timestamp: Date.now() });
-    saveCacheToLocalStorage(); // Save the updated cache
+    fileCache.set(file, { content: text, timestamp: Date.now() })
+    saveCacheToLocalStorage() // Save the updated cache
 
-    return text;
+    return text
 }
 
 async function searchDocuments(searchString) {
@@ -69,19 +93,19 @@ async function searchDocuments(searchString) {
         files.map((file) =>
             getFileContent(file).then((text) => ({ file, text }))
         )
-    );
+    )
 
-    const results = [];
+    const results = []
 
     fileContents.forEach(({ file, text }) => {
         text.split('\n').forEach((line, i) => {
             if (line.includes(searchString)) {
-                results.push({ file, line: i, content: line });
+                results.push({ file, line: i, content: line })
             }
-        });
-    });
+        })
+    })
 
-    return results;
+    return results
 }
 
-export default searchDocuments;
+export default searchDocuments
