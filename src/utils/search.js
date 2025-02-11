@@ -87,7 +87,7 @@ async function getFileContent(file) {
     return text
 }
 
-async function searchDocuments(searchString) {
+async function searchDocuments(searchString, useRegex) {
     const fileContents = await Promise.all(
         files.map(async (file) => {
             const text = await getFileContent(file)
@@ -95,10 +95,15 @@ async function searchDocuments(searchString) {
         })
     )
 
+    const regex = useRegex ? new RegExp(searchString, 'i') : null
+
     return fileContents.flatMap(({ file, text }) =>
-        text.split('\n')
-            .filter((line) => line.includes(searchString))
-            .map((line) => ({ file, content: line }))
+        text
+            .split('\n')
+            .filter((line) =>
+                useRegex ? regex.test(line) : line.includes(searchString)
+            )
+            .map((line) => ({ file: file, content: line }))
     )
 }
 
