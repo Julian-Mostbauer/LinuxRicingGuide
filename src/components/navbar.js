@@ -164,17 +164,30 @@ const onMount = async () => {
             )
             const results = await searchDocuments(query)
 
+            const createListEntry = (result) => {
+                const listItem = document.createElement('li')
+                listItem.className = 'list-group-item'
+
+                const link = document.createElement('a')
+                link.href = `${linkPrefix}${result.file}`
+                link.target = '_blank'
+                link.textContent = result.file
+
+                const content = document.createElement('p')
+                content.className = 'mb-0'
+                content.textContent = result.content
+
+                listItem.appendChild(link)
+                listItem.appendChild(content)
+
+                return listItem
+            }
+
             if (results.length === 0) {
                 searchResultsList.innerHTML =
                     '<li class="list-group-item">No results found.</li>'
             } else {
-                results.forEach((result) => {
-                    const listItem = document.createElement('li')
-                    listItem.className = 'list-group-item'
-                    listItem.innerHTML = `
-            <a href="${linkPrefix}${result.file}" target="_blank">${result.file}</a>
-            <p class="mb-0">${result.content}</p>
-          `
+                results.map(createListEntry).forEach((listItem) => {
                     searchResultsList.appendChild(listItem)
                 })
             }
