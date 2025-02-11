@@ -152,3 +152,7 @@ nav {
     box-shadow: none;
     border-color: var(--bs-primary);
 }
+
+#navbar-search-input::-webkit-search-cancel-button {
+    display: none;
+}
