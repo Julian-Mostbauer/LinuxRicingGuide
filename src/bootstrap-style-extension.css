@@ -22,10 +22,10 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: ease-in-out 0.2s
+    transition: ease-in-out 0.2s;
 }
 
-.grid-cell:hover{
+.grid-cell:hover {
     background-color: #2b3035;
 }
 
@@ -129,4 +129,26 @@ nav {
 
 .dropdown-item:active {
     background-image: var(--gradient-primary);
+}
+
+.regex-toggle {
+    cursor: pointer;
+    margin-right: 1rem;
+    transition: all 0.2s ease;
+    background: transparent;
+    border-radius: 100rem;
+}
+
+.regex-toggle:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.regex-toggle[aria-pressed='true'] {
+    background: rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 0 0 1px var(--bs-border-color-translucent);
+}
+
+#navbar-search-input:focus {
+    box-shadow: none;
+    border-color: var(--bs-primary);
 }

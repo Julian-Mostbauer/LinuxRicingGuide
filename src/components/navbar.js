@@ -23,25 +23,101 @@ const navbarCode = `
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <!-- Existing dropdown menus -->
+            <li class="nav-item dropdown">
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >Distros</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="${linkPrefix}distros.html">Distro List</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="${linkPrefix}distros-history">History</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >Desktop</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="${linkPrefix}window-managers.html">Window Managers</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="${linkPrefix}desktop-environments.html">Desktop Environments</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >Terminal</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="${linkPrefix}terminals.html">Terminals</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="${linkPrefix}terminal-themes.html">Terminal Themes</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="${linkPrefix}shells.html">Shells</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a
+                        class="nav-link dropdown-toggle"
+                        href="#"
+                        role="button"
+                        data-bs-toggle="dropdown"
+                        aria-expanded="false"
+                    >Software</a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item" href="${linkPrefix}package-managers.html">Package Managers</a>
+                            <a class="dropdown-item" href="${linkPrefix}configurator.html">Configurator</a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="${linkPrefix}personal-setups.html">Our Setups</a>
+                </li>
+    
             </ul>
-            <form class="d-flex align-items-center" role="search" id="navbar-search-form">
-                <input
-                    class="form-control me-2"
-                    id="navbar-search-input"
-                    type="search"
-                    placeholder="Search"
-                    aria-label="Search"
-                />
-                <div class="form-check form-switch me-2">
+            <form class="d-flex" role="search" id="navbar-search-form">
+                <div class="position-relative" style="width: 300px;">
                     <input
-                        class="form-check-input"
-                        type="checkbox"
-                        id="regex-toggle"
+                        class="form-control pe-4"
+                        id="navbar-search-input"
+                        type="search"
+                        placeholder="Search"
+                        aria-label="Search"
+                        style="padding-right: 40px;"
                     />
-                    <label class="form-check-label" for="regex-toggle">Regex</label>
+                    <button 
+                        type="button" 
+                        class="btn btn-sm btn-outline-secondary border-0 position-absolute top-50 end-0 translate-middle-y regex-toggle"
+                        id="regex-toggle"
+                        title="Use Regular Expression"
+                        aria-pressed="false"
+                    >
+                        <i class="fa-solid fa-asterisk fa-xs"></i>
+                    </button>
                 </div>
-                <button class="btn btn-primary" type="button" id="navbar-search-button">
+                <button class="btn btn-primary ms-2" type="button" id="navbar-search-button">
                     <i class="fa-solid fa-magnifying-glass"></i>
                 </button>
             </form>
@@ -74,14 +150,30 @@ const navbarCode = `
 const onMount = async () => {
     const searchForm = document.getElementById('navbar-search-form')
     const searchInput = document.getElementById('navbar-search-input')
-    const regexToggle = document.getElementById('regex-toggle')
 
     const searchResultsList = document.getElementById('search-results-list')
     const searchQueryText = document.getElementById('search-query-text')
 
+    const regexToggle = document.getElementById('regex-toggle')
+    let regexEnabled = false
+
+    // Toggle regex button state
+    regexToggle.addEventListener('click', () => {
+        regexEnabled = !regexEnabled
+        regexToggle.setAttribute('aria-pressed', regexEnabled)
+        regexToggle.classList.toggle('active', regexEnabled)
+    })
+
     const performSearch = async () => {
         const query = searchInput.value.trim()
-        const useRegex = regexToggle.checked // Check if regex is enabled
+
+        // Update search text in modal to show regex state
+        searchQueryText.innerHTML = `Search results for: "${query}" 
+            ${
+                regexEnabled
+                    ? '<span class="text-muted small">(RegExp enabled)</span>'
+                    : ''
+            }`
 
         if (!query) {
             alert('Please enter a search query.')
@@ -101,7 +193,7 @@ const onMount = async () => {
             const { default: searchDocuments } = await import(
                 '../utils/search.js'
             )
-            const results = await searchDocuments(query, useRegex) // Pass regex toggle state
+            const results = await searchDocuments(query, regexEnabled) // Pass regex toggle state
 
             const createListEntry = (result) => {
                 const listItem = document.createElement('li')
@@ -142,6 +234,13 @@ const onMount = async () => {
     searchForm.addEventListener('submit', (event) => {
         event.preventDefault()
         performSearch()
+    })
+
+    document.addEventListener('keydown', (e) => {
+        if ((e.altKey || e.metaKey) && e.key.toLowerCase() === 'r') {
+            e.preventDefault()
+            regexToggle.click()
+        }
     })
 
     const searchButton = document.getElementById('navbar-search-button')
