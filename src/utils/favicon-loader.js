@@ -1,3 +1,16 @@
+const adeptLink = (icon) => {
+    // if the site is being served locally for development, include the frontend path
+    // on the server, only the frontend path is served used so we don't need to include it
+    if (
+        window.location.origin.includes('localhost') ||
+        window.location.origin.includes('127.0.0.1')
+    ) {
+        icon = '/frontend' + icon
+    }
+    icon = window.location.origin + icon
+    return icon
+}
+
 const addFaviconLinks = (icons, manifestPath) => {
     const createLink = ({ rel, sizes, href, type }) => {
         const link = document.createElement('link')
@@ -21,7 +34,7 @@ const addFaviconLinks = (icons, manifestPath) => {
 
 // Load icons dynamically
 document.addEventListener('DOMContentLoaded', () => {
-    const manifestPath = window.location.origin + '/frontend/assets/favicon_io/site.webmanifest'
+    const manifestPath = adeptLink('/assets/favicon_io/site.webmanifest')
 
     fetch(manifestPath)
         .then((response) => response.json())
@@ -29,7 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const icons = data.icons.map((icon) => ({
                 rel: 'icon',
                 sizes: icon.sizes,
-                href: window.location.origin + "/frontend" + icon.src, // Correct the href construction
+                href: adeptLink(icon.src), // Correct the href construction
                 type: icon.type,
             }))
 
@@ -37,18 +50,19 @@ document.addEventListener('DOMContentLoaded', () => {
             icons.push(
                 {
                     rel: 'apple-touch-icon',
-                    href: window.location.origin + '/frontend/assets/favicon_io/apple-touch-icon.png',
+                    href: adeptLink('/assets/favicon_io/apple-touch-icon.png'),
                 },
                 {
                     rel: 'icon',
                     sizes: '32x32',
-                    href: window.location.origin + '/frontend/assets/favicon_io/favicon-32x32.png',
+                    href: adeptLink('/assets/favicon_io/favicon-32x32.png'),
+
                     type: 'image/png',
                 },
                 {
                     rel: 'icon',
                     sizes: '16x16',
-                    href: window.location.origin + '/frontend/assets/favicon_io/favicon-16x16.png',
+                    href: adeptLink('/assets/favicon_io/favicon-16x16.png'),
                     type: 'image/png',
                 }
             )
