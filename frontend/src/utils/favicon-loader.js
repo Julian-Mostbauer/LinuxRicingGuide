@@ -2,7 +2,7 @@ const addFaviconLinks = (icons, manifestPath) => {
     const createLink = ({ rel, sizes, href, type }) => {
         const link = document.createElement('link')
         link.rel = rel
-        link.href = href
+        link.href = href // Use the href directly
         if (sizes) link.sizes = sizes
         if (type) link.type = type
         document.head.appendChild(link)
@@ -21,10 +21,7 @@ const addFaviconLinks = (icons, manifestPath) => {
 
 // Load icons dynamically
 document.addEventListener('DOMContentLoaded', () => {
-    const manifestPath =
-        (window.location.hostname.includes('github')
-            ? '/LinuxRicingGuide'
-            : '') + '/assets/favicon_io/site.webmanifest'
+    const manifestPath = window.location.origin + '/frontend/assets/favicon_io/site.webmanifest'
 
     fetch(manifestPath)
         .then((response) => response.json())
@@ -32,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const icons = data.icons.map((icon) => ({
                 rel: 'icon',
                 sizes: icon.sizes,
-                href: icon.src,
+                href: window.location.origin + "/frontend" + icon.src, // Correct the href construction
                 type: icon.type,
             }))
 
@@ -40,18 +37,18 @@ document.addEventListener('DOMContentLoaded', () => {
             icons.push(
                 {
                     rel: 'apple-touch-icon',
-                    href: '/assets/favicon_io/apple-touch-icon.png',
+                    href: window.location.origin + '/frontend/assets/favicon_io/apple-touch-icon.png',
                 },
                 {
                     rel: 'icon',
                     sizes: '32x32',
-                    href: '/assets/favicon_io/favicon-32x32.png',
+                    href: window.location.origin + '/frontend/assets/favicon_io/favicon-32x32.png',
                     type: 'image/png',
                 },
                 {
                     rel: 'icon',
                     sizes: '16x16',
-                    href: '/assets/favicon_io/favicon-16x16.png',
+                    href: window.location.origin + '/frontend/assets/favicon_io/favicon-16x16.png',
                     type: 'image/png',
                 }
             )
