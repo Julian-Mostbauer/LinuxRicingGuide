@@ -7,6 +7,10 @@ const adeptLink = (link) => {
     ) {
         link = '/frontend' + link
     }
+    // if the site is being served from github pages, include the repository name
+    else if (window.location.origin.includes('github')) {
+        link = '/LinuxRicingGuide' + link
+    }
     link = window.location.origin + link
 
     console.log(link)
