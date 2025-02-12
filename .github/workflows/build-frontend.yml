@@ -1,4 +1,4 @@
-name: Deploy Frontend to GitHub Pages
+name: Build Frontend Site
 
 on:
     workflow_dispatch:
