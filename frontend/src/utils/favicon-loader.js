@@ -13,8 +13,6 @@ const adeptLink = (link) => {
     }
     link = window.location.origin + link
 
-    console.log(link)
-
     return link
 }
 
