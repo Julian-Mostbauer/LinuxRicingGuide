@@ -1,11 +1,7 @@
 name: Deploy Frontend to GitHub Pages
 
 on:
-  push:
-    branches:
-      - master  # Trigger deployment on push to the main branch
-    paths:
-      - 'frontend/**'  # Only trigger if files in the frontend folder change
+  workflow_dispatch:
 
 jobs:
   deploy:
