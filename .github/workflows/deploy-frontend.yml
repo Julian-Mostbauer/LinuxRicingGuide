@@ -1,21 +1,23 @@
 name: Deploy Frontend to GitHub Pages
 
 on:
-  workflow_dispatch:
+    workflow_dispatch:
 
 jobs:
-  deploy:
-    runs-on: ubuntu-latest
+    deploy:
+        runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
-          token: ${{ secrets.GITHUB_TOKEN }}
+        steps:
+            - name: Checkout Repository
+              uses: actions/checkout@v3
+              with:
+                  fetch-depth: 1
+                  token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
-        with:
-          branch: gh-pages  # Branch to deploy to
-          folder: frontend  # Folder to deploy
+            - name: Deploy to GitHub Pages
+              uses: JamesIves/github-pages-deploy-action@v4
+              with:
+                  branch: gh-pages # Branch to deploy to
+                  folder: frontend # Folder to deploy
+                  clean: true
+                  clean-exclude: README.md # Exclude README.md from being deleted every deploy

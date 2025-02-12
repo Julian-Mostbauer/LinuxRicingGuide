@@ -1,14 +1,17 @@
-const adeptLink = (icon) => {
+const adeptLink = (link) => {
     // if the site is being served locally for development, include the frontend path
     // on the server, only the frontend path is served used so we don't need to include it
     if (
         window.location.origin.includes('localhost') ||
         window.location.origin.includes('127.0.0.1')
     ) {
-        icon = '/frontend' + icon
+        link = '/frontend' + link
     }
-    icon = window.location.origin + icon
-    return icon
+    link = window.location.origin + link
+
+    console.log(link)
+
+    return link
 }
 
 const addFaviconLinks = (icons, manifestPath) => {
