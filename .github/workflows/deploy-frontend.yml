@@ -1,0 +1,24 @@
+name: Deploy Frontend to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master  # Trigger deployment on push to the main branch
+    paths:
+      - 'frontend/**'  # Only trigger if files in the frontend folder change
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages  # Branch to deploy to
+          folder: frontend  # Folder to deploy
