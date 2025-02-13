@@ -16,6 +16,8 @@ const appendToArrStorageItem = (key, value) => {
         const arr = JSON.parse(current);
         arr.push(value);
         setStorageItem(key, JSON.stringify(arr));
+    } else {
+        setStorageItem(key, JSON.stringify([value]));
     }
 }
 
@@ -28,16 +30,27 @@ const removeFromArrStorageItem = (key, value) => {
     }
 }
 
+const arrIncludes = (key, value) => {
+    const current = getStorageItem(key);
+    if (current) {
+        const arr = JSON.parse(current);
+        return arr.includes(value);
+    }
+    return false;
+}
+
 // Keys
 const STORAGE = {
     DISTRO_UPVOTES: {
         add: (value) => appendToArrStorageItem('distro-upvotes', value),
         remove: (value) => removeFromArrStorageItem('distro-upvotes', value),
+        has: (value) => arrIncludes('distro-upvotes', value),
         get: () => getStorageItem('distro-upvotes')
     },
     DISTRO_DOWNVOTES: {
         add: (value) => appendToArrStorageItem('distro-downvotes', value),
         remove: (value) => removeFromArrStorageItem('distro-downvotes', value),
+        has: (value) => arrIncludes('distro-downvotes', value),
         get: () => getStorageItem('distro-downvotes')
     }
 }
