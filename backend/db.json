@@ -1,0 +1,122 @@
+{
+    "alpine-linux": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "arch": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "artix-linux": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "black-arch-linux": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "cent-os": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "debian": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "elementary-os": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "endeavour-os": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "fedora": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "garuda-linux": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "gentoo": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "kali-linux": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "manjaro": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "mint": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "mx-linux": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "openSUSE": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "parrot-security-os": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "pop!-os": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "qubes-os": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "slackware": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "style-histories.css": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "ubuntu": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "ubuntu-studio": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    },
+    "void-linux": {
+        "comments": [{ "content": "example comment", "timestamp": 0 }],
+        "up-votes": 0,
+        "down-votes": 0
+    }
+}
