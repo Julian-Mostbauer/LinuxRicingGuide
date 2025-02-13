@@ -26,7 +26,7 @@ const cardCode = `
                 </a>
             </div>
         </div>
-        <div class="votes-section" style="display: flex; flex-direction: column; align-items: center; margin: 1rem; gap: 1rem;">
+        <div class="votes-section" style="display: flex; align-items: center; margin: 1rem; gap: 1rem;">
             <button class="btn btn-success" id="||component-unique-id||-upvote">
                 <i class="fa-solid fa-thumbs-up"></i> <span id="||component-unique-id||-upvote-count">x</span>
             </button>

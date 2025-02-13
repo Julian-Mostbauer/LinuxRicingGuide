@@ -156,3 +156,13 @@ nav {
 #navbar-search-input::-webkit-search-cancel-button {
     display: none;
 }
+
+.votes-section {
+    flex-direction: row;
+}
+
+@media (min-width: 768px) {
+    .votes-section {
+        flex-direction: column;
+    }
+}
