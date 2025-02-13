@@ -38,6 +38,7 @@ const cardCode = `
 </div>
 `
 
+
 const onMount = async (props) => {
     const { upvote, downvote, getDistroData } = await import(
         '../utils/backend-client.js'
@@ -72,13 +73,13 @@ const onMount = async (props) => {
     downvoteCount.innerText = data['down-votes']
 
     upvoteButton.addEventListener('click', async () => {
-        console.log('upvote button clicked')
-        await upvote(cleanedHistoryLink)
+        //console.log('upvote button clicked')
+        upvoteCount.innerText = await upvote(cleanedHistoryLink)
     })
 
     downvoteButton.addEventListener('click', async () => {
-        console.log('downvote button clicked')
-        await downvote(cleanedHistoryLink)
+        //console.log('downvote button clicked')
+        downvoteCount.innerText = await downvote(cleanedHistoryLink)
     })
 }
 
