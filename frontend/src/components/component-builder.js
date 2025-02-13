@@ -218,7 +218,7 @@ export default class ComponentBuilder {
         this.additionalProps = undefined
     }
 
-    addOnMount(onMount) {
+    setOnMount(onMount) {
         this.onMount = onMount
     }
 

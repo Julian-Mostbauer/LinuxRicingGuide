@@ -248,5 +248,5 @@ const onMount = async () => {
 }
 
 const navbarBuilder = new ComponentBuilder('navbar', navbarCode)
-navbarBuilder.addOnMount(onMount)
+navbarBuilder.setOnMount(onMount)
 navbarBuilder.build()

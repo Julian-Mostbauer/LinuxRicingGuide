@@ -54,5 +54,5 @@ const onMount = (props) => {
 
 const gridBuilder = new ComponentBuilder('image-grid', code)
 gridBuilder.addAdditionalProps(['dimensions', 'image-list'])
-gridBuilder.addOnMount(onMount)
+gridBuilder.setOnMount(onMount)
 gridBuilder.build()

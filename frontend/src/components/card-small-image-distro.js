@@ -26,9 +26,62 @@ const cardCode = `
                 </a>
             </div>
         </div>
+        <div class="votes-section" style="display: flex; flex-direction: column; align-items: center; margin: 1rem; gap: 1rem;">
+            <button class="btn btn-success" id="||component-unique-id||-upvote">
+                <i class="fa-solid fa-thumbs-up"></i> <span id="||component-unique-id||-upvote-count">x</span>
+            </button>
+            <button class="btn btn-danger" id="||component-unique-id||-downvote">
+                <i class="fa-solid fa-thumbs-down"></i> <span id="||component-unique-id||-downvote-count">x</span>
+            </button>
+        </div>
     </div>
 </div>
 `
 
+const onMount = async (props) => {
+    const { upvote, downvote, getDistroData } = await import(
+        '../utils/backend-client.js'
+    )
+
+    if (upvote === undefined || downvote === undefined) {
+        throw new Error('Backend client not found')
+    }
+
+    const upvoteButton = document.getElementById(
+        props['component-unique-id'] + '-upvote'
+    )
+    const downvoteButton = document.getElementById(
+        props['component-unique-id'] + '-downvote'
+    )
+
+    // distros-history/mint-history.html
+    const cleanedHistoryLink = props['history-link']
+        .replace('-history.html', '')
+        .replace('distros-history/', '')
+
+    const data = await getDistroData(cleanedHistoryLink)
+
+    const upvoteCount = document.getElementById(
+        props['component-unique-id'] + '-upvote-count'
+    )
+    const downvoteCount = document.getElementById(
+        props['component-unique-id'] + '-downvote-count'
+    )
+
+    upvoteCount.innerText = data['up-votes']
+    downvoteCount.innerText = data['down-votes']
+
+    upvoteButton.addEventListener('click', async () => {
+        console.log('upvote button clicked')
+        await upvote(cleanedHistoryLink)
+    })
+
+    downvoteButton.addEventListener('click', async () => {
+        console.log('downvote button clicked')
+        await downvote(cleanedHistoryLink)
+    })
+}
+
 const cardBuilder = new ComponentBuilder('card-small-image-distro', cardCode)
+cardBuilder.setOnMount(onMount)
 cardBuilder.build()

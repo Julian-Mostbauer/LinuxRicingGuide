@@ -141,6 +141,6 @@ const onMount = () => {
 }
 
 const cardBuilder = new ComponentBuilder('configurator-component', cardCode)
-cardBuilder.addOnMount(onMount)
+cardBuilder.setOnMount(onMount)
 cardBuilder.build()
 
