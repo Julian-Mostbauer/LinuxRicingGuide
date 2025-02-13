@@ -26,7 +26,7 @@ const cardCode = `
                 </a>
             </div>
         </div>
-        <div class="votes-section" style="display: flex; flex-direction: column; align-items: center; margin: 1rem; gap: 1rem;">
+        <div class="votes-section" style="display: flex; align-items: center; margin: 1rem; gap: 1rem;">
             <button class="btn btn-success" id="||component-unique-id||-upvote">
                 <i class="fa-solid fa-thumbs-up"></i> <span id="||component-unique-id||-upvote-count">x</span>
             </button>
@@ -37,6 +37,7 @@ const cardCode = `
     </div>
 </div>
 `
+
 
 const onMount = async (props) => {
     const { upvote, downvote, getDistroData } = await import(
@@ -72,13 +73,13 @@ const onMount = async (props) => {
     downvoteCount.innerText = data['down-votes']
 
     upvoteButton.addEventListener('click', async () => {
-        console.log('upvote button clicked')
-        await upvote(cleanedHistoryLink)
+        //console.log('upvote button clicked')
+        upvoteCount.innerText = await upvote(cleanedHistoryLink)
     })
 
     downvoteButton.addEventListener('click', async () => {
-        console.log('downvote button clicked')
-        await downvote(cleanedHistoryLink)
+        //console.log('downvote button clicked')
+        downvoteCount.innerText = await downvote(cleanedHistoryLink)
     })
 }
 

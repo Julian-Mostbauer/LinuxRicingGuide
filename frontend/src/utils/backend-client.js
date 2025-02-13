@@ -45,6 +45,7 @@ const upvote = async (distroName) => {
         console.log(
             `Up-voted distribution "${distroName}". New up-votes count: ${updatedUpVotes}`
         )
+        return updatedUpVotes
     } catch (error) {
         console.error('Error:', error)
     }
@@ -94,6 +95,7 @@ const downvote = async (distroName) => {
         console.log(
             `Down-voted distribution "${distroName}". New down-votes count: ${updatedDownVotes}`
         )
+        return updatedDownVotes
     } catch (error) {
         console.error('Error:', error)
     }
