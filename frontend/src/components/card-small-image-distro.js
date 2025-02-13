@@ -1,4 +1,5 @@
 import ComponentBuilder from './component-builder.js'
+import {getStorageItem} from "../utils/local-storage-util";
 
 const cardCode = `
 <div class="col-12 mt-4">
@@ -43,6 +44,8 @@ const onMount = async (props) => {
     const { upvote, downvote, getDistroData } = await import(
         '../utils/backend-client.js'
     )
+
+    const { STORAGE } = await import('../utils/local-storage-util.js')
 
     if (upvote === undefined || downvote === undefined) {
         throw new Error('Backend client not found')
