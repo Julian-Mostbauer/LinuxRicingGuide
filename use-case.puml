@@ -1,0 +1,42 @@
+@startuml
+actor User
+
+rectangle "Linux ricing guide" {
+
+  package "Utilities" {
+    usecase "Configurator Tool" as UC11
+    usecase "Search Utility" as UC12
+
+    package "Custom Downloader" {
+      usecase "Choose Linux Distributions" as UC1
+      usecase "Select Window Managers" as UC2
+      usecase "Explore Desktop Environments" as UC3
+      usecase "Pick Terminals and Themes" as UC4
+      usecase "Select Shells" as UC5
+      usecase "Add Package Managers" as UC6
+      usecase "Download Custom Setup" as UC7
+    }
+  }
+
+
+  package "History and Information" {
+    usecase "Explore Linux Distributions" as UC8
+    usecase "View Distro Histories" as UC9
+    usecase "View example Setups" as UC10
+  }
+
+  UC8 --> UC9
+  UC11 --> UC7
+  UC1 --> UC11
+  UC2 --> UC11
+  UC3 --> UC11
+  UC4 --> UC11
+  UC5 --> UC11
+  UC6 --> UC11
+
+  User --> UC11
+  User --> UC12
+  User --> UC8
+  User --> UC10
+}
+@enduml

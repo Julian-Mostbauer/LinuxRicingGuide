@@ -1,0 +1,22 @@
+{
+  "name": "lrg-backend",
+  "version": "1.0.0",
+  "description": "Backend for the linux ricing guide site",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Julian-Mostbauer/LinuxRicingGuide.git"
+  },
+  "author": "Julian Mostbauer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Julian-Mostbauer/LinuxRicingGuide/issues"
+  },
+  "homepage": "https://github.com/Julian-Mostbauer/LinuxRicingGuide#readme",
+  "dependencies": {
+    "json-server": "^1.0.0-beta.3"
+  }
+}

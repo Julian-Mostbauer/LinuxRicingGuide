@@ -2,3 +2,6 @@
 *.pdf
 node_modules
 *.py
+frontend/package-lock.json
+frontend/package.json
+frontend/eslint.config.mjs
