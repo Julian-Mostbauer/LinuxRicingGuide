@@ -29,10 +29,12 @@ const cardCode = `
         </div>
         <div class="votes-section" style="display: flex; align-items: center; margin: 1rem; gap: 1rem;">
             <button class="btn btn-success" id="||component-unique-id||-upvote">
-                <i class="fa-solid fa-thumbs-up"></i> <span id="||component-unique-id||-upvote-count">x</span>
+                <i class="fa-solid fa-thumbs-up"></i> 
+                <span id="||component-unique-id||-upvote-count">x</span>
             </button>
             <button class="btn btn-danger" id="||component-unique-id||-downvote">
-                <i class="fa-solid fa-thumbs-down"></i> <span id="||component-unique-id||-downvote-count">x</span>
+                <i class="fa-solid fa-thumbs-down"></i> 
+                <span id="||component-unique-id||-downvote-count">x</span>
             </button>
         </div>
     </div>
@@ -48,6 +50,7 @@ const onMount = async (props) => {
         throw new Error('Backend client not found')
     }
 
+    // prepare the upvote and downvote buttons
     const upvoteButton = document.getElementById(
         props['component-unique-id'] + '-upvote'
     )
@@ -55,7 +58,6 @@ const onMount = async (props) => {
         props['component-unique-id'] + '-downvote'
     )
 
-    // distros-history/mint-history.html
     const cleanedHistoryLink = props['history-link']
         .replace('-history.html', '')
         .replace('distros-history/', '')
@@ -69,9 +71,21 @@ const onMount = async (props) => {
         props['component-unique-id'] + '-downvote-count'
     )
 
+    // Dynamically set content and styles of the elements
     upvoteCount.innerText = data['up-votes']
     downvoteCount.innerText = data['down-votes']
 
+    if (LocalStorage.DistroUpvotes.has(cleanedHistoryLink)) {
+        upvoteButton.style.color = 'green'
+        upvoteButton.style.textShadow = '1px 1px 4px black';
+    }
+
+    if (LocalStorage.DistroDownvotes.has(cleanedHistoryLink)) {
+        downvoteButton.style.color = 'red'
+        downvoteButton.style.textShadow = '1px 1px 4px black';
+    }
+
+    // Event listeners for the upvote and downvote buttons
     upvoteButton.addEventListener('click', async () => {
         if (LocalStorage.DistroUpvotes.has(cleanedHistoryLink)) {
             // If the user has already upvoted the distribution, remove the upvote
