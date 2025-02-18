@@ -1,5 +1,5 @@
 import ComponentBuilder from './component-builder.js'
-import STORAGE from "../utils/local-storage-util.js";
+import LocalStorage from "../utils/local-storage-util.js";
 
 const cardCode = `
 <div class="col-12 mt-4">
@@ -74,16 +74,16 @@ const onMount = async (props) => {
     downvoteCount.innerText = data['down-votes']
 
     upvoteButton.addEventListener('click', async () => {
-        if (!STORAGE.DISTRO_UPVOTES.has(cleanedHistoryLink)) {
+        if (!LocalStorage.DistroUpvotes.has(cleanedHistoryLink)) {
             upvoteCount.innerText = await upvote(cleanedHistoryLink)
-            STORAGE.DISTRO_UPVOTES.add(cleanedHistoryLink)
+            LocalStorage.DistroUpvotes.add(cleanedHistoryLink)
         }
     })
 
     downvoteButton.addEventListener('click', async () => {
-        if (!STORAGE.DISTRO_DOWNVOTES.has(cleanedHistoryLink)) {
+        if (!LocalStorage.DistroDownvotes.has(cleanedHistoryLink)) {
             downvoteCount.innerText = await downvote(cleanedHistoryLink)
-            STORAGE.DISTRO_DOWNVOTES.add(cleanedHistoryLink)
+            LocalStorage.DistroDownvotes.add(cleanedHistoryLink)
         }
     })
 }
