@@ -1,7 +1,7 @@
 const baseUrl = 'http://localhost:3000'
 const distrosUrl = baseUrl + '/distros'
 
-const upvote = async (distroName) => {
+const upvote = async (distroName, shouldRemove = false) => {
     try {
         // Fetch the distribution by name
         const response = await fetch(
@@ -22,7 +22,7 @@ const upvote = async (distroName) => {
         const distro = distros[0]
 
         // Increment the up-votes count
-        const updatedUpVotes = distro['up-votes'] + 1
+        const updatedUpVotes = distro['up-votes'] + (shouldRemove ? -1 : 1)
 
         // Send a PATCH request to update the up-votes count
         const patchResponse = await fetch(
@@ -51,7 +51,7 @@ const upvote = async (distroName) => {
     }
 }
 
-const downvote = async (distroName) => {
+const downvote = async (distroName, shouldRemove = false) => {
     try {
         // Fetch the distribution by name
         const response = await fetch(
@@ -72,7 +72,7 @@ const downvote = async (distroName) => {
         const distro = distros[0]
 
         // Increment the down-votes count
-        const updatedDownVotes = distro['down-votes'] + 1
+        const updatedDownVotes = distro['down-votes'] + (shouldRemove ? -1 : 1)
 
         // Send a PATCH request to update the down-votes count
         const patchResponse = await fetch(

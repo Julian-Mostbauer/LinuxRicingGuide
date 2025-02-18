@@ -1,5 +1,5 @@
 import ComponentBuilder from './component-builder.js'
-import LocalStorage from "../utils/local-storage-util.js";
+import LocalStorage from '../utils/local-storage-util.js'
 
 const cardCode = `
 <div class="col-12 mt-4">
@@ -39,7 +39,6 @@ const cardCode = `
 </div>
 `
 
-
 const onMount = async (props) => {
     const { upvote, downvote, getDistroData } = await import(
         '../utils/backend-client.js'
@@ -74,16 +73,37 @@ const onMount = async (props) => {
     downvoteCount.innerText = data['down-votes']
 
     upvoteButton.addEventListener('click', async () => {
-        if (!LocalStorage.DistroUpvotes.has(cleanedHistoryLink)) {
-            upvoteCount.innerText = await upvote(cleanedHistoryLink)
+        if (LocalStorage.DistroUpvotes.has(cleanedHistoryLink)) {
+            // If the user has already upvoted the distribution, remove the upvote
+            LocalStorage.DistroUpvotes.remove(cleanedHistoryLink)
+            upvote(cleanedHistoryLink, true)
+        } else {
+            // add the upvote and remove the downvote if it exists
             LocalStorage.DistroUpvotes.add(cleanedHistoryLink)
+            upvote(cleanedHistoryLink)
+
+            // remove the downvote if it exists
+            if (LocalStorage.DistroDownvotes.has(cleanedHistoryLink)) {
+                LocalStorage.DistroDownvotes.remove(cleanedHistoryLink)
+                downvote(cleanedHistoryLink, true)
+            }
         }
     })
 
     downvoteButton.addEventListener('click', async () => {
-        if (!LocalStorage.DistroDownvotes.has(cleanedHistoryLink)) {
-            downvoteCount.innerText = await downvote(cleanedHistoryLink)
+        if (LocalStorage.DistroDownvotes.has(cleanedHistoryLink)) {
+            // If the user has already downvoted the distribution, remove the downvote
+            LocalStorage.DistroDownvotes.remove(cleanedHistoryLink)
+            downvote(cleanedHistoryLink, true)
+        } else {
             LocalStorage.DistroDownvotes.add(cleanedHistoryLink)
+            downvote(cleanedHistoryLink)
+
+            // remove the upvote if it exists
+            if (LocalStorage.DistroUpvotes.has(cleanedHistoryLink)) {
+                LocalStorage.DistroUpvotes.remove(cleanedHistoryLink)
+                upvote(cleanedHistoryLink, true)
+            }
         }
     })
 }
