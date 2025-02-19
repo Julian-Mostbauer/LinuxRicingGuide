@@ -24,6 +24,8 @@ const code = `
         id="distroLogo"
         alt="logo of {{distro-name}}"
         width="120"
+        height="120"
+        align="right"
         />
       </div>
       </section>
@@ -36,6 +38,8 @@ const code = `
         <div class="imageFounder">
         <img
           id="founderImage"
+          width="512"
+          align="right"
         />
         </div>
       </div>
