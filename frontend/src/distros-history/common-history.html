@@ -4,13 +4,22 @@
         <script src="../utils/dependency-loader.js"></script>
 
         <!-- Components -->
-        <script async type="module" src="../components/navbar.js"></script>
+        <script
+            async="true"
+            type="module"
+            src="../components/navbar.js"
+        ></script>
+        <script
+            async="true"
+            type="module"
+            src="../components/paragraph.js"
+        ></script>
         <!-- Components -->
 
         <!-- Meta -->
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>History Of </title>
+        <title>_</title>
         <!-- Meta -->
 
         <link rel="stylesheet" href="../bootstrap-style-extension.css" />
@@ -19,21 +28,43 @@
     </head>
     <body data-bs-theme="dark">
         <navbar></navbar>
-        <script>
-          // Function to get URL parameters
-          function getUrlParams() {
-            const params = new URLSearchParams(window.location.search);
-            const entries = params.entries();
-            const result = {};
-            for (const [key, value] of entries) {
-              result[key] = value;
-            }
-            return result;
-          }
+        <div class="container top-lvl">
+            <div class="card bg-dark text-light p-4 mb-4 mt-4">
+                <div id="paragraph-placeholder"></div>
+            </div>
+        </div>
 
-          // Example usage
-          const urlParams = getUrlParams();
-          console.log(urlParams);
+        <script defer="true">
+            const getUrlParams = () => {
+                const params = new URLSearchParams(window.location.search)
+                const entries = params.entries()
+                const result = {}
+                for (const [key, value] of entries) {
+                    result[key] = value
+                }
+                return result
+            }
+            const makePresentable = (str) => {
+                return str
+                    .split('-')
+                    .map((word) => {
+                        return word.charAt(0).toUpperCase() + word.slice(1)
+                    })
+                    .join(' ')
+            }
+            
+            const urlParams = getUrlParams()
+
+            const distroName = urlParams['distro']
+            document.title = `History Of ${makePresentable(distroName)}`
+
+            const paragraphElement = document.createElement('paragraph')
+            paragraphElement.setAttribute('data-distro-name', distroName)
+
+            const paragraphPlaceholder = document.getElementById(
+                'paragraph-placeholder'
+            )
+            paragraphPlaceholder.replaceWith(paragraphElement)
         </script>
     </body>
 </html>
