@@ -173,4 +173,8 @@ const getDistroData = (distroName) => {
     return distroData[distroName]
 }
 
-export default getDistroData
+const distroDataExists = (distroName) => {
+    return Object.prototype.hasOwnProperty.call(distroData, distroName)
+}
+
+export { getDistroData, distroDataExists }

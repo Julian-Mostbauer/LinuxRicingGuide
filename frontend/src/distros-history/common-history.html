@@ -32,23 +32,12 @@
             <div class="card bg-dark text-light p-4 mb-4 mt-4">
                 <div id="paragraph-placeholder"></div>
                 <div class="card bg-dark text-light p-4 mt-4">
-                <p>
-                    TODO: DYNAMIC CONTENT SECTION
-                </p>
-            </div>
+                    <p>TODO: DYNAMIC CONTENT SECTION</p>
+                </div>
             </div>
         </div>
 
         <script defer="true">
-            const getUrlParams = () => {
-                const params = new URLSearchParams(window.location.search)
-                const entries = params.entries()
-                const result = {}
-                for (const [key, value] of entries) {
-                    result[key] = value
-                }
-                return result
-            }
             const makePresentable = (str) => {
                 return str
                     .split('-')
@@ -57,8 +46,10 @@
                     })
                     .join(' ')
             }
-            
-            const urlParams = getUrlParams()
+
+            const urlParams = Object.fromEntries(
+                new URLSearchParams(window.location.search).entries()
+            )
 
             const distroName = urlParams['distro']
             document.title = `History Of ${makePresentable(distroName)}`

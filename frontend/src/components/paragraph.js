@@ -1,5 +1,8 @@
 import ComponentBuilder from './component-builder.js'
-import getDistroData from '../utils/distro-history-data.js'
+import {
+    getDistroData,
+    distroDataExists,
+} from '../utils/distro-history-data.js'
 
 const makePresentable = (str) => {
     return str
@@ -30,7 +33,7 @@ const code = `
       </div>
       </section>
 
-      <section>
+      <section id="||component-unique-id||-feature-section">
       <div class="card bg-dark text-light p-4 mt-4 flex-row">
         <ul class="list-group list-group-flush" id="featureList">
         </ul>
@@ -48,6 +51,30 @@ const code = `
 `
 
 const onMount = (params) => {
+    if (distroDataExists(params['distro-name']) === false) {
+        document.getElementById('distroNameTitle').innerText = 'Unknown Distro'
+        document.getElementById('distroLogo').style.display = 'none'
+        document.getElementById(
+            params['component-unique-id'] + '-feature-section'
+        ).style.display = 'none'
+
+        const notFoundNode = document.createElement('h1')
+        notFoundNode.innerText = '404 - Data Not Found'
+        notFoundNode.style.animation = 'blink 2s infinite'
+        const style = document.createElement('style')
+        style.innerHTML = `
+        @keyframes blink {
+          0% { opacity: 1; }
+          50% { opacity: 0.25; }
+          100% { opacity: 1; }
+        }
+        `
+        document.head.appendChild(style)
+
+        document.getElementById('nutshell').replaceWith(notFoundNode)
+        return
+    }
+
     const distroData = getDistroData(params['distro-name'])
 
     document.getElementById('nutshell').innerText = distroData['nutshell']
