@@ -117,8 +117,57 @@ const distroData = {
             },
         ],
     },
+    'alpine-linux': {
+        nutshell:
+            'Alpine Linux is a security-oriented, lightweight Linux distribution based on musl libc and busybox. It is designed for security, simplicity, and resource efficiency.',
+        logo: 'https://pingvinus.ru/cr_images/modelImage/application/3384-logo-n9h2eb9.png',
+        founderImage: '/frontend/assets/img-distros-history/natanael-copa.webp',
+        features: [
+            {
+                year: '2005',
+                title: 'The Beginning',
+                description:
+                    'Alpine Linux was first released in 2005 by Natanael Copa. It was designed to be a small, simple, and secure Linux distribution.',
+            },
+            {
+                year: '2008',
+                title: 'Alpine Linux 1.0',
+                description:
+                    'Alpine Linux 1.0 was released in 2008, featuring the musl libc and busybox, which provided a lightweight and secure base for the distribution.',
+            },
+            {
+                year: '2011',
+                title: 'Alpine Linux 2.0',
+                description:
+                    "Alpine Linux 2.0 was released in 2011, introducing various improvements to the system's performance and security.",
+            },
+            {
+                year: '2014',
+                title: 'Alpine Linux 3.0',
+                description:
+                    "Alpine Linux 3.0 was released in 2014, featuring significant enhancements to the system's package management and security features.",
+            },
+            {
+                year: '2017',
+                title: 'Alpine Linux 3.6',
+                description:
+                    "Alpine Linux 3.6 was released in 2017, providing various updates and improvements to the system's stability and performance.",
+            },
+            {
+                year: '2020',
+                title: 'Alpine Linux 3.12',
+                description:
+                    "Alpine Linux 3.12 was released in 2020, featuring numerous enhancements to the system's security and usability.",
+            },
+            {
+                year: '2023',
+                title: 'Alpine Linux 3.18',
+                description:
+                    "Alpine Linux 3.18 was released in 2023, providing various updates and improvements to the system's performance, stability, and security.",
+            },
+        ],
+    },
 }
-
 
 const getDistroData = (distroName) => {
     return distroData[distroName]
