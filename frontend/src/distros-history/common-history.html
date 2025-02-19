@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <script src="../utils/dependency-loader.js"></script>
+
+        <!-- Components -->
+        <script async type="module" src="../components/navbar.js"></script>
+        <!-- Components -->
+
+        <!-- Meta -->
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>History Of </title>
+        <!-- Meta -->
+
+        <link rel="stylesheet" href="../bootstrap-style-extension.css" />
+        <link rel="stylesheet" href="style-histories.css" />
+        <script src="../utils/favicon-loader.js"></script>
+    </head>
+    <body data-bs-theme="dark">
+        <navbar></navbar>
+        <script>
+          // Function to get URL parameters
+          function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            const entries = params.entries();
+            const result = {};
+            for (const [key, value] of entries) {
+              result[key] = value;
+            }
+            return result;
+          }
+
+          // Example usage
+          const urlParams = getUrlParams();
+          console.log(urlParams);
+        </script>
+    </body>
+</html>
