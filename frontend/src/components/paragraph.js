@@ -15,7 +15,7 @@ const code = `
       <section class="mb-4">
       <h2 class="mb-3">History of <i id="distroNameTitle"></i></h2>
 
-      <div class="customContainer">
+      <div class="card bg-dark text-light p-4 flex-row">
         <div class="paragraph">
         <p id="nutshell"></p>
         </div>
@@ -29,7 +29,7 @@ const code = `
       </section>
 
       <section>
-      <div class="customContainer">
+      <div class="card bg-dark text-light p-4 mt-4 flex-row">
         <ul class="list-group list-group-flush" id="featureList">
         </ul>
 
@@ -58,7 +58,7 @@ const onMount = (params) => {
     distroData['features'].forEach((feature) => {
         const listItem = document.createElement('li')
         listItem.classList.add('list-group-item')
-        listItem.innerHTML = `<b>${feature['year']}</b>: ${feature['description']}`
+        listItem.innerHTML = `<b>${feature['year']} - ${feature['title']}</b>: <p>${feature['description']}</p>`
         featureList.appendChild(listItem)
     })
 }
