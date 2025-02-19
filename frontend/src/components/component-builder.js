@@ -244,6 +244,11 @@ export default class ComponentBuilder {
             PRIORITY.INFO
         )
 
+        if(componentTags.length === 0) {
+            logger.log(`No instances of ${this.componentName} found.`, PRIORITY.WARN)
+            return
+        }
+
         const startTimes = new Map() // To track start times for each component
 
         // Convert NodeList to Array and map to promises for parallel processing
