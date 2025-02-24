@@ -28,7 +28,7 @@ const cardCode = `
                 </a>
             </div>
         </div>
-        <div class="votes-section" style="display: flex; align-items: center; margin: 1rem; gap: 1rem;">
+        <div id="||component-unique-id||-votes-section" class="votes-section">
             <button class="btn btn-success" id="||component-unique-id||-upvote">
                 <i class="fa-solid fa-thumbs-up"></i> 
                 <span id="||component-unique-id||-upvote-count">x</span>
@@ -45,12 +45,8 @@ const cardCode = `
 const onMount = async (props) => {
     await GlobalBackendInstance.initialized
 
-    //! Fix many iterations of the same component
     if (!GlobalBackendInstance.isActive) {
-        Array.from(document.getElementsByClassName('votes-section')).forEach((element) => {
-            console.log("test")
-            element.style.display = 'none'
-        })
+        document.getElementById(props['component-unique-id'] + '-votes-section').style.display = 'none'
         return
     }
 

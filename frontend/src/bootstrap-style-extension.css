@@ -159,6 +159,10 @@ nav {
 
 .votes-section {
     flex-direction: row;
+    display: flex;
+    align-items: center;
+    margin: 1rem;
+    gap: 1rem;
 }
 
 @media (min-width: 768px) {
