@@ -29,11 +29,11 @@ const cardCode = `
             </div>
         </div>
         <div id="||component-unique-id||-votes-section" class="votes-section">
-            <button class="btn btn-success" id="||component-unique-id||-upvote">
+            <button class="button-opinion" id="||component-unique-id||-upvote">
                 <i class="fa-solid fa-thumbs-up"></i> 
                 <span id="||component-unique-id||-upvote-count">x</span>
             </button>
-            <button class="btn btn-danger" id="||component-unique-id||-downvote">
+            <button class="button-opinion" id="||component-unique-id||-downvote">
                 <i class="fa-solid fa-thumbs-down"></i> 
                 <span id="||component-unique-id||-downvote-count">x</span>
             </button>
@@ -46,7 +46,9 @@ const onMount = async (props) => {
     await GlobalBackendInstance.initialized
 
     if (!GlobalBackendInstance.isActive) {
-        document.getElementById(props['component-unique-id'] + '-votes-section').style.display = 'none'
+        document.getElementById(
+            props['component-unique-id'] + '-votes-section'
+        ).innerHTML = ''
         return
     }
 
@@ -75,15 +77,11 @@ const onMount = async (props) => {
     upvoteCount.innerText = data['up-votes']
     downvoteCount.innerText = data['down-votes']
 
-    if (LocalStorage.DistroUpvotes.has(cleanedHistoryLink)) {
-        upvoteButton.style.color = 'green'
-        upvoteButton.style.textShadow = '1px 1px 4px black'
-    }
+    if (LocalStorage.DistroUpvotes.has(cleanedHistoryLink))
+        upvoteButton.className += ' active'
 
-    if (LocalStorage.DistroDownvotes.has(cleanedHistoryLink)) {
-        downvoteButton.style.color = 'red'
-        downvoteButton.style.textShadow = '1px 1px 4px black'
-    }
+    if (LocalStorage.DistroDownvotes.has(cleanedHistoryLink))
+        downvoteButton.className += ' active'
 
     // Event listeners for the upvote and downvote buttons
     upvoteButton.addEventListener('click', async () => {
