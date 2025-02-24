@@ -1,5 +1,6 @@
 import ComponentBuilder from './component-builder.js'
 import LocalStorage from '../utils/local-storage-util.js'
+import { GlobalBackendInstance } from '../utils/backend-client.js'
 
 const cardCode = `
 <div class="col-12 mt-4">
@@ -42,12 +43,15 @@ const cardCode = `
 `
 
 const onMount = async (props) => {
-    const { upvote, downvote, getDistroData } = await import(
-        '../utils/backend-client.js'
-    )
+    await GlobalBackendInstance.initialized
 
-    if (upvote === undefined || downvote === undefined) {
-        throw new Error('Backend client not found')
+    //! Fix many iterations of the same component
+    if (!GlobalBackendInstance.isActive) {
+        Array.from(document.getElementsByClassName('votes-section')).forEach((element) => {
+            console.log("test")
+            element.style.display = 'none'
+        })
+        return
     }
 
     // prepare the upvote and downvote buttons
@@ -62,7 +66,7 @@ const onMount = async (props) => {
         .replace('-history.html', '')
         .replace('distros-history/', '')
 
-    const data = await getDistroData(cleanedHistoryLink)
+    const data = await GlobalBackendInstance.getDistroData(cleanedHistoryLink)
 
     const upvoteCount = document.getElementById(
         props['component-unique-id'] + '-upvote-count'
@@ -77,12 +81,12 @@ const onMount = async (props) => {
 
     if (LocalStorage.DistroUpvotes.has(cleanedHistoryLink)) {
         upvoteButton.style.color = 'green'
-        upvoteButton.style.textShadow = '1px 1px 4px black';
+        upvoteButton.style.textShadow = '1px 1px 4px black'
     }
 
     if (LocalStorage.DistroDownvotes.has(cleanedHistoryLink)) {
         downvoteButton.style.color = 'red'
-        downvoteButton.style.textShadow = '1px 1px 4px black';
+        downvoteButton.style.textShadow = '1px 1px 4px black'
     }
 
     // Event listeners for the upvote and downvote buttons
@@ -90,16 +94,16 @@ const onMount = async (props) => {
         if (LocalStorage.DistroUpvotes.has(cleanedHistoryLink)) {
             // If the user has already upvoted the distribution, remove the upvote
             LocalStorage.DistroUpvotes.remove(cleanedHistoryLink)
-            upvote(cleanedHistoryLink, true)
+            GlobalBackendInstance.upvote(cleanedHistoryLink, true)
         } else {
             // add the upvote and remove the downvote if it exists
             LocalStorage.DistroUpvotes.add(cleanedHistoryLink)
-            upvote(cleanedHistoryLink)
+            GlobalBackendInstance.upvote(cleanedHistoryLink)
 
             // remove the downvote if it exists
             if (LocalStorage.DistroDownvotes.has(cleanedHistoryLink)) {
                 LocalStorage.DistroDownvotes.remove(cleanedHistoryLink)
-                downvote(cleanedHistoryLink, true)
+                GlobalBackendInstance.downvote(cleanedHistoryLink, true)
             }
         }
     })
@@ -108,15 +112,15 @@ const onMount = async (props) => {
         if (LocalStorage.DistroDownvotes.has(cleanedHistoryLink)) {
             // If the user has already downvoted the distribution, remove the downvote
             LocalStorage.DistroDownvotes.remove(cleanedHistoryLink)
-            downvote(cleanedHistoryLink, true)
+            GlobalBackendInstance.downvote(cleanedHistoryLink, true)
         } else {
             LocalStorage.DistroDownvotes.add(cleanedHistoryLink)
-            downvote(cleanedHistoryLink)
+            GlobalBackendInstance.downvote(cleanedHistoryLink)
 
             // remove the upvote if it exists
             if (LocalStorage.DistroUpvotes.has(cleanedHistoryLink)) {
                 LocalStorage.DistroUpvotes.remove(cleanedHistoryLink)
-                upvote(cleanedHistoryLink, true)
+                GlobalBackendInstance.upvote(cleanedHistoryLink, true)
             }
         }
     })
