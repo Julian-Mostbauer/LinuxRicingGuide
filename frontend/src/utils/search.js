@@ -1,3 +1,5 @@
+import LocalStorage from '../utils/local-storage-util.js'
+
 const files = [
     'configurator.html',
     'desktop-environments.html',
@@ -34,12 +36,12 @@ const files = [
     'distros-history/ubuntu-studio-history.html',
     'distros-history/void-linux-history.html',
 ]
+
 files.map((file) => `/src/${file}`)
 
-const CACHE_KEY = 'fileCache'
 const CACHE_EXPIRATION_TIME = 5 * 60 * 1000 // 5 minutes in milliseconds
 
-const fileCache = new Map(JSON.parse(localStorage.getItem(CACHE_KEY)) || [])
+const fileCache = new Map(LocalStorage.SearchFileCache.get() || [])
 
 // Clean up expired entries on load
 const currentTime = Date.now()
@@ -53,10 +55,7 @@ for (const [file, { _, timestamp }] of fileCache) {
 
 // Save the cache back to localStorage when updated
 function saveCacheToLocalStorage() {
-    localStorage.setItem(
-        CACHE_KEY,
-        JSON.stringify(Array.from(fileCache.entries()))
-    )
+    LocalStorage.SearchFileCache.set(Array.from(fileCache.entries()))
 }
 
 // Fetch file content with caching

@@ -52,6 +52,10 @@ const LocalStorage = {
         remove: (value) => removeFromArrStorageItem('distro-downvotes', value),
         has: (value) => arrIncludes('distro-downvotes', value),
         get: () => getStorageItem('distro-downvotes')
+    },
+    SearchFileCache: {
+        set: (value) => setStorageItem('search-file-cache', value),
+        get: () => getStorageItem('search-file-cache'),
     }
 }
 

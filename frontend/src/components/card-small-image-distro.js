@@ -1,6 +1,6 @@
 import ComponentBuilder from './component-builder.js'
 import LocalStorage from '../utils/local-storage-util.js'
-import { GlobalBackendInstance } from '../utils/backend-client.js'
+import {GlobalBackendInstance} from '../utils/backend-client.js'
 
 const cardCode = `
 <div class="col-12 mt-4">
@@ -64,7 +64,7 @@ const onMount = async (props) => {
         .replace('-history.html', '')
         .replace('distros-history/', '')
 
-    const data = await GlobalBackendInstance.getDistroData(cleanedHistoryLink)
+    const data = await GlobalBackendInstance.fetchDistro(cleanedHistoryLink)
 
     const upvoteCount = document.getElementById(
         props['component-unique-id'] + '-upvote-count'
@@ -84,20 +84,23 @@ const onMount = async (props) => {
         downvoteButton.className += ' active'
 
     // Event listeners for the upvote and downvote buttons
-    upvoteButton.addEventListener('click', async () => {
+    upvoteButton.addEventListener('click',  async () => {
         if (LocalStorage.DistroUpvotes.has(cleanedHistoryLink)) {
             // If the user has already upvoted the distribution, remove the upvote
             LocalStorage.DistroUpvotes.remove(cleanedHistoryLink)
-            GlobalBackendInstance.upvote(cleanedHistoryLink, true)
+            upvoteCount.innerText = await GlobalBackendInstance.upvote(cleanedHistoryLink, true)
+            upvoteButton.className = upvoteButton.className.replace(' active', '')
         } else {
             // add the upvote and remove the downvote if it exists
             LocalStorage.DistroUpvotes.add(cleanedHistoryLink)
-            GlobalBackendInstance.upvote(cleanedHistoryLink)
+            upvoteCount.innerText = await GlobalBackendInstance.upvote(cleanedHistoryLink)
+            upvoteButton.className += ' active'
 
             // remove the downvote if it exists
             if (LocalStorage.DistroDownvotes.has(cleanedHistoryLink)) {
                 LocalStorage.DistroDownvotes.remove(cleanedHistoryLink)
-                GlobalBackendInstance.downvote(cleanedHistoryLink, true)
+                downvoteCount.innerText = await GlobalBackendInstance.downvote(cleanedHistoryLink, true)
+                downvoteButton.className = downvoteButton.className.replace(' active', '')
             }
         }
     })
@@ -106,15 +109,18 @@ const onMount = async (props) => {
         if (LocalStorage.DistroDownvotes.has(cleanedHistoryLink)) {
             // If the user has already downvoted the distribution, remove the downvote
             LocalStorage.DistroDownvotes.remove(cleanedHistoryLink)
-            GlobalBackendInstance.downvote(cleanedHistoryLink, true)
+            downvoteCount.innerText = await GlobalBackendInstance.downvote(cleanedHistoryLink, true)
+            downvoteButton.className = downvoteButton.className.replace(' active', '')
         } else {
             LocalStorage.DistroDownvotes.add(cleanedHistoryLink)
-            GlobalBackendInstance.downvote(cleanedHistoryLink)
+            downvoteCount.innerText = await GlobalBackendInstance.downvote(cleanedHistoryLink)
+            downvoteButton.className += ' active'
 
             // remove the upvote if it exists
             if (LocalStorage.DistroUpvotes.has(cleanedHistoryLink)) {
                 LocalStorage.DistroUpvotes.remove(cleanedHistoryLink)
-                GlobalBackendInstance.upvote(cleanedHistoryLink, true)
+                upvoteCount.innerText = await GlobalBackendInstance.upvote(cleanedHistoryLink, true)
+                upvoteButton.className = upvoteButton.className.replace(' active', '')
             }
         }
     })
