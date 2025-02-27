@@ -85,7 +85,7 @@ class BackendClient {
 
             await this.patchDistro(distroName, distro.id, {'up-votes': updatedUpVotes})
 
-            console.log(`Up-voted distribution "${distroName}". New up-votes count: ${updatedUpVotes}`)
+            console.log(`Modified distribution "${distroName}" by ${shouldRemove ? -1 : 1}. New up-votes count: ${updatedUpVotes}`)
             return updatedUpVotes
         } catch (error) {
             console.error('Error:', error)
@@ -99,9 +99,9 @@ class BackendClient {
             // Increment the down-votes count
             const updatedDownVotes = distro['down-votes'] + (shouldRemove ? -1 : 1)
 
-            await this.patchDistro(distroName, {'down-votes': updatedDownVotes})
+            await this.patchDistro(distroName, distro.id, {'down-votes': updatedDownVotes})
 
-            console.log(`Down-voted distribution "${distroName}". New down-votes count: ${updatedDownVotes}`)
+            console.log(`Modified distribution "${distroName}" by ${shouldRemove ? -1 : 1}. New down-votes count: ${updatedDownVotes}`)
             return updatedDownVotes
         } catch (error) {
             console.error('Error:', error)
