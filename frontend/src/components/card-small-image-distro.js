@@ -89,15 +89,18 @@ const onMount = async (props) => {
             // If the user has already upvoted the distribution, remove the upvote
             LocalStorage.DistroUpvotes.remove(cleanedHistoryLink)
             upvoteCount.innerText = await GlobalBackendInstance.upvote(cleanedHistoryLink, true)
+            upvoteButton.className = upvoteButton.className.replace(' active', '')
         } else {
             // add the upvote and remove the downvote if it exists
             LocalStorage.DistroUpvotes.add(cleanedHistoryLink)
             upvoteCount.innerText = await GlobalBackendInstance.upvote(cleanedHistoryLink)
+            upvoteButton.className += ' active'
 
             // remove the downvote if it exists
             if (LocalStorage.DistroDownvotes.has(cleanedHistoryLink)) {
                 LocalStorage.DistroDownvotes.remove(cleanedHistoryLink)
                 downvoteCount.innerText = await GlobalBackendInstance.downvote(cleanedHistoryLink, true)
+                downvoteButton.className = downvoteButton.className.replace(' active', '')
             }
         }
     })
@@ -107,14 +110,17 @@ const onMount = async (props) => {
             // If the user has already downvoted the distribution, remove the downvote
             LocalStorage.DistroDownvotes.remove(cleanedHistoryLink)
             downvoteCount.innerText = await GlobalBackendInstance.downvote(cleanedHistoryLink, true)
+            downvoteButton.className = downvoteButton.className.replace(' active', '')
         } else {
             LocalStorage.DistroDownvotes.add(cleanedHistoryLink)
             downvoteCount.innerText = await GlobalBackendInstance.downvote(cleanedHistoryLink)
+            downvoteButton.className += ' active'
 
             // remove the upvote if it exists
             if (LocalStorage.DistroUpvotes.has(cleanedHistoryLink)) {
                 LocalStorage.DistroUpvotes.remove(cleanedHistoryLink)
                 upvoteCount.innerText = await GlobalBackendInstance.upvote(cleanedHistoryLink, true)
+                upvoteButton.className = upvoteButton.className.replace(' active', '')
             }
         }
     })
