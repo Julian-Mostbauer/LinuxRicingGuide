@@ -12,7 +12,7 @@ const files = [
     'distros-history/alpine-linux-history.html',
     'distros-history/arch-history.html',
     'distros-history/artix-linux-history.html',
-    'distros-history/black-arch-linux.html',
+    'distros-history/black-arch-linux-history.html',
     'distros-history/cent-os-history.html',
     'distros-history/debian-history.html',
     'distros-history/elementary-os-history.html',

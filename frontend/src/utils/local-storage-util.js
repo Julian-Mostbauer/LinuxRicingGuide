@@ -40,14 +40,14 @@ const arrIncludes = (key, value) => {
 }
 
 // Keys
-const STORAGE = {
-    DISTRO_UPVOTES: {
+const LocalStorage = {
+    DistroUpvotes: {
         add: (value) => appendToArrStorageItem('distro-upvotes', value),
         remove: (value) => removeFromArrStorageItem('distro-upvotes', value),
         has: (value) => arrIncludes('distro-upvotes', value),
         get: () => getStorageItem('distro-upvotes')
     },
-    DISTRO_DOWNVOTES: {
+    DistroDownvotes: {
         add: (value) => appendToArrStorageItem('distro-downvotes', value),
         remove: (value) => removeFromArrStorageItem('distro-downvotes', value),
         has: (value) => arrIncludes('distro-downvotes', value),
@@ -55,4 +55,4 @@ const STORAGE = {
     }
 }
 
-export default STORAGE
+export default LocalStorage

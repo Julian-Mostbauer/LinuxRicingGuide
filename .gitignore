@@ -5,3 +5,4 @@ node_modules
 frontend/package-lock.json
 frontend/package.json
 frontend/eslint.config.mjs
+backend/db.json

@@ -159,10 +159,32 @@ nav {
 
 .votes-section {
     flex-direction: row;
+    display: flex;
+    align-items: center;
+    margin: 1rem;
+    gap: 1rem;
 }
 
 @media (min-width: 768px) {
     .votes-section {
         flex-direction: column;
     }
+}
+
+.button-opinion {
+    background: transparent;
+    border: 1px solid var(--bs-border-color-translucent);
+    border-radius: 100rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.button-opinion:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.button-opinion.active {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 0 1px var(--bs-border-color-translucent);
 }

@@ -10,8 +10,12 @@ const onMount = (props) => {
         `${props['component-unique-id']}`
     )
 
+    const isMobile = window.innerWidth <= 768
+
     const gridCellDataList = JSON.parse(props['image-list'])
-    const [colCount, rowCount] = props['dimensions'].split('x').map(Number)
+    const [colCount, rowCount] = props['dimensions' + (isMobile ? '-mobile' : '')]
+        .split('x')
+        .map(Number)
 
     // Validate the number of images matches the grid dimensions
     if (gridCellDataList.length > colCount * rowCount) {
@@ -53,6 +57,10 @@ const onMount = (props) => {
 }
 
 const gridBuilder = new ComponentBuilder('image-grid', code)
-gridBuilder.addAdditionalProps(['dimensions', 'image-list'])
+gridBuilder.addAdditionalProps([
+    'dimensions',
+    'dimensions-mobile',
+    'image-list',
+])
 gridBuilder.setOnMount(onMount)
 gridBuilder.build()
