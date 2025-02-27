@@ -54,8 +54,8 @@ const LocalStorage = {
         get: () => getStorageItem('distro-downvotes')
     },
     SearchFileCache: {
-        set: (value) => setStorageItem('search-file-cache', value),
-        get: () => getStorageItem('search-file-cache'),
+        set: (value) => setStorageItem('search-file-cache', JSON.stringify(value)),
+        get: () => JSON.parse(getStorageItem('search-file-cache'))
     }
 }
 
