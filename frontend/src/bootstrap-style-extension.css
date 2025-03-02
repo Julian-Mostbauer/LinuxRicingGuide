@@ -1,0 +1,190 @@
+:root {
+    --gradient-primary: linear-gradient(to right, #b28da8 0%, #78586f 100%);
+    scrollbar-color: #495057 #2b3035;
+}
+
+nav {
+    margin-bottom: 10rem;
+}
+
+/* Container for the grid */
+.grid-container {
+    width: 80%; /* Adjust as needed */
+    height: 80%; /* Adjust as needed */
+    margin: 0 auto; /* Center the grid */
+}
+
+/* Grid cell styling */
+.grid-cell {
+    border: 1px solid var(--bs-border-color-translucent);
+    border-radius: 2rem;
+    padding: 1rem; /* Add padding inside the cell */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: ease-in-out 0.2s;
+}
+
+.grid-cell:hover {
+    background-color: #2b3035;
+}
+
+/* Image styling */
+.grid-cell img {
+    max-width: 90%; /* Ensure the image is smaller than the cell */
+    max-height: 90%;
+    border-radius: 1.5rem; /* Optional: Add border radius to the image */
+    object-fit: cover; /* Maintain aspect ratio */
+}
+
+.btn {
+    border-radius: 20rem;
+}
+
+.btn-primary {
+    background-image: var(--gradient-primary);
+    background-size: 200%;
+    border: none;
+    transition: all 0.3s;
+}
+
+.btn-primary:hover {
+    background-position: 100%;
+    border: none;
+}
+
+.card {
+    border-radius: 1.5rem;
+    max-width: 100%;
+    transition: all 0.2s ease-in-out;
+}
+
+.card.big-img {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-img-top {
+    border-bottom: 1px solid hsl(214, 5%, 27%); /* Default border for mobile */
+}
+
+.no-round {
+    border-radius: 0 !important;
+}
+
+@media (min-width: 768px) {
+    .small-img > .card-img-top {
+        border-right: 1px solid #424549; /* Border for desktop */
+        border-bottom: none; /* Remove bottom border on desktop */
+    }
+}
+
+.card-footer {
+    border-radius: 0 0 1.5rem 1.5rem !important;
+    background-color: transparent;
+    border: none;
+    padding: 0.6rem !important;
+}
+
+.card.big-img:hover {
+    transform: rotate3d(0, 0, 1, 1.8deg);
+}
+
+.content-wrapper {
+    padding: 20px;
+}
+
+.col {
+    margin: 0 !important;
+}
+
+.container.top-lvl {
+    margin-top: 2rem;
+    margin-bottom: 5rem;
+    padding: 2rem;
+}
+
+.card-img-top {
+    -moz-border-radius-topleft: 1.5rem;
+    -moz-border-radius-topright: 1.5rem;
+    -webkit-border-top-left-radius: 1.5rem;
+    border-top-left-radius: 1.5rem;
+    -webkit-border-top-right-radius: 1.5rem;
+    border-top-right-radius: 1.5rem;
+}
+
+.form-control {
+    border-radius: 20rem;
+}
+
+.dropdown-menu {
+    border-radius: 1rem;
+    padding: 0.5rem;
+}
+
+.dropdown-item {
+    border-radius: 1rem;
+}
+
+.dropdown-item:active {
+    background-image: var(--gradient-primary);
+}
+
+.regex-toggle {
+    cursor: pointer;
+    margin-right: 1rem;
+    transition: all 0.2s ease;
+    background: transparent;
+    border-radius: 100rem;
+}
+
+.regex-toggle:hover {
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.regex-toggle[aria-pressed='true'] {
+    background: rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 0 0 1px var(--bs-border-color-translucent);
+}
+
+#navbar-search-input:focus {
+    box-shadow: none;
+    border-color: var(--bs-primary);
+}
+
+#navbar-search-input::-webkit-search-cancel-button {
+    display: none;
+}
+
+.votes-section {
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    margin: 1rem;
+    gap: 1rem;
+}
+
+@media (min-width: 768px) {
+    .votes-section {
+        flex-direction: column;
+    }
+}
+
+.button-opinion {
+    background: transparent;
+    border: 1px solid var(--bs-border-color-translucent);
+    border-radius: 100rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.button-opinion:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.button-opinion.active {
+    background: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 0 0 1px var(--bs-border-color-translucent);
+}

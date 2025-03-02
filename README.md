@@ -6,8 +6,12 @@ School project for WMC. Guide to ricing linux systems
 
 [Project Description](./project-description.md)
 
-[Site](./src)
+![Use Case Diagram](./use-case-diagram.svg)
+
+## Hosting
 
 [Pages](https://julian-mostbauer.github.io/LinuxRicingGuide/)
 
-![Use Case Diagram](./use-case-diagram.svg)
+Deploy Status:
+
+[![pages-build-deployment](https://github.com/Julian-Mostbauer/LinuxRicingGuide/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/Julian-Mostbauer/LinuxRicingGuide/actions/workflows/pages/pages-build-deployment)
