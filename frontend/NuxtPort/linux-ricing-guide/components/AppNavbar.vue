@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="navbar bg-base-100 shadow-sm">
+    <div class="navbar bg-base-100 shadow-lg">
       <div class="flex-1">
         <div class="breadcrumbs text-xl">
           <ul>
