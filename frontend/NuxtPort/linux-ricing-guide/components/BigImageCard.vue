@@ -1,24 +1,35 @@
 <template>
-  <div class="w-full mt-4 h-[calc(100%-1.5rem)]">
-    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-      <img :src="imagePath" class="w-full h-60 object-cover" alt="..." />
-      <div class="p-4 text-left">
-        <h5 class="text-xl font-bold">{{ title }}</h5>
-        <p class="text-gray-700 mt-2">
-          {{ description }}
-        </p>
-      </div>
-      <div class="p-4 text-center">
-        <a :href="link"
-          class="btn btn-primary w-full inline-block py-2 px-4 bg-blue-500 text-white rounded hover:bg-blue-600">
-          <i class="fa-solid fa-link"></i> Visit
-        </a>
+  <div class="card w-full bg-base-200">
+    <figure>
+      <img :src="imagePath" alt="Image" class="w-full h-48 object-cover rounded-lg" />
+    </figure>
+    <div class="card-body">
+      <h2 class="card-title">{{ title }}</h2>
+      <p>{{ description }}</p>
+      <div class="card-actions justify-end mb-0">
+        <a :href="link" class="btn btn-primary">Visit</a>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+/*
+  <div class="card w-80 bg-base-200">
+  <div class="card-body gap-3">
+    <input placeholder="Email" class="input" />
+    <label class="label">
+      <input type="checkbox" class="toggle toggle-sm" />
+      Submit to newsletter
+    </label>
+    <label class="label">
+      <input type="checkbox" class="toggle toggle-sm" />
+      Accept terms of use
+    </label>
+    <button class="btn btn-neutral">Save</button>
+  </div>
+</div>
+*/
 defineProps<{
   imagePath: string;
   title: string;
