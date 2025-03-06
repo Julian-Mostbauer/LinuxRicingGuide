@@ -4,9 +4,11 @@
       <div class="flex-1">
         <div class="breadcrumbs text-xl">
           <ul>
-            <li><a href="/">Home</a></li>
+            <li><a href="/"><Icon name="fa6-solid:house" size="16"/></a></li>
             <li v-for="routePart in routeParts" :key="routePart.fullPath">
-              <a class="text-xl" :href="`/${routePart.fullPath}`">{{ routePart.name }}</a>
+              <NuxtLink class="text-xl" :to="`/${routePart.fullPath}`">
+                {{ routePart.name }}
+              </NuxtLink>
             </li>
           </ul>
         </div>

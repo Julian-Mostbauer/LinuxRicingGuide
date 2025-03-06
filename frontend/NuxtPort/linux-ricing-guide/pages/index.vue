@@ -3,11 +3,11 @@
 
 <template>
   <div class="container mx-auto p-8">
-    <div class="card bg-neutral text-neutral-content shadow-xl p-6 mb-6">
+    <div class="card text-neutral-content p-6 mb-6">
       <article>
         <section class="mb-6">
-          <h2 class="text-2xl font-bold flex items-center gap-2">
-            <i class="fa-solid fa-bowl-rice"></i>
+          <h2 class="text-4xl font-bold flex items-center gap-2">
+            <Icon name="fa6-solid:bowl-rice" size="64" />
             What is Linux <i>Ricing?</i>
           </h2>
           <p class="mt-2">
@@ -19,34 +19,45 @@
 
         <section>
           <h2 class="text-2xl font-bold flex items-center gap-2 mb-4">
-            <i class="fa-solid fa-circle-info"></i>
+            <Icon name="fa6-solid:circle-info" size="32" />
             General Overview
           </h2>
-          <ul class="list-none space-y-3">
-            <li class="p-4 bg-base-200 rounded-lg">
-              <strong>Window-Manager:</strong>
-              Users may prefer lightweight options like i3 or Openbox or complex ones like GNOME or KDE Plasma.
-            </li>
-            <li class="p-4 bg-base-200 rounded-lg">
-              <strong>Wallpaper:</strong> Choose from various wallpapers to personalize your desktop.
-            </li>
-            <li class="p-4 bg-base-200 rounded-lg">
-              <strong>Icons:</strong> Replace desktop icons to match your system's aesthetic.
-            </li>
-            <li class="p-4 bg-base-200 rounded-lg">
-              <strong>Fonts:</strong> Select fonts like
-              <a target="_blank" href="https://github.com/ryanoasis/nerd-fonts" class="link link-primary">Nerd-Fonts</a>
-              to enhance your system's look.
-            </li>
-            <li class="p-4 bg-base-200 rounded-lg">
-              <strong>Themes:</strong>
-              <ul class="list-disc pl-6 mt-2">
-                <li>GTK or QT Themes for colors and widgets.</li>
-                <li>Icon packs for system-wide icons.</li>
-                <li>Terminal themes for colors and fonts.</li>
+          <div class="flex flex-row gap-8">
+            <div>
+              <ul class="list-none space-y-3">
+                <li class="p-4 bg-base-200 rounded-lg">
+                  <strong>Window-Manager:</strong>
+                  Users may prefer lightweight options like i3 or Openbox or complex ones like GNOME or KDE Plasma.
+                </li>
+                <div class="divider"></div>
+                <li class="p-4 bg-base-200 rounded-lg">
+                  <strong>Wallpaper:</strong> Choose from various wallpapers to personalize your desktop.
+                </li>
+                <div class="divider"></div>
+                <li class="p-4 bg-base-200 rounded-lg">
+                  <strong>Icons:</strong> Replace desktop icons to match your system's aesthetic.
+                </li>
+                <div class="divider"></div>
+                <li class="p-4 bg-base-200 rounded-lg">
+                  <strong>Fonts:</strong> Select fonts like
+                  <a target="_blank" href="https://github.com/ryanoasis/nerd-fonts"
+                    class="link link-primary">Nerd-Fonts</a>
+                  to enhance your system's look.
+                </li>
               </ul>
-            </li>
-          </ul>
+            </div>
+            <div class="divider divider-horizontal"></div>
+            <div class="flex flex-grow">
+              <div class="p-4 bg-base-200 rounded-lg flex-grow">
+                <strong>Themes:</strong>
+                <ul class="list-disc pl-6 mt-2">
+                  <li>GTK or QT Themes for colors and widgets.</li>
+                  <li>Icon packs for system-wide icons.</li>
+                  <li>Terminal themes for colors and fonts.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </section>
       </article>
     </div>
