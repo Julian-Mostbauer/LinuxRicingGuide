@@ -7,5 +7,12 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+
   css: ["~/assets/app.css"],
+  modules: ["@nuxt/icon"],
+  icon: {
+    serverBundle: {
+      collections: ['uil', 'mdi'] // <!--- this
+    }
+  }
 })
