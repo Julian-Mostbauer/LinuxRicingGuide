@@ -1,12 +1,22 @@
 <template>
-  <div class="gridClass w-full">
+  <div
+    class="grid gap-4 md:gap-6"
+    :style="{
+      '--desktop-cols': dimensions.width,
+      '--mobile-cols': mobileDimensions.width
+    }"
+  >
     <div
       v-for="(entry, index) in entries"
       :key="index"
-      class="cursor-pointer overflow-hidden"
+      class="border-2 border-base-300 rounded-box p-4 bg-base-100 hover:bg-base-200 transition-all duration-300 cursor-pointer overflow-hidden"
       @click="navigateTo(entry.link)"
     >
-      <img :src="entry.imagePath" alt="Image" class="w-full h-full object-cover" />
+      <img
+        :src="entry.imagePath"
+        alt="Image"
+        class="w-full h-full object-cover rounded-box"
+      />
     </div>
   </div>
 </template>
@@ -23,22 +33,13 @@ const navigateTo = (link: string) => {
 </script>
 
 <style scoped>
-.w-full {
-  display: grid;
-  grid-template-columns: repeat(var(--columns), 1fr);
-  grid-template-rows: repeat(var(--rows), 1fr);
-  gap: 4px;
+.grid {
+  grid-template-columns: repeat(var(--desktop-cols, 3), minmax(0, 1fr));
 }
-@media (min-width: 640px) {
-  .w-full {
-    --columns: v-bind(dimensions.width);
-    --rows: v-bind(dimensions.height);
-  }
-}
-@media (max-width: 639px) {
-  .w-full {
-    --columns: v-bind(mobileDimensions.width);
-    --rows: v-bind(mobileDimensions.height);
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(var(--mobile-cols, 2), minmax(0, 1fr));
   }
 }
 </style>
