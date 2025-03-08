@@ -1,22 +1,12 @@
 <template>
-  <div
-    class="grid gap-4 md:gap-6"
-    :style="{
-      '--desktop-cols': dimensions.width,
-      '--mobile-cols': mobileDimensions.width
-    }"
-  >
-    <div
-      v-for="(entry, index) in entries"
-      :key="index"
+  <div class="grid gap-4 md:gap-6" :style="{
+    '--desktop-cols': config.dimensions.width,
+    '--mobile-cols': config.mobileDimensions.width
+  }">
+    <div v-for="(entry, index) in config.entries" :key="index"
       class="border-2 border-base-300 rounded-box p-4 bg-base-100 hover:bg-base-200 transition-all duration-300 cursor-pointer overflow-hidden"
-      @click="navigateTo(entry.link)"
-    >
-      <img
-        :src="entry.imagePath"
-        alt="Image"
-        class="w-full h-full object-cover rounded-box"
-      />
+      @click="navigateTo(entry.link, config.linkPrefix)">
+      <img :src="entry.imagePath" alt="Image" class="w-full h-full object-cover rounded-box" />
     </div>
   </div>
 </template>
@@ -25,10 +15,17 @@
 type Dimensions = { width: number; height: number };
 type Entry = { imagePath: string; link: string };
 
-defineProps<{ entries: Entry[]; dimensions: Dimensions; mobileDimensions: Dimensions }>();
+type ConfigProps = {
+  entries: Entry[];
+  dimensions: Dimensions;
+  mobileDimensions: Dimensions;
+  linkPrefix?: string;
+};
 
-const navigateTo = (link: string) => {
-  window.location.href = link;
+defineProps<{ config: ConfigProps }>();
+
+const navigateTo = (link: string, linkPrefix?: string) => {
+  window.location.href = linkPrefix ? `${linkPrefix}${link}` : link;
 };
 </script>
 
