@@ -4,7 +4,7 @@
     '--mobile-cols': mobileDimensions.width
   }">
     <div v-for="(entry, index) in entries" :key="index"
-      class="border-2 border-base-300 rounded-box p-4 bg-base-100 hover:bg-base-200 transition-all duration-300 cursor-pointer overflow-hidden"
+      class="border-2 border-base-300 rounded-box p-4 bg-base-200 hover:bg-base-200 transition-all duration-300 cursor-pointer overflow-hidden"
       @click="navigateTo(entry.link, linkPrefix)">
       <img :src="entry.imagePath" alt="Image" class="w-full h-full object-cover rounded-box aspect-square" />
     </div>

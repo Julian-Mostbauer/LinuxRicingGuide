@@ -1,7 +1,7 @@
 <template>
-  <div class="card lg:card-side bg-base-100 shadow-xl w-4/5 flex flex-col lg:flex-row items-center lg:items-start mb-8">
+  <div class="card lg:card-side bg-base-200 shadow-xl w-4/5 flex flex-col lg:flex-row items-center lg:items-start mt-4 mb-4 border border-gray-800">
     <!-- Image Container -->
-    <figure class="flex-none w-48 h-48 rounded-lg overflow-hidden m-4 lg:m-0 lg:mr-4">
+    <figure class="flex-none w-48 h-48 rounded-lg overflow-hidden m-4 lg:m-0 lg:mr-4 rounded-r-none border-r border-gray-800 p-4">
       <img :src="imagePath" :alt="link" class="w-full h-full object-cover p-2" />
     </figure>
 

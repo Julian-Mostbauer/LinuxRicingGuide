@@ -1,10 +1,10 @@
 <template>
-  <div class="navbar bg-base-100 shadow-lg">
+  <div class="navbar bg-base-200 shadow-lg border-b border-base-300 sticky top-0 z-50">
     <div class="flex-1">
       <div class="breadcrumbs text-xl">
-        <ul>
+        <ul class="ml-2">
           <li><a href="/">
-              <Icon name="fa6-solid:house" size="16" />
+              <Icon name="fa6-solid:house" size="28" />
             </a></li>
           <li v-for="routePart in routeParts" :key="routePart.fullPath">
             <NuxtLink class="text-xl" :to="`/${routePart.fullPath}`">
