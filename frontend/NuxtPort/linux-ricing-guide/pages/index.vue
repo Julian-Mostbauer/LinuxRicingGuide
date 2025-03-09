@@ -1,6 +1,3 @@
-<script setup lang="ts">
-</script>
-
 <template>
   <div class="container mx-auto p-8">
     <div class="card text-neutral-content p-6 mb-6">
@@ -73,7 +70,7 @@
 
       <BigImageCard imagePath="img/card-setups.webp" title="Setups"
         description="Showcase of our personal setups we use on our machines. Feel free to get inspired and copy some aspects."
-        link="personal-setups"></BigImageCard>
+        link="our-setups"></BigImageCard>
 
       <BigImageCard imagePath="img/card-window-manager.webp" title="Window-Managers"
         description="Controls the appearance, and behavior of application windows in a graphical interface."
@@ -93,5 +90,4 @@
         link="desktop-environments"></BigImageCard>
     </div>
   </div>
-
 </template>
