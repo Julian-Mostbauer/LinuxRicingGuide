@@ -1,7 +1,7 @@
 <template>
   <div class="card rounded-xl shadow-xl bg-base-200 flex flex-row">
     <!-- Data Section -->
-    <div class="card-body w-1/3">
+    <div v-if="!reverseOrder" class="card-body w-1/3">
       <h2 class="card-title">{{ name }}</h2>
       <p><strong>OS:</strong> {{ os }}</p>
       <p><strong>Desktop Environment:</strong> {{ desktopEnvironment }}</p>
@@ -14,9 +14,27 @@
     </div>
 
     <!-- Image Section -->
-    <figure class="w-2/3 h-full overflow-hidden border-l border-gray-300 rounded-xl rounded-l-none">
+    <figure v-if="!reverseOrder" class="w-2/3 h-full overflow-hidden border-l border-gray-300 rounded-xl rounded-l-none">
       <img :src="imageSrc" :alt="`${name}'s desktop screenshot`" class="w-full h-full object-cover overflow-hidden" />
     </figure>
+
+    <!-- Image Section -->
+    <figure v-if="reverseOrder" class="w-2/3 h-full overflow-hidden border-r border-gray-300 rounded-xl rounded-r-none">
+      <img :src="imageSrc" :alt="`${name}'s desktop screenshot`" class="w-full h-full object-cover overflow-hidden" />
+    </figure>
+
+    <!-- Data Section -->
+    <div v-if="reverseOrder" class="card-body w-1/3">
+      <h2 class="card-title">{{ name }}</h2>
+      <p><strong>OS:</strong> {{ os }}</p>
+      <p><strong>Desktop Environment:</strong> {{ desktopEnvironment }}</p>
+      <p><strong>Window Manager:</strong> {{ windowManager }}</p>
+      <p><strong>Terminal Emulator:</strong> {{ terminalEmulator }}</p>
+      <p><strong>Terminal Theme:</strong> {{ terminalTheme }}</p>
+      <p><strong>Shell Configurations:</strong> {{ shellConfigurations }}</p>
+      <p><strong>Starship Preset:</strong> {{ starshipPreset }}</p>
+      <p><strong>File Manager:</strong> {{ fileManager }}</p>
+    </div>
   </div>
 </template>
 
@@ -32,5 +50,6 @@ defineProps<{
   starshipPreset: string;
   fileManager: string;
   imageSrc: string;
+  reverseOrder?: boolean;
 }>();
 </script>

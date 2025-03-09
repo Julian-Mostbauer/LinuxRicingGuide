@@ -4,7 +4,8 @@
       :desktopEnvironment="user['Desktop Environment']" :windowManager="user['Window Manager']"
       :terminalEmulator="user['Terminal Emulator']" :terminalTheme="user['Terminal Theme']"
       :shellConfigurations="user['Shell Configurations']" :starshipPreset="user['Starship Preset']"
-      :fileManager="user['File Manager']" :imageSrc="userImages[index]" />
+      :fileManager="user['File Manager']" :imageSrc="userImages[index]"
+      :reverseOrder="index % 2 == 1" />
   </div>
 </template>
 
