@@ -3,9 +3,11 @@
     <div class="card text-neutral-content p-6 mb-6">
       <article>
         <section class="mb-6">
-          <h2 class="text-4xl font-bold flex items-center gap-2">
+            <h2 class="text-4xl font-bold flex items-center gap-2 flex-col md:flex-row">
             <Icon name="fa6-solid:bowl-rice" size="64" />
-            What is Linux <i>Ricing?</i>
+            <div>
+              What is Linux <i>Ricing?</i>
+            </div>
           </h2>
           <p class="mt-2">
             <i>Ricing</i> is similar to the modding or tuning community, but for your computer. It involves
