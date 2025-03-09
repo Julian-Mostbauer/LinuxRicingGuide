@@ -3,7 +3,7 @@
     <div class="card text-neutral-content p-6 mb-6">
       <article>
         <section class="mb-6">
-            <h2 class="text-4xl font-bold flex items-center gap-2 flex-col md:flex-row">
+          <h2 class="text-4xl font-bold flex items-center gap-2 flex-col md:flex-row">
             <Icon name="fa6-solid:bowl-rice" size="64" />
             <div>
               What is Linux <i>Ricing?</i>

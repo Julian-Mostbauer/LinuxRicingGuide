@@ -15,8 +15,8 @@
       </div>
     </div>
     <div class="flex gap-2">
-      <!--! Add search functionality -->
-      <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
+      <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" v-model="searchQuery"
+        @input="onSearchInput" />
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
           <div class="w-10 rounded-full">
@@ -40,6 +40,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+
 type RoutePart = { name: string, fullPath: string }
 
 const route = useRoute()
@@ -52,4 +54,15 @@ const routeParts: RoutePart[] = route.fullPath
     return { name: part, fullPath };
   })
 
+const searchQuery = ref('');
+
+const onSearchInput = () => {
+  search(searchQuery.value);
+}
+
+const search = (inp: string) => {
+  if (!inp) return;
+  console.log('searching for ', inp)
+  //! TODO: Implement search functionality
+}
 </script>
