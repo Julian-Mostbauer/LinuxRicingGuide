@@ -40,11 +40,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-
 type RoutePart = { name: string, fullPath: string }
 
+import { ref } from 'vue';
+import { useRouter } from 'vue-router'
+import siteWideSearch from '~/assets/utils/site-wide-search';
+
 const route = useRoute()
+const router = useRouter()
+
 const routeParts: RoutePart[] = route.fullPath
   .split('/')
   .filter(p => p)
@@ -62,7 +66,7 @@ const onSearchInput = () => {
 
 const search = (inp: string) => {
   if (!inp) return;
-  console.log('searching for ', inp)
-  //! TODO: Implement search functionality
+  console.log(siteWideSearch(inp, router));
 }
+
 </script>

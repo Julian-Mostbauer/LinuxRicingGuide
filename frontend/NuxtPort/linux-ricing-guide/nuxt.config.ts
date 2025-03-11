@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   vite: {
     plugins: [tailwindcss()],
     server: {
-      allowedHosts: ['localhost', 'among-ts-persian-mixed.trycloudflare.com']
+      allowedHosts: ['localhost', 'among-ts-persian-mixed.trycloudflare.com', 'warren-itunes-cove-temple.trycloudflare.com', 'dx-reductions-performances-engineers.trycloudflare.com']
     }
   },
   css: ["~/assets/app.css"],
