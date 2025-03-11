@@ -65,15 +65,15 @@
         description="List of some linux distributions you can use. These contain common but also some exotic ones."
         link="distros"></BigImageCard>
 
-      <BigImageCard imagePath="img/card-package-managers.webp" title="Package Managers"
+      <BigImageCard imagePath="img/mini/card-package-managers.webp" title="Package Managers"
         description="Selection of Package Managers you can use to install software on your linux machine."
         link="package-managers"></BigImageCard>
 
-      <BigImageCard imagePath="img/card-setups.webp" title="Setups"
+      <BigImageCard imagePath="img/mini/card-setups.webp" title="Setups"
         description="Showcase of our personal setups we use on our machines. Feel free to get inspired and copy some aspects."
         link="our-setups"></BigImageCard>
 
-      <BigImageCard imagePath="img/card-window-manager.webp" title="Window-Managers"
+      <BigImageCard imagePath="img/mini/card-window-manager.webp" title="Window-Managers"
         description="Controls the appearance, and behavior of application windows in a graphical interface."
         link="window-managers"></BigImageCard>
 
