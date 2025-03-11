@@ -41,6 +41,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import siteWideSearch from '~/assets/utils/site-wide-search';
 
 type RoutePart = { name: string, fullPath: string }
 
@@ -62,7 +63,7 @@ const onSearchInput = () => {
 
 const search = (inp: string) => {
   if (!inp) return;
-  console.log('searching for ', inp)
-  //! TODO: Implement search functionality
+  console.log(siteWideSearch(inp));
 }
+
 </script>
