@@ -6,13 +6,15 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   vite: {
     plugins: [tailwindcss()],
+    server: {
+      allowedHosts: ['localhost', 'among-ts-persian-mixed.trycloudflare.com']
+    }
   },
-
   css: ["~/assets/app.css"],
   modules: ["@nuxt/icon"],
   icon: {
     serverBundle: {
-      collections: ['uil', 'mdi'] // <!--- this
+      collections: ['uil', 'mdi']
     }
   }
 })

@@ -1,12 +1,12 @@
 <template>
-  <div class="gridClass w-full">
-    <div
-      v-for="(entry, index) in entries"
-      :key="index"
-      class="cursor-pointer overflow-hidden"
-      @click="navigateTo(entry.link)"
-    >
-      <img :src="entry.imagePath" alt="Image" class="w-full h-full object-cover" />
+  <div class="grid gap-4 md:gap-6" :style="{
+    '--desktop-cols': dimensions.width,
+    '--mobile-cols': mobileDimensions.width
+  }">
+    <div v-for="(entry, index) in entries" :key="index"
+      class="border-2 border-base-300 rounded-box p-4 bg-base-200 hover:bg-base-200 transition-all duration-300 cursor-pointer overflow-hidden"
+      @click="navigateTo(entry.link, linkPrefix)">
+      <img :src="entry.imagePath" alt="Image" class="w-full h-full object-cover rounded-box aspect-square" />
     </div>
   </div>
 </template>
@@ -15,30 +15,26 @@
 type Dimensions = { width: number; height: number };
 type Entry = { imagePath: string; link: string };
 
-defineProps<{ entries: Entry[]; dimensions: Dimensions; mobileDimensions: Dimensions }>();
+defineProps<{
+  entries: Entry[];
+  dimensions: Dimensions;
+  mobileDimensions: Dimensions;
+  linkPrefix?: string;
+}>();
 
-const navigateTo = (link: string) => {
-  window.location.href = link;
+const navigateTo = (link: string, linkPrefix?: string) => {
+  window.location.href = linkPrefix ? `${linkPrefix}${link}` : link;
 };
 </script>
 
 <style scoped>
-.w-full {
-  display: grid;
-  grid-template-columns: repeat(var(--columns), 1fr);
-  grid-template-rows: repeat(var(--rows), 1fr);
-  gap: 4px;
+.grid {
+  grid-template-columns: repeat(var(--desktop-cols, 3), minmax(0, 1fr));
 }
-@media (min-width: 640px) {
-  .w-full {
-    --columns: v-bind(dimensions.width);
-    --rows: v-bind(dimensions.height);
-  }
-}
-@media (max-width: 639px) {
-  .w-full {
-    --columns: v-bind(mobileDimensions.width);
-    --rows: v-bind(mobileDimensions.height);
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(var(--mobile-cols, 2), minmax(0, 1fr));
   }
 }
 </style>
