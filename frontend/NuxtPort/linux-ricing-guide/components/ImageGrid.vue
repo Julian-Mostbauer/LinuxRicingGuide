@@ -3,17 +3,21 @@
     '--desktop-cols': dimensions.width,
     '--mobile-cols': mobileDimensions.width
   }">
-    <div v-for="(entry, index) in entries" :key="index"
-      class="border-2 border-base-300 rounded-box p-4 bg-base-200 hover:bg-base-200 transition-all duration-300 cursor-pointer overflow-hidden"
-      @click="navigateTo(entry.link, linkPrefix)">
-      <img :src="entry.imagePath" alt="Image" class="w-full h-full object-cover rounded-box aspect-square" />
+    <div v-for="(entry, index) in entries" :key="index" @click="navigateTo(entry.link, linkPrefix)">
+
+      <GradientOutline border-radius="2.2rem" circle-width="200px">
+        <div class="cursor-pointer bg-base-200 relative p-4 rounded-[2rem] hover:bg-base-100">
+          <div class="p-[0.2rem]">
+            <img :src="entry.imagePath" alt="Image" class="w-full h-full object-cover rounded-box aspect-square" />
+          </div>
+        </div>
+      </GradientOutline>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
-
 const router = useRouter()
 
 type Dimensions = { width: number; height: number };

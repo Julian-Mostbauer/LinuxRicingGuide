@@ -1,5 +1,5 @@
 <template>
-  <div class="card w-full bg-base-200 shadow-lg">
+  <div class="card h-full w-full bg-base-200 shadow-lg">
     <figure>
       <img :src="imagePath" alt="Image" class="w-full h-48 object-cover rounded-t-lg" />
     </figure>

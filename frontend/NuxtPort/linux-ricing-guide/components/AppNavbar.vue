@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar bg-base-200 shadow-lg border-b border-base-300 sticky top-0 z-50">
+  <div class="navbar bg-base-200 border-b-2 border-gray-800 sticky top-0 z-50">
     <div class="flex-1">
       <div class="breadcrumbs text-xl">
         <ul class="ml-2">
@@ -15,8 +15,13 @@
       </div>
     </div>
     <div class="flex gap-2">
-      <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" v-model="searchQuery"
-        @input="onSearchInput" />
+      <label class="input input-bordered hidden items-center gap-2 sm:w-64 sm:flex">
+        <input type="text" placeholder="Search" class="grow" v-model="searchQuery"
+               @input="onSearchInput" />
+        <Icon name="fa6-solid:magnifying-glass" size="20" />
+
+      </label>
+
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
           <div class="w-10 rounded-full">
