@@ -1,7 +1,7 @@
 <template>
   <div class="">
     <div class="card text-neutral-content mb-6">
-      <div class="hero bg-base-300 min-h-screen">
+      <div class="hero bg-base-200 min-h-screen border-b-2 border-gray-800">
         <div class="hero-content flex-col lg:flex-row">
           <div class="lg:mr-20 text-center lg:text-left">
             <h1 class="text-5xl font-bold"><Icon name="fa6-solid:bowl-rice" size="40" /> Linux Ricing</h1>
@@ -27,31 +27,31 @@
     </div>
     <div class="m-8 grid grid-cols-1 md:grid-cols-4 gap-4">
       <GradientOutline border-radius="2.1rem" circle-width="300px">
-      <BigImageCard imagePath="img/mini2/card-distributions.webp" title="Distributions"
-        description="List of some linux distributions you can use. These contain common but also some exotic ones."
-        link="distros">
-      </BigImageCard>
+        <BigImageCard imagePath="img/mini2/card-distributions.webp" title="Distributions"
+          description="List of some linux distributions you can use. These contain common but also some exotic ones."
+          link="distros">
+        </BigImageCard>
       </GradientOutline>
 
       <GradientOutline border-radius="2.1rem" circle-width="300px">
-      <BigImageCard imagePath="img/mini2/card-package-managers.webp" title="Package Managers"
-        description="Selection of Package Managers you can use to install software on your linux machine."
-        link="package-managers">
-      </BigImageCard>
+        <BigImageCard imagePath="img/mini2/card-package-managers.webp" title="Package Managers"
+          description="Selection of Package Managers you can use to install software on your linux machine."
+          link="package-managers">
+        </BigImageCard>
       </GradientOutline>
 
-        <GradientOutline border-radius="2.1rem" circle-width="300px">
-      <BigImageCard imagePath="img/mini2/card-setups.webp" title="Setups"
-        description="Showcase of our personal setups we use on our machines. Feel free to get inspired and copy some aspects."
-        link="our-setups">
-      </BigImageCard>
+      <GradientOutline border-radius="2.1rem" circle-width="300px">
+        <BigImageCard imagePath="img/mini2/card-setups.webp" title="Setups"
+          description="Showcase of our personal setups we use on our machines. Feel free to get inspired and copy some aspects."
+          link="our-setups">
+        </BigImageCard>
       </GradientOutline>
 
-        <GradientOutline border-radius="2.1rem" circle-width="300px">
-      <BigImageCard imagePath="img/mini2/card-window-manager.webp" title="Window-Managers"
-        description="Controls the appearance, and behavior of application windows in a graphical interface."
-        link="window-managers">
-      </BigImageCard>
+      <GradientOutline border-radius="2.1rem" circle-width="300px">
+        <BigImageCard imagePath="img/mini2/card-window-manager.webp" title="Window-Managers"
+          description="Controls the appearance, and behavior of application windows in a graphical interface."
+          link="window-managers">
+        </BigImageCard>
       </GradientOutline>
 
       <GradientOutline border-radius="2.1rem" circle-width="300px">
