@@ -31,8 +31,8 @@
   --radius-field: 1rem;
   --radius-box: 2rem;
   --size-selector: 0.25rem;
-  --size-field: 0.21875rem;
+  --size-field: 0.25875rem;
   --border: 1.5px;
-  --depth: 1;
+  --depth: 0;
   --noise: 0;
 }

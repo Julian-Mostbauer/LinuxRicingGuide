@@ -60,7 +60,6 @@
         </section>
       </article>
     </div>
-
     <div class="m-8 grid grid-cols-1 md:grid-cols-4 gap-4">
       <BigImageCard imagePath="img/card-distributions.webp" title="Distributions"
         description="List of some linux distributions you can use. These contain common but also some exotic ones."

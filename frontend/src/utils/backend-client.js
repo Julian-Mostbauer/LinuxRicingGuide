@@ -59,9 +59,7 @@ class BackendClient {
 
     async patchDistro(distroName, distroId, updatedData) {
         // Send a PATCH request to update the up-votes count
-        const patchResponse = await fetch(
-            `http://localhost:3000/distros/${distroId}`,
-            {
+        const patchResponse = await fetch(`http://localhost:3000/distros/${distroId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
