@@ -1,11 +1,11 @@
 <template>
-  <div class="flex flex-col gap-4 w-4/5 justify-center mx-auto mt-8 mb-8">
+  <div class="flex flex-col gap-4 w-4/5 justify-center mx-auto">
     <SetupDisplay v-for="(user, index) in users" :key="index" :name="user.Name" :os="user.OS"
       :desktopEnvironment="user['Desktop Environment']" :windowManager="user['Window Manager']"
       :terminalEmulator="user['Terminal Emulator']" :terminalTheme="user['Terminal Theme']"
       :shellConfigurations="user['Shell Configurations']" :starshipPreset="user['Starship Preset']"
       :fileManager="user['File Manager']" :imageSrc="userImages[index]"
-      :reverseOrder="index % 2 == 1" />
+      :reverseOrder="index % 2 == 1" class="mt-8 mb-8"/>
   </div>
 </template>
 
