@@ -1,64 +1,29 @@
 <template>
-  <div class="container mx-auto p-8">
-    <div class="card text-neutral-content p-6 mb-6">
-      <article>
-        <section class="mb-6">
-          <h2 class="text-4xl font-bold flex items-center gap-2 flex-col md:flex-row">
-            <Icon name="fa6-solid:bowl-rice" size="64" />
-            <div>
-              What is Linux <i>Ricing?</i>
-            </div>
-          </h2>
-          <p class="mt-2">
-            <i>Ricing</i> is similar to the modding or tuning community, but for your computer. It involves
-            customizing your desktop to make it look more visually appealing by changing themes, icons, fonts,
-            and other visual elements.
-          </p>
-        </section>
-
-        <section>
-          <h2 class="text-2xl font-bold flex items-center gap-2 mb-4">
-            <Icon name="fa6-solid:circle-info" size="32" />
-            General Overview
-          </h2>
-          <div class="flex flex-row gap-8">
-            <div>
-              <ul class="list-none space-y-3">
-                <li class="p-4 bg-base-200 rounded-lg">
-                  <strong>Window-Manager:</strong>
-                  Users may prefer lightweight options like i3 or Openbox or complex ones like GNOME or KDE Plasma.
-                </li>
-                <div class="divider"></div>
-                <li class="p-4 bg-base-200 rounded-lg">
-                  <strong>Wallpaper:</strong> Choose from various wallpapers to personalize your desktop.
-                </li>
-                <div class="divider"></div>
-                <li class="p-4 bg-base-200 rounded-lg">
-                  <strong>Icons:</strong> Replace desktop icons to match your system's aesthetic.
-                </li>
-                <div class="divider"></div>
-                <li class="p-4 bg-base-200 rounded-lg">
-                  <strong>Fonts:</strong> Select fonts like
-                  <a target="_blank" href="https://github.com/ryanoasis/nerd-fonts"
-                    class="link link-primary">Nerd-Fonts</a>
-                  to enhance your system's look.
-                </li>
+  <div class="">
+    <div class="card text-neutral-content mb-6">
+      <div class="hero bg-base-300 min-h-screen">
+        <div class="hero-content flex-col lg:flex-row">
+          <div class="lg:mr-20 text-center lg:text-left">
+            <h1 class="text-5xl font-bold"><Icon name="fa6-solid:bowl-rice" size="40" /> Linux Ricing</h1>
+            <p class="py-6 max-w-128">
+              Linux Ricing is the process of customizing your desktop to make it look more visually appealing by
+              changing themes, icons, fonts, and other visual elements.
+            </p>
+          </div>
+          <div class="card bg-base-100 w-full max-w-md shrink-0 shadow-2xl">
+            <div class="card-body">
+              <h2 class="text-2xl font-bold mb-4">Why Customize Your Linux Desktop?</h2>
+              <ul class="list-disc list-inside">
+                <li>Improve productivity with a personalized workflow</li>
+                <li>Enhance the visual appeal of your desktop</li>
+                <li>Learn more about Linux and its customization options</li>
+                <li>Show off your unique setup to the community</li>
               </ul>
-            </div>
-            <div class="divider divider-horizontal"></div>
-            <div class="flex flex-grow">
-              <div class="p-4 bg-base-200 rounded-lg flex-grow">
-                <strong>Themes:</strong>
-                <ul class="list-disc pl-6 mt-2">
-                  <li>GTK or QT Themes for colors and widgets.</li>
-                  <li>Icon packs for system-wide icons.</li>
-                  <li>Terminal themes for colors and fonts.</li>
-                </ul>
-              </div>
+              <p class="mt-4">Start your ricing journey today and transform your Linux desktop into a work of art!</p>
             </div>
           </div>
-        </section>
-      </article>
+        </div>
+      </div>
     </div>
     <div class="m-8 grid grid-cols-1 md:grid-cols-4 gap-4">
       <BigImageCard imagePath="img/card-distributions.webp" title="Distributions"
