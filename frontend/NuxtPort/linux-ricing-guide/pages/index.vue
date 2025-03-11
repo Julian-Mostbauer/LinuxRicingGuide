@@ -10,8 +10,7 @@
               changing themes, icons, fonts, and other visual elements.
             </p>
           </div>
-          <GradientOutline border-radius="2.1rem" circle-width="500px">
-            <div class="card bg-base-100 w-full max-w-md shrink-0 shadow-2xl">
+            <div class="card bg-base-100 w-full max-w-md shrink-0 shadow-2xl border-primary border-2">
               <div class="card-body">
                 <h2 class="text-2xl font-bold mb-4">Why Customize Your Linux Desktop?</h2>
                 <ul class="list-disc list-inside">
@@ -23,7 +22,6 @@
                 <p class="mt-4">Start your ricing journey today and transform your Linux desktop into a work of art!</p>
               </div>
             </div>
-          </GradientOutline>
         </div>
       </div>
     </div>

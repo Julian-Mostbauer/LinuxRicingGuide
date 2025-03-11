@@ -7,12 +7,13 @@ const el = ref<HTMLElement | null>(null);
 defineProps<{
   borderRadius: string;
   circleWidth: string;
+  className?: string;
 }>();
 </script>
 
 <template>
 <div
-  class="card entry relative p-[0.2rem] bg-base-300"
+  :class="`${className} card entry relative p-[0.2rem] bg-base-300`"
   :style="{
       '--x': `${x - (el?.offsetLeft ?? 0)}px`,
       '--y': `${y - (el?.offsetTop ?? 0)}px`,
