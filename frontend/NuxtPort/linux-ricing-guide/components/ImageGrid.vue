@@ -12,6 +12,10 @@
 </template>
 
 <script lang="ts" setup>
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
 type Dimensions = { width: number; height: number };
 type Entry = { imagePath: string; link: string };
 
@@ -23,7 +27,7 @@ defineProps<{
 }>();
 
 const navigateTo = (link: string, linkPrefix?: string) => {
-  window.location.href = linkPrefix ? `${linkPrefix}${link}` : link;
+  router.push(linkPrefix ? `${linkPrefix}${link}` : link);
 };
 </script>
 

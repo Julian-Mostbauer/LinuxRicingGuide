@@ -114,9 +114,7 @@
       </article>
     </div>
     <div>
-      <ImageGrid :entries="entries" , :dimensions="{ width: 8, height: 3 }" :mobileDimensions="{ width: 2, height: 12 }"",
-        linkPrefix='history/'
-        />
+      <ImageGrid :entries="entries" :dimensions="{ width: 8, height: 3 }" :mobileDimensions="{ width: 2, height: 12 }" linkPrefix='distros/history/'/>
     </div>
   </div>
 </template>

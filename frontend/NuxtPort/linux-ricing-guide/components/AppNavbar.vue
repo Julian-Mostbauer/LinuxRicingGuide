@@ -3,9 +3,9 @@
     <div class="flex-1">
       <div class="breadcrumbs text-xl">
         <ul class="ml-2">
-          <li><a href="/">
-              <Icon name="fa6-solid:house" size="28" />
-            </a></li>
+          <li><NuxtLink to="/">
+              <Icon name="fa6-solid:house" size="20" />
+            </NuxtLink></li>
           <li v-for="routePart in routeParts" :key="routePart.fullPath">
             <NuxtLink class="text-xl" :to="`/${routePart.fullPath}`">
               {{ routePart.name }}
@@ -42,21 +42,27 @@
 <script setup lang="ts">
 type RoutePart = { name: string, fullPath: string }
 
-import { ref } from 'vue';
-import { useRouter } from 'vue-router'
+import { ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router'
 import siteWideSearch from '~/assets/utils/site-wide-search';
 
 const route = useRoute()
 const router = useRouter()
 
-const routeParts: RoutePart[] = route.fullPath
-  .split('/')
-  .filter(p => p)
-  .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-  .map((part, index, arr) => {
-    const fullPath = arr.slice(0, index + 1).join('/');
-    return { name: part, fullPath };
-  })
+const routeParts = ref<RoutePart[]>([]);
+
+const updateRouteParts = () => {
+  routeParts.value = route.fullPath
+      .split('/')
+      .filter(p => p)
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .map((part, index, arr) => {
+        const fullPath = arr.slice(0, index + 1).join('/');
+        return { name: part, fullPath };
+      });
+};
+
+watch(route, updateRouteParts, { immediate: true });
 
 const searchQuery = ref('');
 
@@ -68,5 +74,7 @@ const search = (inp: string) => {
   if (!inp) return;
   console.log(siteWideSearch(inp, router));
 }
+
+updateRouteParts(); // Initial call to set routeParts
 
 </script>
