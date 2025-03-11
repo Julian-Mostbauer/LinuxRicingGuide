@@ -15,8 +15,13 @@
       </div>
     </div>
     <div class="flex gap-2">
-      <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" v-model="searchQuery"
-        @input="onSearchInput" />
+      <label class="input input-bordered hidden items-center gap-2 sm:w-64 sm:flex">
+        <input type="text" placeholder="Search" class="grow" v-model="searchQuery"
+               @input="onSearchInput" />
+        <Icon name="fa6-solid:magnifying-glass" size="20" />
+
+      </label>
+
       <div class="dropdown dropdown-end">
         <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
           <div class="w-10 rounded-full">

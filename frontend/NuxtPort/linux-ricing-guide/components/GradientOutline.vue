@@ -3,35 +3,40 @@ import {useMouse} from "@vueuse/core";
 
 const { x, y } = useMouse();
 const el = ref<HTMLElement | null>(null);
+
+defineProps<{
+  borderRadius: string;
+  circleWidth: string;
+}>();
 </script>
 
 <template>
 <div
-  class="entry relative p-[0.2rem] bg-base-300 cursor-pointer hover:bg-primary"
+  class="entry relative p-[0.2rem] bg-base-300"
   :style="{
       '--x': `${x - (el?.offsetLeft ?? 0)}px`,
-      '--y': `${y - (el?.offsetTop ?? 0)}px`
+      '--y': `${y - (el?.offsetTop ?? 0)}px`,
+      '--border-radius': borderRadius,
+      '--circle-width': circleWidth,
     }"
   ref="el"
 >
-  <div class="bg-base-200 relative p-4 rounded-[0.8rem] hover:bg-base-100">
-    <slot />
-  </div>
+  <slot />
 </div>
 </template>
 
 <style scoped>
 .entry {
-  border-radius: 1rem;
+  border-radius: var(--border-radius);
 }
 
 .entry::before {
   content: '';
   position: absolute;
   inset: 0;
-  border-radius: 1rem;
+  border-radius: var(--border-radius);
   background: radial-gradient(
-      200px circle at var(--x) var(--y),
+      var(--circle-width) circle at var(--x) var(--y),
       var(--color-primary),
       transparent
   );
