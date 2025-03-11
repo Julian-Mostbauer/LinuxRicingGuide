@@ -1,12 +1,17 @@
-import { useRouter } from 'vue-router';
-const router = useRouter();
+import type { Router } from 'vue-router'
 
-const getAllPages = () => {
-  const pages = router.getRoutes().map(route => route.path);
-  console.log('All pages:', pages);
-  return pages;
-}
+export default (inp: string, router: Router) => {
+    const getAllPages = () => {
+        const pages = router.getRoutes().map((route) => route.path)
+        console.log('All pages:', pages)
+        return pages
+    }
 
-export default (inp: string) => {
-  return 'Hello Util'
+    const pages = getAllPages()
+    const found = pages.find((page) => page.includes(inp))
+    if (found) {
+        console.log('Found:', found)
+    } else {
+        console.log('Not found')
+    }
 }
