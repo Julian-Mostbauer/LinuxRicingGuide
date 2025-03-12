@@ -16,4 +16,6 @@ const routes = router.getRoutes();
 
 const fileTree = ref(new Tree());
 routes.forEach(route => fileTree.value.add(route));
+
+console.log(fileTree.value)
 </script>

@@ -28,7 +28,6 @@ class Tree {
         let current = this.Root
 
         for (let i = 0; i < parts.length; i++) {
-            const isLastPart = i === parts.length - 1
             let node = current.Children.find(
                 (child) => child.Value?.path === parts[i]
             )
@@ -41,10 +40,10 @@ class Tree {
             current = node
         }
 
-        // Mark if this is an index page
+        // Properly detect index pages
         if (
-            !route.path.includes('/') ||
-            !route.path.endsWith(parts[parts.length - 1])
+            route.path.endsWith('/' + parts[parts.length - 1]) ||
+            route.path === '/'
         ) {
             current.HasIndex = true
         }
@@ -53,7 +52,12 @@ class Tree {
     }
 }
 
-const routeName = (fullPath: string | null | undefined) =>
-    toHeaderCase(fullPath?.split('/').pop() || 'Something went wrong')
+const routeName = (
+    fullPath: string | null | undefined,
+    fallBackName: string = 'no fallback provided'
+) => {
+    const name = fullPath?.split('/').pop() || fallBackName
+    return toHeaderCase(name)
+}
 
 export { Tree, Node, routeName }
