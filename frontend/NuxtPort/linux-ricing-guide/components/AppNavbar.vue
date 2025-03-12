@@ -1,6 +1,14 @@
 <template>
   <div class="navbar bg-transparent bg-opacity-70 backdrop-blur-md border-b-2 border-gray-800 sticky top-0 z-50">
-    <div class="flex-1">
+    <div class="flex-1 flex">
+
+      <!-- Sidemenu -->
+      <button @click="toggleSideMenu = !toggleSideMenu" class="btn btn-square btn-ghost">
+        <Icon name="fa6-solid:bars" size="20" />
+      </button>
+      <AppSideMenu v-if="toggleSideMenu" @close="toggleSideMenu = false" />
+
+      <!-- Breadcrumbs -->
       <div class="breadcrumbs text-xl">
         <ul class="ml-2">
           <li>
@@ -46,6 +54,7 @@
 </template>
 
 <script setup lang="ts">
+const toggleSideMenu = ref(false)
 type RoutePart = { name: string, fullPath: string }
 
 import { ref, watch } from 'vue';
