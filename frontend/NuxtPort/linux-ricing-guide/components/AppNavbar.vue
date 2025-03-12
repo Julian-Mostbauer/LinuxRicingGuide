@@ -3,9 +3,11 @@
     <div class="flex-1">
       <div class="breadcrumbs text-xl">
         <ul class="ml-2">
-          <li><NuxtLink to="/">
+          <li>
+            <NuxtLink to="/">
               <Icon name="fa6-solid:house" size="20" />
-            </NuxtLink></li>
+            </NuxtLink>
+          </li>
           <li v-for="routePart in routeParts" :key="routePart.fullPath">
             <NuxtLink class="text-xl" :to="`/${routePart.fullPath}`">
               {{ routePart.name }}
@@ -16,8 +18,7 @@
     </div>
     <div class="flex gap-2">
       <label class="input input-bordered hidden items-center gap-2 sm:w-64 sm:flex">
-        <input type="text" placeholder="Search" class="grow" v-model="searchQuery"
-               @input="onSearchInput" />
+        <input type="text" placeholder="Search" class="grow" v-model="searchQuery" @input="onSearchInput" />
         <Icon name="fa6-solid:magnifying-glass" size="20" />
 
       </label>
@@ -58,13 +59,13 @@ const routeParts = ref<RoutePart[]>([]);
 
 const updateRouteParts = () => {
   routeParts.value = route.fullPath
-      .split('/')
-      .filter(p => p)
-      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-      .map((part, index, arr) => {
-        const fullPath = arr.slice(0, index + 1).join('/');
-        return { name: part, fullPath };
-      });
+    .split('/')
+    .filter(p => p)
+    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+    .map((part, index, arr) => {
+      const fullPath = arr.slice(0, index + 1).join('/');
+      return { name: part, fullPath };
+    });
 };
 
 watch(route, updateRouteParts, { immediate: true });
