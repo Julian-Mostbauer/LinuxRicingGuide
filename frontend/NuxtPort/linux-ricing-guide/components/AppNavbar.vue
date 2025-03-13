@@ -41,7 +41,6 @@
 </template>
 
 <script setup lang="ts">
-const toggleSideMenu = ref(false)
 type RoutePart = { name: string, fullPath: string }
 
 import { ref, watch } from 'vue';
