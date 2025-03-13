@@ -2,7 +2,7 @@
   <ul v-if="!isRoot || node.Children.length > 0">
     <li v-if="node.HasIndex">
       <a :href="node.Value?.path || '/'">
-        <Icon name="fa6-solid:file-lines" size="16" />
+        <Icon :name="'fa6-solid:' + (isRoot ? 'house' : 'file-lines')" size="16" />
         {{ routeName(node.Value?.path, "Home") }}
       </a>
     </li>
