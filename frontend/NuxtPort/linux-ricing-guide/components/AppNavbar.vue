@@ -10,7 +10,7 @@
             <div class="drawer">
               <input id="my-drawer" type="checkbox" class="drawer-toggle" />
               <div class="drawer-content">
-                <label for="my-drawer" class="btn btn-ghost drawer-button p-0 ml-2">
+                <label for="my-drawer" class="btn btn-ghost drawer-button p-2 ml-2">
                   <Icon name="fa6-solid:compass" size="22" />
                 </label>
 

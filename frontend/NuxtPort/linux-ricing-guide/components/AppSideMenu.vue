@@ -7,7 +7,7 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';
-import { Tree, Node } from 'assets/utils/routeTree'
+import { Tree } from 'assets/utils/routeTree'
 
 const router = useRouter();
 const routes = router.getRoutes();
