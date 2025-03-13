@@ -1,26 +1,28 @@
 <template>
-  <div class="navbar bg-transparent bg-opacity-70 backdrop-blur-md border-b-2 border-gray-800 sticky top-0 z-50">
-    <div class="flex-1 flex">
+  <div class="navbar bg-opacity-70 backdrop-blur-md border-b-2 border-gray-800 sticky top-0 z-50" style="background-color: rgb(14 23 30 / 69%)">
+    <div class="flex-1 flex items-center">
+      <div class="tooltip tooltip-bottom" data-tip="Menu">
+        <!-- Sidemenu -->
+        <div class="drawer flex items-center justify-center">
+          <input id="nav-drawer" type="checkbox" class="drawer-toggle" />
+
+          <div class="drawer-content">
+            <label for="nav-drawer" class="btn btn-ghost drawer-button p-2">
+              <Icon name="fa6-solid:compass" size="22" />
+            </label>
+          </div>
+
+          <div class="drawer-side z-1">
+            <label for="nav-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+            <AppSideMenu />
+          </div>
+        </div>
+      </div>
 
       <!-- Breadcrumbs -->
       <div class="breadcrumbs text-xl">
         <ul>
-          <li>
-            <!-- Sidemenu -->
-            <div class="drawer">
-              <input id="my-drawer" type="checkbox" class="drawer-toggle" />
-              <div class="drawer-content">
-                <label for="my-drawer" class="btn btn-ghost drawer-button p-2 ml-2">
-                  <Icon name="fa6-solid:compass" size="22" />
-                </label>
-
-              </div>
-              <div class="drawer-side">
-                <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-                  <AppSideMenu />
-              </div>
-            </div>
-          </li>
+          <li></li>
           <li v-for="routePart in routeParts" :key="routePart.fullPath">
             <NuxtLink class="text-xl" :to="`/${routePart.fullPath}`">
               {{ routePart.name }}

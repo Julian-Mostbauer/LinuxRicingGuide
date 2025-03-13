@@ -1,5 +1,5 @@
 <template>
-  <ul v-if="!isRoot || node.Children.length > 0" :class=" isRoot ? 'menu bg-base-200 text-base-content min-h-full w-80 p-4' : ''">
+  <ul v-if="!isRoot || node.Children.length > 0" :class="isRoot ? 'menu bg-base-200 text-base-content min-h-full w-80 p-4 border-r-2 border-gray-800' : ''" >
     <li v-if="node.HasIndex">
       <a :href="node.Value?.path || '/'">
         <Icon :name="'fa6-solid:' + (isRoot ? 'house' : 'file-lines')" :size="iconSize" />
