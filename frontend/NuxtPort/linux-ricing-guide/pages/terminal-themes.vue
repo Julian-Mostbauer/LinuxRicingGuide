@@ -17,3 +17,9 @@
       image-path="https://upload.wikimedia.org/wikipedia/commons/c/ca/Solarized_Yin_Yang_logo.png"></SmallImageCard>
   </div>
 </template>
+
+<script setup lang="ts">
+definePageMeta({
+  icon: 'palette',
+});
+</script>

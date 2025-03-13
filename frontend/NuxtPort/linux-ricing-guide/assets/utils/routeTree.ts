@@ -60,4 +60,12 @@ const routeName = (
     return toHeaderCase(name)
 }
 
-export { Tree, Node, routeName }
+const routeIcon = (route: RouteRecord) => {
+    if (route.meta?.icon) {
+        return route.meta.icon
+    }
+
+    return 'file-lines'
+}
+
+export { Tree, Node, routeName, routeIcon }

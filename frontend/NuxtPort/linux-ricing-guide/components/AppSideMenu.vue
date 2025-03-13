@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <TreeNode :node="fileTree.Root" :isRoot="true" />
-  </div>
+    <TreeNode v-if="fileTree.Root" :node="fileTree.Root" :isRoot="true" />
 </template>
 
 <script lang="ts" setup>

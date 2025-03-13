@@ -19,3 +19,9 @@
     </SmallImageCard>
   </div>
 </template>
+
+<script setup lang="ts">
+definePageMeta({
+  icon: 'display',
+});
+</script>

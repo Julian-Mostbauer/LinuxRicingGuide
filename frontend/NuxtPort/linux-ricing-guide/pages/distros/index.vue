@@ -120,6 +120,10 @@
 </template>
 
 <script lang="ts" setup>
+definePageMeta({
+  icon: 'database',
+});
+
 type entry = {
   imagePath: string,
   link: string
