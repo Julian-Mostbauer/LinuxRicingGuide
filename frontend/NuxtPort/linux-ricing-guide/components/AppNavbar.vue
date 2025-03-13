@@ -17,9 +17,7 @@
               </div>
               <div class="drawer-side">
                 <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-                <div class="menu bg-base-200 text-base-content min-h-full w-80 p-4">
                   <AppSideMenu />
-                </div>
               </div>
             </div>
           </li>
