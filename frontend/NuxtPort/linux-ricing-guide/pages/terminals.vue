@@ -17,5 +17,10 @@
         image-path="https://gitlab.xfce.org/uploads/-/system/project/avatar/35/utilities-terminal.png"></SmallImageCard>
     </div>
   </div>
-
 </template>
+
+<script setup lang="ts">
+definePageMeta({
+  icon: 'server',
+});
+</script>

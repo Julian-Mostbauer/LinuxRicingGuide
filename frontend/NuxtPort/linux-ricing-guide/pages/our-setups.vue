@@ -51,3 +51,9 @@ export default defineComponent({
   }
 });
 </script>
+
+<script setup lang="ts">
+definePageMeta({
+  icon: 'laptop-code',
+});
+</script>
