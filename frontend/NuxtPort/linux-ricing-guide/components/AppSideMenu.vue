@@ -1,7 +1,6 @@
 <template>
   <div>
-    <TreeNode v-if="fileTree.Root" :node="fileTree.Root" :isRoot="true" />
-
+    <TreeNode :node="fileTree.Root" :isRoot="true" />
   </div>
 </template>
 
