@@ -4,24 +4,26 @@
       <div class="hero bg-base-200 min-h-screen border-b-2 border-gray-800">
         <div class="hero-content flex-col lg:flex-row">
           <div class="lg:mr-20 text-center lg:text-left">
-            <h1 class="text-5xl font-bold"><Icon name="fa6-solid:bowl-rice" size="40" /> Linux Ricing</h1>
+            <h1 class="text-5xl font-bold">
+              <Icon name="fa6-solid:bowl-rice" size="40" /> Linux Ricing
+            </h1>
             <p class="py-6 max-w-128">
               Linux Ricing is the process of customizing your desktop to make it look more visually appealing by
               changing themes, icons, fonts, and other visual elements.
             </p>
           </div>
-            <div class="card bg-base-100 w-full max-w-md shrink-0 shadow-2xl border-primary border-2">
-              <div class="card-body">
-                <h2 class="text-2xl font-bold mb-4">Why Customize Your Linux Desktop?</h2>
-                <ul class="list-disc list-inside">
-                  <li>Improve productivity with a personalized workflow</li>
-                  <li>Enhance the visual appeal of your desktop</li>
-                  <li>Learn more about Linux and its customization options</li>
-                  <li>Show off your unique setup to the community</li>
-                </ul>
-                <p class="mt-4">Start your ricing journey today and transform your Linux desktop into a work of art!</p>
-              </div>
+          <div class="card bg-base-100 w-full max-w-md shrink-0 shadow-2xl border-primary border-2">
+            <div class="card-body">
+              <h2 class="text-2xl font-bold mb-4">Why Customize Your Linux Desktop?</h2>
+              <ul class="list-disc list-inside">
+                <li>Improve productivity with a personalized workflow</li>
+                <li>Enhance the visual appeal of your desktop</li>
+                <li>Learn more about Linux and its customization options</li>
+                <li>Show off your unique setup to the community</li>
+              </ul>
+              <p class="mt-4">Start your ricing journey today and transform your Linux desktop into a work of art!</p>
             </div>
+          </div>
         </div>
       </div>
     </div>
@@ -74,13 +76,10 @@
 
       <GradientOutline border-radius="2.1rem" circle-width="300px">
         <BigImageCard imagePath="img/mini2/card-desktop-environments.webp" title="Desktop Environments"
-                      description="Desktop Environments are the graphical interfaces that you see on your screen."
-                      link="desktop-environments">
+          description="Desktop Environments are the graphical interfaces that you see on your screen."
+          link="desktop-environments">
         </BigImageCard>
       </GradientOutline>
-
     </div>
   </div>
 </template>
-<script setup lang="ts">
-</script>
