@@ -7,8 +7,8 @@
           <input id="nav-drawer" type="checkbox" class="drawer-toggle" />
 
           <div class="drawer-content">
-            <label for="nav-drawer" class="btn btn-ghost drawer-button p-2">
-              <Icon name="fa6-solid:compass" size="22" />
+            <label for="nav-drawer" class="btn btn-ghost drawer-button pr-2 pl-2">
+              <Icon name="fa6-solid:bars" size="22" />
             </label>
           </div>
 

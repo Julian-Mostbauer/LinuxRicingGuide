@@ -4,8 +4,8 @@
     <li v-if="node.HasIndex" :class="{ 'opacity-0': !isVisible, 'animate-fade-in': isVisible }"
       :style="{ animationDelay: animationDelay(0) }">
       <a :href="node.Value?.path || '/'">
-        <Icon :name="'fa6-solid:' + (isRoot ? 'house' : routeIcon(node.Value))" :size="iconSize" class="min-w-6" />
-        {{ routeName(node.Value?.path, isRoot ? "Home" : "Unknown Location") }}
+        <Icon :name="'fa6-solid:' + (isRoot ? 'house' : 'circle-info')" :size="iconSize" class="min-w-6" />
+        {{ isRoot ? "Home" : "Overview" }}
       </a>
     </li>
 
@@ -15,7 +15,7 @@
       :style="{ animationDelay: animationDelay(index) }">
       <details v-if="child.Children.length > 0" open>
         <summary>
-          <Icon name="fa6-solid:folder" :size="iconSize" class="min-w-6" />
+          <Icon :name="'fa6-solid:' + routeIcon(child.Value)" :size="iconSize" class="min-w-6" />
           {{ routeName(child.Value?.path) }}
         </summary>
         <TreeNode :node="child" />
@@ -38,8 +38,8 @@ const iconSize: number = 20;
 const isVisible = ref(false);
 const treeRef = ref<HTMLElement | null>(null);
 
-const initialDelay = 200;
-const animationDelay = (index: number) => `${initialDelay + index * 100}ms`;
+const initialDelay = 150;
+const animationDelay = (index: number) => `${initialDelay + index * 50}ms`;
 
 const props = defineProps({
   node: {
@@ -58,11 +58,11 @@ onMounted(() => {
       ([entry]) => {
         if (entry.isIntersecting) {
           isVisible.value = true;
-          observer.disconnect(); // Stop observing after first appearance
         }
       },
       { threshold: 0.1 }
     );
+
     observer.observe(treeRef.value);
   }
 });
