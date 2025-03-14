@@ -63,33 +63,26 @@ import { Motion } from 'motion-v'
         description="Selection of Package Managers you can use to install software on your linux machine."
         link="package-managers" />
 
-
       <BigImageCardFancy imagePath="img/mini2/card-setups.webp" title="Setups"
         description="Showcase of our personal setups we use on our machines. Feel free to get inspired and copy some aspects."
         link="our-setups" />
-
 
       <BigImageCardFancy imagePath="img/mini2/card-window-manager.webp" title="Window-Managers"
         description="Controls the appearance, and behavior of application windows in a graphical interface."
         link="window-managers" />
 
-
       <BigImageCardFancy imagePath="img/mini5/card-terminals.webp" title="Terminals"
         description="List of linux terminals you can install." link="terminals" />
-
 
       <BigImageCardFancy imagePath="img/mini5/card-terminal-themes.webp" title="Terminal themes"
         description="A small selection of themes for your terminal." link="terminal-themes" />
 
-
       <BigImageCardFancy imagePath="img/mini5/card-shells.webp" title="Shells"
         description="Some shells you can use on your linux machine." link="shells" />
-
 
       <BigImageCardFancy imagePath="img/mini2/card-desktop-environments.webp" title="Desktop Environments"
         description="Desktop Environments are the graphical interfaces that you see on your screen."
         link="desktop-environments" />
-
     </div>
   </div>
 </template>
