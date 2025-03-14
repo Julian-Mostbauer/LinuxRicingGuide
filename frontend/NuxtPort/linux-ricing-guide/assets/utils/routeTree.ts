@@ -60,8 +60,8 @@ const routeName = (
     return toHeaderCase(name)
 }
 
-const routeIcon = (route: RouteRecord) => {
-    if (route.meta?.icon) {
+const routeIcon = (route: RouteRecord | null) => {
+    if (route && route.meta?.icon) {
         return route.meta.icon
     }
 
