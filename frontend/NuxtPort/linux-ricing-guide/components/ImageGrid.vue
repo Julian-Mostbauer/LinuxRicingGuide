@@ -1,34 +1,37 @@
 <template>
-  <div
-    class="grid gap-4 md:gap-6"
-    :style="{
-      '--desktop-cols': dimensions.width,
-      '--mobile-cols': mobileDimensions.width
-    }"
-  >
-    <div
-      v-for="(entry, index) in entries"
-      :key="index"
-      class="border-2 border-base-300 rounded-box p-4 bg-base-100 hover:bg-base-200 transition-all duration-300 cursor-pointer overflow-hidden"
-      @click="navigateTo(entry.link)"
-    >
-      <img
-        :src="entry.imagePath"
-        alt="Image"
-        class="w-full h-full object-cover rounded-box"
-      />
+  <div class="grid gap-4 md:gap-6" :style="{
+    '--desktop-cols': dimensions.width,
+    '--mobile-cols': mobileDimensions.width
+  }">
+    <div v-for="(entry, index) in entries" :key="index" @click="navigateTo(entry.link, linkPrefix)">
+
+      <GradientOutline border-radius="2.2rem" circle-width="200px">
+        <div class="cursor-pointer bg-base-200 relative p-4 rounded-[2rem] hover:bg-base-100">
+          <div class="p-[0.2rem]">
+            <img :src="entry.imagePath" alt="Image" class="w-full h-full object-cover rounded-box aspect-square" />
+          </div>
+        </div>
+      </GradientOutline>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
 type Dimensions = { width: number; height: number };
 type Entry = { imagePath: string; link: string };
 
-defineProps<{ entries: Entry[]; dimensions: Dimensions; mobileDimensions: Dimensions }>();
+defineProps<{
+  entries: Entry[];
+  dimensions: Dimensions;
+  mobileDimensions: Dimensions;
+  linkPrefix?: string;
+}>();
 
-const navigateTo = (link: string) => {
-  window.location.href = link;
+const navigateTo = (link: string, linkPrefix?: string) => {
+  router.push(linkPrefix ? `${linkPrefix}${link}` : link);
 };
 </script>
 
