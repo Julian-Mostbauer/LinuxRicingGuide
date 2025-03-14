@@ -4,12 +4,12 @@
       class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
       <Motion v-for="(section, index) in sections" :key="index" :variants="items" class="w-full">
         <GradientOutline border-radius="2.2rem" circle-width="200px">
-          <div class="card bg-base-200 text-base-content p-6 shadow-lg min-h-full">
-            <section class="mb-6">
+            <div class="card bg-base-200 text-base-content p-6 h-full">
+            <section class="mb-6 h-full flex flex-col">
               <h2 class="mb-4 text-xl font-bold">
                 <Icon :name="section.icon" /> {{ section.title }}
               </h2>
-              <p class="text-md" v-html="section.content"></p>
+              <p class="text-md flex-grow" v-html="section.content"></p>
             </section>
           </div>
         </GradientOutline>
