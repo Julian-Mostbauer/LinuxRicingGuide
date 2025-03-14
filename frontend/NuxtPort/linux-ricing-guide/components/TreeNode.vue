@@ -38,11 +38,13 @@ const iconSize: number = 20;
 const isVisible = ref(false);
 const treeRef = ref<HTMLElement | null>(null);
 
-const navCheckbox = document.getElementById('nav-drawer');
 
 const closeNav = () => {
-  if (navCheckbox) {
-    (navCheckbox as HTMLInputElement).checked = false;
+  if (document) {
+    const navCheckbox = document.getElementById('nav-drawer');
+    if (navCheckbox) {
+      (navCheckbox as HTMLInputElement).checked = false;
+    }
   }
 };
 
