@@ -12,7 +12,7 @@
         <p>{{ description }}</p>
         <div class="card-actions justify-center lg:justify-end">
           <a :href="link" target="_blank" class="btn btn-primary">
-            <i class="fa-solid fa-link"></i> Visit
+            <Icon name="fa6-solid:link" /> Visit
           </a>
         </div>
       </div>
