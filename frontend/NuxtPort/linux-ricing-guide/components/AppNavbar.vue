@@ -46,7 +46,7 @@ type RoutePart = { name: string, fullPath: string }
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router'
 import siteWideSearch from '~/assets/utils/siteWideSearch';
-
+import {toHeaderCase} from '~/assets/utils/caseUtils';
 const route = useRoute()
 const router = useRouter()
 
@@ -56,10 +56,9 @@ const updateRouteParts = () => {
   routeParts.value = route.fullPath
     .split('/')
     .filter(p => p)
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .map((part, index, arr) => {
       const fullPath = arr.slice(0, index + 1).join('/');
-      return { name: part, fullPath };
+      return { name: toHeaderCase(part), fullPath };
     });
 };
 
