@@ -3,10 +3,10 @@
     :class="isRoot ? 'menu rounded-r-[1.5rem] mt-2 mb-2 bg-base-200 text-base-content min-h-[98%] w-80 border-r-2 border-t-2 border-b-2 border-gray-800' : ''">
     <li v-if="node.HasIndex" :class="{ 'opacity-0': !isVisible, 'animate-fade-in': isVisible }"
       :style="{ animationDelay: animationDelay(0) }">
-      <a :href="node.Value?.path || '/'">
+      <NuxtLink :to="node.Value?.path || '/'" :onclick="closeNav">
         <Icon :name="'fa6-solid:' + (isRoot ? 'house' : 'circle-info')" :size="iconSize" class="min-w-6" />
         {{ isRoot ? "Home" : "Overview" }}
-      </a>
+      </NuxtLink>
     </li>
 
     <!-- Folders -->
@@ -21,10 +21,10 @@
         <TreeNode :node="child" />
       </details>
 
-      <a v-else :href="child.Value?.path || '/'">
+      <NuxtLink v-else :to="child.Value?.path || '/'" :onclick="closeNav">
         <Icon :name="'fa6-solid:' + routeIcon(child.Value)" :size="iconSize" class="min-w-6" />
         {{ routeName(child.Value?.path) }}
-      </a>
+      </NuxtLink>
     </li>
   </ul>
 </template>
@@ -38,7 +38,15 @@ const iconSize: number = 20;
 const isVisible = ref(false);
 const treeRef = ref<HTMLElement | null>(null);
 
-const initialDelay = 150;
+const navCheckbox = document.getElementById('nav-drawer');
+
+const closeNav = () => {
+  if (navCheckbox) {
+    (navCheckbox as HTMLInputElement).checked = false;
+  }
+};
+
+const initialDelay = 10050;
 const animationDelay = (index: number) => `${initialDelay + index * 50}ms`;
 
 const props = defineProps({
