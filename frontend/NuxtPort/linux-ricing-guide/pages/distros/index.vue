@@ -1,94 +1,56 @@
 <template>
   <div class="container mx-auto p-4">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-      <GradientOutline border-radius="2.2rem" circle-width="200px">
-        <div class="card bg-base-200 text-base-content p-6 shadow-lg min-h-full">
-          <section class="mb-6">
-            <h2 class="mb-4 text-xl font-bold">
-              <i class="fas fa-seedling"></i> Origins of Linux
-            </h2>
-            <p class="text-md">
-              The story of <strong>Linux OS</strong> began in 1991 when <strong>Linus Torvalds</strong>, a student at the University of Helsinki in Finland, developed the <strong>Linux kernel</strong>. Initially, the project was a hobby for Torvalds, who wanted to create an alternative to the <strong>MINIX</strong> operating system. The Linux kernel became publicly available and quickly attracted a community of developers eager to contribute to its growth.
-            </p>
-          </section>
-        </div>
-      </GradientOutline>
+    <Motion as="div" :variants="container" initial="hidden" animate="visible"
+      class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+      <Motion v-for="(section, index) in sections" :key="index" :variants="items" class="w-full">
+        <GradientOutline border-radius="2.2rem" circle-width="200px">
+          <div class="card bg-base-200 text-base-content p-6 shadow-lg min-h-full">
+            <section class="mb-6">
+              <h2 class="mb-4 text-xl font-bold">
+                <Icon :name="section.icon" /> {{ section.title }}
+              </h2>
+              <p class="text-md" v-html="section.content"></p>
+            </section>
+          </div>
+        </GradientOutline>
+      </Motion>
+    </Motion>
 
-      <GradientOutline border-radius="2.2rem" circle-width="200px">
-        <div class="card bg-base-200 text-base-content p-6 shadow-lg min-h-full">
-          <section class="mb-6">
-            <h2 class="mb-4 text-xl font-bold">
-              <i class="fas fa-box-open"></i> The First Distributions
-            </h2>
-            <p class="text-md">
-              By 1993, <strong>Slackware</strong> became the first commercially available Linux distribution, marking a significant step in the widespread adoption of Linux. This was followed by the emergence of other distributions such as <strong>Debian</strong>, <strong>Red Hat</strong>, <strong>SUSE</strong>, and <strong>Ubuntu</strong>. Each of these distributions catered to different user needs and played a role in the growing popularity of Linux.
-            </p>
-          </section>
-        </div>
-      </GradientOutline>
-
-      <GradientOutline border-radius="2.2rem" circle-width="200px">
-        <div class="card bg-base-200 text-base-content p-6 shadow-lg min-h-full">
-          <section class="mb-6">
-            <h2 class="mb-4 text-xl font-bold">
-              <i class="fas fa-network-wired"></i> Rise of the Internet
-            </h2>
-            <p class="text-md">
-              The development of the <strong>internet</strong> played a crucial role in Linux's evolution. Developers from around the world collaborated to improve the system, creating a vibrant and thriving <strong>open-source community</strong>. This model of collaboration allowed Linux to evolve rapidly and become a powerful and versatile operating system.
-            </p>
-          </section>
-        </div>
-      </GradientOutline>
-
-      <GradientOutline border-radius="2.2rem" circle-width="200px">
-        <div class="card bg-base-200 text-base-content p-6 shadow-lg min-h-full">
-          <section class="mb-6">
-            <h2 class="mb-4 text-xl font-bold">
-              <i class="fas fa-industry"></i> Enterprise Adoption
-            </h2>
-            <p class="text-md">
-              In the late 1990s and early 2000s, Linux gained popularity among businesses and government organizations due to its stability, security, and cost-effectiveness. The development of <strong>server-oriented distributions</strong> made Linux a preferred choice for <strong>web hosting</strong> and enterprise applications.
-            </p>
-          </section>
-        </div>
-      </GradientOutline>
-
-      <GradientOutline border-radius="2.2rem" circle-width="200px">
-        <div class="card bg-base-200 text-base-content p-6 shadow-lg min-h-full">
-          <section class="mb-6">
-            <h2 class="mb-4 text-xl font-bold">
-              <i class="fas fa-mobile-alt"></i> Expansion into Mobile Devices
-            </h2>
-            <p class="text-md">
-              As technology advanced, Linux expanded beyond traditional computing environments. One of the most significant milestones was the emergence of <strong>Android</strong>, a Linux-based operating system for smartphones and tablets. Android has since become the dominant mobile platform worldwide, showcasing the adaptability of the Linux kernel.
-            </p>
-          </section>
-        </div>
-      </GradientOutline>
-
-      <GradientOutline border-radius="2.2rem" circle-width="200px">
-        <div class="card bg-base-200 text-base-content p-6 shadow-lg min-h-full">
-          <section class="mb-6">
-            <h2 class="mb-4 text-xl font-bold">
-              <i class="fas fa-trophy"></i> Linux Today
-            </h2>
-            <p class="text-md">
-              Today, <strong>Linux</strong> continues to thrive as a cornerstone of modern computing, powering everything from personal desktops to <strong>cloud servers</strong> and <strong>embedded systems</strong>. Its historical journey is a testament to the power of open-source collaboration and innovation.
-            </p>
-          </section>
-        </div>
-      </GradientOutline>
-    </div>
     <div>
-      <ImageGrid :entries="entries" :dimensions="{ width: 8, height: 3 }" :mobileDimensions="{ width: 2, height: 12 }" linkPrefix='distros/history/'/>
+      <ImageGrid :entries="entries" :dimensions="{ width: 8, height: 3 }" :mobileDimensions="{ width: 2, height: 12 }"
+        linkPrefix='distros/history/' />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { Motion } from 'motion-v'
+
 definePageMeta({
   icon: 'database',
 });
+
+const container = {
+  hidden: { opacity: 0, scale: 0.95 }, // Adjusted to avoid layout shift
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: 'spring',
+      delayChildren: 0.3, // Slightly reduced delay for smoother animation
+      staggerChildren: 0.2,
+    },
+  },
+}
+
+const items = {
+  hidden: { y: 20, opacity: 0, scale: 0.85 },
+  visible: {
+    y: 0,
+    opacity: 1,
+    scale: 1,
+  },
+}
 
 type entry = {
   imagePath: string,
@@ -192,4 +154,68 @@ const entries: entry[] = [{
   link: 'trisquel-history'
 }
 ];
+
+const sections = [
+  {
+    icon: 'fa6-solid:seedling',
+    title: 'Origins of Linux',
+    content: `
+      The story of <strong>Linux OS</strong> began in 1991 when <strong>Linus Torvalds</strong>, a student at
+      the University of Helsinki in Finland, developed the <strong>Linux kernel</strong>. Initially, the project
+      was a hobby for Torvalds, who wanted to create an alternative to the <strong>MINIX</strong> operating
+      system. The Linux kernel became publicly available and quickly attracted a community of developers eager
+      to contribute to its growth.
+    `,
+  },
+  {
+    icon: 'fa6-solid:box-open',
+    title: 'The First Distributions',
+    content: `
+      By 1993, <strong>Slackware</strong> became the first commercially available Linux distribution, marking a
+      significant step in the widespread adoption of Linux. This was followed by the emergence of other
+      distributions such as <strong>Debian</strong>, <strong>Red Hat</strong>, <strong>SUSE</strong>, and
+      <strong>Ubuntu</strong>. Each of these distributions catered to different user needs and played a role in
+      the growing popularity of Linux.
+    `,
+  },
+  {
+    icon: 'fa6-solid:network-wired',
+    title: 'Rise of the Internet',
+    content: `
+      The development of the <strong>internet</strong> played a crucial role in Linux's evolution. Developers
+      from around the world collaborated to improve the system, creating a vibrant and thriving
+      <strong>open-source community</strong>. This model of collaboration allowed Linux to evolve rapidly and
+      become a powerful and versatile operating system.
+    `,
+  },
+  {
+    icon: 'fa6-solid:industry',
+    title: 'Enterprise Adoption',
+    content: `
+      In the late 1990s and early 2000s, Linux gained popularity among businesses and government organizations
+      due to its stability, security, and cost-effectiveness. The development of <strong>server-oriented
+      distributions</strong> made Linux a preferred choice for <strong>web hosting</strong> and enterprise
+      applications.
+    `,
+  },
+  {
+    icon: 'fa6-solid:mobile-alt',
+    title: 'Expansion into Mobile Devices',
+    content: `
+      As technology advanced, Linux expanded beyond traditional computing environments. One of the most
+      significant milestones was the emergence of <strong>Android</strong>, a Linux-based operating system for
+      smartphones and tablets. Android has since become the dominant mobile platform worldwide, showcasing the
+      adaptability of the Linux kernel.
+    `,
+  },
+  {
+    icon: 'fa6-solid:trophy',
+    title: 'Linux Today',
+    content: `
+      Today, <strong>Linux</strong> continues to thrive as a cornerstone of modern computing, powering
+      everything from personal desktops to <strong>cloud servers</strong> and <strong>embedded systems</strong>.
+      Its historical journey is a testament to the power of open-source collaboration and innovation.
+    `,
+  },
+]
 </script>

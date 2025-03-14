@@ -35,8 +35,6 @@ import { Motion } from 'motion-v'
             damping: 20,
             delay: 0,
           }">
-
-
             <div class="card bg-base-100 w-full max-w-md shrink-0 shadow-2xl border-primary border-2">
               <div class="card-body">
                 <h2 class="text-2xl font-bold mb-4">Why Customize Your Linux Desktop?</h2>
