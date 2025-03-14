@@ -3,7 +3,7 @@
     :class="isRoot ? 'menu rounded-r-[1.5rem] mt-2 mb-2 bg-base-200 text-base-content min-h-[98%] w-80 border-r-2 border-t-2 border-b-2 border-gray-800' : ''">
     <li v-if="node.HasIndex" :class="{ 'opacity-0': !isVisible, 'animate-fade-in': isVisible }"
       :style="{ animationDelay: animationDelay(0) }">
-      <NuxtLink :to="node.Value?.path || '/'" :onclick="closeNav">
+      <NuxtLink :to="node.Value?.path || '/'" @click="closeNav">
         <Icon :name="'fa6-solid:' + (isRoot ? 'house' : 'circle-info')" :size="iconSize" class="min-w-6" />
         {{ isRoot ? "Home" : "Overview" }}
       </NuxtLink>
@@ -21,7 +21,7 @@
         <TreeNode :node="child" />
       </details>
 
-      <NuxtLink v-else :to="child.Value?.path || '/'" :onclick="closeNav">
+      <NuxtLink v-else :to="child.Value?.path || '/'" @click="closeNav">
         <Icon :name="'fa6-solid:' + routeIcon(child.Value)" :size="iconSize" class="min-w-6" />
         {{ routeName(child.Value?.path) }}
       </NuxtLink>
@@ -37,7 +37,6 @@ import { Node, routeName, routeIcon } from 'assets/utils/routeTree'
 const iconSize: number = 20;
 const isVisible = ref(false);
 const treeRef = ref<HTMLElement | null>(null);
-
 
 const closeNav = () => {
   if (document) {
