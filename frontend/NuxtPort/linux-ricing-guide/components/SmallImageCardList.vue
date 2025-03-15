@@ -19,24 +19,28 @@ defineProps<{
 }>();
 
 const container = {
-  hidden: { opacity: 0, scale: 0.95 }, // Adjusted to avoid layout shift
+  hidden: { opacity: 0, scale: 0.8 },
   visible: {
     opacity: 1,
     scale: 1,
     transition: {
       type: 'spring',
-      delayChildren: 0.3, // Slightly reduced delay for smoother animation
-      staggerChildren: 0.2,
+      delayChildren: 0.5,
+      staggerChildren: 0.25,
     },
-  },
+  }
 }
 
 const items = {
-  hidden: { y: 20, opacity: 0, scale: 0.85 },
+  hidden: {
+    y: 100, opacity: 0, scale: 0.8,
+    rotate: 10
+  },
   visible: {
     y: 0,
     opacity: 1,
     scale: 1,
-  },
+    rotate: 0
+  }
 }
 </script>
