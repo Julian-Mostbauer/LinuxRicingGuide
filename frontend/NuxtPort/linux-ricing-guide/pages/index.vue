@@ -4,7 +4,7 @@ import { Motion } from 'motion-v'
 </script>
 
 <template>
-  <div class="">
+  <div>
     <div class="card text-neutral-content mb-6">
       <div class="hero bg-base-200 min-h-screen border-b-2 border-gray-800">
         <div class="hero-content flex-col lg:flex-row">
@@ -17,10 +17,10 @@ import { Motion } from 'motion-v'
             delay: 0,
           }">
             <div class="lg:mr-20 text-center lg:text-left">
-              <h1 class="text-5xl font-bold">
+              <h1 class="text-5xl font-bold text-primary">
                 <Icon name="fa6-solid:bowl-rice" size="40" /> Linux Ricing
               </h1>
-              <p class="py-6 max-w-128">
+              <p class="py-6 max-w-128 text-base-content">
                 Linux Ricing is the process of customizing your desktop to make it look more visually appealing by
                 changing themes, icons, fonts, and other visual elements.
               </p>
@@ -36,8 +36,8 @@ import { Motion } from 'motion-v'
             delay: 0,
           }">
             <div class="card bg-base-100 w-full max-w-md shrink-0 shadow-2xl border-primary border-2">
-              <div class="card-body">
-                <h2 class="text-2xl font-bold mb-4">Why Customize Your Linux Desktop?</h2>
+              <div class="card-body text-base-content">
+                <h2 class="text-2xl font-bold mb-4 text-primary">Why Customize Your Linux Desktop?</h2>
                 <ul class="list-disc list-inside">
                   <li>Improve productivity with a personalized workflow</li>
                   <li>Enhance the visual appeal of your desktop</li>
