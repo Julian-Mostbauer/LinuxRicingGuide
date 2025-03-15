@@ -7,7 +7,7 @@
           <div class="card bg-base-200 text-base-content p-6 h-full">
             <section class="mb-6 h-full flex flex-col">
               <h2 class="mb-4 text-xl font-bold">
-                <Icon :name="section.icon" /> {{ section.title }}
+                <DynamicIcon :default-name="section.icon" /> {{ section.title }}
               </h2>
               <p class="text-md flex-grow" v-html="section.content"></p>
             </section>
