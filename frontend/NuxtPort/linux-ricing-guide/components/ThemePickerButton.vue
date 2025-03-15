@@ -7,7 +7,7 @@
         <li v-for="theme in themes" :key="theme">
           <input type="radio" name="theme-dropdown"
             class="theme-controller btn btn-sm btn-block btn-ghost justify-start m-1 p-1 text-center"
-            :aria-label="theme.charAt(0).toUpperCase() + theme.slice(1)" :value="theme" v-model="selectedTheme" />
+            :aria-label="toHeaderCase(theme)" :value="theme" v-model="selectedTheme" />
         </li>
       </ul>
     </div>
@@ -16,6 +16,7 @@
 
 <script lang="ts" setup>
 import { ref, watch } from 'vue';
+import { toHeaderCase } from 'assets/utils/caseUtils'
 
 const themes = ['default', 'retro', 'cyberpunk', 'valentine', 'aqua'];
 const selectedTheme = ref(
