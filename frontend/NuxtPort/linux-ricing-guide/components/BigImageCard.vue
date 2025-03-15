@@ -7,7 +7,10 @@
       <h2 class="card-title">{{ title }}</h2>
       <p>{{ description }}</p>
       <div class="card-actions justify-end">
-        <NuxtLink :to="link" class="btn btn-primary">Visit</NuxtLink>
+        <NuxtLink :to="link" class="btn btn-primary text-base-200">
+          <Icon name="fa6-solid:link"/>
+          Visit
+        </NuxtLink>
       </div>
     </div>
   </div>
