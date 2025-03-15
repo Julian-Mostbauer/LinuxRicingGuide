@@ -1,5 +1,7 @@
 <template>
-  <div class="navbar bg-opacity-70 backdrop-blur-md border-b-2 border-gray-800 sticky top-0 z-50" style="background-color: rgb(14 23 30 / 69%)">
+  <div class="navbar bg-opacity-70 backdrop-blur-md border-b-2 border-gray-800 sticky top-0 z-50"
+    style="background-color: rgb(14 23 30 / 69%)">
+
     <div class="flex-1 flex items-center">
       <div class="tooltip tooltip-bottom" data-tip="Menu">
         <!-- Sidemenu -->
@@ -31,12 +33,17 @@
         </ul>
       </div>
     </div>
+
+    <!-- Search bar-->
     <div class="flex gap-2 mr-2">
       <label class="input input-bordered hidden items-center gap-2 lg:w-92 sm:w-64 sm:flex">
         <input type="text" placeholder="Search" class="grow" v-model="searchQuery" @input="onSearchInput" />
         <Icon name="fa6-solid:magnifying-glass" size="20" />
       </label>
     </div>
+
+    <!-- Theme Picker-->
+    <ThemePickerButton />
   </div>
 </template>
 
@@ -46,7 +53,7 @@ type RoutePart = { name: string, fullPath: string }
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router'
 import siteWideSearch from '~/assets/utils/siteWideSearch';
-import {toHeaderCase} from '~/assets/utils/caseUtils';
+import { toHeaderCase } from '~/assets/utils/caseUtils';
 const route = useRoute()
 const router = useRouter()
 
