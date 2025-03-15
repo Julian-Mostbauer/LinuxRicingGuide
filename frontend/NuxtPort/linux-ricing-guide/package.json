@@ -8,7 +8,8 @@
     "dev-tunnel": "nuxt dev --tunnel",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "test":"vitest"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.9",
@@ -21,6 +22,7 @@
     "vue-router": "latest"
   },
   "devDependencies": {
-    "@nuxt/icon": "^1.10.3"
+    "@nuxt/icon": "^1.10.3",
+    "vitest": "^3.0.8"
   }
 }

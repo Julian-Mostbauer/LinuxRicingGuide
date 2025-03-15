@@ -17,7 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { iconToLink } from '~/assets/utils/configurableGlobals';
+import { iconToLink } from '~/assets/utils/iconUtils'
 
 defineProps<{
   imagePath: string;
