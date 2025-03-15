@@ -5,7 +5,7 @@
   }">
     <div v-for="(entry, index) in entries" :key="index" @click="navigateTo(entry.link, linkPrefix)">
 
-      <GradientOutline border-radius="2.2rem" circle-width="200px">
+      <GradientOutline circle-width="200px">
         <div class="cursor-pointer bg-base-200 relative p-4 rounded-[2rem] hover:bg-base-100">
           <div class="p-[0.2rem]">
             <img :src="entry.imagePath" alt="Image" class="w-full h-full object-cover aspect-square" />

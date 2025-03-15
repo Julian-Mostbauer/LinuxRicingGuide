@@ -1,29 +1,24 @@
 <script setup lang="ts">
-import {useMouse} from "@vueuse/core";
+import { useMouse } from "@vueuse/core";
 
 const { x, y } = useMouse();
 const el = ref<HTMLElement | null>(null);
 
 defineProps<{
-  borderRadius: string;
   circleWidth: string;
   className?: string;
 }>();
 </script>
 
 <template>
-<div
-  :class="`${className} card entry relative p-[0.2rem] bg-transparent h-full`"
-  :style="{
-      '--x': `${x - (el?.offsetLeft ?? 0)}px`,
-      '--y': `${y - (el?.offsetTop ?? 0)}px`,
-      '--border-radius': borderRadius,
-      '--circle-width': circleWidth,
-    }"
-  ref="el"
->
-  <slot />
-</div>
+  <div :class="`${className} card entry relative p-[0.2rem] bg-transparent h-full`" :style="{
+    '--x': `${x - (el?.offsetLeft ?? 0)}px`,
+    '--y': `${y - (el?.offsetTop ?? 0)}px`,
+    '--border-radius': 'var(--radius-box)',
+    '--circle-width': circleWidth,
+  }" ref="el">
+    <slot />
+  </div>
 </template>
 
 <style scoped>
@@ -36,10 +31,8 @@ defineProps<{
   position: absolute;
   inset: 0;
   border-radius: var(--border-radius);
-  background: radial-gradient(
-      var(--circle-width) circle at var(--x) var(--y),
+  background: radial-gradient(var(--circle-width) circle at var(--x) var(--y),
       var(--color-primary),
-      transparent
-  );
+      transparent);
 }
 </style>
