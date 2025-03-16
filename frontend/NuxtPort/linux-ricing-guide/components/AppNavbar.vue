@@ -10,7 +10,10 @@
 
           <div class="drawer-content">
             <label for="nav-drawer" class="btn btn-ghost drawer-button pr-2 pl-2">
-              <DynamicIcon default-name="bars" :size="22" />
+              <DynamicIcon :names="{
+                'default': 'bars',
+                'mdi': 'menu',
+              }" :size="22" />
             </label>
           </div>
 
@@ -38,7 +41,7 @@
     <div class="flex gap-2 mr-2">
       <label class="input input-bordered hidden items-center gap-2 lg:w-92 sm:w-64 sm:flex">
         <input type="text" placeholder="Search" class="grow" v-model="searchQuery" @input="onSearchInput" />
-        <DynamicIcon default-name="magnifying-glass" :size="20" />
+        <DynamicIcon :names="{ 'default': 'magnifying-glass', 'mdi': 'search' }" :size="20" />
       </label>
     </div>
 

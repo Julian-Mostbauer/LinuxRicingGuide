@@ -8,7 +8,9 @@
       <p>{{ description }}</p>
       <div class="card-actions justify-end">
         <NuxtLink :to="link" class="btn btn-primary text-base-200">
-          <DynamicIcon default-name="link" />
+          <DynamicIcon :names="{
+            'default': 'link'
+          }" />
           Visit
         </NuxtLink>
       </div>

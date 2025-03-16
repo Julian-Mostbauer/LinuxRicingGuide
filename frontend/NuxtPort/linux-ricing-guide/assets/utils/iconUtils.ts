@@ -1,23 +1,30 @@
-const aivailableProviders = ['mdi', 'fa6-solid']
+const availableProviders = ['mdi', 'fa6-solid']
 
-let activeProvider = aivailableProviders[1]
+let activeProvider: string = availableProviders[0]
+
+const setActiveProvider = (p: string) =>
+    (activeProvider =
+        p.trim() && availableProviders.includes(p) ? p : activeProvider)
 
 const iconToLink = (
-    name: string,
-    provider?: string,
-    providerSpecificNames?: { provider: string; name: string }[]
+    providerSpecificNames: Map<string, string>,
+    alwaysUseProvider?: string
 ) => {
-    const specificName = providerSpecificNames?.find(
-        (entry) => entry.provider === provider
-    )?.name
+    if (!providerSpecificNames.has('default'))
+        throw new Error('You have to provide a default option')
 
-    const finalName = specificName || (name.trim() ? name : 'error')
-    const finalProvider =
-        provider?.trim() && aivailableProviders.includes(provider)
-            ? provider
-            : activeProvider
+    const finalProvider: string = availableProviders.includes(
+        alwaysUseProvider ?? ''
+    )
+        ? alwaysUseProvider ?? ''
+        : activeProvider
+
+    const finalName =
+        (providerSpecificNames.has(finalProvider)
+            ? providerSpecificNames.get(finalProvider)
+            : providerSpecificNames.get('default')) || 'error'
 
     return `${finalProvider}:${finalName}`
 }
 
-export { iconToLink }
+export { iconToLink, setActiveProvider, activeProvider }

@@ -18,7 +18,7 @@ import { Motion } from 'motion-v'
           }">
             <div class="lg:mr-20 text-center lg:text-left">
               <h1 class="text-5xl font-bold text-primary">
-                <DynamicIcon default-name="bowl-rice" :size="40" /> Linux Ricing
+                <DynamicIcon :names="{default: 'bowl-rice', mdi: 'rice'}" :size="40" /> Linux Ricing
               </h1>
               <p class="py-6 max-w-128 text-base-content">
                 Linux Ricing is the process of customizing your desktop to make it look more visually appealing by

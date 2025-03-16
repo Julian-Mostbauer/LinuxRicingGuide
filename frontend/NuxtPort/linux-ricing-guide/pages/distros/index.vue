@@ -7,7 +7,7 @@
           <div class="card bg-base-200 text-base-content p-6 h-full">
             <section class="mb-6 h-full flex flex-col">
               <h2 class="mb-4 text-xl font-bold">
-                <DynamicIcon :default-name="section.icon" /> {{ section.title }}
+                <DynamicIcon :names="{ default: section.icon }" /> {{ section.title }}
               </h2>
               <p class="text-md flex-grow" v-html="section.content"></p>
             </section>
@@ -157,7 +157,7 @@ const entries: entry[] = [{
 
 const sections = [
   {
-    icon: 'fa6-solid:seedling',
+    icon: 'seedling',
     title: 'Origins of Linux',
     content: `
       The story of <strong>Linux OS</strong> began in 1991 when <strong>Linus Torvalds</strong>, a student at
@@ -168,7 +168,7 @@ const sections = [
     `,
   },
   {
-    icon: 'fa6-solid:box-open',
+    icon: 'box-open',
     title: 'The First Distributions',
     content: `
       By 1993, <strong>Slackware</strong> became the first commercially available Linux distribution, marking a
@@ -179,7 +179,7 @@ const sections = [
     `,
   },
   {
-    icon: 'fa6-solid:network-wired',
+    icon: 'network-wired',
     title: 'Rise of the Internet',
     content: `
       The development of the <strong>internet</strong> played a crucial role in Linux's evolution. Developers
@@ -189,7 +189,7 @@ const sections = [
     `,
   },
   {
-    icon: 'fa6-solid:industry',
+    icon: 'industry',
     title: 'Enterprise Adoption',
     content: `
       In the late 1990s and early 2000s, Linux gained popularity among businesses and government organizations
@@ -199,7 +199,7 @@ const sections = [
     `,
   },
   {
-    icon: 'fa6-solid:mobile-alt',
+    icon: 'mobile-alt',
     title: 'Expansion into Mobile Devices',
     content: `
       As technology advanced, Linux expanded beyond traditional computing environments. One of the most
@@ -209,7 +209,7 @@ const sections = [
     `,
   },
   {
-    icon: 'fa6-solid:trophy',
+    icon: 'trophy',
     title: 'Linux Today',
     content: `
       Today, <strong>Linux</strong> continues to thrive as a cornerstone of modern computing, powering

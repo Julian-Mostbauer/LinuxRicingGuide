@@ -1,14 +1,12 @@
 <template>
-  <Icon :name="iconToLink(defaultName, provider, providerSpecificNames)" :size />
+  <Icon :name="iconToLink(new Map(Object.entries(names)))" :size />
 </template>
 
 <script lang="ts" setup>
 import { iconToLink } from '~/assets/utils/iconUtils'
 
-const props = defineProps<{
-  defaultName: string
-  providerSpecificNames?: { provider: string, name: string }[]
+defineProps<{
+  names: {}
   size?: number
-  provider?: string
 }>();
 </script>

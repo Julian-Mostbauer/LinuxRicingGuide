@@ -14,7 +14,7 @@
         <p>{{ description }}</p>
         <div class="card-actions justify-center lg:justify-end">
           <a :href="link" target="_blank" class="btn btn-primary">
-            <DynamicIcon default-name="link" /> Visit
+            <DynamicIcon :names="{'default': 'link'}" /> Visit
           </a>
         </div>
       </div>

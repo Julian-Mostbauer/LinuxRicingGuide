@@ -1,78 +1,88 @@
-import { expect, test } from 'vitest'
-import { iconToLink } from '../assets/utils/iconUtils'
+import { describe, it, expect, beforeEach } from 'vitest'
+import { iconToLink, setActiveProvider, activeProvider } from '../assets/utils/iconUtils'
 
-test('Some name and a provider makes a link with name and that provider', () => {
-    expect(iconToLink('link', 'fa6-solid')).toBe('fa6-solid:link')
+describe('setActiveProvider', () => {
+    beforeEach(() => {
+        // Reset the activeProvider before each test
+        setActiveProvider('mdi')
+    })
+
+    it('should update activeProvider if the input is valid', () => {
+        setActiveProvider('fa6-solid')
+        expect(activeProvider).toBe('fa6-solid')
+    })
+
+    it('should not update activeProvider if the input is empty or whitespace', () => {
+        setActiveProvider(' ')
+        expect(activeProvider).toBe('mdi') // Default activeProvider
+    })
+
+    it('should not update activeProvider if the input is not in availableProviders', () => {
+        setActiveProvider('invalid-provider')
+        expect(activeProvider).toBe('mdi') // Default activeProvider
+    })
 })
 
-test('Some name and no provider makes a link with name and the default provider', () => {
-    expect(iconToLink('link')).toBe('fa6-solid:link')
-})
-test('Empty name and no provider defaults to "error" with the default provider', () => {
-    expect(iconToLink('')).toBe('fa6-solid:error')
-})
+describe('iconToLink', () => {
+    beforeEach(() => {
+        // Reset the activeProvider before each test
+        setActiveProvider("mdi")
+    })
 
-test('Empty name and invalid provider defaults to "error" with the default provider', () => {
-    expect(iconToLink('', 'invalid-provider')).toBe('fa6-solid:error')
-})
+    it('should throw an error if the default option is missing in providerSpecificNames', () => {
+        const providerSpecificNames = new Map([['fa6-solid', 'house']])
+        expect(() => iconToLink(providerSpecificNames)).toThrowError(
+            'You have to provide a default option'
+        )
+    })
 
-test('Valid name and invalid provider defaults to the name with the default provider', () => {
-    expect(iconToLink('link', 'invalid-provider')).toBe('fa6-solid:link')
-})
+    it('should use the alwaysUseProvider if it is valid', () => {
+        const providerSpecificNames = new Map([
+            ['default', 'home'],
+            ['fa6-solid', 'house'],
+        ])
+        const result = iconToLink(providerSpecificNames, 'fa6-solid')
+        expect(result).toBe('fa6-solid:house')
+    })
 
-test('Empty name and empty provider defaults to "error" with the default provider', () => {
-    expect(iconToLink('', '')).toBe('fa6-solid:error')
-})
+    it('should fall back to activeProvider if alwaysUseProvider is invalid', () => {
+        const providerSpecificNames = new Map([
+            ['default', 'home'],
+            ['fa6-solid', 'house'],
+        ])
+        const result = iconToLink(providerSpecificNames, 'invalid-provider')
+        expect(result).toBe('mdi:home')
+    })
 
-test('Whitespace name and no provider defaults to "error" with the default provider', () => {
-    expect(iconToLink('   ')).toBe('fa6-solid:error')
-})
+    it('should fall back to activeProvider if alwaysUseProvider is not provided', () => {
+        const providerSpecificNames = new Map([
+            ['default', 'home'],
+            ['fa6-solid', 'house'],
+        ])
+        const result = iconToLink(providerSpecificNames)
+        expect(result).toBe('mdi:home')
+    })
 
-test('Whitespace name and invalid provider defaults to "error" with the default provider', () => {
-    expect(iconToLink('   ', 'invalid-provider')).toBe('fa6-solid:error')
-})
+    it('should use the name from the default entry if the provider-specific name is missing', () => {
+        const providerSpecificNames = new Map([['default', 'home']])
+        const result = iconToLink(providerSpecificNames, 'fa6-solid')
+        expect(result).toBe('fa6-solid:home')
+    })
 
-test('Specific provider name overrides the default name', () => {
-    const providerSpecificNames = [
-        { provider: 'mdi', name: 'mdi-icon' },
-        { provider: 'fa6-solid', name: 'fa-icon' },
-    ]
-    expect(iconToLink('link', 'mdi', providerSpecificNames)).toBe(
-        'mdi:mdi-icon'
-    )
-    expect(iconToLink('link', 'fa6-solid', providerSpecificNames)).toBe(
-        'fa6-solid:fa-icon'
-    )
-})
+    it('should default to "error" if no valid name is found', () => {
+        const providerSpecificNames = new Map([
+            ['default', ''], // Empty name
+        ])
+        const result = iconToLink(providerSpecificNames)
+        expect(result).toBe('mdi:error')
+    })
 
-test('Specific provider name is ignored if provider does not match', () => {
-    const providerSpecificNames = [{ provider: 'mdi', name: 'mdi-icon' }]
-    expect(iconToLink('link', 'fa6-solid', providerSpecificNames)).toBe(
-        'fa6-solid:link'
-    )
-})
-
-test('Specific provider name is ignored if providerSpecificNames is empty', () => {
-    expect(iconToLink('link', 'mdi', [])).toBe('mdi:link')
-})
-
-test('Specific provider name is ignored if providerSpecificNames is undefined', () => {
-    expect(iconToLink('link', 'mdi')).toBe('mdi:link')
-})
-
-test('Specific provider name is ignored if provider is invalid', () => {
-    const providerSpecificNames = [{ provider: 'mdi', name: 'mdi-icon' }]
-    expect(iconToLink('link', 'invalid-provider', providerSpecificNames)).toBe(
-        'fa6-solid:link'
-    )
-})
-
-test('Specific provider name is ignored if name is empty', () => {
-    const providerSpecificNames = [{ provider: 'mdi', name: 'mdi-icon' }]
-    expect(iconToLink('', 'mdi', providerSpecificNames)).toBe('mdi:mdi-icon')
-})
-
-test('Specific provider name is ignored if name is whitespace', () => {
-    const providerSpecificNames = [{ provider: 'mdi', name: 'mdi-icon' }]
-    expect(iconToLink('   ', 'mdi', providerSpecificNames)).toBe('mdi:mdi-icon')
+    it('should use the provider-specific name if available', () => {
+        const providerSpecificNames = new Map([
+            ['default', 'home'],
+            ['fa6-solid', 'house'],
+        ])
+        const result = iconToLink(providerSpecificNames, 'fa6-solid')
+        expect(result).toBe('fa6-solid:house')
+    })
 })
