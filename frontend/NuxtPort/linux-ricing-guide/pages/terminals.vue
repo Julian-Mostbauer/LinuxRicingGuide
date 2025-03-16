@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-  icon: 'server',
+  icons: { default: 'server' },
 });
 
 const terminals = [

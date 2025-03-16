@@ -1,6 +1,6 @@
 const availableProviders = ['mdi', 'fa6-solid']
 
-let activeProvider: string = availableProviders[0]
+let activeProvider: string = availableProviders[1]
 
 const setActiveProvider = (p: string) =>
     (activeProvider =

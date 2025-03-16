@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 definePageMeta({
-  icon: 'computer',
+  icons: { default: 'computer' },
 });
 
 const winManagers = [

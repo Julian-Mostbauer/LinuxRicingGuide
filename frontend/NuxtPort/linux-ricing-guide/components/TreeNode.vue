@@ -8,7 +8,8 @@
       :style="{ animationDelay: animationDelay(0) }">
       <NuxtLink :to="node.Value?.path || '/'" @click="closeNav">
         <DynamicIcon :names="{
-          'default': ('' + (isRoot ? 'house' : 'circle-info'))
+          default: (isRoot ? 'house' : 'circle-info'),
+          mdi: (isRoot ? 'home' : 'information-slab-circle')
         }" :size="iconSize" class="min-w-6" />
         {{ isRoot ? "Home" : "Overview" }}
       </NuxtLink>
@@ -21,7 +22,7 @@
       <!-- Directories -->
       <details v-if="child.Children.length > 0" open>
         <summary>
-          <DynamicIcon :names="{ default: routeIcon(child.Value) }" :size="iconSize" class="min-w-6" />
+          <DynamicIcon :names="routeIcon(child.Value)" :size="iconSize" class="min-w-6" />
           {{ routeName(child.Value?.path) }}
         </summary>
         <TreeNode :node="child" />
@@ -30,7 +31,7 @@
       <!-- Normal Files -->
       <NuxtLink v-else :to="child.Value?.path || '/'" @click="closeNav"
         :class="{ 'text-accent-content': isActivePage(child) }">
-        <DynamicIcon :names="{ default: routeIcon(child.Value) }" :size="iconSize" class="min-w-6" />
+        <DynamicIcon :names="routeIcon(child.Value)" :size="iconSize" class="min-w-6" />
         {{ routeName(child.Value?.path) }}
       </NuxtLink>
     </li>

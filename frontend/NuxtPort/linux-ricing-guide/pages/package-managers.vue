@@ -6,7 +6,10 @@
 
 <script setup lang="ts">
 definePageMeta({
-  icon: 'cube',
+  icons:
+  {
+    default: 'cube',
+  }
 });
 
 const packMans = [
