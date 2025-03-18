@@ -6,7 +6,9 @@
 
 <script setup lang="ts">
 definePageMeta({
-  icon: 'palette',
+  icons: {
+    default: 'palette',
+  }
 });
 
 const themes = [

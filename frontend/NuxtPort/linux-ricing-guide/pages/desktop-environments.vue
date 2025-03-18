@@ -6,7 +6,10 @@
 
 <script setup lang="ts">
 definePageMeta({
-  icon: 'display',
+  icons: {
+    default: 'display',
+    mdi:'monitor-screenshot'
+  }
 });
 
 const deskEnvs = [

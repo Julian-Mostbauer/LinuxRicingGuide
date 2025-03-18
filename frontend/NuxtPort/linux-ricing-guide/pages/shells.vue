@@ -6,7 +6,10 @@
 
 <script setup lang="ts">
 definePageMeta({
-  icon: 'floppy-disk',
+  icons:
+  {
+    default: 'floppy-disk',
+  }
 });
 
 const shells = [

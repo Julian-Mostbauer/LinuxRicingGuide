@@ -8,7 +8,9 @@
       <p>{{ description }}</p>
       <div class="card-actions justify-end">
         <NuxtLink :to="link" class="btn btn-primary text-base-200">
-          <Icon name="fa6-solid:link"/>
+          <DynamicIcon :names="{
+            'default': 'link'
+          }" />
           Visit
         </NuxtLink>
       </div>
@@ -17,6 +19,8 @@
 </template>
 
 <script setup lang="ts">
+import { iconToLink } from '~/assets/utils/iconUtils'
+
 defineProps<{
   imagePath: string;
   title: string;
