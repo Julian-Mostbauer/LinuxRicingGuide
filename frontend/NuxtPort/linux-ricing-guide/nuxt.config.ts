@@ -45,7 +45,10 @@ export default defineNuxtConfig({
                     path: `/distros/history/${name}`,
                     file: '~/components/DistroHistoryTemplate.vue',
                     meta: {
-                        jsonObject: jsonData
+                        jsonObject: jsonData,
+                        icons: {
+                            default: 'database',
+                        }
                     }
                 })
             })
