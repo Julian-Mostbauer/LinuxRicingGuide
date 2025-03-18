@@ -199,7 +199,7 @@ const sections = [
     `,
   },
   {
-    icon: 'mobile-alt',
+    icon: 'mobile',
     title: 'Expansion into Mobile Devices',
     content: `
       As technology advanced, Linux expanded beyond traditional computing environments. One of the most

@@ -1,10 +1,10 @@
 <template>
   <ul v-if="!isRoot || node.Children.length > 0" ref="treeRef"
-    :class="isRoot ? 'menu rounded-r-[1.5rem] mt-2 mb-2 bg-base-200 text-base-content min-h-[98%] w-80 border-r-2 border-t-2 border-b-2 border-gray-800' : ''">
+    :class="isRoot ? 'menu rounded-r-[1.5rem] mt-2 mb-2 bg-base-200 text-base-content min-h-[98%] w-80 border-r-2 border-t-2 border-b-2 border-base-300' : ''">
 
     <!-- Index of Directory -->
     <li v-if="node.HasIndex"
-      :class="{ 'opacity-0': !isVisible, 'animate-fade-in': isVisible, 'text-accent-content': isActivePage(node) }"
+      :class="{ 'opacity-0': !isVisible, 'animate-fade-in': isVisible, 'text-primary': isActivePage(node) }"
       :style="{ animationDelay: animationDelay(0) }">
       <NuxtLink :to="node.Value?.path || '/'" @click="closeNav">
         <DynamicIcon :names="{
@@ -30,7 +30,7 @@
 
       <!-- Normal Files -->
       <NuxtLink v-else :to="child.Value?.path || '/'" @click="closeNav"
-        :class="{ 'text-accent-content': isActivePage(child) }">
+        :class="{ 'text-primary': isActivePage(child) }">
         <DynamicIcon :names="routeIcon(child.Value)" :size="iconSize" class="min-w-6" />
         {{ routeName(child.Value?.path) }}
       </NuxtLink>

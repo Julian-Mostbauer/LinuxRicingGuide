@@ -8,7 +8,7 @@ export default defineNuxtConfig({
     $production: undefined,
     $test: undefined,
     compatibilityDate: '2024-11-01',
-    devtools: { enabled: true },
+    devtools: { enabled: false },
     vite: {
         plugins: [tailwindcss()],
         server: {
