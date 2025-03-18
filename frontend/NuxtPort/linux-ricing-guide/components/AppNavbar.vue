@@ -46,7 +46,9 @@
     </div>
 
     <!-- Theme Picker-->
-    <ThemePickerButton />
+    <div class="tooltip tooltip-bottom" data-tip="Themes">
+      <ThemePickerButton />
+    </div>
   </div>
 </template>
 
