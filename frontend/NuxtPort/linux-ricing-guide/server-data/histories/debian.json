@@ -1,0 +1,18 @@
+{
+  "name": "Debian",
+  "description": "Debian is a Unix-like operating system consisting entirely of free software. Ian Murdock started the Debian Project on August 16, 1993. The Debian Project has grown to be one of the largest and most influential open-source projects in the world.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "text": "In the early years, Debian was a small project with a few developers. Over time, it grew in size and scope, attracting more developers and users."
+    },
+    {
+      "title": "Growth and Development",
+      "text": "As Debian grew, it became known for its stability and reliability. The project introduced many innovations, such as the Advanced Packaging Tool (APT) and the Debian Social Contract."
+    },
+    {
+      "title": "Current Status",
+      "text": "Today, Debian is used by millions of people around the world. It serves as the basis for many other distributions, including Ubuntu, one of the most popular Linux distributions."
+    }
+  ]
+}
