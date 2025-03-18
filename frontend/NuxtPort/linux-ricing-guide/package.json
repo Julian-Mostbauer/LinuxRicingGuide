@@ -23,6 +23,7 @@
     "vue-router": "latest"
   },
   "devDependencies": {
+    "@iconify-json/fa6-solid": "^1.2.3",
     "@nuxt/icon": "^1.10.3",
     "vitest": "^3.0.8"
   }
