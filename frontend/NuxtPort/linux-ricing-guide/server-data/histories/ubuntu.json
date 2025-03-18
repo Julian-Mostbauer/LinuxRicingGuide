@@ -1,0 +1,26 @@
+{
+  "name": "Ubuntu",
+  "description": "Ubuntu was first released in October 2004. It was created by Mark Shuttleworth and his company Canonical Ltd. The goal was to create an easy-to-use Linux distribution with a regular release cycle.",
+  "sections": [
+    {
+      "title": "Features",
+      "icon": "list",
+      "text": "Ubuntu includes a wide range of software, including the LibreOffice suite, the Firefox web browser, and the Thunderbird email client. It also features a custom desktop environment called Unity."
+    },
+    {
+      "title": "Release Cycle",
+      "icon": "calendar",
+      "text": "Ubuntu has a regular release cycle, with new versions released every six months. Every two years, a Long Term Support (LTS) version is released, which is supported for five years."
+    },
+    {
+      "title": "Community",
+      "icon": "users",
+      "text": "Ubuntu has a large and active community of users and developers. The community contributes to the development of the distribution, provides support, and creates documentation."
+    },
+    {
+      "title": "Current Status",
+      "icon": "chart-line",
+      "text": "Today, Ubuntu is one of the most popular Linux distributions. It is used by millions of people around the world, from personal desktops to servers and cloud computing."
+    }
+  ]
+}
