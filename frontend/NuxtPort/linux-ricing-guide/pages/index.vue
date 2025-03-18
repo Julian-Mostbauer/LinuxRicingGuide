@@ -1,8 +1,3 @@
-<script setup lang="ts">
-import { Motion } from 'motion-v'
-
-</script>
-
 <template>
   <div>
     <div class="card text-neutral-content mb-6">

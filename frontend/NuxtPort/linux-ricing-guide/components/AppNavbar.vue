@@ -18,7 +18,8 @@
           </div>
 
           <div class="drawer-side z-1">
-            <label for="nav-drawer" aria-label="close sidebar" class="drawer-overlay" style="cursor: default !important;"></label>
+            <label for="nav-drawer" aria-label="close sidebar" class="drawer-overlay"
+              style="cursor: default !important;"></label>
             <AppSideMenu />
           </div>
         </div>
@@ -59,6 +60,7 @@ import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router'
 import siteWideSearch from '~/assets/utils/siteWideSearch';
 import { toHeaderCase } from '~/assets/utils/caseUtils';
+
 const route = useRoute()
 const router = useRouter()
 
