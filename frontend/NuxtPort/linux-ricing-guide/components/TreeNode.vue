@@ -1,6 +1,6 @@
 <template>
   <ul v-if="!isRoot || node.Children.length > 0" ref="treeRef"
-    :class="isRoot ? 'menu rounded-r-[1.5rem] mt-2 mb-2 bg-base-200 text-base-content min-h-[98%] w-80 border-r-2 border-t-2 border-b-2 border-gray-800' : ''">
+    :class="isRoot ? 'menu rounded-r-[1.5rem] mt-2 mb-2 bg-base-200 text-base-content min-h-[98%] w-80 border-r-2 border-t-2 border-b-2 border-base-300' : ''">
 
     <!-- Index of Directory -->
     <li v-if="node.HasIndex"
