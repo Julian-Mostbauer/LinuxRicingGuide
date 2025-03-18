@@ -9,9 +9,10 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "test":"vitest"
+    "test": "vitest"
   },
   "dependencies": {
+    "@iconify-json/mdi": "^1.2.3",
     "@tailwindcss/vite": "^4.0.9",
     "@vueuse/core": "^13.0.0",
     "daisyui": "^5.0.0",
