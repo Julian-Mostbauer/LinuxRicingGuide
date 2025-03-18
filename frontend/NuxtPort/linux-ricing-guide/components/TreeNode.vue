@@ -4,7 +4,7 @@
 
     <!-- Index of Directory -->
     <li v-if="node.HasIndex"
-      :class="{ 'opacity-0': !isVisible, 'animate-fade-in': isVisible, 'text-accent-content': isActivePage(node) }"
+      :class="{ 'opacity-0': !isVisible, 'animate-fade-in': isVisible, 'text-primary': isActivePage(node) }"
       :style="{ animationDelay: animationDelay(0) }">
       <NuxtLink :to="node.Value?.path || '/'" @click="closeNav">
         <DynamicIcon :names="{
@@ -30,7 +30,7 @@
 
       <!-- Normal Files -->
       <NuxtLink v-else :to="child.Value?.path || '/'" @click="closeNav"
-        :class="{ 'text-accent-content': isActivePage(child) }">
+        :class="{ 'text-primary': isActivePage(child) }">
         <DynamicIcon :names="routeIcon(child.Value)" :size="iconSize" class="min-w-6" />
         {{ routeName(child.Value?.path) }}
       </NuxtLink>
