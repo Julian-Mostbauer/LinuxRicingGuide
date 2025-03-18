@@ -27,4 +27,28 @@ export default defineNuxtConfig({
             collections: ['uil', 'mdi'],
         },
     },
+    hooks: {
+        'pages:extend'(pages) {
+            // read all json files from ~/server-data/histories/
+            const fs = require('fs')
+            const path = require('path')
+            const files = fs.readdirSync(path.resolve(__dirname, 'server-data/histories'))
+            const jsonFiles = files.filter((file: string) => file.endsWith('.json'))
+
+            // push each json file to pages
+            jsonFiles.forEach((file: string) => {
+                const name = file.replace('.json', '')
+                const jsonData = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'server-data/histories', file), 'utf-8'))
+
+                pages.push({
+                    name: jsonData.name,
+                    path: `/distros/history/${name}`,
+                    file: '~/components/DistroHistoryTemplate.vue',
+                    meta: {
+                        jsonObject: jsonData
+                    }
+                })
+            })
+        }
+    }
 })
