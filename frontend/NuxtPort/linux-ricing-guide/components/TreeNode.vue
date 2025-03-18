@@ -1,7 +1,10 @@
 <template>
   <ul v-if="!isRoot || node.Children.length > 0" ref="treeRef"
     :class="isRoot ? 'menu rounded-r-[1.5rem] mt-2 mb-2 bg-base-200 text-base-content min-h-[98%] w-80 border-r-2 border-t-2 border-b-2 border-gray-800' : ''">
-    <li v-if="node.HasIndex" :class="{ 'opacity-0': !isVisible, 'animate-fade-in': isVisible }"
+
+    <!-- Index of Directory -->
+    <li v-if="node.HasIndex"
+      :class="{ 'opacity-0': !isVisible, 'animate-fade-in': isVisible, 'text-accent-content': isActivePage(node) }"
       :style="{ animationDelay: animationDelay(0) }">
       <NuxtLink :to="node.Value?.path || '/'" @click="closeNav">
         <Icon :name="'fa6-solid:' + (isRoot ? 'house' : 'circle-info')" :size="iconSize" class="min-w-6" />
@@ -9,10 +12,11 @@
       </NuxtLink>
     </li>
 
-    <!-- Folders -->
     <li v-for="(child, index) in node.Children" :key="child.Value?.path"
       :class="{ 'opacity-0': !isVisible, 'animate-fade-in': isVisible }"
       :style="{ animationDelay: animationDelay(index) }">
+
+      <!-- Directories -->
       <details v-if="child.Children.length > 0" open>
         <summary>
           <Icon :name="'fa6-solid:' + routeIcon(child.Value)" :size="iconSize" class="min-w-6" />
@@ -21,7 +25,9 @@
         <TreeNode :node="child" />
       </details>
 
-      <NuxtLink v-else :to="child.Value?.path || '/'" @click="closeNav">
+      <!-- Normal Files -->
+      <NuxtLink v-else :to="child.Value?.path || '/'" @click="closeNav"
+        :class="{ 'text-accent-content': isActivePage(child) }">
         <Icon :name="'fa6-solid:' + routeIcon(child.Value)" :size="iconSize" class="min-w-6" />
         {{ routeName(child.Value?.path) }}
       </NuxtLink>
@@ -33,6 +39,10 @@
 import { ref, onMounted } from 'vue';
 import type { PropType } from 'vue';
 import { Node, routeName, routeIcon } from 'assets/utils/routeTree'
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const isActivePage = (r: Node) => route.fullPath == r.Value?.path;
 
 const iconSize: number = 20;
 const isVisible = ref(false);
@@ -47,8 +57,9 @@ const closeNav = () => {
   }
 };
 
-const initialDelay = 10050;
-const animationDelay = (index: number) => `${initialDelay + index * 50}ms`;
+const initialDelay = 100;
+const indivitualDelay = 60;
+const animationDelay = (index: number) => `${initialDelay + index * indivitualDelay}ms`;
 
 const props = defineProps({
   node: {
