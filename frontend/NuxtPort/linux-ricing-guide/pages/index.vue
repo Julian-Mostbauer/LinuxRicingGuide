@@ -6,7 +6,7 @@ import { Motion } from 'motion-v'
 <template>
   <div>
     <div class="card text-neutral-content mb-6">
-      <div class="hero bg-base-200 min-h-screen border-b-2 border-gray-800">
+      <div class="hero bg-base-200 min-h-screen border-b-2 border-base-300">
         <div class="hero-content flex-col lg:flex-row">
           <Motion :initial="{ scale: 0, rotate: 180 }" :while-in-view="{ rotate: 0, scale: 1 }" :in-view-options="{
             once: true,
