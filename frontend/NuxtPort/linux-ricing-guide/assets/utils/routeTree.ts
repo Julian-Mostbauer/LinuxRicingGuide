@@ -61,11 +61,11 @@ const routeName = (
 }
 
 const routeIcon = (route: RouteRecord | null) => {
-    if (route && route.meta?.icon) {
-        return route.meta.icon
+    if (route && route.meta?.icons) {
+        return route.meta.icons
     }
 
-    return 'file-lines'
+    return { default: 'file-lines', mdi: 'file-document' }
 }
 
 export { Tree, Node, routeName, routeIcon }
