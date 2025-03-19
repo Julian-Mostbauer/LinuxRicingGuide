@@ -6,8 +6,8 @@
         <GradientOutline circle-width="200px">
           <div class="card bg-base-200 text-base-content p-6 h-full">
             <section class="mb-6 h-full flex flex-col">
-              <h2 class="mb-4 text-xl font-bold">
-                <DynamicIcon :names="{ default: section.icon }" /> {{ section.title }}
+              <h2 class="mb-4 text-xl font-bold flex flex-row items-center">
+                <DynamicIcon :names="{ default: section.icon }" class="mr-2"/> {{ section.title }}
               </h2>
               <p class="text-md flex-grow" v-html="section.content"></p>
             </section>
@@ -59,99 +59,99 @@ type entry = {
 
 const entries: entry[] = [{
   imagePath: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flogos-marcas.com%2Fwp-content%2Fuploads%2F2020%2F11%2FUbuntu-Emblema.png&f=1&nofb=1&ipt=9131eaa826134a968cf6350785fe0819a49120ed17985e272f01b0b51452798a&ipo=images',
-  link: 'ubuntu-history'
+  link: 'ubuntu'
 },
 {
   imagePath: 'https://logodix.com/logo/1171807.png',
-  link: 'debian-history'
+  link: 'debian'
 },
 {
   imagePath: 'https://wiki.installgentoo.com/images/f/f9/Arch-linux-logo.png',
-  link: 'arch-history'
+  link: 'arch'
 },
 {
   imagePath: 'https://logodix.com/logo/675587.png',
-  link: 'manjaro-history'
+  link: 'manjaro'
 },
 {
   imagePath: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.lffl.org%2Fwp-content%2Fuploads%2F2020%2F05%2FPop_OS-20.04-1.png&f=1&nofb=1&ipt=b9813ad2b5d562eee2fa401a5fa3a2fba04b11fa74b48a883bc0148c854b6a6a&ipo=images',
-  link: 'pop!-os-history'
+  link: 'pop!-os'
 },
 {
   imagePath: 'https://2.bp.blogspot.com/-oLPLjT8GMG0/WjKrRPTm2CI/AAAAAAAADRA/evQEjsmF_nMtCJp5xaAKWJqHsjYOxL0bgCLcBGAs/s1600/Linux_Mint_logo_without_wordmark.svg.png',
-  link: 'mint-history'
+  link: 'mint'
 },
 {
   imagePath: 'https://s3.amazonaws.com/media-p.slid.es/uploads/183933/images/1332684/elementary_logo.png',
-  link: 'elementary-os-history'
+  link: 'elementary-os'
 },
 {
   imagePath: 'https://logospng.org/download/centos/centos-logo-1024.png',
-  link: 'cent-os-history'
+  link: 'cent-os'
 },
 {
   imagePath: 'https://juststickers.in/wp-content/uploads/2019/07/fedora.png',
-  link: 'fedora-history'
+  link: 'fedora'
 },
 {
   imagePath: 'https://www.kindpng.com/picc/m/97-975947_void-linux-logo-png-transparent-png.png',
-  link: 'void-linux-history'
+  link: 'void-linux'
 },
 {
   imagePath: 'https://cdn0.iconfinder.com/data/icons/flat-round-system/512/opensuse-512.png',
-  link: 'openSUSE-history'
+  link: 'openSUSE'
 },
 {
   imagePath: 'https://www.qubes-os.org/attachment/icons/512x512/apps/qubes-logo-icon.png',
-  link: 'qubes-os-history'
+  link: 'qubes-os'
 },
 {
   imagePath: 'https://freesvg.org/img/1634281368Slackware_logo.png',
-  link: 'slackware-history'
+  link: 'slackware'
 },
 {
   imagePath: 'https://freepngimg.com/thumb/ubuntu/62619-vector-gentoo-icons-graphics-scalable-computer-linux.png',
-  link: 'gentoo-history'
+  link: 'gentoo'
 },
 {
   imagePath: 'https://pingvinus.ru/cr_images/modelImage/application/3384-logo-n9h2eb9.png',
-  link: 'alpine-linux-history'
+  link: 'alpine-linux'
 },
 {
   imagePath: 'https://freesvg.org/img/1634268452MX_Linux_logo.png',
-  link: 'mx-linux-history'
+  link: 'mx-linux'
 },
 {
   imagePath: 'https://cdn.pixabay.com/photo/2013/03/30/00/09/operating-system-97851_1280.png',
-  link: 'ubuntu-studio-history'
+  link: 'ubuntu-studio'
 },
 {
   imagePath: 'https://www.edureka.co/blog/wp-content/uploads/2019/02/parrot-logo-kali-vs-parrot-edureka.png',
-  link: 'parrot-security-os-history'
+  link: 'parrot-security-os'
 },
 {
   imagePath: 'https://www.freelogovectors.net/wp-content/uploads/2021/12/kali-logo-freelogovectors.net_.png',
-  link: 'kali-linux-history'
+  link: 'kali-linux'
 },
 {
   imagePath: 'https://seekicon.com/free-icon-download/arch-linux_1.png',
-  link: 'black-arch-linux-history'
+  link: 'black-arch-linux'
 },
 {
   imagePath: 'https://images.seeklogo.com/logo-png/44/1/artix-linux-logo-png_seeklogo-448539.png',
-  link: 'artix-linux-history'
+  link: 'artix-linux'
 },
 {
   imagePath: 'https://endeavouros.com/wp-content/uploads/2019/08/EndeavourOS-logo.png',
-  link: 'endeavour-os-history'
+  link: 'endeavour-os'
 },
 {
   imagePath: 'https://www.nesabamedia.com/wp-content/uploads/2022/11/Garuda-Linux-Logo-1.png',
-  link: 'garuda-linux-history'
+  link: 'garuda-linux'
 },
 {
   imagePath: 'https://lignux.com/wp-content/uploads/2013/08/trisquel.jpg',
-  link: 'trisquel-history'
+  link: 'trisquel'
 }
 ];
 
