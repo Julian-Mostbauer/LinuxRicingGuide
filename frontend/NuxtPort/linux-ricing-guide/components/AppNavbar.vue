@@ -1,5 +1,5 @@
 <template>
-  <div class="navbar bg-opacity-70 backdrop-blur-md border-b-2 border-base-300 sticky top-0 z-50"
+  <div class="navbar bg-opacity-70 backdrop-blur-md border-b-2 border-base-300 sticky top-0 z-50 h-16"
     style="background-color: rgba(var(--bg-base-200), 0.69)">
 
     <div class="flex-1 flex items-center text-neutral-content">
@@ -51,6 +51,8 @@
       <ThemePickerButton />
     </div>
   </div>
+  <NuxtLoadingIndicator color="var(--color-primary)" :height="2" :throttle="0" class="mt-15.5"/>
+
 </template>
 
 <script setup lang="ts">
