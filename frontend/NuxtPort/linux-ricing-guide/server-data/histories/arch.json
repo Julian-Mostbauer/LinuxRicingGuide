@@ -1,0 +1,26 @@
+{
+  "name": "Arch Linux",
+  "description": "Arch Linux was first released in March 2002. It was created by Judd Vinet with the goal of providing a simple, lightweight, and flexible Linux distribution following the KISS (Keep It Simple, Stupid) principle.",
+  "sections": [
+    {
+      "title": "Features",
+      "icon": "list",
+      "text": "Arch Linux follows a rolling release model, meaning there are no fixed versions—users always have access to the latest software. It features the Pacman package manager and allows full system customization."
+    },
+    {
+      "title": "Release Cycle",
+      "icon": "calendar",
+      "text": "Unlike traditional Linux distributions, Arch Linux does not have scheduled releases. Instead, it continuously updates, ensuring that users are always on the latest available versions of software."
+    },
+    {
+      "title": "Community",
+      "icon": "users",
+      "text": "Arch Linux has a dedicated community known for its extensive documentation, including the Arch Wiki. The community actively maintains and develops the distribution, contributing to its packages and support forums."
+    },
+    {
+      "title": "Current Status",
+      "icon": "chart-line",
+      "text": "Arch Linux remains a favorite among advanced Linux users and enthusiasts who prefer a hands-on approach. It is widely used on personal computers, development environments, and even servers."
+    }
+  ]
+}
