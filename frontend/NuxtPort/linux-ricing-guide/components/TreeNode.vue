@@ -1,30 +1,39 @@
 <template>
   <ul v-if="!isRoot || node.Children.length > 0" ref="treeRef"
-    :class="isRoot ? 'menu rounded-r-[1.5rem] mt-2 mb-2 bg-base-200 text-base-content min-h-[98%] w-80 border-r-2 border-t-2 border-b-2 border-gray-800' : ''">
-    <li v-if="node.HasIndex" :class="{ 'opacity-0': !isVisible, 'animate-fade-in': isVisible }"
+    :class="isRoot ? 'menu rounded-r-[1.5rem] mt-2 mb-2 bg-base-200 text-base-content min-h-[98%] w-80 border-r-2 border-t-2 border-b-2 border-base-300' : ''">
+
+    <!-- Index of Directory -->
+    <li v-if="node.HasIndex"
+      :class="{ 'opacity-0': !isVisible, 'animate-fade-in': isVisible, 'text-primary': isActivePage(node) }"
       :style="{ animationDelay: animationDelay(0) }">
-      <a :href="node.Value?.path || '/'">
-        <Icon :name="'fa6-solid:' + (isRoot ? 'house' : routeIcon(node.Value))" :size="iconSize" class="min-w-6" />
-        {{ routeName(node.Value?.path, isRoot ? "Home" : "Unknown Location") }}
-      </a>
+      <NuxtLink :to="node.Value?.path || '/'" @click="closeNav">
+        <DynamicIcon :names="{
+          default: (isRoot ? 'house' : 'circle-info'),
+          mdi: (isRoot ? 'home' : 'information-slab-circle')
+        }" :size="iconSize" class="min-w-6" />
+        {{ isRoot ? "Home" : "Overview" }}
+      </NuxtLink>
     </li>
 
-    <!-- Folders -->
     <li v-for="(child, index) in node.Children" :key="child.Value?.path"
       :class="{ 'opacity-0': !isVisible, 'animate-fade-in': isVisible }"
       :style="{ animationDelay: animationDelay(index) }">
+
+      <!-- Directories -->
       <details v-if="child.Children.length > 0" open>
         <summary>
-          <Icon name="fa6-solid:folder" :size="iconSize" class="min-w-6" />
+          <DynamicIcon :names="routeIcon(child.Value)" :size="iconSize" class="min-w-6" />
           {{ routeName(child.Value?.path) }}
         </summary>
         <TreeNode :node="child" />
       </details>
 
-      <a v-else :href="child.Value?.path || '/'">
-        <Icon :name="'fa6-solid:' + routeIcon(child.Value)" :size="iconSize" class="min-w-6" />
+      <!-- Normal Files -->
+      <NuxtLink v-else :to="child.Value?.path || '/'" @click="closeNav"
+        :class="{ 'text-primary': isActivePage(child) }">
+        <DynamicIcon :names="routeIcon(child.Value)" :size="iconSize" class="min-w-6" />
         {{ routeName(child.Value?.path) }}
-      </a>
+      </NuxtLink>
     </li>
   </ul>
 </template>
@@ -33,13 +42,27 @@
 import { ref, onMounted } from 'vue';
 import type { PropType } from 'vue';
 import { Node, routeName, routeIcon } from 'assets/utils/routeTree'
+import { useRoute } from 'vue-router';
+
+const route = useRoute();
+const isActivePage = (r: Node) => route.fullPath == r.Value?.path;
 
 const iconSize: number = 20;
 const isVisible = ref(false);
 const treeRef = ref<HTMLElement | null>(null);
 
-const initialDelay = 200;
-const animationDelay = (index: number) => `${initialDelay + index * 100}ms`;
+const closeNav = () => {
+  if (document) {
+    const navCheckbox = document.getElementById('nav-drawer');
+    if (navCheckbox) {
+      (navCheckbox as HTMLInputElement).checked = false;
+    }
+  }
+};
+
+const initialDelay = 100;
+const indivitualDelay = 60;
+const animationDelay = (index: number) => `${initialDelay + index * indivitualDelay}ms`;
 
 const props = defineProps({
   node: {
@@ -58,11 +81,11 @@ onMounted(() => {
       ([entry]) => {
         if (entry.isIntersecting) {
           isVisible.value = true;
-          observer.disconnect(); // Stop observing after first appearance
         }
       },
       { threshold: 0.1 }
     );
+
     observer.observe(treeRef.value);
   }
 });

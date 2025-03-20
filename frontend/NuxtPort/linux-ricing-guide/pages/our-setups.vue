@@ -4,8 +4,8 @@
       :desktopEnvironment="user['Desktop Environment']" :windowManager="user['Window Manager']"
       :terminalEmulator="user['Terminal Emulator']" :terminalTheme="user['Terminal Theme']"
       :shellConfigurations="user['Shell Configurations']" :starshipPreset="user['Starship Preset']"
-      :fileManager="user['File Manager']" :imageSrc="userImages[index]"
-      :reverseOrder="index % 2 == 1" class="mt-8 mb-8"/>
+      :fileManager="user['File Manager']" :imageSrc="userImages[index]" :reverseOrder="index % 2 == 1"
+      class="mt-8 mb-8" />
   </div>
 </template>
 
@@ -54,6 +54,10 @@ export default defineComponent({
 
 <script setup lang="ts">
 definePageMeta({
-  icon: 'laptop-code',
+  icons:
+  {
+    default: 'laptop-code',
+    mdi: 'laptop'
+  }
 });
 </script>
