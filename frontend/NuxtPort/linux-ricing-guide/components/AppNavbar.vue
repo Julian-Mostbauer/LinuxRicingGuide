@@ -58,7 +58,6 @@ type RoutePart = { name: string, fullPath: string }
 
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router'
-import siteWideSearch from '~/assets/utils/siteWideSearch';
 import { toHeaderCase } from '~/assets/utils/caseUtils';
 
 const route = useRoute()
@@ -86,7 +85,20 @@ const onSearchInput = () => {
 
 const search = (inp: string) => {
   if (!inp) return;
-  console.log(siteWideSearch(inp, router));
+  fetch("api/search?q=" + inp, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ query: inp }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      alert("Search results: " + JSON.stringify(data));
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 }
 
 updateRouteParts(); // Initial call to set routeParts
