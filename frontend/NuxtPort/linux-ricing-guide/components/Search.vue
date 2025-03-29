@@ -1,28 +1,46 @@
 <template>
-  <div class="search-container">
-    <div class="search-input">
+  <div class="relative w-full">
+    <!-- Search Input -->
+    <div class="relative">
+      <DynamicIcon :names="{ 'default': 'magnifying-glass', 'mdi': 'search' }" :size="20" />
       <input
         v-model="searchQuery"
         @input="debouncedSearch"
+        @focus="showResults = true"
+        @blur="setTimeout(() => { showResults = false }, 200)"
         placeholder="Search..."
         type="search"
+        class="w-full py-2 px-4 pr-10 rounded-full bg-gray-700 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-gray-600 transition"
       />
-      <div v-if="loading" class="spinner"></div>
+      <!-- Loading Spinner -->
+      <div 
+        v-if="loading"
+        class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 border-2 border-gray-400 border-t-white rounded-full animate-spin"
+      ></div>
     </div>
-    
-    <div v-if="results.length > 0" class="search-results">
+
+    <!-- Search Results Dropdown -->
+    <div 
+      v-if="showResults && results.length > 0"
+      class="absolute z-50 w-full mt-2 max-h-80 overflow-y-auto bg-white rounded-md shadow-lg"
+    >
       <NuxtLink 
         v-for="result in results" 
         :key="result.path" 
         :to="result.path"
-        class="result-link"
+        class="block px-4 py-3 text-gray-800 hover:bg-gray-100 transition"
+        @click="closeResults"
       >
         {{ result.title || result.path }}
       </NuxtLink>
     </div>
-    
-    <div v-else-if="searchQuery.length >= 2 && !loading" class="no-results">
-      No pages found for "{{ searchQuery }}"
+
+    <!-- No Results Message -->
+    <div 
+      v-if="showResults && searchQuery.length >= 2 && !loading && results.length === 0"
+      class="absolute z-50 w-full mt-2 p-4 bg-white rounded-md shadow-lg text-gray-600"
+    >
+      No results found for "{{ searchQuery }}"
     </div>
   </div>
 </template>
@@ -31,6 +49,7 @@
 const searchQuery = ref('')
 const results = ref([])
 const loading = ref(false)
+const showResults = ref(false)
 let debounceTimer = null
 
 const debouncedSearch = () => {
@@ -41,6 +60,7 @@ const debouncedSearch = () => {
   }
   
   loading.value = true
+  showResults.value = true
   debounceTimer = setTimeout(async () => {
     try {
       const { data } = await useFetch('/api/search', {
@@ -55,68 +75,10 @@ const debouncedSearch = () => {
     }
   }, 300)
 }
+
+const closeResults = () => {
+  searchQuery.value = ''
+  results.value = []
+  showResults.value = false
+}
 </script>
-
-<style scoped>
-.search-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 1rem;
-}
-
-.search-input {
-  position: relative;
-  margin-bottom: 1rem;
-}
-
-.search-input input {
-  width: 100%;
-  padding: 0.75rem 1rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-}
-
-.spinner {
-  position: absolute;
-  right: 1rem;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1rem;
-  height: 1rem;
-  border: 2px solid #f3f3f3;
-  border-top: 2px solid #3498db;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-.search-results {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.result-link {
-  padding: 0.75rem;
-  border: 1px solid #eee;
-  border-radius: 4px;
-  text-decoration: none;
-  color: #2c3e50;
-  transition: background-color 0.2s;
-}
-
-.result-link:hover {
-  background-color: #f8f8f8;
-}
-
-.no-results {
-  padding: 1rem;
-  text-align: center;
-  color: #666;
-}
-
-@keyframes spin {
-  0% { transform: translateY(-50%) rotate(0deg); }
-  100% { transform: translateY(-50%) rotate(360deg); }
-}
-</style>

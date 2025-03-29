@@ -41,8 +41,7 @@
     <!-- Search bar-->
     <div class="flex gap-2 mr-2">
       <label class="input input-bordered hidden items-center gap-2 lg:w-92 sm:w-64 sm:flex">
-        <input type="text" placeholder="Search" class="grow" v-model="searchQuery" @input="onSearchInput" />
-        <DynamicIcon :names="{ 'default': 'magnifying-glass', 'mdi': 'search' }" :size="20" />
+        <Search/>
       </label>
     </div>
 
@@ -61,7 +60,6 @@ import { useRoute, useRouter } from 'vue-router'
 import { toHeaderCase } from '~/assets/utils/caseUtils';
 
 const route = useRoute()
-const router = useRouter()
 
 const routeParts = ref<RoutePart[]>([]);
 
@@ -76,30 +74,6 @@ const updateRouteParts = () => {
 };
 
 watch(route, updateRouteParts, { immediate: true });
-
-const searchQuery = ref('');
-
-const onSearchInput = () => {
-  search(searchQuery.value);
-}
-
-const search = (inp: string) => {
-  if (!inp) return;
-  fetch("api/search?q=" + inp, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({ query: inp }),
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      alert("Search results: " + JSON.stringify(data));
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-}
 
 updateRouteParts(); // Initial call to set routeParts
 
