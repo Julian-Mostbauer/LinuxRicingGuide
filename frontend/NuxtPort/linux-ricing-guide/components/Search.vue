@@ -15,7 +15,7 @@
     <!-- Search Results Dropdown -->
     <div v-if="showResults && results.length > 0"
       class="absolute z-50 w-full mt-2 max-h-80 overflow-y-auto bg-base-100 rounded-md shadow-lg">
-      <NuxtLink v-for="result in results" :key="result.path" :to="result.path"
+      <NuxtLink v-for="result in results" :key="result.path" :to="'/' + result.path"
         class="block px-4 py-3 text-accent-800 hover:bg-base-200 transition" @click="closeResults">
         {{ result.title || result.path }}
       </NuxtLink>
