@@ -2,6 +2,7 @@ import { H3Event } from 'h3'
 import { resolve } from 'path'
 import { readFile } from 'fs/promises'
 import { parse } from '@vue/compiler-dom'
+import {toHeaderCase} from "assets/utils/caseUtils";
 
 export default defineEventHandler(async (event: H3Event) => {
   const query = getQuery(event).q?.toString()?.toLowerCase()
@@ -15,6 +16,7 @@ export default defineEventHandler(async (event: H3Event) => {
 
   const pages = await getPageRoutes()
   const results = []
+
   
   for (const page of pages) {
     try {
@@ -22,7 +24,7 @@ export default defineEventHandler(async (event: H3Event) => {
       if (content.toLowerCase().includes(query)) {
         results.push({
           path: page.routePath,
-          title: extractPageTitle(content) || page.routePath
+          title: toHeaderCase(page.routePath === "" ? "home" : page.routePath)
         })
       }
     } catch (error) {
@@ -52,7 +54,7 @@ async function getPageRoutes(): Promise<PageInfo[]> {
 
   return pageFiles.map(file => ({
     routePath: file
-      .replace(/^\/?index\.vue$/, '/')
+      .replace(/^\/?index\.vue$/, '')
       .replace(/\.vue$/, '')
       .replace(/\/index$/, '')
       .replace(/\[([^\]]+)\]/g, ':$1'),

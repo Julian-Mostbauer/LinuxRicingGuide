@@ -4,11 +4,11 @@
     <div class="relative flex items-center">
       <DynamicIcon :names="{ 'default': 'magnifying-glass', 'mdi': 'search' }" :size="20" />
       <input v-model="searchQuery" @input="debouncedSearch" @focus="showResults = true"
-        @blur="setTimeout(() => { showResults = false }, 200)" placeholder="Search..." type="search"
+        @blur="setTimeout(() => { showResults = false }, 200)" placeholder="Search..." type="text"
         class="w-full py-2 px-4 pr-10" />
       <!-- Loading Spinner -->
       <div v-if="loading"
-        class="absolute right-3 top-1/2 transform -translate-y-1/2 w-4 h-4 border-2 border-gray-400 border-t-white rounded-full animate-spin">
+        class="absolute right-3 loading loading-dots loading-xs">
       </div>
     </div>
 
@@ -24,7 +24,8 @@
 
     <!-- No Results Message -->
     <div v-if="showResults && searchQuery.length >= 2 && !loading && results.length === 0"
-      class="absolute z-50 w-full mt-2 p-4 shadow-lg bg-amber-900 rounded-md text-base-600">
+      class="absolute z-50 w-full mt-2 p-4 shadow-lg bg-base-100 rounded-md text-base-600 flex items-center">
+      <DynamicIcon :names="{ 'default': 'triangle-exclamation'}" :size="16" class="mr-2"/>
       No results found for "{{ searchQuery }}"
     </div>
 
