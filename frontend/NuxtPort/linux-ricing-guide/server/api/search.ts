@@ -52,9 +52,8 @@ export default defineEventHandler(async (event: H3Event) => {
     try {
       const { name, searchableContent } = await extractJsonContent(history.filePath)
       if (searchableContent.toLowerCase().includes(query)) {
-        console.log(`Found match in ${history.routePath}`)
         results.push({
-          path: history.routePath
+          path: history.routePath.substring(1), // Remove leading slash for consistency
           title: `History of ${toHeaderCase(name)}`
         })
       }
