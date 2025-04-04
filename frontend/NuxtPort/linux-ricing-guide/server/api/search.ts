@@ -3,7 +3,6 @@ import { resolve } from 'path'
 import { readFile } from 'fs/promises'
 import { parse } from '@vue/compiler-dom'
 import { toHeaderCase } from 'assets/utils/caseUtils'
-import { logger } from 'nuxt/kit'
 
 interface PageInfo {
   routePath: string
