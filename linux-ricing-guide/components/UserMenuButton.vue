@@ -31,5 +31,5 @@
 
 <script lang="ts" setup>
 var userName = ref('John Doe')
-var userIcon = ref('https://picsum.photos/id/237/200/300')
+var userIcon = ref('https://i2-prod.mirror.co.uk/article20427472.ece/ALTERNATES/s1200c/0_PAY-HUMAN-DOG.jpg')
 </script>
