@@ -2,7 +2,7 @@
   <div>
     <div class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="btn btn-circle m-0.5 overflow-clip">
-        <DynamicIcon :names="{ default: 'user' }" size="20" />
+        <DynamicIcon :names="{ default: 'user' }" :size="20" />
       </div>
       <ul tabindex="0" class="card card-body dropdown-content bg-base-300 rounded-box z-1 p-2 shadow-2xl w-52">
         <li>
