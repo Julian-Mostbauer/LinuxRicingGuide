@@ -52,7 +52,7 @@
 
     <!-- User Menu -->
     <div class="tooltip tooltip-left" data-tip="Account">
-      <UserMenuButton :isLoggedIn="auth0.user.value != undefined" @click="login()" />
+      <UserMenuButton />
     </div>
   </div>
   <NuxtLoadingIndicator color="var(--color-primary)" :height="2" :throttle="0" class="mt-15.5" />
@@ -60,21 +60,17 @@
 </template>
 
 <script setup lang="ts">
-
-type RoutePart = { name: string, fullPath: string }
-
 import { ref, watch } from 'vue';
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { toHeaderCase } from '~/assets/utils/caseUtils';
-import { useAuth0 } from "@auth0/auth0-vue";
 
 const route = useRoute()
-
-const routeParts = ref<RoutePart[]>([]);
+const routeParts = ref<{ name: string, fullPath: string }[]>([]);
 
 const updateRouteParts = () => {
   routeParts.value = route.fullPath
     .split('?')[0] // Remove query parameters
+    .split('#')[0] // Remove hash
     .split('/')
     .filter(p => p)
     .map((part, index, arr) => {
@@ -84,18 +80,4 @@ const updateRouteParts = () => {
 };
 
 watch(route, updateRouteParts, { immediate: true });
-
-updateRouteParts(); // Initial call to set routeParts
-const auth0 = useAuth0();
-
-const login = () => {
-  if (auth0.user.value === undefined) {
-    try {
-      auth0.loginWithPopup();
-    }
-    catch (e) {
-      alert("Popup was cancelled. Please try again.");
-    }
-  }
-};
 </script>

@@ -1,7 +1,7 @@
 <template>
-  <div v-if="!isLoggedIn">
+  <div v-if="auth0.user.value === undefined">
     <div>
-      <div tabindex="0" role="button" class="btn btn-circle m-0.5 overflow-clip">
+      <div tabindex="0" role="button" class="btn btn-circle m-0.5 overflow-clip" @click="login()">
         <DynamicIcon :names="{ default: 'user' }" :size="20" />
       </div>
     </div>
@@ -34,13 +34,20 @@
 
 <script lang="ts" setup>
 import { useAuth0 } from "@auth0/auth0-vue";
-
 const auth0 = useAuth0();
+
+const login = () => {
+  if (auth0.user.value === undefined) {
+    try {
+      auth0.loginWithPopup();
+    }
+    catch (e) {
+      alert("Popup was cancelled. Please try again.");
+    }
+  }
+};
+
 const logout = () => {
   auth0.logout({ logoutParams: { returnTo: window.location.origin } });
 };
-
-defineProps<{
-  isLoggedIn: boolean
-}>();
 </script>
