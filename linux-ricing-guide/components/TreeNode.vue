@@ -64,7 +64,7 @@ const initialDelay = 100;
 const indivitualDelay = 60;
 const animationDelay = (index: number) => `${initialDelay + index * indivitualDelay}ms`;
 
-const props = defineProps({
+defineProps({
   node: {
     type: Object as PropType<Node>,
     required: true,

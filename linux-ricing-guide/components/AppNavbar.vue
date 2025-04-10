@@ -41,7 +41,7 @@
     <!-- Search bar-->
     <div class="flex gap-2 mr-2">
       <label class="input input-bordered hidden items-center gap-2 lg:w-92 sm:w-64 sm:flex">
-        <Search/>
+        <Search />
       </label>
     </div>
 
@@ -49,17 +49,24 @@
     <div class="tooltip tooltip-bottom" data-tip="Themes">
       <ThemePickerButton />
     </div>
+
+    <!-- User Menu -->
+    <div class="tooltip tooltip-left" data-tip="Account">
+      <UserMenuButton :isLoggedIn="auth0.user.value != undefined" @click="login()" />
+    </div>
   </div>
-  <NuxtLoadingIndicator color="var(--color-primary)" :height="2" :throttle="0" class="mt-15.5"/>
+  <NuxtLoadingIndicator color="var(--color-primary)" :height="2" :throttle="0" class="mt-15.5" />
 
 </template>
 
 <script setup lang="ts">
+
 type RoutePart = { name: string, fullPath: string }
 
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router'
 import { toHeaderCase } from '~/assets/utils/caseUtils';
+import { useAuth0 } from "@auth0/auth0-vue";
 
 const route = useRoute()
 
@@ -67,6 +74,7 @@ const routeParts = ref<RoutePart[]>([]);
 
 const updateRouteParts = () => {
   routeParts.value = route.fullPath
+    .split('?')[0] // Remove query parameters
     .split('/')
     .filter(p => p)
     .map((part, index, arr) => {
@@ -79,4 +87,11 @@ watch(route, updateRouteParts, { immediate: true });
 
 updateRouteParts(); // Initial call to set routeParts
 
+const auth0 = useAuth0();
+
+const login = () => {
+  if (auth0.user.value === undefined) {
+    auth0.loginWithRedirect();
+  }
+};
 </script>
