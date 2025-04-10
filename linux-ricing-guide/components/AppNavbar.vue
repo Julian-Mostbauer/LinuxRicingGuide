@@ -52,8 +52,8 @@
 
     <!-- User Menu -->
     <div class="tooltip tooltip-left" data-tip="Account">
-      <UserMenuButton v-if="auth0.user.value != undefined"/>
-      <UserMenuButtonLoggedOut v-else @click="login()"/>
+      <UserMenuButton v-if="auth0.user.value != undefined" />
+      <UserMenuButtonLoggedOut v-else @click="login()" />
     </div>
   </div>
   <NuxtLoadingIndicator color="var(--color-primary)" :height="2" :throttle="0" class="mt-15.5" />
@@ -75,6 +75,7 @@ const routeParts = ref<RoutePart[]>([]);
 
 const updateRouteParts = () => {
   routeParts.value = route.fullPath
+    .split('?')[0] // Remove query parameters
     .split('/')
     .filter(p => p)
     .map((part, index, arr) => {
