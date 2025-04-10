@@ -19,6 +19,7 @@
 import {useRoute} from "#vue-router";
 import {ref, watch} from "vue";
 import {toHeaderCase} from "assets/utils/caseUtils";
+import {createAuth0} from "@auth0/auth0-vue";
 
 const route = useRoute()
 
@@ -31,5 +32,15 @@ const updateRouteParts = () => {
 };
 
 
-
+const nxt = useNuxtApp()
+nxt.vueApp.use(
+    createAuth0({
+      domain: 'integr-0.eu.auth0.com',
+      clientId: 'jqQ95UJyIRnhLTpci9FsyrfgqkNyrptp',
+      authorizationParams: {
+        redirect_uri: "http://localhost:3000",
+        scope: 'openid profile email',
+      },
+    })
+);
 </script>

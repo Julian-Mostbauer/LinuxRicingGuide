@@ -49,9 +49,11 @@
     <div class="tooltip tooltip-bottom" data-tip="Themes">
       <ThemePickerButton />
     </div>
+
     <!-- User Menu -->
-    <div class="tooltip tooltip-bottom" data-tip="User Menu">
-      <UserMenuButton />
+    <div class="tooltip tooltip-left" data-tip="Account">
+      <UserMenuButton v-if="auth0.user.value != undefined"/>
+      <UserMenuButtonLoggedOut v-else @click="login()"/>
     </div>
   </div>
   <NuxtLoadingIndicator color="var(--color-primary)" :height="2" :throttle="0" class="mt-15.5" />
@@ -59,11 +61,13 @@
 </template>
 
 <script setup lang="ts">
+
 type RoutePart = { name: string, fullPath: string }
 
 import { ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router'
 import { toHeaderCase } from '~/assets/utils/caseUtils';
+import { useAuth0 } from "@auth0/auth0-vue";
 
 const route = useRoute()
 
@@ -83,4 +87,9 @@ watch(route, updateRouteParts, { immediate: true });
 
 updateRouteParts(); // Initial call to set routeParts
 
+const auth0 = useAuth0();
+
+const login = () => {
+  auth0.loginWithRedirect();
+};
 </script>
