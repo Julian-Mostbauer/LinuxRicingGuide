@@ -38,7 +38,7 @@
         </li>
       </ul>
     </div>
-    
+
     <!-- This spacer pushes the following elements to the right -->
     <div class="flex-1"></div>
 
