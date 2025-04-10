@@ -1,7 +1,14 @@
 <template>
-  <div>
+  <div v-if="!isLoggedIn">
+    <div>
+      <div tabindex="0" role="button" class="btn btn-circle m-0.5 overflow-clip">
+        <DynamicIcon :names="{ default: 'user' }" :size="20" />
+      </div>
+    </div>
+  </div>
+  <div v-else>
     <div v-if="auth0.isLoading.value">
-      <div class="skeleton h-10 w-10 shrink-0 rounded-full"/>
+      <div class="skeleton h-10 w-10 shrink-0 rounded-full" />
     </div>
     <div v-else class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="btn btn-circle m-0.5 overflow-clip">
@@ -33,10 +40,14 @@
 </template>
 
 <script lang="ts" setup>
-import {useAuth0} from "@auth0/auth0-vue";
+import { useAuth0 } from "@auth0/auth0-vue";
 
 const auth0 = useAuth0();
 const logout = () => {
   auth0.logout({ logoutParams: { returnTo: window.location.origin } });
 };
+
+defineProps<{
+  isLoggedIn: boolean
+}>();
 </script>

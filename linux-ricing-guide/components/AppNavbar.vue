@@ -52,8 +52,7 @@
 
     <!-- User Menu -->
     <div class="tooltip tooltip-left" data-tip="Account">
-      <UserMenuButton v-if="auth0.user.value != undefined" />
-      <UserMenuButtonLoggedOut v-else @click="login()" />
+      <UserMenuButton :isLoggedIn="auth0.user.value != undefined" @click="login()" />
     </div>
   </div>
   <NuxtLoadingIndicator color="var(--color-primary)" :height="2" :throttle="0" class="mt-15.5" />
@@ -91,6 +90,8 @@ updateRouteParts(); // Initial call to set routeParts
 const auth0 = useAuth0();
 
 const login = () => {
-  auth0.loginWithRedirect();
+  if (auth0.user.value === undefined) {
+    auth0.loginWithRedirect();
+  }
 };
 </script>
