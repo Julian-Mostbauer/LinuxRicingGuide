@@ -1,5 +1,5 @@
 <template>
-  <div class="background">
+  <div class="background overflow-clip">
     <AppNavbar />
     <div>
       <slot />

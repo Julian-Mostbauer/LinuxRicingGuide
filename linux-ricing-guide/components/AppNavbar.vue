@@ -41,7 +41,7 @@
     <!-- Search bar-->
     <div class="flex gap-2 mr-2">
       <label class="input input-bordered hidden items-center gap-2 lg:w-92 sm:w-64 sm:flex">
-        <Search/>
+        <Search />
       </label>
     </div>
 
@@ -49,8 +49,12 @@
     <div class="tooltip tooltip-bottom" data-tip="Themes">
       <ThemePickerButton />
     </div>
+    <!-- User Menu -->
+    <div class="tooltip tooltip-bottom" data-tip="User Menu">
+      <UserMenuButton />
+    </div>
   </div>
-  <NuxtLoadingIndicator color="var(--color-primary)" :height="2" :throttle="0" class="mt-15.5"/>
+  <NuxtLoadingIndicator color="var(--color-primary)" :height="2" :throttle="0" class="mt-15.5" />
 
 </template>
 

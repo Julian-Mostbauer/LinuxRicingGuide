@@ -76,15 +76,21 @@ Lokaler Server. Seite ist noch nicht öffentlich deployed.
 
 ## 📈 5. Feedback vom Betreuer / Lehrer (danach selbst einzugeben!)
 
+**next review: 25.4.**
+
 **Positiv:**
 
-- …
+- Nutzung von framework
+- Styling mit verschiedenen Themes
+- Sidebar navigation
 
 **Verbesserungsvorschläge:**
 
-- …
+- authenticator (Keyclock)
 
 ---
+
+
 
 ## 🛠️ 6. Verwendete Technologien & Tools
 
