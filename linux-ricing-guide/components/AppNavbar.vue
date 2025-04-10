@@ -86,12 +86,16 @@ const updateRouteParts = () => {
 watch(route, updateRouteParts, { immediate: true });
 
 updateRouteParts(); // Initial call to set routeParts
-
 const auth0 = useAuth0();
 
 const login = () => {
   if (auth0.user.value === undefined) {
-    auth0.loginWithRedirect();
+    try {
+      auth0.loginWithPopup();
+    }
+    catch (e) {
+      alert("Popup was cancelled. Please try again.");
+    }
   }
 };
 </script>

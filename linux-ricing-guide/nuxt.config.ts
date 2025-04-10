@@ -9,11 +9,6 @@ export default defineNuxtConfig({
           hostDomain: 'https://example.com'
         }
       },
-    $development: undefined,
-    $env: undefined,
-    $meta: undefined,
-    $production: undefined,
-    $test: undefined,
     compatibilityDate: '2024-11-01',
     devtools: { enabled: false },
     vite: {
