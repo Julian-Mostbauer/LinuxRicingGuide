@@ -2,6 +2,13 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+    runtimeConfig: {
+        public: {
+          auth0Domain: 'integr-0.eu.auth0.com',
+          auth0ClientId: 'jqQ95UJyIRnhLTpci9FsyrfgqkNyrptp',
+          hostDomain: 'https://example.com'
+        }
+      },
     $development: undefined,
     $env: undefined,
     $meta: undefined,
