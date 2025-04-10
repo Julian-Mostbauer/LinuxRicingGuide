@@ -21,13 +21,6 @@
             <p class="text-lg font-bold text-center">{{ auth0.user.value?.name }}</p>
           </div>
         </li>
-        <div class="divider m-0" />
-        <li>
-          <div class="btn btn-ghost justify-start m-1 p-1 text-center w-full">
-            <DynamicIcon :names="{ default: 'cog' }" />
-            <p>Settings</p>
-          </div>
-        </li>
         <li>
           <div class="btn btn-error justify-start m-1 p-1 text-center w-full" @click="logout()">
             <DynamicIcon :names="{ default: 'cog' }" />
