@@ -1,5 +1,5 @@
 <template>
-  <div class="menu rounded-box mt-2 mb-2 bg-base-200 text-base-content min-h-[98%] w-96 overflow-hidden">
+  <div class="menu rounded-r-box mt-2 mb-2 bg-base-200 text-base-content min-h-[98%] w-96 overflow-hidden">
     <TreeNode v-if="fileTree.Root" :node="fileTree.Root" :isRoot="true" />
   </div>
 </template>
