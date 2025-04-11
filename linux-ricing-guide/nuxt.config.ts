@@ -2,13 +2,15 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-    $development: undefined,
-    $env: undefined,
-    $meta: undefined,
-    $production: undefined,
-    $test: undefined,
+    runtimeConfig: {
+        public: {
+          auth0Domain: 'integr-0.eu.auth0.com',
+          auth0ClientId: 'jqQ95UJyIRnhLTpci9FsyrfgqkNyrptp',
+          hostDomain: 'https://example.com'
+        }
+      },
     compatibilityDate: '2024-11-01',
-    devtools: { enabled: false },
+    devtools: { enabled: true },
     vite: {
         plugins: [tailwindcss()],
         server: {
