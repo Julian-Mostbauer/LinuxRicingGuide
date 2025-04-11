@@ -1,7 +1,7 @@
 <template>
   <div class="background overflow-clip">
     <AppNavbar />
-    <div>
+    <div ref="content">
       <slot />
     </div>
   </div>
@@ -23,14 +23,6 @@ import { createAuth0 } from "@auth0/auth0-vue";
 
 const route = useRoute()
 
-onMounted(() => {
-  watch(route, updateRouteParts, { immediate: true });
-})
-
-const updateRouteParts = () => {
-  document.title = toHeaderCase((route.name === "index" ? "home" : route.name!).toString())
-};
-
 const config = useRuntimeConfig();
 const nxt = useNuxtApp()
 nxt.vueApp.use(
@@ -46,4 +38,62 @@ nxt.vueApp.use(
   })
 );
 
+import { onMounted } from 'vue'
+
+const content = ref<HTMLElement | null>(null)
+
+function highlightText(node: Node, word: string): void {
+  if (!word) return
+  const regex = new RegExp(`(${escapeRegExp(word)})`, 'gi')
+
+  if (node.nodeType === Node.TEXT_NODE && node.textContent) {
+    if (regex.test(node.textContent)) {
+      const spanWrapper = document.createElement('span')
+      spanWrapper.innerHTML = node.textContent.replace(
+          regex,
+          '<span class="bg-accent">$1</span>'
+      )
+
+      const parent = node.parentNode
+      if (parent) {
+        parent.replaceChild(spanWrapper, node)
+      }
+    }
+  } else if (node.nodeType === Node.ELEMENT_NODE) {
+    const childNodes = Array.from(node.childNodes)
+    for (const child of childNodes) {
+      highlightText(child, word)
+    }
+  }
+}
+
+function escapeRegExp(string: string): string {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+}
+const updateRouteParts = () => {
+  document.title = toHeaderCase((route.name === "index" ? "home" : route.name!).toString())
+};
+
+onMounted(() => {
+  watch(route, updateRouteParts, { immediate: true });
+
+  const keywordParam = route.query.q
+  const keyword = typeof keywordParam === 'string' ? keywordParam.trim() : ''
+
+  if (keyword && content.value) {
+    highlightText(content.value, keyword)
+  }
+})
+watch(
+    () => route.query.q,
+    async (q) => {
+      const keyword = typeof q === 'string' ? q.trim() : ''
+      if (content.value && keyword) {
+        // Wait until slot content is rendered
+        await nextTick()
+        highlightText(content.value, keyword)
+      }
+    },
+    { immediate: true }
+)
 </script>
