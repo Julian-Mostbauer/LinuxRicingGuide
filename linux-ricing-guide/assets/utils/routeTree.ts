@@ -60,9 +60,9 @@ const routeName = (
     return toHeaderCase(name)
 }
 
-const routeIcon = (route: RouteRecord | null) => {
+const routeIcon = (route: RouteRecord | null): Record<string,string> => {
     if (route && route.meta?.icons) {
-        return route.meta.icons
+        return route.meta.icons as Record<string, string>
     }
 
     return { default: 'file-lines', mdi: 'file-document' }
