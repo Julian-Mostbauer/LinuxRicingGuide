@@ -1,23 +1,17 @@
 <template>
   <ul v-if="!isRoot || node.Children.length > 0" ref="treeRef">
-    <!-- Index Files of Directory -->
-    <li v-if="node.HasIndex"
-      :class="{ 'opacity-0': !isVisible, 'animate-fade-in': isVisible, 'text-primary': isActivePage(node) }"
-      :style="{ animationDelay: animationDelay(0) }">
+    <!-- Index File -->
+    <li v-if="node.HasIndex" :class="[animationClass, { 'text-primary': isActivePage(node) }]"
+      :style="animationStyle(0)">
       <NuxtLink :to="node.Value?.path || '/'" @click="closeNav">
-        <DynamicIcon :names="{
-          default: (isRoot ? 'house' : 'circle-info'),
-          mdi: (isRoot ? 'home' : 'information-slab-circle')
-        }" :size="iconSize" class="min-w-6" />
+        <DynamicIcon :names="indexIcons" :size="iconSize" class="min-w-6" />
         {{ isRoot ? "Home" : "Overview" }}
       </NuxtLink>
     </li>
 
-    <li v-for="(child, index) in node.Children" :key="child.Value?.path"
-      :class="{ 'opacity-0': !isVisible, 'animate-fade-in': isVisible }"
-      :style="{ animationDelay: animationDelay(index) }">
-
-      <!-- Directories -->
+    <!-- Child Items -->
+    <li v-for="(child, index) in node.Children" :key="child.Value?.path" :class="animationClass"
+      :style="animationStyle(index)">
       <details v-if="child.Children.length > 0" open>
         <summary>
           <DynamicIcon :names="routeIcon(child.Value)" :size="iconSize" class="min-w-6" />
@@ -26,7 +20,6 @@
         <TreeNode :node="child" />
       </details>
 
-      <!-- Normal Files -->
       <NuxtLink v-else :to="child.Value?.path || '/'" @click="closeNav"
         :class="{ 'text-primary': isActivePage(child) }">
         <DynamicIcon :names="routeIcon(child.Value)" :size="iconSize" class="min-w-6" />
@@ -37,55 +30,47 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import type { PropType } from 'vue';
-import { Node, routeName, routeIcon } from 'assets/utils/routeTree'
+import { Node, routeName, routeIcon } from 'assets/utils/routeTree';
 import { useRoute } from 'vue-router';
 
 const route = useRoute();
-const isActivePage = (r: Node) => route.fullPath == r.Value?.path;
+const props = defineProps({
+  node: { type: Object as PropType<Node>, required: true },
+  isRoot: { type: Boolean, default: false }
+});
 
-const iconSize: number = 20;
+const iconSize = 20;
 const isVisible = ref(false);
 const treeRef = ref<HTMLElement | null>(null);
 
+const indexIcons = computed(() => ({
+  default: props.isRoot ? 'house' : 'circle-info',
+  mdi: props.isRoot ? 'home' : 'information-slab-circle'
+}));
+
+const animationClass = computed(() => ({
+  'opacity-0': !isVisible.value,
+  'animate-fade-in': isVisible.value
+}));
+
+const isActivePage = (r: Node) => route.fullPath === r.Value?.path;
+
 const closeNav = () => {
-  if (document) {
-    const navCheckbox = document.getElementById('nav-drawer');
-    if (navCheckbox) {
-      (navCheckbox as HTMLInputElement).checked = false;
-    }
-  }
+  const navCheckbox = document.getElementById('nav-drawer') as HTMLInputElement | null;
+  navCheckbox && (navCheckbox.checked = false);
 };
 
-const initialDelay = 100;
-const indivitualDelay = 60;
-const animationDelay = (index: number) => `${initialDelay + index * indivitualDelay}ms`;
-
-defineProps({
-  node: {
-    type: Object as PropType<Node>,
-    required: true,
-  },
-  isRoot: {
-    type: Boolean,
-    default: false,
-  },
-});
+const animationStyle = (index: number) =>
+  ({ animationDelay: `${100 + index * 100}ms` });
 
 onMounted(() => {
-  if (treeRef.value) {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          isVisible.value = true;
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    observer.observe(treeRef.value);
-  }
+  const observer = new IntersectionObserver(
+    ([entry]) => entry?.isIntersecting && (isVisible.value = true),
+    { threshold: 0.1 }
+  );
+  treeRef.value && observer.observe(treeRef.value);
 });
 </script>
 
@@ -94,15 +79,55 @@ onMounted(() => {
   from {
     opacity: 0;
     transform: translateY(-5px);
+    color: rebeccapurple;
+    transform: rotate3d(5, 23, 5, 1000deg);
+  }
+
+  10% {
+    color: red;
+  }
+
+  20% {
+    color: orange;
+  }
+
+  30% {
+    color: yellow;
+  }
+
+  40% {
+    color: green;
+  }
+
+  50% {
+    color: cyan;
+  }
+
+  60% {
+    color: blue;
+  }
+
+  70% {
+    color: indigo;
+  }
+
+  80% {
+    color: violet;
+  }
+
+  90% {
+    color: pink;
   }
 
   to {
     opacity: 1;
     transform: translateY(0);
+    color: inherit;
+    transform: rotate3d(0, 0, 0, 0);
   }
 }
 
 .animate-fade-in {
-  animation: fade-in 1s ease-out forwards;
+  animation: fade-in 2s ease-out forwards;
 }
 </style>
