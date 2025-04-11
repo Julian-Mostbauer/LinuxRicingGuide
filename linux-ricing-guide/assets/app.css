@@ -1,7 +1,9 @@
 @import 'tailwindcss';
+
 @plugin "daisyui" {
     themes: all;
 }
+
 @plugin "daisyui/theme" {
     name: 'custom';
     default: true;
@@ -35,4 +37,8 @@
     --border: 1.5px;
     --depth: 0;
     --noise: 0;
+}
+
+html {
+    scrollbar-gutter: stable both-edges;
 }

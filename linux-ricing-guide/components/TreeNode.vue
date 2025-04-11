@@ -1,6 +1,6 @@
 <template>
   <ul v-if="!isRoot || node.Children.length > 0" ref="treeRef">
-    <!-- Index of Directory -->
+    <!-- Index Files of Directory -->
     <li v-if="node.HasIndex"
       :class="{ 'opacity-0': !isVisible, 'animate-fade-in': isVisible, 'text-primary': isActivePage(node) }"
       :style="{ animationDelay: animationDelay(0) }">
