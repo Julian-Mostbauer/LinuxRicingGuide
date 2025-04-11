@@ -18,7 +18,7 @@
               <p class="text-md flex-grow" v-html="section.content"></p>
 
               <!-- Display the command block if available -->
-              <CommandBlock v-if="section.command" :command="section.command" />
+              <CommandBlock v-if="section.command" :command="section.command"/>
             </section>
           </div>
         </GradientOutline>
@@ -142,6 +142,10 @@ const sections = [
   {
     icon: 'square-binary',
     title: 'Installing of a Linux Distro',
+    content: `
+      We are providing a short guide if you want to refresh your memory but if youre doing this for the first
+      time we recommend looking at a more sufficient guide.
+      `
   },
   {
     icon: '1',
@@ -161,6 +165,29 @@ const sections = [
     command: `
       # Example using dd command on Linux
       sudo dd if=/path/to/your.iso of=/dev/sdX bs=4M status=progress
+    `
+  },
+  {
+    icon: '3',
+    title: 'Boot from USB',
+    content: `
+      Restart your computer and enter the BIOS/UEFI settings (usually by pressing F2, F10, or DEL during boot).
+      Change the boot order to prioritize USB drives.
+    `
+  },
+  {
+    icon: '4',
+    title: 'Install the Distro',
+    content: `
+      Follow the on-screen instructions to install the distro. You can choose to erase the entire disk or
+      install alongside an existing OS.
+    `
+  },
+  {
+    icon: '5',
+    title: 'Enjoy Your New Distro!',
+    content: `
+      Explore your new Linux environment and start customizing it to your liking.
     `
   },
 ];
