@@ -153,7 +153,7 @@ const sections = [
     content: `
       Download the ISO file for the distro you want to install from its official website. Make sure to choose the
       correct version (32-bit or 64-bit) based on your hardware.
-    `
+      `
   },
   {
     icon: '2',
@@ -191,6 +191,4 @@ const sections = [
     `
   },
 ];
-
-
 </script>
