@@ -19,8 +19,7 @@
           </div>
 
           <div class="drawer-side z-[100]">
-            <label for="nav-drawer" aria-label="close sidebar" class="drawer-overlay"
-              style="cursor: default !important;"></label>
+            <label for="nav-drawer" aria-label="close sidebar" class="drawer-overlay" />
             <AppSideMenu />
           </div>
         </div>
