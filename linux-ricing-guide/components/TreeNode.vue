@@ -34,12 +34,14 @@ import { ref, computed, onMounted } from 'vue';
 import type { PropType } from 'vue';
 import { Node, routeName, routeIcon } from 'assets/utils/routeTree';
 import { useRoute } from 'vue-router';
+import { isSpecialDay } from 'assets/utils/dateUtils';
 
-const route = useRoute();
 const props = defineProps({
   node: { type: Object as PropType<Node>, required: true },
   isRoot: { type: Boolean, default: false }
 });
+
+const route = useRoute();
 
 const iconSize = 20;
 const isVisible = ref(false);
@@ -50,11 +52,6 @@ const indexIcons = computed(() => ({
   mdi: props.isRoot ? 'home' : 'information-slab-circle'
 }));
 
-const animationClass = computed(() => ({
-  'opacity-0': !isVisible.value,
-  'animate-fade-in': isVisible.value
-}));
-
 const isActivePage = (r: Node) => route.fullPath === r.Value?.path;
 
 const closeNav = () => {
@@ -62,8 +59,22 @@ const closeNav = () => {
   navCheckbox && (navCheckbox.checked = false);
 };
 
+
+// <Animations>
+if (import.meta.client) {
+  document.documentElement.style.setProperty('--fade-in-duration',
+    (isSpecialDay || Math.random() < (1 / 100)
+      ? '3s' : '0s'));
+}
+
+const animationClass = computed(() => ({
+  'opacity-0': !isVisible.value,
+  'animate-fade-in': isVisible.value
+}));
+
 const animationStyle = (index: number) =>
   ({ animationDelay: `${100 + index * 100}ms` });
+// </Animations>
 
 onMounted(() => {
   const observer = new IntersectionObserver(
@@ -128,6 +139,6 @@ onMounted(() => {
 }
 
 .animate-fade-in {
-  animation: fade-in 2s ease-out forwards;
+  animation: fade-in var(--fade-in-duration) ease-out forwards;
 }
 </style>

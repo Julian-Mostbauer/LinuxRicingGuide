@@ -1,6 +1,6 @@
 import tailwindcss from '@tailwindcss/vite'
+import { devToolsEnabled } from './devTool.config'
 
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     runtimeConfig: {
         public: {
@@ -10,7 +10,7 @@ export default defineNuxtConfig({
         }
       },
     compatibilityDate: '2024-11-01',
-    devtools: { enabled: true },
+    devtools: { enabled: devToolsEnabled },
     vite: {
         plugins: [tailwindcss()],
         server: {
