@@ -1,5 +1,8 @@
 <template>
-    <TreeNode v-if="fileTree.Root" :node="fileTree.Root" :isRoot="true"/>
+    <div
+        class="menu rounded-r-[1.5rem] mt-2 mb-2 bg-base-200 text-base-content min-h-[98%] w-80 border-2 border-l-0 border-base-300 overflow-hidden">
+        <TreeNode v-if="fileTree.Root" :node="fileTree.Root" :isRoot="true" />
+    </div>
 </template>
 
 <script lang="ts" setup>

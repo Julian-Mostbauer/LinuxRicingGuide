@@ -16,10 +16,10 @@
 </style>
 
 <script setup lang="ts">
-import {useRoute} from "#vue-router";
-import {ref, watch} from "vue";
-import {toHeaderCase} from "assets/utils/caseUtils";
-import {createAuth0} from "@auth0/auth0-vue";
+import { useRoute } from "#vue-router";
+import { ref, watch } from "vue";
+import { toHeaderCase } from "assets/utils/caseUtils";
+import { createAuth0 } from "@auth0/auth0-vue";
 
 const route = useRoute()
 
@@ -31,16 +31,19 @@ const updateRouteParts = () => {
   document.title = toHeaderCase((route.name === "index" ? "home" : route.name!).toString())
 };
 
-
+const config = useRuntimeConfig();
 const nxt = useNuxtApp()
 nxt.vueApp.use(
-    createAuth0({
-      domain: 'integr-0.eu.auth0.com',
-      clientId: 'jqQ95UJyIRnhLTpci9FsyrfgqkNyrptp',
-      authorizationParams: {
-        redirect_uri: "http://localhost:3000",
-        scope: 'openid profile email',
-      },
-    })
+  createAuth0({
+    domain: config.public.auth0Domain,
+    clientId: config.public.auth0ClientId,
+    authorizationParams: {
+      redirect_uri: import.meta.dev
+        ? 'http://localhost:3000' // Development
+        : config.public.hostDomain, // Production,
+      scope: 'openid profile email',
+    },
+  })
 );
+
 </script>
