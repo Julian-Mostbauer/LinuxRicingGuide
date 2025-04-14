@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto p-4 rounded-xl bg-base-300 text-base shadow-lg flex">
+  <div class="mx-auto p-4 rounded-xl bg-base-300 text-base shadow-lg">
 
     <h2 class="text-2xl font-bold mb-4 p-6">
       <DynamicIcon :names="{ default: 'brain' }" class="inline-block mr-2"/>
@@ -25,7 +25,7 @@
         <DynamicIcon :names="{ default: 'bullseye' }" class="inline-block mr-2"/>
         We recommend:</h3>
       <p class="text-3xl font-bold text-base-400">{{ result }}</p>
-      <button @click="reset" class="mt-6 bg-base-200 hover:bg-base-100 px-4 py-2 rounded">
+      <button @click="reset" class="block w-full text-left bg-base-200 hover:bg-base-100 px-4 py-2 rounded-lg transition mt-3">
         <DynamicIcon :names="{ default: 'repeat' }" class="inline-block mr-2"/>
         Start Over
       </button>
