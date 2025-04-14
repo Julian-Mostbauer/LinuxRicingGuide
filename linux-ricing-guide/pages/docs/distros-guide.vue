@@ -26,7 +26,6 @@
 <script setup lang="ts">
 import DistroChooser from "~/components/DistroChooser.vue";
 import {Motion} from 'motion-v'
-import CommandBlock from '../../components/CodeBlock.vue';
 
 definePageMeta({
   icons: {default: 'database'},
