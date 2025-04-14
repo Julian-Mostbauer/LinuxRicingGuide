@@ -3,10 +3,14 @@
   <div class="container mx-auto p-4">
     <Motion as="div" :variants="container" initial="hidden" animate="visible"
             class="grid grid-cols-1 md:grid-cols-1 gap-6 mb-10">
+
+      <!-- Displays the Quiz as the first element -->
       <DistroChooser
           :questions="questions"
           :results="results"
-          :onResultSelected="handleResultSelected"></DistroChooser>
+          :onResultSelected="handleResultSelected"/>
+
+      <!-- Displays all elements is section -->
       <Motion v-for="(section, index) in sections" :key="index" :variants="items" class="w-full">
         <GradientOutline circle-width="200px">
           <div class="card bg-base-200 text-base-content p-6 h-full">
@@ -20,6 +24,7 @@
           </div>
         </GradientOutline>
       </Motion>
+
     </Motion>
   </div>
 </template>
