@@ -1,9 +1,8 @@
 <template>
-  <div class="max-w-xl mx-auto p-4 rounded-xl bg-base-900 text-base shadow-lg">
-    <h2 class="text-2xl font-bold mb-4">
+  <div class="mx-auto p-4 rounded-xl bg-base-300 text-base shadow-lg">
 
+    <h2 class="text-2xl font-bold mb-4 p-6">
       <DynamicIcon :names="{ default: 'brain' }" class="inline-block mr-2"/>
-
       Find Your Ideal Linux Distro</h2>
 
     <div v-if="!result">
@@ -14,7 +13,7 @@
             v-for="(option, index) in currentQuestion.options"
             :key="index"
             @click="selectOption(option.next)"
-            class="block w-full text-left bg-base-800 hover:bg-base-700 px-4 py-2 rounded-lg transition"
+            class="block w-full text-left bg-base-200 hover:bg-base-100 px-4 py-2 rounded-lg transition"
         >
           {{ option.label }}
         </button>
@@ -26,7 +25,7 @@
         <DynamicIcon :names="{ default: 'bullseye' }" class="inline-block mr-2"/>
         We recommend:</h3>
       <p class="text-3xl font-bold text-base-400">{{ result }}</p>
-      <button @click="reset" class="mt-6 bg-base-600 hover:bg-base-500 px-4 py-2 rounded">
+      <button @click="reset" class="block w-full text-left bg-base-200 hover:bg-base-100 px-4 py-2 rounded-lg transition mt-3">
         <DynamicIcon :names="{ default: 'repeat' }" class="inline-block mr-2"/>
         Start Over
       </button>
