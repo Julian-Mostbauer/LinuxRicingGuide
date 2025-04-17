@@ -3,10 +3,14 @@
   <div class="container mx-auto p-4">
     <Motion as="div" :variants="container" initial="hidden" animate="visible"
             class="grid grid-cols-1 md:grid-cols-1 gap-6 mb-10">
+
+      <!-- Displays the Quiz as the first element -->
       <DistroChooser
           :questions="questions"
           :results="results"
-          :onResultSelected="handleResultSelected"></DistroChooser>
+          :onResultSelected="handleResultSelected"/>
+
+      <!-- Displays all elements is section -->
       <Motion v-for="(section, index) in sections" :key="index" :variants="items" class="w-full">
         <GradientOutline circle-width="200px">
           <div class="card bg-base-200 text-base-content p-6 h-full">
@@ -16,20 +20,17 @@
                 {{ section.title }}
               </h2>
               <p class="text-md flex-grow" v-html="section.content"></p>
-
-              <!-- Display the command block if available -->
-              <CommandBlock v-if="section.command" :command="section.command"/>
             </section>
           </div>
         </GradientOutline>
       </Motion>
+
     </Motion>
   </div>
 </template>
 <script setup lang="ts">
 import DistroChooser from "~/components/DistroChooser.vue";
 import {Motion} from 'motion-v'
-import CommandBlock from '../../components/CodeBlock.vue';
 
 definePageMeta({
   icons: {default: 'database'},
@@ -141,54 +142,35 @@ const sections = [
   },
   {
     icon: 'square-binary',
-    title: 'Installing of a Linux Distro',
+    title: 'Installing a Linux Distro',
     content: `
-      We are providing a short guide if you want to refresh your memory but if youre doing this for the first
-      time we recommend looking at a more sufficient guide.
-      `
-  },
-  {
-    icon: '1',
-    title: 'Download the ISO',
-    content: `
-      Download the ISO file for the distro you want to install from its official website. Make sure to choose the
-      correct version (32-bit or 64-bit) based on your hardware.
-      `
-  },
-  {
-    icon: '2',
-    title: 'Create a Bootable USB',
-    content: `
-      Use a tool like <strong>Rufus</strong> (Windows), <strong>Etcher</strong> (cross-platform), or the dd command
-       (Linux) to create a bootable USB drive from the ISO file.
-    `,
-    command: `
-      # Example using dd command on Linux
-      sudo dd if=/path/to/your.iso of=/dev/sdX bs=4M status=progress
-    `
-  },
-  {
-    icon: '3',
-    title: 'Boot from USB',
-    content: `
-      Restart your computer and enter the BIOS/UEFI settings (usually by pressing F2, F10, or DEL during boot).
-      Change the boot order to prioritize USB drives.
-    `
-  },
-  {
-    icon: '4',
-    title: 'Install the Distro',
-    content: `
-      Follow the on-screen instructions to install the distro. You can choose to erase the entire disk or
-      install alongside an existing OS.
-    `
-  },
-  {
-    icon: '5',
-    title: 'Enjoy Your New Distro!',
-    content: `
-      Explore your new Linux environment and start customizing it to your liking.
-    `
-  },
+    We are providing a short guide if you want to refresh your memory, but if you're doing this for the first
+    time, we recommend looking at a more comprehensive guide.<br/><br/>
+
+    <strong>1. Download the ISO:</strong><br/>
+    Download the ISO file for the distro you want to install from its official website. Make sure to choose the
+    correct version (32-bit or 64-bit) based on your hardware.<br/><br/>
+
+    <strong>2. Create a Bootable USB:</strong><br/>
+    Use a tool like <strong>Rufus</strong> (Windows), <strong>Etcher</strong> (cross-platform), or the <code>dd</code> command
+    (Linux) to create a bootable USB drive from the ISO file.<br/>
+
+    <pre><code>
+    # Example using dd command on Linux
+    sudo dd if=/path/to/your.iso of=/dev/sdX bs=4M status=progress
+    </code></pre>
+
+    <strong>3. Boot from USB:</strong><br/>
+    Restart your computer and enter the BIOS/UEFI settings (usually by pressing F2, F10, or DEL during boot).
+    Change the boot order to prioritize USB drives.<br/><br/>
+
+    <strong>4. Install the Distro:</strong><br/>
+    Follow the on-screen instructions to install the distro. You can choose to erase the entire disk or
+    install alongside an existing OS.<br/><br/>
+
+    <strong>5. Enjoy Your New Distro!</strong><br/>
+    Explore your new Linux environment and start customizing it to your liking.
+  `
+  }
 ];
 </script>
