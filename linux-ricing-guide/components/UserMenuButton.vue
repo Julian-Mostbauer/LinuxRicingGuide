@@ -23,7 +23,6 @@
         </li>
         <li>
           <div class="btn btn-error justify-start m-1 p-1 text-center w-full" @click="logout()">
-            <DynamicIcon :names="{ default: 'cog' }" />
             <p>Log out</p>
           </div>
         </li>
