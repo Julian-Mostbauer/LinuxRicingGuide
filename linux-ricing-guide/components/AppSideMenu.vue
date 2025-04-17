@@ -5,12 +5,9 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter } from 'vue-router';
+import { useRouter, type RouteRecord } from 'vue-router';
 import { ref } from 'vue';
-import { Tree } from 'assets/utils/routeTree'
+import { TreeBuilder } from 'assets/utils/routeTree'
 
-const routes = useRouter().getRoutes();
-
-const fileTree = ref(new Tree());
-routes.forEach(route => fileTree.value.add(route));
+const fileTree = ref(TreeBuilder.FromRoutes(useRouter().getRoutes()));
 </script>

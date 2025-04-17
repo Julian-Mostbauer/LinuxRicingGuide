@@ -60,7 +60,7 @@ const routeName = (
     return toHeaderCase(name)
 }
 
-const routeIcon = (route: RouteRecord | null): Record<string,string> => {
+const routeIcon = (route: RouteRecord | null): Record<string, string> => {
     if (route && route.meta?.icons) {
         return route.meta.icons as Record<string, string>
     }
@@ -68,4 +68,12 @@ const routeIcon = (route: RouteRecord | null): Record<string,string> => {
     return { default: 'file-lines', mdi: 'file-document' }
 }
 
-export { Tree, Node, routeName, routeIcon }
+class TreeBuilder {
+    public static FromRoutes = (routes: RouteRecord[]): Tree => {
+        let tree = new Tree()
+        routes.forEach((route) => tree.add(route))
+        return tree
+    }
+}
+
+export { TreeBuilder, Tree, Node, routeName, routeIcon }
