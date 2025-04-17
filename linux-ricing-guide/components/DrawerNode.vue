@@ -17,7 +17,7 @@
           <DynamicIcon :names="routeIcon(child.Value)" :size="iconSize" class="min-w-6" />
           {{ routeName(child.Value?.path) }}
         </summary>
-        <TreeNode :node="child" />
+        <DrawerNode :node="child" />
       </details>
 
       <NuxtLink v-else :to="child.Value?.path || '/'" @click="closeNav"
