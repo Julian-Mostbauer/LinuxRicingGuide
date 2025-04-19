@@ -1,6 +1,11 @@
 <template>
   <svg :width="width" :height="height" class="radial-tree" @mousedown="startPan" @mousemove="handlePan"
     @mouseup="endPan" @mouseleave="endPan" @wheel.prevent="handleZoom">
+    <defs>
+      <clipPath id="circle-clip">
+        <circle r="40" />
+      </clipPath>
+    </defs>
     <g :transform="`translate(${view.x} ${view.y}) scale(${view.k})`">
       <g transform="translate(0 0)">
         <!-- Connections -->
@@ -9,9 +14,14 @@
 
         <!-- Nodes -->
         <g v-for="(node, index) in allNodes" :key="'node-' + index" :transform="`translate(${node.x},${node.y})`">
-          <circle r="40" class="node-circle" @click="toggleNode(node)" />
-          <text class="node-text">
-            {{ node.name }}
+          <NuxtLink :to="node.link" class="node-link">
+            <circle r="40" class="node-circle" @click="() => { toggleNode(node); closeNav(); }" />
+          </NuxtLink>
+          <text class="node-text" clip-path="url(#circle-clip)">
+            <tspan v-for="(line, lineIndex) in wrapText(node.name, 10)" :key="lineIndex" x="0"
+              :dy="lineIndex === 0 ? `-${(wrapText(node.name, 10).length - 1) * 0.6}em` : '1.2em'">
+              {{ line }}
+            </tspan>
           </text>
         </g>
       </g>
@@ -22,11 +32,13 @@
 <script lang="ts">
 import { defineComponent, type PropType } from 'vue'
 import type { Node } from 'assets/utils/routeTree'
+import { toHeaderCase } from '~/assets/utils/caseUtils'
 
 interface TreeNode {
   x: number
   y: number
   name: string
+  link: string
   children: TreeNode[]
   parent?: TreeNode
   expanded: boolean
@@ -85,7 +97,8 @@ export default defineComponent({
       const radialPosition = {
         x: Math.cos(angle * Math.PI / 180) * (this.radius * (depth + 1)),
         y: Math.sin(angle * Math.PI / 180) * (this.radius * (depth + 1)),
-        name: node.Value?.path ? this.routeName(node.Value.path) : 'Root',
+        name: toHeaderCase(node.Value?.path ? this.routeName(node.Value.path) : 'Root'),
+        link: node.Value?.path || '/',
         children: [],
         expanded: true
       }
@@ -152,9 +165,40 @@ export default defineComponent({
 
     routeName(path: string) {
       return path.split('/').pop() || 'Home' // Fallback to 'Home' if path is empty
+    },
+
+    wrapText(text: string, maxChars: number): string[] {
+      const words = text.split(' ')
+      const lines: string[] = []
+      let currentLine = ''
+
+      for (const word of words) {
+        if ((currentLine + word).length > maxChars) {
+          lines.push(currentLine.trim())
+          currentLine = word + ' '
+        } else {
+          currentLine += word + ' '
+        }
+      }
+
+      if (currentLine.trim()) {
+        lines.push(currentLine.trim())
+      }
+
+      return lines
+    },
+
+    closeNav() {
+      const navCheckbox = document.getElementById('nav-drawer') as HTMLInputElement | null;
+      if (navCheckbox) {
+        navCheckbox.checked = false;
+      }
     }
   }
 })
+
+
+
 </script>
 
 <style>
@@ -169,15 +213,16 @@ export default defineComponent({
 }
 
 .node-circle {
-  fill: #42b983;
-  stroke: #35495e;
+  fill: var(--color-primary);
+  stroke: var(--color-warning);
   stroke-width: 2;
   cursor: pointer;
-  transition: all 0.3s;
+  transition: all 0.5s ease-in-out;
 }
 
 .node-circle:hover {
-  fill: #33a06f;
+  fill: var(--color-warning);
+  stroke: var(--color-primary);
   transform: scale(1.1);
 }
 

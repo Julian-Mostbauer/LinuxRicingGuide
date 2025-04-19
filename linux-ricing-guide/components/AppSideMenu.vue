@@ -1,21 +1,18 @@
 <template>
   <ClientOnly>
-    <div 
-      class="menu rounded-r-box mt-2 mb-2 bg-base-200 text-base-content min-h-[98%] overflow-hidden w-96 min-w-fit">
-      <div class="flex p-2 justify-between">
+    <div class="menu rounded-r-box mt-2 mb-2 bg-base-200 text-base-content min-h-[98%] overflow-hidden w-96 min-w-fit">
+      <div class="flex p-2 justify-between border-b-2 border-primary">
         <button @click="closeNav" class="btn btn-primary">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
+          <DynamicIcon :names="{ default: 'xmark' }" />
         </button>
         <button @click="toggleNavMode" class="btn btn-primary">
           {{ navMode }}
         </button>
       </div>
-      <div v-if="navMode === 'drawer'">
+      <div v-if="navMode === 'Drawer'">
         <DrawerNode v-if="fileTree.Root" :node="fileTree.Root" :isRoot="true" />
       </div>
-      <div v-if="navMode === 'graph'">
+      <div v-if="navMode === 'Graph'">
         <GraphNode :root-node="fileTree.Root" />
       </div>
     </div>
@@ -29,7 +26,7 @@ import { TreeBuilder } from 'assets/utils/routeTree'
 
 const fileTree = ref(TreeBuilder.FromRoutes(useRouter().getRoutes()))
 
-const modes = ['drawer', 'graph']
+const modes = ['Drawer', 'Graph']
 const navMode = ref(modes[0])
 const currentModeIdx = ref(0)
 
