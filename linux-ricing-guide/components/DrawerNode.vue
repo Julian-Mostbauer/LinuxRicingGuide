@@ -56,7 +56,9 @@ const isActivePage = (r: Node) => route.fullPath === r.Value?.path;
 
 const closeNav = () => {
   const navCheckbox = document.getElementById('nav-drawer') as HTMLInputElement | null;
-  navCheckbox && (navCheckbox.checked = false);
+  if (navCheckbox) {
+    (navCheckbox.checked = false);
+  }
 };
 
 

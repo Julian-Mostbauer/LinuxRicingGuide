@@ -1,38 +1,198 @@
 <template>
-  <div>
-    <h1>
-      TODO
-    </h1>
-  </div>
+  <svg :width="width" :height="height" class="radial-tree" @mousedown="startPan" @mousemove="handlePan"
+    @mouseup="endPan" @mouseleave="endPan" @wheel.prevent="handleZoom">
+    <g :transform="`translate(${view.x} ${view.y}) scale(${view.k})`">
+      <g transform="translate(0 0)">
+        <!-- Connections -->
+        <path v-for="(connection, index) in connections" :key="'conn-' + index" :d="connection.path"
+          class="connection" />
+
+        <!-- Nodes -->
+        <g v-for="(node, index) in allNodes" :key="'node-' + index" :transform="`translate(${node.x},${node.y})`">
+          <circle r="40" class="node-circle" @click="toggleNode(node)" />
+          <text class="node-text">
+            {{ node.name }}
+          </text>
+        </g>
+      </g>
+    </g>
+  </svg>
 </template>
 
-<script lang="ts" setup>
-import { ref, computed, onMounted } from 'vue';
-import type { PropType } from 'vue';
-import { Node, routeName, routeIcon } from 'assets/utils/routeTree';
-import { useRoute } from 'vue-router';
+<script lang="ts">
+import { defineComponent, type PropType } from 'vue'
+import type { Node } from 'assets/utils/routeTree'
 
-const props = defineProps({
-  node: { type: Object as PropType<Node>, required: true },
-  isRoot: { type: Boolean, default: false }
-});
+interface TreeNode {
+  x: number
+  y: number
+  name: string
+  children: TreeNode[]
+  parent?: TreeNode
+  expanded: boolean
+}
 
-const route = useRoute();
+interface ViewState {
+  k: number
+  x: number
+  y: number
+}
 
-const iconSize = 20;
-const isVisible = ref(false);
-const treeRef = ref<HTMLElement | null>(null);
+export default defineComponent({
+  props: {
+    rootNode: {
+      type: Object as PropType<Node>,
+      required: true
+    },
+    width: {
+      type: Number,
+      default: 500
+    },
+    height: {
+      type: Number,
+      default: 780
+    }
+  },
 
-const indexIcons = computed(() => ({
-  default: props.isRoot ? 'house' : 'circle-info',
-  mdi: props.isRoot ? 'home' : 'information-slab-circle'
-}));
+  data() {
+    return {
+      allNodes: [] as TreeNode[],
+      connections: [] as Array<{ path: string }>,
+      radius: 150,
+      angleStep: 45,
+      isPanning: false,
+      startPanPosition: { x: 0, y: 0 },
+      view: {
+        k: 1,
+        x: this.width / 2,
+        y: this.height / 2
+      } as ViewState
+    }
+  },
 
-const isActivePage = (r: Node) => route.fullPath === r.Value?.path;
+  mounted() {
+    this.layoutTree()
+  },
 
-const closeNav = () => {
-  const navCheckbox = document.getElementById('nav-drawer') as HTMLInputElement | null;
-  navCheckbox && (navCheckbox.checked = false);
-};
+  methods: {
+    layoutTree() {
+      this.allNodes = []
+      this.connections = []
+      this.calculatePositions(this.rootNode, 0, 0)
+    },
 
+    calculatePositions(node: Node, depth: number, angle: number): TreeNode {
+      const radialPosition = {
+        x: Math.cos(angle * Math.PI / 180) * (this.radius * (depth + 1)),
+        y: Math.sin(angle * Math.PI / 180) * (this.radius * (depth + 1)),
+        name: node.Value?.path ? this.routeName(node.Value.path) : 'Root',
+        children: [],
+        expanded: true
+      }
+
+      this.allNodes.push(radialPosition)
+
+      let currentAngle = angle - (node.Children.length * this.angleStep) / 2
+      for (const child of node.Children) {
+        const childNode = this.calculatePositions(child, depth + 1, currentAngle)
+        childNode.parent = radialPosition
+        this.connections.push({
+          path: this.createConnectionPath(radialPosition, childNode)
+        })
+        currentAngle += this.angleStep
+      }
+
+      return radialPosition
+    },
+
+    createConnectionPath(start: TreeNode, end: TreeNode): string {
+      return `M ${start.x} ${start.y} Q ${(start.x + end.x) / 2} ${(start.y + end.y) / 2} ${end.x} ${end.y}`
+    },
+
+    startPan(event: MouseEvent) {
+      this.isPanning = true
+      this.startPanPosition = {
+        x: event.clientX - this.view.x,
+        y: event.clientY - this.view.y
+      }
+    },
+
+    handlePan(event: MouseEvent) {
+      if (!this.isPanning) return
+      this.view.x = event.clientX - this.startPanPosition.x
+      this.view.y = event.clientY - this.startPanPosition.y
+    },
+
+    endPan() {
+      this.isPanning = false
+    },
+
+    handleZoom(event: WheelEvent) {
+      const scaleFactor = 0.95
+      const newScale = event.deltaY < 0
+        ? this.view.k * scaleFactor
+        : this.view.k / scaleFactor
+
+      // Limit zoom range
+      this.view.k = Math.min(Math.max(0.5, newScale), 3)
+
+      // Adjust position to zoom under cursor
+      const rect = (event.target as SVGSVGElement).getBoundingClientRect()
+      const mouseX = event.clientX - rect.left
+      const mouseY = event.clientY - rect.top
+
+      this.view.x = mouseX - (mouseX - this.view.x) * (this.view.k / newScale)
+      this.view.y = mouseY - (mouseY - this.view.y) * (this.view.k / newScale)
+    },
+
+    toggleNode(node: TreeNode) {
+      node.expanded = !node.expanded
+      this.layoutTree()
+    },
+
+    routeName(path: string) {
+      return path.split('/').pop() || 'Home' // Fallback to 'Home' if path is empty
+    }
+  }
+})
 </script>
+
+<style>
+.radial-tree {
+  cursor: grab;
+  user-select: none;
+  border-radius: 2rem;
+}
+
+.radial-tree:active {
+  cursor: grabbing;
+}
+
+.node-circle {
+  fill: #42b983;
+  stroke: #35495e;
+  stroke-width: 2;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.node-circle:hover {
+  fill: #33a06f;
+  transform: scale(1.1);
+}
+
+.node-text {
+  fill: var(--text-base);
+  text-anchor: middle;
+  dominant-baseline: central;
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  pointer-events: none;
+}
+
+.connection {
+  stroke: #888;
+  stroke-width: 2;
+  fill: none;
+}
+</style>
