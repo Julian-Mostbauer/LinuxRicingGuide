@@ -126,7 +126,15 @@ export default defineComponent({
         // Use a narrower spread for small clusters
         const totalArc = childCount <= 3 ? 120 : childCount <= 6 ? 180 : 330
         const spreadAngle = totalArc / (childCount || 1)
-        let childAngle = angle - (totalArc / 2)
+
+        let baseAngleOffset =
+          (parentNode?.x === undefined || parentNode?.y === undefined)
+            ? 0
+            : Math.atan2(parentNode.y - nodeY, parentNode.x - nodeX) * 180 / Math.PI
+
+        baseAngleOffset = (baseAngleOffset + 360) % 360 // Normalize angle to [0, 360)
+
+        let childAngle = baseAngleOffset + angle - (totalArc / 2)
 
         for (const child of node.Children) {
           const childNode = this.calculatePositions(child, depth + 1, childAngle, radialPosition)

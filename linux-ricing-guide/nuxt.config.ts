@@ -44,7 +44,7 @@ export default defineNuxtConfig({
 
                 pages.push({
                     name: jsonData.name,
-                    path: `/distros/history/${name}`,
+                    path: `/distros/${name}`,
                     file: '~/components/DistroHistoryTemplate.vue',
                     meta: {
                         jsonObject: jsonData,
