@@ -93,30 +93,50 @@ export default defineComponent({
       this.calculatePositions(this.rootNode, 0, 0)
     },
 
-    calculatePositions(node: Node, depth: number, angle: number): TreeNode {
-      const radialPosition = {
-        x: Math.cos(angle * Math.PI / 180) * (this.radius * (depth + 1)),
-        y: Math.sin(angle * Math.PI / 180) * (this.radius * (depth + 1)),
+    calculatePositions(node: Node, depth: number, angle: number, parentNode?: TreeNode): TreeNode {
+      const baseClusterRadius = 180
+      const extraRadiusIfHasChildren = Math.max(node.Children.length - 1, 0) * 20
+      const clusterRadius = baseClusterRadius + extraRadiusIfHasChildren
+
+      const nodeX = parentNode ? parentNode.x + Math.cos(angle * Math.PI / 180) * clusterRadius : 0
+      const nodeY = parentNode ? parentNode.y + Math.sin(angle * Math.PI / 180) * clusterRadius : 0
+
+      const radialPosition: TreeNode = {
+        x: nodeX,
+        y: nodeY,
         name: toHeaderCase(node.Value?.path ? this.routeName(node.Value.path) : 'Root'),
         link: node.Value?.path || '/',
         children: [],
+        parent: parentNode,
         expanded: true
       }
 
       this.allNodes.push(radialPosition)
 
-      let currentAngle = angle - (node.Children.length * this.angleStep) / 2
-      for (const child of node.Children) {
-        const childNode = this.calculatePositions(child, depth + 1, currentAngle)
-        childNode.parent = radialPosition
+      if (parentNode) {
         this.connections.push({
-          path: this.createConnectionPath(radialPosition, childNode)
+          path: this.createConnectionPath(parentNode, radialPosition)
         })
-        currentAngle += this.angleStep
       }
+
+      const childCount = node.Children.length
+      if (childCount > 0) {
+        // Use a narrower spread for small clusters
+        const totalArc = childCount <= 3 ? 120 : childCount <= 6 ? 180 : 330
+        const spreadAngle = totalArc / (childCount || 1)
+        let childAngle = angle - (totalArc / 2)
+
+        for (const child of node.Children) {
+          const childNode = this.calculatePositions(child, depth + 1, childAngle, radialPosition)
+          radialPosition.children.push(childNode)
+          childAngle += spreadAngle
+        }
+      }
+
 
       return radialPosition
     },
+
 
     createConnectionPath(start: TreeNode, end: TreeNode): string {
       return `M ${start.x} ${start.y} Q ${(start.x + end.x) / 2} ${(start.y + end.y) / 2} ${end.x} ${end.y}`
