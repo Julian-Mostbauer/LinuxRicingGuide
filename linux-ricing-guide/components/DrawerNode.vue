@@ -1,9 +1,8 @@
 <template>
   <ul v-if="!isRoot || node.Children.length > 0" ref="treeRef">
     <!-- Index File -->
-    <li v-if="node.HasIndex" :class="[animationClass, { 'text-primary': isActivePage(node) }]"
-      :style="animationStyle(0)">
-      <NuxtLink :to="node.Value?.path || '/'" @click="closeNav">
+    <li v-if="node.HasIndex" :class="animationClass" :style="animationStyle(0)">
+      <NuxtLink :to="node.Value?.path || '/'" @click="closeNav" :class="{ 'text-primary': isActivePage(node) }">
         <DynamicIcon :names="indexIcons" :size="iconSize" class="min-w-6" />
         {{ isRoot ? "Home" : "Overview" }}
       </NuxtLink>
