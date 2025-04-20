@@ -3,7 +3,7 @@
     @mouseup="endPan" @mouseleave="endPan" @wheel.prevent="handleZoom">
     <defs>
       <clipPath id="circle-clip">
-        <circle r="40" />
+        <circle r="50" />
       </clipPath>
     </defs>
     <g :transform="`translate(${view.x} ${view.y}) scale(${view.k})`">
@@ -15,9 +15,11 @@
         <!-- Nodes -->
         <g v-for="(node, index) in allNodes" :key="'node-' + index" :transform="`translate(${node.x},${node.y})`">
           <NuxtLink :to="node.link" class="node-link">
-            <circle r="40" class="node-circle" @click="() => { toggleNode(node); closeNav(); }" />
+            <circle :r="!node.parent ? 70 : node.children.length == 0 ? 50 : 60" class="node-circle"
+              @click="() => { toggleNode(node); closeNav(); }" />
           </NuxtLink>
-          <text class="node-text" clip-path="url(#circle-clip)">
+          <text class="node-text" clip-path="url(#circle-clip)"
+            :style="{ fontSize: !node.parent ? '28px' : node.children.length == 0 ? '16px' : '22px' }">
             <tspan v-for="(line, lineIndex) in wrapText(node.name, 10)" :key="lineIndex" x="0"
               :dy="lineIndex === 0 ? `-${(wrapText(node.name, 10).length - 1) * 0.6}em` : '1.2em'">
               {{ line }}
@@ -94,7 +96,7 @@ export default defineComponent({
     },
 
     calculatePositions(node: Node, depth: number, angle: number, parentNode?: TreeNode): TreeNode {
-      const baseClusterRadius = 180
+      const baseClusterRadius = 200
       const extraRadiusIfHasChildren = Math.max(node.Children.length - 1, 0) * 20
       const clusterRadius = baseClusterRadius + extraRadiusIfHasChildren
 
@@ -253,6 +255,7 @@ export default defineComponent({
   font-family: Arial, sans-serif;
   font-size: 14px;
   pointer-events: none;
+  font-weight: bold;
 }
 
 .connection {
