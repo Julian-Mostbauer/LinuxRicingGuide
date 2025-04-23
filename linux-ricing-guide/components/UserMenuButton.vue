@@ -35,6 +35,12 @@
 import { useAuth0 } from "@auth0/auth0-vue";
 const auth0 = useAuth0();
 
+// import { onMounted } from "vue";
+
+//onMounted(async () => {
+//  console.log(await auth0.getAccessTokenSilently())
+//});
+
 const login = () => {
   if (auth0.user.value === undefined) {
     try {
