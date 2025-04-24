@@ -1,19 +1,22 @@
 <template>
   <ClientOnly>
-    <div class="menu rounded-r-box mt-2 mb-2 bg-base-200 text-base-content min-h-[98%] overflow-hidden w-96 min-w-fit">
-      <div class="flex p-2 justify-between border-b-2 border-primary">
-        <button @click="closeNav" class="btn btn-primary">
+    <div class="menu rounded-r-box mt-2 mb-2 bg-base-200 text-base-content min-h-[98%] overflow-hidden min-w-fit">
+      <div class="flex p-2 justify-between">
+        <button @click="toggleNavMode" class="btn btn-circle">
+          <DynamicIcon :names="{ default: 'diagram-project' }" v-if="navMode === 'Graph'"/>
+          <DynamicIcon :names="{ default: 'list-ul' }" v-else />
+        </button>
+        <button @click="closeNav" class="btn btn-circle">
           <DynamicIcon :names="{ default: 'xmark' }" />
         </button>
-        <button @click="toggleNavMode" class="btn btn-primary">
-          {{ navMode }}
-        </button>
       </div>
+      <hr class="border-t border-base-100 my-2 w-[90%] ml-auto mr-auto">
+
       <div v-if="navMode === 'Drawer'">
         <DrawerNode v-if="fileTree.Root" :node="fileTree.Root" :isRoot="true" />
       </div>
       <div v-if="navMode === 'Graph'">
-        <GraphNode :root-node="fileTree.Root" />
+        <GraphNode :root-node="fileTree.Root" :width="calculateGraphWidth()" :height="calculateGraphHeight()"/>
       </div>
     </div>
   </ClientOnly>
@@ -47,4 +50,16 @@ const closeNav = () => {
     (navCheckbox.checked = false);
   }
 };
+
+const calculateGraphHeight = () => {
+  const windowHeight = window.innerHeight;
+  return windowHeight - 150; // Adjust for margins
+
+};
+
+const calculateGraphWidth = () => {
+  const windowWidth = window.innerWidth;
+  return windowWidth / 2; // Adjust for margins
+};
+
 </script>

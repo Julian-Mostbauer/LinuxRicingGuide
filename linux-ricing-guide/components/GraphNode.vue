@@ -15,11 +15,15 @@
         <!-- Nodes -->
         <g v-for="(node, index) in allNodes" :key="'node-' + index" :transform="`translate(${node.x},${node.y})`">
           <NuxtLink :to="node.link" class="node-link">
-            <circle :r="!node.parent ? 70 : node.children.length == 0 ? 50 : 60" class="node-circle"
+            <rect :x="!node.parent ? -60 : node.children.length == 0 ? -45 : -50"
+                  :y="!node.parent ? -60 : node.children.length == 0 ? -45 : -50"
+                  :width="!node.parent ? 120 : node.children.length == 0 ? 90 : 100"
+                  :height="!node.parent ? 120 : node.children.length == 0 ? 90 : 100"
+                  class="node-circle mask mask-squircle"
               @click="() => { toggleNode(node); closeNav(); }" />
           </NuxtLink>
-          <text class="node-text" clip-path="url(#circle-clip)"
-            :style="{ fontSize: !node.parent ? '28px' : node.children.length == 0 ? '16px' : '22px' }">
+          <text class="node-text"
+            :style="{ fontSize: !node.parent ? '28px' : node.children.length == 0 ? '14px' : '20px' }">
             <tspan v-for="(line, lineIndex) in wrapText(node.name, 10)" :key="lineIndex" x="0"
               :dy="lineIndex === 0 ? `-${(wrapText(node.name, 10).length - 1) * 0.6}em` : '1.2em'">
               {{ line }}
@@ -172,7 +176,7 @@ export default defineComponent({
 
     handleZoom(event: WheelEvent) {
       const scaleFactor = 0.95
-      const newScale = event.deltaY < 0
+      const newScale = -event.deltaY < 0
         ? this.view.k * scaleFactor
         : this.view.k / scaleFactor
 
@@ -243,31 +247,28 @@ export default defineComponent({
 }
 
 .node-circle {
-  fill: var(--color-primary);
-  stroke: var(--color-warning);
+  fill: var(--color-base-100);
+  stroke: none;
   stroke-width: 2;
   cursor: pointer;
-  transition: all 0.5s ease-in-out;
+  transition: all 0.1s ease-in-out;
 }
 
 .node-circle:hover {
-  fill: var(--color-warning);
-  stroke: var(--color-primary);
-  transform: scale(1.1);
+  fill: var(--color-base-300);
+  scale: 1.2;
 }
 
 .node-text {
-  fill: var(--text-base);
+  fill: var(--color-base-content);
   text-anchor: middle;
   dominant-baseline: central;
-  font-family: Arial, sans-serif;
-  font-size: 14px;
+  font-size: 2px;
   pointer-events: none;
-  font-weight: bold;
 }
 
 .connection {
-  stroke: #888;
+  stroke: var(--color-gray-300);
   stroke-width: 2;
   fill: none;
 }
