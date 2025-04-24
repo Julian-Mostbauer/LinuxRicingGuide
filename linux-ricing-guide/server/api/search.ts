@@ -92,7 +92,7 @@ async function getHistoryRoutes(): Promise<PageInfo[]> {
   const historyFiles = await globby(['**/*.json'], { cwd: historiesDir })
 
   return historyFiles.map(file => ({
-    routePath: `/distros/history/${file.replace(/\.json$/, '')}`,
+    routePath: `/distros/${file.replace(/\.json$/, '')}`,
     filePath: resolve(historiesDir, file)
   }))
 }
