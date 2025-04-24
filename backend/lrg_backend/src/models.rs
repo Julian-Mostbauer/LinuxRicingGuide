@@ -1,3 +1,4 @@
+use actix_web::HttpRequest;
 use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, HashSet};
 use std::sync::{Arc, Mutex};
@@ -137,6 +138,16 @@ impl Distro {
             comments: HashMap::new(),
         }
     }
+
+    pub fn get_vote_status(&self, user: &User) -> VoteStatus {
+        if self.upvotes.contains(user) {
+            VoteStatus::Upvoted
+        } else if self.downvotes.contains(user) {
+            VoteStatus::Downvoted
+        } else {
+            VoteStatus::None
+        }
+    }
 }
 
 impl Into<WebFriendlyDistroData> for Distro {
@@ -181,9 +192,31 @@ pub struct User {
     /// The auth0 sub field is used as a unique identifier for the user.
     /// <br>Primary Key of struct
     pub id: String,
+}
+impl User {
+    pub fn new(id: String) -> Self {
+        Self { id }
+    }
+}
 
-    /// Display name of the user.
-    pub name: String,
+impl TryFrom<HttpRequest> for User {
+    type Error = String;
+
+    fn try_from(req: HttpRequest) -> Result<Self, Self::Error> {
+        req.headers()
+            .get("X-User-ID")
+            .and_then(|value| value.to_str().ok())
+            .map(|s| User::new(s.to_string()))
+            .ok_or_else(|| "Missing X-User-ID header".to_string())
+    }
+}
+
+impl Default for User {
+    fn default() -> Self {
+        Self {
+            id: "I_AM_I_DUMMY".to_string(),
+        }
+    }
 }
 
 impl PartialEq for User {
@@ -229,25 +262,7 @@ pub type SharedDb = Arc<Mutex<Db>>;
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::{collections::HashMap, hash::Hash};
-
-    #[test]
-    fn test_user_hash_differentiates_by_id_only() {
-        let user1 = User {
-            id: "user1".to_string(),
-            name: "User One".to_string(),
-        };
-        let user2 = User {
-            id: "user1".to_string(),
-            name: "User Two".to_string(),
-        };
-
-        assert_eq!(user1, user2);
-        assert_eq!(
-            user1.hash(&mut std::collections::hash_map::DefaultHasher::new()),
-            user2.hash(&mut std::collections::hash_map::DefaultHasher::new())
-        );
-    }
+    use std::collections::HashMap;
 
     #[test]
     fn test_upvote_distro_once_adds_user() {
@@ -256,10 +271,7 @@ mod tests {
             Distro::new("Ubuntu".to_string()),
         )]));
 
-        let user = User {
-            id: "user1".to_string(),
-            name: "User One".to_string(),
-        };
+        let user = User::default();
 
         db.upvote_distro("Ubuntu", user.clone()).unwrap();
 
@@ -274,10 +286,7 @@ mod tests {
             Distro::new("Ubuntu".to_string()),
         )]));
 
-        let user = User {
-            id: "user1".to_string(),
-            name: "User One".to_string(),
-        };
+        let user = User::default();
 
         db.upvote_distro("Ubuntu", user.clone()).unwrap();
         db.upvote_distro("Ubuntu", user.clone()).unwrap();
@@ -293,10 +302,7 @@ mod tests {
             Distro::new("Ubuntu".to_string()),
         )]));
 
-        let user = User {
-            id: "user1".to_string(),
-            name: "User One".to_string(),
-        };
+        let user = User::default();
 
         db.downvote_distro("Ubuntu", user.clone()).unwrap();
 
@@ -311,10 +317,7 @@ mod tests {
             Distro::new("Ubuntu".to_string()),
         )]));
 
-        let user = User {
-            id: "user1".to_string(),
-            name: "User One".to_string(),
-        };
+        let user = User::default();
 
         db.downvote_distro("Ubuntu", user.clone()).unwrap();
         db.downvote_distro("Ubuntu", user.clone()).unwrap();
@@ -330,10 +333,7 @@ mod tests {
             Distro::new("Ubuntu".to_string()),
         )]));
 
-        let user = User {
-            id: "user1".to_string(),
-            name: "User One".to_string(),
-        };
+        let user = User::default();
 
         db.downvote_distro("Ubuntu", user.clone()).unwrap();
         db.upvote_distro("Ubuntu", user.clone()).unwrap();
@@ -348,10 +348,7 @@ mod tests {
             Distro::new("Ubuntu".to_string()),
         )]));
 
-        let user = User {
-            id: "user1".to_string(),
-            name: "User One".to_string(),
-        };
+        let user = User::default();
 
         db.upvote_distro("Ubuntu", user.clone()).unwrap();
         db.downvote_distro("Ubuntu", user.clone()).unwrap();
