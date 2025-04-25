@@ -2,7 +2,7 @@
 
 ## 📅 Datum des Sprint Reviews
 
-04.04.2025
+25.04.2025
 
 ---
 
