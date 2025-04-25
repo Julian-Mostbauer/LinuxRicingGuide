@@ -247,7 +247,7 @@ export default defineComponent({
 }
 
 .node-circle {
-  fill: var(--color-base-100);
+  fill: var(--color-base-300);
   stroke: none;
   stroke-width: 2;
   cursor: pointer;
@@ -255,9 +255,14 @@ export default defineComponent({
 }
 
 .node-circle:hover {
-  fill: var(--color-base-300);
+  fill: var(--color-primary);
   scale: 1.2;
 }
+
+g:hover > .node-text {
+  fill: var(--color-base-100);
+}
+
 
 .node-text {
   fill: var(--color-base-content);
