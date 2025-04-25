@@ -1,9 +1,8 @@
 <template>
   <ul v-if="!isRoot || node.Children.length > 0" ref="treeRef">
     <!-- Index File -->
-    <li v-if="node.HasIndex" :class="[animationClass, { 'text-primary': isActivePage(node) }]"
-      :style="animationStyle(0)">
-      <NuxtLink :to="node.Value?.path || '/'" @click="closeNav">
+    <li v-if="node.HasIndex" :class="animationClass" :style="animationStyle(0)">
+      <NuxtLink :to="node.Value?.path || '/'" @click="closeNav" :class="{ 'text-primary': isActivePage(node) }">
         <DynamicIcon :names="indexIcons" :size="iconSize" class="min-w-6" />
         {{ isRoot ? "Home" : "Overview" }}
       </NuxtLink>
@@ -17,7 +16,7 @@
           <DynamicIcon :names="routeIcon(child.Value)" :size="iconSize" class="min-w-6" />
           {{ routeName(child.Value?.path) }}
         </summary>
-        <TreeNode :node="child" />
+        <DrawerNode :node="child" />
       </details>
 
       <NuxtLink v-else :to="child.Value?.path || '/'" @click="closeNav"
@@ -56,7 +55,9 @@ const isActivePage = (r: Node) => route.fullPath === r.Value?.path;
 
 const closeNav = () => {
   const navCheckbox = document.getElementById('nav-drawer') as HTMLInputElement | null;
-  navCheckbox && (navCheckbox.checked = false);
+  if (navCheckbox) {
+    (navCheckbox.checked = false);
+  }
 };
 
 

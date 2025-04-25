@@ -23,7 +23,6 @@
         </li>
         <li>
           <div class="btn btn-error justify-start m-1 p-1 text-center w-full" @click="logout()">
-            <DynamicIcon :names="{ default: 'cog' }" />
             <p>Log out</p>
           </div>
         </li>
@@ -35,6 +34,12 @@
 <script lang="ts" setup>
 import { useAuth0 } from "@auth0/auth0-vue";
 const auth0 = useAuth0();
+
+// import { onMounted } from "vue";
+
+//onMounted(async () => {
+//  console.log(await auth0.getAccessTokenSilently())
+//});
 
 const login = () => {
   if (auth0.user.value === undefined) {
