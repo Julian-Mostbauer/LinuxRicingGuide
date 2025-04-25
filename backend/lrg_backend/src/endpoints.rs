@@ -1,4 +1,4 @@
-use crate::models::{SharedDb, User, VoteStatus, WebFriendlyDistroData};
+use crate::models::{SharedDb, User, VoteStatus, WebFriendlyCommentData, WebFriendlyDistroData};
 use actix_web::{get, post, web, HttpRequest, HttpResponse, Responder};
 
 #[get("/")]
@@ -35,7 +35,7 @@ async fn get_distro(
                 Ok(user) => distro.get_vote_status(&user),
                 Err(_) => VoteStatus::None,
             };
-            
+
             web_distro.your_vote = vote;
             HttpResponse::Ok().json(web_distro)
         }
@@ -63,6 +63,7 @@ async fn upvote_distro(
         Err(err) => HttpResponse::BadRequest().body(err),
     }
 }
+
 #[post("/distros/{name}/downvote")]
 async fn downvote_distro(
     req: HttpRequest,
@@ -84,10 +85,38 @@ async fn downvote_distro(
     }
 }
 
+#[get("/distros/{distro_name}/comments/{comment_id}")]
+async fn get_comment(
+    req: HttpRequest,
+    path: web::Path<(String, u32)>,
+    db: web::Data<SharedDb>,
+) -> impl Responder {
+    let db = db.lock().unwrap();
+    let (distro_name, comment_id) = path.into_inner();
+    let user = User::try_from(req);
+
+    match db.get_distro(&distro_name) {
+        Some(distro) => distro
+            .comments
+            .get(&comment_id)
+            .map(|comment| {
+                let mut web_comment: WebFriendlyCommentData = comment.into();
+                web_comment.your_vote = match user {
+                    Ok(user) => comment.get_vote_status(&user),
+                    Err(_) => VoteStatus::None,
+                };
+                HttpResponse::Ok().json(web_comment)
+            })
+            .unwrap_or_else(|| HttpResponse::NotFound().finish()),
+        None => HttpResponse::NotFound().finish(),
+    }
+}
+
 pub fn config(cfg: &mut web::ServiceConfig) {
     cfg.service(index)
         .service(get_distros)
         .service(get_distro)
         .service(upvote_distro)
-        .service(downvote_distro);
+        .service(downvote_distro)
+        .service(get_comment);
 }
