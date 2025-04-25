@@ -193,7 +193,7 @@ pub struct WebFriendlyDistroData {
     pub name: String,
     pub upvote_count: u32,
     pub downvote_count: u32,
-    pub comments: Vec<Comment>,
+    pub comments: Vec<WebFriendlyCommentData>,
     pub your_vote: VoteStatus,
 }
 
@@ -203,7 +203,12 @@ impl From<&Distro> for WebFriendlyDistroData {
             name: distro.name.clone(),
             upvote_count: distro.upvotes.len() as u32,
             downvote_count: distro.downvotes.len() as u32,
-            comments: distro.comments.values().cloned().collect(),
+            comments: distro
+                .comments
+                .values()
+                .cloned()
+                .map(|c| c.into())
+                .collect(),
             your_vote: VoteStatus::None, // Default value, can be updated based on user context
         }
     }
