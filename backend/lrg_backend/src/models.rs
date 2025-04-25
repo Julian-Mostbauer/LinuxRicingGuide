@@ -57,35 +57,34 @@ impl Db {
             Err(format!("Distro {} not found", distro_name))
         }
     }
-    pub fn upvote_distro(&mut self, distro_name: &str, user: User) -> Result<bool, String> {
+
+    fn vote_distro(
+        &mut self,
+        distro_name: &str,
+        user: User,
+        is_upvote: bool,
+    ) -> Result<bool, String> {
         if let Some(distro) = self.distros.get_mut(distro_name) {
-            distro.downvotes.remove(&user);
+            let used_vote_storage = if is_upvote {
+                &mut distro.upvotes
+            } else {
+                &mut distro.downvotes
+            };
 
             // If the user has already voted, remove the vote
-            let has_upvoted = distro.upvotes.contains(&user);
-            if has_upvoted {
-                distro.upvotes.remove(&user);
+            let has_voted = used_vote_storage.contains(&user);
+            if has_voted {
+                used_vote_storage.remove(&user);
             } else {
                 // If the user has not voted, add the vote
-                distro.upvotes.insert(user);
+                used_vote_storage.insert(user.clone());
             }
 
-            Ok(has_upvoted)
-        } else {
-            Err(format!("Distro {} not found", distro_name))
-        }
-    }
-    pub fn downvote_distro(&mut self, distro_name: &str, user: User) -> Result<bool, String> {
-        if let Some(distro) = self.distros.get_mut(distro_name) {
-            distro.upvotes.remove(&user);
-
-            // If the user has already voted, remove the vote
-            let has_voted = distro.downvotes.contains(&user);
-            if has_voted {
+            // Remove the opposite vote
+            if is_upvote {
                 distro.downvotes.remove(&user);
             } else {
-                // If the user has not voted, add the vote
-                distro.downvotes.insert(user);
+                distro.upvotes.remove(&user);
             }
 
             Ok(has_voted)
@@ -93,6 +92,15 @@ impl Db {
             Err(format!("Distro {} not found", distro_name))
         }
     }
+
+    pub fn upvote_distro(&mut self, distro_name: &str, user: User) -> Result<bool, String> {
+        Self::vote_distro(self, distro_name, user, true)
+    }
+    
+    pub fn downvote_distro(&mut self, distro_name: &str, user: User) -> Result<bool, String> {
+        Self::vote_distro(self, distro_name, user, false)
+    }
+
     pub fn get_distro(&self, distro_name: &str) -> Option<&Distro> {
         self.distros.get(distro_name)
     }
