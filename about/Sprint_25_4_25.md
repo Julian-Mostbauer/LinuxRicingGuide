@@ -56,13 +56,15 @@ Wir wollten direkt ein leicht ausbaubares Backendend, darum konnte die arbeit am
 
 ## 🖥️ 4. Live-Demo (wenn möglich)
 
-Lokaler Server. Seite ist noch nicht öffentlich deployed.
+Lokaler Server. Seite ist noch nicht öffentlich.
 
 ---
 
 ## 📈 5. Feedback vom Betreuer / Lehrer (danach selbst einzugeben!)
 
 Nächster Sprint: 16.5
+
+- elasticsearch, opensearch - https://opensearch.org/
 
 ---
 
