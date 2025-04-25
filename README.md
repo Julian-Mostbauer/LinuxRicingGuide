@@ -4,8 +4,10 @@
 
 School project for WMC. Guide to ricing linux systems
 
-[Project Description](./project-description.md)
+[Project Description](./about/project-description.md)
 
-[Site](./src)
+![Use Case Diagram](./about/use-case-diagram.svg)
 
-[Pages](https://julian-mostbauer.github.io/LinuxRicingGuide/)
+## Hosting
+
+Currently no hosting
