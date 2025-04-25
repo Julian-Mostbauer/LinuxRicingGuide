@@ -1,6 +1,12 @@
-use crate::models::{SharedDb, User, VoteStatus};
-use crate::web_friendly::{WfComment, WfDistro};
 use actix_web::{get, post, web, HttpRequest, HttpResponse, Responder};
+
+use crate::{
+    db::SharedDb,
+    models::{
+        web_friendly::{WfComment, WfDistro},
+        User, VoteStatus,
+    },
+};
 
 #[get("/")]
 async fn index() -> impl Responder {

@@ -1,9 +1,8 @@
-use actix_web::HttpRequest;
 use serde::{Deserialize, Serialize};
-use std::collections::{HashMap, HashSet};
+use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 
-use crate::web_friendly::{WfComment, WfDistro};
+use crate::models::{Comment, Distro, User};
 
 #[derive(Deserialize, Serialize, Clone, Debug)]
 pub struct Db {
@@ -133,143 +132,6 @@ impl Db {
     }
 }
 
-#[derive(Deserialize, Serialize, Clone, Debug)]
-pub struct Distro {
-    /// The unique identifier for the distro.
-    /// <br>Primary Key of struct
-    pub name: String,
-
-    /// Upvotes are stored as a HashSet of User objects to ensure uniqueness.
-    pub upvotes: HashSet<User>,
-
-    /// DOwnvotes are stored as a HashSet of User objects to ensure uniqueness.
-    pub downvotes: HashSet<User>,
-
-    /// Comments are stored as a HashMap with the comment ID as the key and the Comment object as the value.
-    pub comments: HashMap<u32, Comment>,
-}
-
-impl Distro {
-    pub fn new(name: String) -> Self {
-        Self {
-            name,
-            upvotes: HashSet::new(),
-            downvotes: HashSet::new(),
-            comments: HashMap::new(),
-        }
-    }
-
-    pub fn get_vote_status(&self, user: &User) -> VoteStatus {
-        if self.upvotes.contains(user) {
-            VoteStatus::Upvoted
-        } else if self.downvotes.contains(user) {
-            VoteStatus::Downvoted
-        } else {
-            VoteStatus::None
-        }
-    }
-}
-
-impl Into<WfDistro> for Distro {
-    fn into(self) -> WfDistro {
-        WfDistro::from(&self)
-    }
-}
-
-#[derive(Deserialize, Serialize, Clone, Debug, Eq, Hash)]
-pub struct User {
-    /// The auth0 sub field is used as a unique identifier for the user.
-    /// <br>Primary Key of struct
-    pub id: String,
-}
-impl User {
-    pub fn new(id: String) -> Self {
-        Self { id }
-    }
-}
-
-impl TryFrom<HttpRequest> for User {
-    type Error = String;
-
-    fn try_from(req: HttpRequest) -> Result<Self, Self::Error> {
-        req.headers()
-            .get("X-User-ID")
-            .and_then(|value| value.to_str().ok())
-            .map(|s| User::new(s.to_string()))
-            .ok_or_else(|| "Missing X-User-ID header".to_string())
-    }
-}
-
-impl Default for User {
-    fn default() -> Self {
-        Self {
-            id: "I_AM_I_DUMMY".to_string(),
-        }
-    }
-}
-
-impl PartialEq for User {
-    fn eq(&self, other: &Self) -> bool {
-        self.id == other.id
-    }
-
-    fn ne(&self, other: &Self) -> bool {
-        !self.eq(other)
-    }
-}
-
-#[derive(Deserialize, Serialize, Clone, Debug)]
-pub struct Comment {
-    /// The unique identifier for the comment.
-    /// <br>Primary Key of struct
-    pub id: u32,
-
-    /// Corresponding distro name.
-    /// <br>Foreign Key of struct
-    pub distro: String,
-
-    /// The user who authored the comment.
-    pub author: User,
-
-    /// The user submitted content of the comment.
-    pub content: String,
-
-    /// Creation timestamp of the comment.
-    pub timestamp_epoch: u64,
-
-    /// Upvotes are stored as a HashSet of User objects to ensure uniqueness.
-    pub upvotes: HashSet<User>,
-
-    /// Downvotes are stored as a HashSet of User objects to ensure uniqueness.
-    pub downvotes: HashSet<User>,
-}
-
-impl Comment {
-    pub fn get_vote_status(&self, user: &User) -> VoteStatus {
-        if self.upvotes.contains(user) {
-            VoteStatus::Upvoted
-        } else if self.downvotes.contains(user) {
-            VoteStatus::Downvoted
-        } else {
-            VoteStatus::None
-        }
-    }
-}
-
-impl Into<WfComment> for Comment {
-    fn into(self) -> WfComment {
-        WfComment::from(&self)
-    }
-}
-
-#[derive(Deserialize, Serialize, Clone, Debug, Default)]
-pub enum VoteStatus {
-    Upvoted,
-    Downvoted,
-    #[default]
-    None,
-}
-
 /// Type alias for a shared database.
 /// This is a thread-safe reference-counted pointer to a Mutex that wraps a Db.
 pub type SharedDb = Arc<Mutex<Db>>;
@@ -277,7 +139,7 @@ pub type SharedDb = Arc<Mutex<Db>>;
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::collections::HashMap;
+    use std::collections::{HashMap, HashSet};
 
     // DISTRO TESTS
     #[test]

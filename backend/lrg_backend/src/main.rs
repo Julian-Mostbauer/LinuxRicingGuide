@@ -1,9 +1,9 @@
 mod config;
+mod db;
 mod endpoints;
 mod models;
 mod persistence;
 mod tui;
-mod web_friendly;
 use actix_web::{web, App, HttpServer};
 
 #[actix_web::main]
