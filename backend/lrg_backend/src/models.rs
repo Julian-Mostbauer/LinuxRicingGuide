@@ -3,6 +3,8 @@ use serde::{Deserialize, Serialize};
 use std::collections::{HashMap, HashSet};
 use std::sync::{Arc, Mutex};
 
+use crate::web_friendly::{WfComment, WfDistro};
+
 #[derive(Deserialize, Serialize, Clone, Debug)]
 pub struct Db {
     /// Key is the distro name and the value is the Distro object.
@@ -168,62 +170,10 @@ impl Distro {
     }
 }
 
-impl Into<WebFriendlyDistroData> for Distro {
-    fn into(self) -> WebFriendlyDistroData {
-        WebFriendlyDistroData::from(&self)
+impl Into<WfDistro> for Distro {
+    fn into(self) -> WfDistro {
+        WfDistro::from(&self)
     }
-}
-
-/// The WebFriendlyDistroData struct is used to send data to the frontend.
-/// Its purpose is to provide a simplified view of the Distro struct.
-/// It contains no security-sensitive information and is safe to expose to the frontend.
-#[derive(Deserialize, Serialize, Clone, Debug)]
-pub struct WebFriendlyDistroData {
-    pub name: String,
-    pub upvote_count: u32,
-    pub downvote_count: u32,
-    pub comments: Vec<WebFriendlyCommentData>,
-    pub your_vote: VoteStatus,
-}
-
-impl WebFriendlyCommentData {
-    pub fn from_user_specific<T>(
-        comment: &Comment,
-        user: &Result<User, T>,
-    ) -> WebFriendlyCommentData {
-        let mut web_comment: WebFriendlyCommentData = comment.into();
-        web_comment.your_vote = match user {
-            Ok(u) => comment.get_vote_status(u),
-            Err(_) => VoteStatus::default(),
-        };
-
-        web_comment
-    }
-}
-
-impl From<&Distro> for WebFriendlyDistroData {
-    fn from(distro: &Distro) -> Self {
-        WebFriendlyDistroData {
-            name: distro.name.clone(),
-            upvote_count: distro.upvotes.len() as u32,
-            downvote_count: distro.downvotes.len() as u32,
-            comments: distro
-                .comments
-                .values()
-                .cloned()
-                .map(|c| c.into())
-                .collect(),
-            your_vote: VoteStatus::default(),
-        }
-    }
-}
-
-#[derive(Deserialize, Serialize, Clone, Debug, Default)]
-pub enum VoteStatus {
-    Upvoted,
-    Downvoted,
-    #[default]
-    None,
 }
 
 #[derive(Deserialize, Serialize, Clone, Debug, Eq, Hash)]
@@ -306,36 +256,18 @@ impl Comment {
     }
 }
 
-impl Into<WebFriendlyCommentData> for Comment {
-    fn into(self) -> WebFriendlyCommentData {
-        WebFriendlyCommentData::from(&self)
+impl Into<WfComment> for Comment {
+    fn into(self) -> WfComment {
+        WfComment::from(&self)
     }
 }
 
-/// The WebFriendlyDistroData struct is used to send data to the frontend.
-/// Its purpose is to provide a simplified view of the Distro struct.
-/// It contains no security-sensitive information and is safe to expose to the frontend.
-#[derive(Deserialize, Serialize, Clone, Debug)]
-pub struct WebFriendlyCommentData {
-    pub id: u32,
-    pub content: String,
-    pub timestamp_epoch: u64,
-    pub upvote_count: u32,
-    pub downvote_count: u32,
-    pub your_vote: VoteStatus,
-}
-
-impl From<&Comment> for WebFriendlyCommentData {
-    fn from(comment: &Comment) -> Self {
-        WebFriendlyCommentData {
-            id: comment.id,
-            content: comment.content.clone(),
-            timestamp_epoch: comment.timestamp_epoch,
-            upvote_count: comment.upvotes.len() as u32,
-            downvote_count: comment.downvotes.len() as u32,
-            your_vote: VoteStatus::None, // Default value, can be updated based on user context
-        }
-    }
+#[derive(Deserialize, Serialize, Clone, Debug, Default)]
+pub enum VoteStatus {
+    Upvoted,
+    Downvoted,
+    #[default]
+    None,
 }
 
 /// Type alias for a shared database.

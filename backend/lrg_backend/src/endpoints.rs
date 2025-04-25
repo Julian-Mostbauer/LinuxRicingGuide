@@ -1,9 +1,6 @@
-use crate::models::{SharedDb, User, VoteStatus, WebFriendlyCommentData, WebFriendlyDistroData};
-use actix_web::{
-    get, post,
-    web,
-    HttpRequest, HttpResponse, Responder,
-};
+use crate::models::{SharedDb, User, VoteStatus};
+use crate::web_friendly::{WfComment, WfDistro};
+use actix_web::{get, post, web, HttpRequest, HttpResponse, Responder};
 
 #[get("/")]
 async fn index() -> impl Responder {
@@ -33,7 +30,7 @@ async fn get_distro(
 
     match db.get_distro(&name) {
         Some(distro) => {
-            let mut web_distro: WebFriendlyDistroData = distro.into();
+            let mut web_distro: WfDistro = distro.into();
 
             let vote = match User::try_from(req) {
                 Ok(user) => distro.get_vote_status(&user),
@@ -104,7 +101,7 @@ async fn get_comment(
             .comments
             .get(&comment_id)
             .map(|comment| {
-                let mut web_comment: WebFriendlyCommentData = comment.into();
+                let mut web_comment: WfComment = comment.into();
                 web_comment.your_vote = match user {
                     Ok(user) => comment.get_vote_status(&user),
                     Err(_) => VoteStatus::None,
@@ -131,8 +128,8 @@ async fn get_comments(
             distro
                 .comments
                 .values()
-                .map(|comment| WebFriendlyCommentData::from_user_specific(comment, &user))
-                .collect::<Vec<WebFriendlyCommentData>>(),
+                .map(|comment| WfComment::from_user_specific(comment, &user))
+                .collect::<Vec<WfComment>>(),
         ),
         None => HttpResponse::NotFound().finish(),
     }
