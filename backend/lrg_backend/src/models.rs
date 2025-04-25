@@ -129,17 +129,6 @@ impl Db {
     pub fn get_all_distros(&self) -> Vec<&Distro> {
         self.distros.values().collect()
     }
-
-    pub fn get_all_comments(&self, distro_name: &str) -> Option<Vec<&Comment>> {
-        self.distros
-            .get(distro_name)
-            .map(|distro| distro.comments.values().collect())
-    }
-    pub fn get_comment(&self, distro_name: &str, comment_id: u32) -> Option<&Comment> {
-        self.distros
-            .get(distro_name)
-            .and_then(|distro| distro.comments.get(&comment_id))
-    }
 }
 
 #[derive(Deserialize, Serialize, Clone, Debug)]
@@ -197,6 +186,21 @@ pub struct WebFriendlyDistroData {
     pub your_vote: VoteStatus,
 }
 
+impl WebFriendlyCommentData {
+    pub fn from_user_specific<T>(
+        comment: &Comment,
+        user: &Result<User, T>,
+    ) -> WebFriendlyCommentData {
+        let mut web_comment: WebFriendlyCommentData = comment.into();
+        web_comment.your_vote = match user {
+            Ok(u) => comment.get_vote_status(u),
+            Err(_) => VoteStatus::default(),
+        };
+
+        web_comment
+    }
+}
+
 impl From<&Distro> for WebFriendlyDistroData {
     fn from(distro: &Distro) -> Self {
         WebFriendlyDistroData {
@@ -209,15 +213,16 @@ impl From<&Distro> for WebFriendlyDistroData {
                 .cloned()
                 .map(|c| c.into())
                 .collect(),
-            your_vote: VoteStatus::None, // Default value, can be updated based on user context
+            your_vote: VoteStatus::default(),
         }
     }
 }
 
-#[derive(Deserialize, Serialize, Clone, Debug)]
+#[derive(Deserialize, Serialize, Clone, Debug, Default)]
 pub enum VoteStatus {
     Upvoted,
     Downvoted,
+    #[default]
     None,
 }
 

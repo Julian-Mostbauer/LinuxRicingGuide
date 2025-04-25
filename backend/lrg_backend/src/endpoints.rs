@@ -1,5 +1,9 @@
 use crate::models::{SharedDb, User, VoteStatus, WebFriendlyCommentData, WebFriendlyDistroData};
-use actix_web::{get, post, web, HttpRequest, HttpResponse, Responder};
+use actix_web::{
+    get, post,
+    web,
+    HttpRequest, HttpResponse, Responder,
+};
 
 #[get("/")]
 async fn index() -> impl Responder {
@@ -112,11 +116,34 @@ async fn get_comment(
     }
 }
 
+#[get("/distros/{distro_name}/comments")]
+async fn get_comments(
+    req: HttpRequest,
+    path: web::Path<String>,
+    db: web::Data<SharedDb>,
+) -> impl Responder {
+    let db = db.lock().unwrap();
+    let distro_name = path.into_inner();
+    let user = User::try_from(req);
+
+    match db.get_distro(&distro_name) {
+        Some(distro) => HttpResponse::Ok().json(
+            distro
+                .comments
+                .values()
+                .map(|comment| WebFriendlyCommentData::from_user_specific(comment, &user))
+                .collect::<Vec<WebFriendlyCommentData>>(),
+        ),
+        None => HttpResponse::NotFound().finish(),
+    }
+}
+
 pub fn config(cfg: &mut web::ServiceConfig) {
     cfg.service(index)
         .service(get_distros)
         .service(get_distro)
         .service(upvote_distro)
         .service(downvote_distro)
+        .service(get_comments)
         .service(get_comment);
 }
