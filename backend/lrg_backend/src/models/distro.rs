@@ -2,7 +2,7 @@ use std::collections::HashSet;
 
 use serde::{Deserialize, Serialize};
 
-use super::{web_friendly::WfDistro, User, VoteStatus};
+use super::{User, VoteStatus};
 
 #[derive(Deserialize, Serialize, Clone, Debug)]
 pub struct Distro {
@@ -34,11 +34,5 @@ impl Distro {
         } else {
             VoteStatus::None
         }
-    }
-}
-
-impl Into<WfDistro> for Distro {
-    fn into(self) -> WfDistro {
-        WfDistro::from(&self)
     }
 }

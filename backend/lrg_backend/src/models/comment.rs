@@ -5,7 +5,7 @@ use std::{
 
 use serde::{Deserialize, Serialize};
 
-use super::{web_friendly::WfComment, User, VoteStatus};
+use super::{User, VoteStatus};
 
 #[derive(Deserialize, Serialize, Clone, Debug)]
 pub struct Comment {
@@ -35,7 +35,7 @@ pub struct Comment {
 
 impl Comment {
     pub fn new(author: User, distro: String, content: String) -> Result<Comment, String> {
-        if content.trim().len() == 0 {
+        if content.trim().is_empty() {
             return Err("Content must not be empty".to_owned());
         }
 
@@ -68,8 +68,3 @@ impl Comment {
     }
 }
 
-impl Into<WfComment> for Comment {
-    fn into(self) -> WfComment {
-        WfComment::from(&self)
-    }
-}
