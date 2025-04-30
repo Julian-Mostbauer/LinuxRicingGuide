@@ -1,8 +1,8 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::HashSet;
 
 use serde::{Deserialize, Serialize};
 
-use super::{web_friendly::WfDistro, Comment, User, VoteStatus};
+use super::{web_friendly::WfDistro, User, VoteStatus};
 
 #[derive(Deserialize, Serialize, Clone, Debug)]
 pub struct Distro {
@@ -13,11 +13,8 @@ pub struct Distro {
     /// Upvotes are stored as a HashSet of User objects to ensure uniqueness.
     pub upvotes: HashSet<User>,
 
-    /// DOwnvotes are stored as a HashSet of User objects to ensure uniqueness.
+    /// Downvotes are stored as a HashSet of User objects to ensure uniqueness.
     pub downvotes: HashSet<User>,
-
-    /// Comments are stored as a HashMap with the comment ID as the key and the Comment object as the value.
-    pub comments: HashMap<u32, Comment>,
 }
 
 impl Distro {
@@ -26,7 +23,6 @@ impl Distro {
             name,
             upvotes: HashSet::new(),
             downvotes: HashSet::new(),
-            comments: HashMap::new(),
         }
     }
 

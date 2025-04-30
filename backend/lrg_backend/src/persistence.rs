@@ -22,7 +22,7 @@ pub fn init_db() -> SharedDb {
         Ok(db) => Arc::new(Mutex::new(db)),
         Err(e) => {
             crate::important_warn!("Creating a new database with default values because the old one could not be loaded. {}", e);
-            Arc::new(Mutex::new(Db::new(default_distros())))
+            Arc::new(Mutex::new(Db::new(default_distros(), HashMap::new())))
         }
     }
 }

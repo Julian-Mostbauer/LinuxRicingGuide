@@ -92,48 +92,47 @@ async fn downvote_distro(
     }
 }
 
-#[get("/distros/{distro_name}/comments/{comment_id}")]
+#[get("/comments/{comment_id}")]
 async fn get_comment(
     req: HttpRequest,
-    path: web::Path<(String, u32)>,
+    path: web::Path<u32>,
     db: web::Data<SharedDb>,
 ) -> impl Responder {
     let db = db.lock().unwrap();
-    let (distro_name, comment_id) = path.into_inner();
+    let comment_id = path.into_inner();
     let user = User::try_from(req);
 
-    match db.get_distro(&distro_name) {
-        Some(distro) => distro
-            .comments
-            .get(&comment_id)
-            .map(|comment| {
-                let mut web_comment: WfComment = comment.into();
-                web_comment.your_vote = match user {
-                    Ok(user) => comment.get_vote_status(&user),
-                    Err(_) => VoteStatus::None,
-                };
-                HttpResponse::Ok().json(web_comment)
-            })
-            .unwrap_or_else(|| HttpResponse::NotFound().finish()),
-        None => HttpResponse::NotFound().finish(),
-    }
+    db.comments
+        .get(&comment_id)
+        .map(|comment| {
+            let mut web_comment: WfComment = comment.into();
+            web_comment.your_vote = match user {
+                Ok(user) => comment.get_vote_status(&user),
+                Err(_) => VoteStatus::None,
+            };
+            HttpResponse::Ok().json(web_comment)
+        })
+        .unwrap_or_else(|| HttpResponse::NotFound().finish())
 }
 
 #[get("/distros/{distro_name}/comments")]
 async fn get_comments(
     req: HttpRequest,
     path: web::Path<String>,
+    range: web::Query<Option<(u32, u32)>>,
     db: web::Data<SharedDb>,
 ) -> impl Responder {
     let db = db.lock().unwrap();
     let distro_name = path.into_inner();
     let user = User::try_from(req);
+    let range = range.into_inner();
 
     match db.get_distro(&distro_name) {
-        Some(distro) => HttpResponse::Ok().json(
-            distro
-                .comments
-                .values()
+        Some(_) => HttpResponse::Ok().json(
+            db.get_comments_of_distro(&distro_name) // TODO Make more efficient
+                .iter()
+                .skip(range.map(|r| r.1 as usize).unwrap_or(0))
+                .take(range.map(|r| r.1 as usize).unwrap_or(usize::MAX))
                 .map(|comment| WfComment::from_user_specific(comment, &user))
                 .collect::<Vec<WfComment>>(),
         ),
