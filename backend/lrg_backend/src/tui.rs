@@ -1,4 +1,4 @@
-use crate::{models::SharedDb, persistence::store_db};
+use crate::{db::SharedDb, persistence::store_db};
 use std::io::{self, Write};
 
 #[macro_export]

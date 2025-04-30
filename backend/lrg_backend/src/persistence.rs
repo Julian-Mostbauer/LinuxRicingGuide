@@ -1,5 +1,6 @@
 use crate::config::DATA_PATH;
-use crate::models::{Db, Distro, SharedDb};
+use crate::db::{Db, SharedDb};
+use crate::models::Distro;
 use std::collections::HashMap;
 use std::fs;
 use std::sync::{Arc, Mutex};

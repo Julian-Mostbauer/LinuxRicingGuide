@@ -1,34 +1,25 @@
 <template>
   <div class="container mx-auto p-4">
     <Motion as="div" :variants="container" initial="hidden" animate="visible"
-            class="grid grid-cols-1 md:grid-cols-1 gap-6 mb-10">
+      class="grid grid-cols-1 md:grid-cols-1 gap-6 mb-10">
 
       <!-- Displays all elements is section -->
       <Motion v-for="(section, index) in sections" :key="index" :variants="items" class="w-full">
         <GradientOutline circle-width="200px">
-          <div class="card bg-base-200 text-base-content p-6 h-full">
-            <section class="mb-6 h-full flex flex-col">
-              <h2 class="mb-4 text-xl font-bold flex flex-row items-center">
-                <DynamicIcon :names="{ default: section.icon }" class="mr-2"/>
-                {{ section.title }}
-              </h2>
-              <p class="text-md flex-grow" v-html="section.content"></p>
-
-              <!-- Display the command block if available -->
-              <CommandBlock v-if="section.command" :command="section.command" />
-
-            </section>
-          </div>
+          <SectionBlock :icons="section.icon" :title="section.title">
+            <span v-html="section.content"></span>
+            <CodeBlock v-if="section.command" :command="section.command" />
+          </SectionBlock>
         </GradientOutline>
       </Motion>
-
     </Motion>
   </div>
 </template>
 
-<script lang="ts" setup>
+<script lang="tsx" setup>
 import { Motion } from 'motion-v';
 import CommandBlock from '../../components/CodeBlock.vue';
+import SectionBlock from '~/components/SectionBlock.vue';
 
 definePageMeta({
   icons: { default: 'terminal' },
@@ -58,16 +49,16 @@ const items = {
 
 const sections = [
   {
-    icon: 'terminal',
+    icon: { default: 'terminal' },
     title: 'Terminal Ricing Basics',
-    content: `
-      Ricing your terminal allows you to customize its appearance and functionality.
-      A well-configured terminal can make your daily work much more efficient.
-      Here’s how you can rice your terminal with some common tools:
-    `,
+    content: `Ricing your terminal allows you to customize its appearance and functionality.
+    A well-configured terminal can make your daily work much more efficient.
+    Here's how you can rice your terminal with some common tools:
+    <a href="/Docs/"> Docs </a>`
+    ,
   },
   {
-    icon: 'code',
+    icon: { default: 'code' },
     title: 'Install a Terminal Emulator',
     content: `
       First, you'll need a terminal emulator that allows for customization.
@@ -85,7 +76,7 @@ const sections = [
     `,
   },
   {
-    icon: 'palette',
+    icon: { default: 'palette' },
     title: 'Choose a Color Scheme',
     content: `
       Pick a color scheme that suits your aesthetic. You can use tools like <strong>pywal</strong> to generate color schemes from images.
@@ -99,7 +90,7 @@ const sections = [
     `,
   },
   {
-    icon: 'settings',
+    icon: { default: 'settings' },
     title: 'Configure the Terminal',
     content: `
       Most terminal emulators use a configuration file that allows you to adjust settings.
@@ -118,7 +109,7 @@ const sections = [
     `,
   },
   {
-    icon: 'wrench',
+    icon: { default: 'wrench' },
     title: 'Final Tweaks and Testing',
     content: `
       Once you've configured your terminal, it's time to test it. Open a terminal window and make sure all your customizations are working.
