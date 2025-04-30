@@ -4,7 +4,7 @@ use crate::{
     db::SharedDb,
     models::{
         web_friendly::{WfComment, WfDistro},
-        User, VoteStatus,
+        Comment, User, VoteStatus,
     },
 };
 
@@ -140,6 +140,79 @@ async fn get_comments(
     }
 }
 
+#[post("/comments/{id}/upvote")]
+async fn upvote_comment(
+    req: HttpRequest,
+    id: web::Path<u32>,
+    db: web::Data<SharedDb>,
+) -> impl Responder {
+    let mut db = db.lock().unwrap();
+    let id = id.into_inner();
+    let user = User::try_from(req);
+
+    let user = match user {
+        Ok(user) => user,
+        Err(_) => return HttpResponse::BadRequest().body("Invalid user ID"),
+    };
+
+    match db.upvote_comment(id, user) {
+        Ok(new_vote) => HttpResponse::Ok().json(new_vote),
+        Err(err) => HttpResponse::BadRequest().body(err),
+    }
+}
+#[post("/comments/{id}/downvote")]
+async fn downvote_comment(
+    req: HttpRequest,
+    id: web::Path<u32>,
+    db: web::Data<SharedDb>,
+) -> impl Responder {
+    let mut db = db.lock().unwrap();
+    let id = id.into_inner();
+    let user = User::try_from(req);
+
+    let user = match user {
+        Ok(user) => user,
+        Err(_) => return HttpResponse::BadRequest().body("Invalid user ID"),
+    };
+
+    match db.downvote_comment(id, user) {
+        Ok(new_vote) => HttpResponse::Ok().json(new_vote),
+        Err(err) => HttpResponse::BadRequest().body(err),
+    }
+}
+
+#[post("/comments/post/{distro_name}")]
+async fn post_comment(
+    req: HttpRequest,
+    distro_name: web::Path<String>,
+    content: web::Query<String>,
+    db: web::Data<SharedDb>,
+) -> impl Responder {
+    let mut db = db.lock().unwrap();
+    let user = User::try_from(req);
+    let content = content.into_inner();
+    let distro_name = distro_name.into_inner();
+
+    if db.get_distro(&distro_name).is_none() {
+        return HttpResponse::NotFound().body("Distro not found");
+    }
+
+    let user = match user {
+        Ok(user) => user,
+        Err(_) => return HttpResponse::BadRequest().body("Invalid user ID"),
+    };
+
+    let comment = match Comment::new(user, distro_name, content) {
+        Ok(comment) => comment,
+        Err(err) => return HttpResponse::BadRequest().body(err),
+    };
+
+    match db.post_comment(comment) {
+        Ok(new_comment) => HttpResponse::Ok().json(new_comment),
+        Err(err) => HttpResponse::BadRequest().body(err),
+    }
+}
+
 pub fn config(cfg: &mut web::ServiceConfig) {
     cfg.service(index)
         .service(get_distros)
@@ -147,5 +220,8 @@ pub fn config(cfg: &mut web::ServiceConfig) {
         .service(upvote_distro)
         .service(downvote_distro)
         .service(get_comments)
-        .service(get_comment);
+        .service(get_comment)
+        .service(upvote_comment)
+        .service(downvote_comment)
+        .service(post_comment);
 }

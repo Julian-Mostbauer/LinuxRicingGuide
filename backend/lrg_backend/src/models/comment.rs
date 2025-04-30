@@ -1,4 +1,7 @@
-use std::collections::HashSet;
+use std::{
+    collections::HashSet,
+    time::SystemTime,
+};
 
 use serde::{Deserialize, Serialize};
 
@@ -28,6 +31,29 @@ pub struct Comment {
 
     /// Downvotes are stored as a HashSet of User objects to ensure uniqueness.
     pub downvotes: HashSet<User>,
+}
+
+impl Comment {
+    pub fn new(author: User, distro: String, content: String) -> Result<Comment, String> {
+        if content.trim().len() == 0 {
+            return Err("Content must not be empty".to_owned());
+        }
+
+        let timestamp_epoch = SystemTime::now()
+            .elapsed()
+            .map_err(|err| err.to_string())?
+            .as_secs();
+
+        Ok(Comment {
+            id: 0,
+            distro,
+            author,
+            content,
+            timestamp_epoch,
+            upvotes: HashSet::new(),
+            downvotes: HashSet::new(),
+        })
+    }
 }
 
 impl Comment {
