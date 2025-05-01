@@ -30,7 +30,16 @@ impl Default for Db {
 
 impl Db {
     pub fn new(distros: HashMap<String, Distro>, comments: HashMap<u32, Comment>) -> Self {
-        Self { distros, comments, comment_factory: CommentFactory::new() }
+        Self {
+            distros,
+            comment_factory: comments.clone().into(),
+            comments,
+        }
+    }
+
+    pub fn update_factory(&mut self) {
+        let max_id = self.comments.keys().max().unwrap_or(&0);
+        self.comment_factory.set_current_id(*max_id);
     }
 
     pub fn get_comments_of_distro(&self, distro_name: &str) -> Vec<&Comment> {

@@ -4,9 +4,20 @@ use crate::{
     db::SharedDb,
     models::{
         web_friendly::{WfComment, WfDistro},
-        Comment, User, VoteStatus,
+        User, VoteStatus,
     },
 };
+
+#[derive(serde::Deserialize)]
+struct OptionalRange<T> {
+    start: Option<T>,
+    end: Option<T>,
+}
+
+#[derive(serde::Deserialize)]
+struct CommentContent {
+    content: String,
+}
 
 #[get("/")]
 async fn index() -> impl Responder {
@@ -119,7 +130,7 @@ async fn get_comment(
 async fn get_comments(
     req: HttpRequest,
     path: web::Path<String>,
-    range: web::Query<Option<(u32, u32)>>,
+    range: web::Query<OptionalRange<usize>>,
     db: web::Data<SharedDb>,
 ) -> impl Responder {
     let db = db.lock().unwrap();
@@ -131,8 +142,8 @@ async fn get_comments(
         Some(_) => HttpResponse::Ok().json(
             db.get_comments_of_distro(&distro_name) // TODO Make more efficient
                 .iter()
-                .skip(range.map(|r| r.1 as usize).unwrap_or(0))
-                .take(range.map(|r| r.1 as usize).unwrap_or(usize::MAX))
+                .skip(range.start.unwrap_or(0))
+                .take(range.end.unwrap_or(usize::MAX))
                 .map(|comment| WfComment::from_user_specific(comment, &user))
                 .collect::<Vec<WfComment>>(),
         ),
@@ -185,7 +196,7 @@ async fn downvote_comment(
 async fn post_comment(
     req: HttpRequest,
     distro_name: web::Path<String>,
-    content: web::Query<String>,
+    content: web::Json<CommentContent>,
     db: web::Data<SharedDb>,
 ) -> impl Responder {
     let mut db = db.lock().unwrap();
@@ -202,7 +213,10 @@ async fn post_comment(
         Err(_) => return HttpResponse::BadRequest().body("Invalid user ID"),
     };
 
-    let comment = match db.comment_factory.create(user, distro_name, content) {
+    let comment = match db
+        .comment_factory
+        .create(user, distro_name, content.content)
+    {
         Ok(comment) => comment,
         Err(err) => return HttpResponse::BadRequest().body(err),
     };

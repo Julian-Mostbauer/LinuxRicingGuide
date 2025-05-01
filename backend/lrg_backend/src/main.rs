@@ -12,7 +12,7 @@ async fn main() -> std::io::Result<()> {
     println!("Data path: {}", config::DATA_PATH);
 
     let user_db = persistence::init_db();
-
+    
     tui::spawn_tui(user_db.clone());
     HttpServer::new(move || {
         App::new()

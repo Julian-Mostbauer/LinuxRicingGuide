@@ -1,4 +1,7 @@
-use std::{collections::HashSet, time::SystemTime};
+use std::{
+    collections::{HashMap, HashSet},
+    time::SystemTime,
+};
 
 use serde::{Deserialize, Serialize};
 
@@ -51,6 +54,14 @@ impl CommentFactory {
         Self { current_id: 0 }
     }
 
+    pub fn with_id(id: u32) -> Self {
+        Self { current_id: id }
+    }
+
+    pub fn set_current_id(&mut self, id: u32) {
+        self.current_id = id;
+    }
+
     pub fn create(
         &mut self,
         author: User,
@@ -77,5 +88,11 @@ impl CommentFactory {
             upvotes: HashSet::new(),
             downvotes: HashSet::new(),
         })
+    }
+}
+
+impl From<HashMap<u32, Comment>> for CommentFactory {
+    fn from(comments: HashMap<u32, Comment>) -> Self {
+        CommentFactory::with_id(*comments.keys().max().unwrap_or(&0))
     }
 }
