@@ -2,6 +2,7 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 
+use crate::models::comment::CommentFactory;
 use crate::models::{Comment, Distro, User};
 
 #[derive(Deserialize, Serialize, Clone, Debug)]
@@ -11,6 +12,10 @@ pub struct Db {
 
     /// Comments are stored as a HashMap with the comment ID as the key and the Comment object as the value.
     pub comments: HashMap<u32, Comment>,
+
+    #[serde(skip)]
+    /// The factory for generating unique comment IDs.
+    pub comment_factory: CommentFactory,
 }
 
 impl Default for Db {
@@ -18,13 +23,14 @@ impl Default for Db {
         Self {
             distros: HashMap::from([("default".to_string(), Distro::new("default".to_string()))]),
             comments: HashMap::new(),
+            comment_factory: CommentFactory::new(),
         }
     }
 }
 
 impl Db {
     pub fn new(distros: HashMap<String, Distro>, comments: HashMap<u32, Comment>) -> Self {
-        Self { distros, comments }
+        Self { distros, comments, comment_factory: CommentFactory::new() }
     }
 
     pub fn get_comments_of_distro(&self, distro_name: &str) -> Vec<&Comment> {

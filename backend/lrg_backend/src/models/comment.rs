@@ -1,7 +1,4 @@
-use std::{
-    collections::HashSet,
-    time::SystemTime,
-};
+use std::{collections::HashSet, time::SystemTime};
 
 use serde::{Deserialize, Serialize};
 
@@ -34,29 +31,6 @@ pub struct Comment {
 }
 
 impl Comment {
-    pub fn new(author: User, distro: String, content: String) -> Result<Comment, String> {
-        if content.trim().is_empty() {
-            return Err("Content must not be empty".to_owned());
-        }
-
-        let timestamp_epoch = SystemTime::now()
-            .elapsed()
-            .map_err(|err| err.to_string())?
-            .as_secs();
-
-        Ok(Comment {
-            id: 0,
-            distro,
-            author,
-            content,
-            timestamp_epoch,
-            upvotes: HashSet::new(),
-            downvotes: HashSet::new(),
-        })
-    }
-}
-
-impl Comment {
     pub fn get_vote_status(&self, user: &User) -> VoteStatus {
         if self.upvotes.contains(user) {
             VoteStatus::Upvoted
@@ -67,4 +41,41 @@ impl Comment {
         }
     }
 }
+#[derive(Clone, Debug, Default)]
+pub struct CommentFactory {
+    current_id: u32,
+}
 
+impl CommentFactory {
+    pub fn new() -> Self {
+        Self { current_id: 0 }
+    }
+
+    pub fn create(
+        &mut self,
+        author: User,
+        distro: String,
+        content: String,
+    ) -> Result<Comment, String> {
+        if content.trim().is_empty() {
+            return Err("Content must not be empty".to_owned());
+        }
+
+        let timestamp_epoch = SystemTime::now()
+            .elapsed()
+            .map_err(|err| err.to_string())?
+            .as_secs();
+
+        self.current_id += 1;
+
+        Ok(Comment {
+            id: self.current_id,
+            distro,
+            author,
+            content,
+            timestamp_epoch,
+            upvotes: HashSet::new(),
+            downvotes: HashSet::new(),
+        })
+    }
+}

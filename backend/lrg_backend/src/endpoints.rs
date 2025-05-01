@@ -202,7 +202,7 @@ async fn post_comment(
         Err(_) => return HttpResponse::BadRequest().body("Invalid user ID"),
     };
 
-    let comment = match Comment::new(user, distro_name, content) {
+    let comment = match db.comment_factory.create(user, distro_name, content) {
         Ok(comment) => comment,
         Err(err) => return HttpResponse::BadRequest().body(err),
     };
