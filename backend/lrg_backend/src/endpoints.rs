@@ -222,7 +222,7 @@ async fn post_comment(
     };
 
     match db.post_comment(comment) {
-        Ok(new_comment) => HttpResponse::Ok().json(new_comment),
+        Ok(new_id) => HttpResponse::Ok().json(new_id),
         Err(err) => HttpResponse::BadRequest().body(err),
     }
 }

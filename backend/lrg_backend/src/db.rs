@@ -49,13 +49,15 @@ impl Db {
             .collect()
     }
 
-    pub fn post_comment(&mut self, comment: Comment) -> Result<(), String> {
+    pub fn post_comment(&mut self, comment: Comment) -> Result<u32, String> {
         match self.distros.get(&comment.distro) {
             Some(_) => match self.comments.get(&comment.id) {
                 Some(_) => Err(format!("Comment with ID {} not found", comment.id)),
                 None => {
+                    let id = comment.id;
                     self.comments.insert(comment.id, comment);
-                    Ok(())
+                    
+                    Ok(id)
                 }
             },
             None => Err(format!("Distro {} not found", comment.distro)),
