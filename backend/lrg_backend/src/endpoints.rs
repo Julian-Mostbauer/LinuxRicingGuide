@@ -133,7 +133,7 @@ async fn get_comment(
 
     db.comments
         .get(&comment_id)
-        .map(|comment| HttpResponse::Ok().json(WfComment::from_user_specific(comment, &user)))
+        .map(|comment| HttpResponse::Ok().json(WfComment::try_from_user_specific(comment, &user)))
         .unwrap_or_else(|| HttpResponse::NotFound().finish())
 }
 
@@ -155,7 +155,7 @@ async fn get_comments(
                 .iter()
                 .skip(range.start.unwrap_or(0))
                 .take(range.amount.unwrap_or(usize::MAX))
-                .map(|comment| WfComment::from_user_specific(comment, &user))
+                .map(|comment| WfComment::try_from_user_specific(comment, &user))
                 .collect::<Vec<WfComment>>(),
         ),
         None => HttpResponse::NotFound().finish(),

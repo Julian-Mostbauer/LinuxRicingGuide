@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 
 use crate::models::comment::CommentFactory;
-use crate::models::web_friendly::WfDistro;
+use crate::models::web_friendly::{WfComment, WfDistro};
 use crate::models::{Comment, Distro, User};
 
 #[derive(Deserialize, Serialize, Clone, Debug)]
@@ -81,7 +81,7 @@ impl Db {
         comment_id: u32,
         user: User,
         is_upvote: bool,
-    ) -> Result<bool, String> {
+    ) -> Result<WfComment, String> {
         if let Some(comment) = self.comments.get_mut(&comment_id) {
             let used_vote_storage = if is_upvote {
                 &mut comment.upvotes
@@ -104,18 +104,17 @@ impl Db {
                 comment.upvotes.remove(&user);
             }
 
-            // TODO! Implement same changes as for distros
-            Ok(has_voted)
+            Ok(WfComment::from_user_specific(comment, &user))
         } else {
             Err(format!("Comment {} not found", comment_id))
         }
     }
 
-    pub fn upvote_comment(&mut self, comment_id: u32, user: User) -> Result<bool, String> {
+    pub fn upvote_comment(&mut self, comment_id: u32, user: User) -> Result<WfComment, String> {
         Self::vote_comment(self, comment_id, user, true)
     }
 
-    pub fn downvote_comment(&mut self, comment_id: u32, user: User) -> Result<bool, String> {
+    pub fn downvote_comment(&mut self, comment_id: u32, user: User) -> Result<WfComment, String> {
         Self::vote_comment(self, comment_id, user, false)
     }
 

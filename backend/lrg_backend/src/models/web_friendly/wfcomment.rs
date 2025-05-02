@@ -29,12 +29,19 @@ impl From<&Comment> for WfComment {
 }
 
 impl WfComment {
-    pub fn from_user_specific<T>(comment: &Comment, user: &Result<User, T>) -> WfComment {
+    pub fn try_from_user_specific<T>(comment: &Comment, user: &Result<User, T>) -> WfComment {
         let mut web_comment: WfComment = comment.into();
         web_comment.your_vote = match user {
             Ok(u) => comment.get_vote_status(u),
             Err(_) => VoteStatus::default(),
         };
+
+        web_comment
+    }
+
+    pub fn from_user_specific(comment: &Comment, user: &User) -> WfComment {
+        let mut web_comment: WfComment = comment.into();
+        web_comment.your_vote = comment.get_vote_status(user);
 
         web_comment
     }
