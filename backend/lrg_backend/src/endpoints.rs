@@ -1,4 +1,4 @@
-use actix_web::{get, post, web, HttpRequest, HttpResponse, Responder};
+use actix_web::{get, post, delete, web, HttpRequest, HttpResponse, Responder};
 
 use crate::{
     db::SharedDb,
@@ -99,6 +99,28 @@ async fn downvote_distro(
 
     match db.downvote_distro(&name, user) {
         Ok(new_vote) => HttpResponse::Ok().json(new_vote),
+        Err(err) => HttpResponse::BadRequest().body(err),
+    }
+}
+
+
+#[delete("/comments/{id}")]
+async fn delete_comment(
+    req: HttpRequest,
+    id: web::Path<u32>,
+    db: web::Data<SharedDb>,
+) -> impl Responder {
+    let mut db = db.lock().unwrap();
+    let id = id.into_inner();
+    let user = User::try_from(req);
+
+    let user = match user {
+        Ok(user) => user,
+        Err(_) => return HttpResponse::BadRequest().body("Invalid user ID"),
+    };
+
+    match db.try_delete_comment(id, &user) {
+        Ok(_) => HttpResponse::Ok().finish(),
         Err(err) => HttpResponse::BadRequest().body(err),
     }
 }
@@ -237,5 +259,6 @@ pub fn config(cfg: &mut web::ServiceConfig) {
         .service(get_comment)
         .service(upvote_comment)
         .service(downvote_comment)
-        .service(post_comment);
+        .service(post_comment)
+        .service(delete_comment);
 }

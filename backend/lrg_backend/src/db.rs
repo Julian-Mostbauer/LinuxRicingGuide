@@ -56,11 +56,22 @@ impl Db {
                 None => {
                     let id = comment.id;
                     self.comments.insert(comment.id, comment);
-                    
+
                     Ok(id)
                 }
             },
             None => Err(format!("Distro {} not found", comment.distro)),
+        }
+    }
+
+    pub fn try_delete_comment(&mut self, comment_id: u32, user: &User) -> Result<(), String> {
+        match self.comments.get(&comment_id) {
+            Some(comment) if comment.author == *user => {
+                self.comments.remove(&comment_id);
+                Ok(())
+            }
+            Some(_) => Err(format!("User is not the author of comment {}", comment_id)),
+            None => Err(format!("Comment {} not found", comment_id)),
         }
     }
 
