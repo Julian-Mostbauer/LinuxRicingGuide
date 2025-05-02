@@ -7,7 +7,8 @@ use std::sync::{Arc, Mutex};
 
 pub fn load_db() -> Result<Db, String> {
     let data = fs::read_to_string(DATA_PATH).map_err(|_| "Failed to read file".to_string())?;
-    let mut db = serde_json::from_str::<Db>(&data).map_err(|e| format!("Failed to parse database: {}", e))?;
+    let mut db = serde_json::from_str::<Db>(&data)
+        .map_err(|e| format!("Failed to parse database: {}", e))?;
 
     db.update_factory();
 

@@ -1,4 +1,4 @@
-use actix_web::{get, post, delete, web, HttpRequest, HttpResponse, Responder};
+use actix_web::{delete, get, post, web, HttpRequest, HttpResponse, Responder};
 
 use crate::{
     db::SharedDb,
@@ -11,7 +11,7 @@ use crate::{
 #[derive(serde::Deserialize)]
 struct OptionalRange<T> {
     start: Option<T>,
-    end: Option<T>,
+    amount: Option<T>,
 }
 
 #[derive(serde::Deserialize)]
@@ -47,15 +47,12 @@ async fn get_distro(
 
     match db.get_distro(&name) {
         Some(distro) => {
-            let mut web_distro: WfDistro = distro.into();
-
-            let vote = match User::try_from(req) {
-                Ok(user) => distro.get_vote_status(&user),
-                Err(_) => VoteStatus::None,
+            let wf_distro = match User::try_from(req) {
+                Ok(user) => WfDistro::from_distro_specific(&distro, &user),
+                Err(_) => WfDistro::from(distro),
             };
 
-            web_distro.your_vote = vote;
-            HttpResponse::Ok().json(web_distro)
+            HttpResponse::Ok().json(wf_distro)
         }
         None => HttpResponse::NotFound().finish(),
     }
@@ -103,7 +100,6 @@ async fn downvote_distro(
     }
 }
 
-
 #[delete("/comments/{id}")]
 async fn delete_comment(
     req: HttpRequest,
@@ -137,14 +133,7 @@ async fn get_comment(
 
     db.comments
         .get(&comment_id)
-        .map(|comment| {
-            let mut web_comment: WfComment = comment.into();
-            web_comment.your_vote = match user {
-                Ok(user) => comment.get_vote_status(&user),
-                Err(_) => VoteStatus::None,
-            };
-            HttpResponse::Ok().json(web_comment)
-        })
+        .map(|comment| HttpResponse::Ok().json(WfComment::from_user_specific(comment, &user)))
         .unwrap_or_else(|| HttpResponse::NotFound().finish())
 }
 
@@ -165,7 +154,7 @@ async fn get_comments(
             db.get_comments_of_distro(&distro_name) // TODO Make more efficient
                 .iter()
                 .skip(range.start.unwrap_or(0))
-                .take(range.end.unwrap_or(usize::MAX))
+                .take(range.amount.unwrap_or(usize::MAX))
                 .map(|comment| WfComment::from_user_specific(comment, &user))
                 .collect::<Vec<WfComment>>(),
         ),
@@ -193,6 +182,7 @@ async fn upvote_comment(
         Err(err) => HttpResponse::BadRequest().body(err),
     }
 }
+
 #[post("/comments/{id}/downvote")]
 async fn downvote_comment(
     req: HttpRequest,

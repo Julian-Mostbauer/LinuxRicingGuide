@@ -1,6 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::models::{Distro, VoteStatus};
+use crate::models::{Distro, User, VoteStatus};
 
 /// The WebFriendlyDistroData struct is used to send data to the frontend.
 /// Its purpose is to provide a simplified view of the Distro struct.
@@ -21,5 +21,14 @@ impl From<&Distro> for WfDistro {
             downvote_count: distro.downvotes.len() as u32,
             your_vote: VoteStatus::default(),
         }
+    }
+}
+
+impl WfDistro{
+    pub fn from_distro_specific(distro: &Distro, user: &User) -> Self {
+        let mut wf_distro: WfDistro = distro.into();
+        wf_distro.your_vote = distro.get_vote_status(&user);
+
+        wf_distro
     }
 }

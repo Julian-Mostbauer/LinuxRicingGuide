@@ -3,6 +3,7 @@ use std::collections::HashMap;
 use std::sync::{Arc, Mutex};
 
 use crate::models::comment::CommentFactory;
+use crate::models::web_friendly::WfDistro;
 use crate::models::{Comment, Distro, User};
 
 #[derive(Deserialize, Serialize, Clone, Debug)]
@@ -103,6 +104,7 @@ impl Db {
                 comment.upvotes.remove(&user);
             }
 
+            // TODO! Implement same changes as for distros
             Ok(has_voted)
         } else {
             Err(format!("Comment {} not found", comment_id))
@@ -122,7 +124,7 @@ impl Db {
         distro_name: &str,
         user: User,
         is_upvote: bool,
-    ) -> Result<bool, String> {
+    ) -> Result<WfDistro, String> {
         if let Some(distro) = self.distros.get_mut(distro_name) {
             let used_vote_storage = if is_upvote {
                 &mut distro.upvotes
@@ -146,17 +148,17 @@ impl Db {
                 distro.upvotes.remove(&user);
             }
 
-            Ok(has_voted)
+            Ok(WfDistro::from_distro_specific(distro, &user))
         } else {
             Err(format!("Distro {} not found", distro_name))
         }
     }
 
-    pub fn upvote_distro(&mut self, distro_name: &str, user: User) -> Result<bool, String> {
+    pub fn upvote_distro(&mut self, distro_name: &str, user: User) -> Result<WfDistro, String> {
         Self::vote_distro(self, distro_name, user, true)
     }
 
-    pub fn downvote_distro(&mut self, distro_name: &str, user: User) -> Result<bool, String> {
+    pub fn downvote_distro(&mut self, distro_name: &str, user: User) -> Result<WfDistro, String> {
         Self::vote_distro(self, distro_name, user, false)
     }
 
