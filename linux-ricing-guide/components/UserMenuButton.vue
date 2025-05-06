@@ -45,9 +45,28 @@
 <script lang="ts" setup>
 import { useAuth0 } from "@auth0/auth0-vue";
 const auth0 = useAuth0();
-const { healthy } = await $fetch("/api/backendHealth");
+import { ref, onMounted, onUnmounted } from "vue";
 
+const healthy = ref(false);
+let intervalId: number | undefined;
 
+const fetchHealth = async () => {
+  try {
+    const res = await $fetch("/api/backendHealth");
+    healthy.value = res.healthy;
+  } catch {
+    healthy.value = false;
+  }
+};
+
+onMounted(() => {
+  fetchHealth();
+  intervalId = window.setInterval(fetchHealth, 10000);
+});
+
+onUnmounted(() => {
+  if (intervalId) clearInterval(intervalId);
+});
 
 // import { onMounted } from "vue";
 
