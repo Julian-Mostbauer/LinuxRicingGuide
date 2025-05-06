@@ -7,7 +7,7 @@ export default defineNuxtConfig({
           auth0Domain: 'integr-0.eu.auth0.com',
           auth0ClientId: 'jqQ95UJyIRnhLTpci9FsyrfgqkNyrptp',
           hostDomain: 'https://example.com',
-            backendHealthEndpoint: 'http://localhost:8080',
+            backendAddress: 'http://localhost:8080',
         }
       },
     compatibilityDate: '2024-11-01',

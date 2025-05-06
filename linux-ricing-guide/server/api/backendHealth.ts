@@ -1,5 +1,5 @@
 export default defineEventHandler(async (event) => {
-  const endPoint: string = useRuntimeConfig().public.backendHealthEndpoint as string
+  const endPoint: string = useRuntimeConfig().public.backendAddress as string
   try {
     const response = await $fetch(endPoint, { timeout: 5000 }) 
     return { healthy: true, data: response }

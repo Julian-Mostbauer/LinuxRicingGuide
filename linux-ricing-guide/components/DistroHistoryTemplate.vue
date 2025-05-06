@@ -31,6 +31,33 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
+import { useAuth0 } from "@auth0/auth0-vue";
+
+const auth0 = useAuth0();
+
+onMounted(async () => {
+  const id = await auth0.getAccessTokenSilently();
+  const res = await $fetch(`/api/dbWrapper/distros/distroInfo`, {
+    method: 'POST',
+    body: {
+      name: 'debian',
+      id: id,
+    },
+  }) as any;
+
+  if(res.data){
+    dynamicData.value = res.data;
+  }
+});
+
+const dynamicData = ref({
+  name: '',
+  upvote_count: -1,
+  downvote_count: -1,
+  your_vote: ''
+});
+
 const container = {
   hidden: { opacity: 0, scale: 0.95 }, // Adjusted to avoid layout shift
   visible: {
