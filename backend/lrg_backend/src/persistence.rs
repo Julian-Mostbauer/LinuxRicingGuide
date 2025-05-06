@@ -44,10 +44,10 @@ fn default_distros() -> HashMap<String, Distro> {
             "elementary".to_string(),
             Distro::new("elementary".to_string()),
         ),
-        ("cent-os".to_string(), Distro::new("cent-os".to_string())),
+        ("cent".to_string(), Distro::new("cent".to_string())),
         ("fedora".to_string(), Distro::new("fedora".to_string())),
         ("void".to_string(), Distro::new("void".to_string())),
-        ("openSUSE".to_string(), Distro::new("openSUSE".to_string())),
+        ("opensuse".to_string(), Distro::new("opensuse".to_string())),
         ("qubes".to_string(), Distro::new("qubes".to_string())),
         (
             "slackware".to_string(),
@@ -77,4 +77,28 @@ fn default_distros() -> HashMap<String, Distro> {
         ("garuda".to_string(), Distro::new("garuda".to_string())),
         ("trisquel".to_string(), Distro::new("trisquel".to_string())),
     ])
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_default_distros_correct_casing() {
+        let distros = default_distros();
+        distros.iter().for_each(|(key, _)| {
+            assert!(key.chars().all(|c| c.is_ascii_alphanumeric() || c == '-'));
+            assert!(key.chars().all(|c| c.is_lowercase() || c == '-'));
+            assert!(!key.contains("-linux"));
+            assert!(!key.contains("-os"));
+        });
+    }
+
+    #[test]
+    fn test_default_distros_share_name_with_key() {
+        let distros = default_distros();
+        distros.iter().for_each(|(key, distro)| {
+            assert_eq!(key, &distro.name);
+        });
+    }
 }
