@@ -1,15 +1,19 @@
-use crate::config::{BACKUP_DIR, DATA_PATH};
+use crate::config::{BACKUP_DIR, DATA_PATH, TIMESTAMP_FORMAT};
 use crate::db::{Db, SharedDb};
 use crate::models::Distro;
-use chrono::Utc;
+use chrono::{DateTime, Utc};
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
 use std::sync::{Arc, Mutex};
 
+fn load_back_up(time: DateTime<Utc>) -> Result<Db, String> {
+    !todo!()
+}
+
 fn back_up_file() -> Result<(), String> {
     let backup_dir = Path::new(BACKUP_DIR);
-    let timestamp = Utc::now().format("%Y%m%d%H%M%S");
+    let timestamp = Utc::now().format(TIMESTAMP_FORMAT);
     let backup_file = backup_dir.join(format!("db_backup_{}.json", timestamp));
 
     fs::copy(DATA_PATH, &backup_file)
@@ -31,7 +35,7 @@ pub fn load_db() -> Result<Db, String> {
 }
 
 pub fn store_db(db: &Db) -> Result<(), String> {
-    let data = serde_json::to_string_pretty(db)
+    let data = serde_json::to_string(db)
         .map_err(|e| format!("Failed to serialize database: {}", e))?;
 
     fs::write(DATA_PATH, data).map_err(|e| format!("Failed to write to file: {}", e))
