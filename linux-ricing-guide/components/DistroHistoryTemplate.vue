@@ -6,7 +6,8 @@
         <GradientOutline circle-width="200px">
           <div class="card bg-base-200 text-base-content p-6 h-full border-primary">
             <section class="h-full flex">
-              <div class="flex flex-col justify-center items-center mr-4 border-r-4" @click="upvote()">
+              <div class="flex flex-col justify-center items-center mr-4 border-r-4" @click="upvote()"
+                :class="{ 'text-primary': dynamicData.your_vote == 'Up' }">
                 {{ dynamicData.upvote_count }}
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 4l-7 8h4v8h6v-8h4z" />
@@ -18,7 +19,8 @@
                 </h2>
                 <p class="text-md flex-grow" v-html="jsonObject.description"></p>
               </div>
-              <div class="flex flex-col justify-center items-center ml-4 border-l-4" @click="downvote()">
+              <div class="flex flex-col justify-center items-center ml-4 border-l-4" @click="downvote()"
+                :class="{ 'text-primary': dynamicData.your_vote == 'Down' }">
                 {{ dynamicData.downvote_count }}
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 20l7-8h-4V4h-6v8H5z" />
