@@ -14,11 +14,22 @@
       <div tabindex="0" role="button" class="btn btn-circle m-0.5 overflow-clip">
         <img :src="auth0.user.value?.picture" alt="Account" class="w-12 h-12 rounded-full" />
       </div>
-      <ul tabindex="0" class="card card-body dropdown-content bg-base-300 rounded-box z-1 p-2 shadow-2xl w-52">
+      <ul tabindex="0" class="card card-body dropdown-content bg-base-300 z-1 p-4 shadow-2xl w-64 text-xl">
         <li>
-          <div class="border-2 border-base-100 shadow-md rounded-full flex items-center gap-2 p-1 text-center">
-            <img :src="auth0.user.value?.picture" alt="Account" class="w-12 h-12 rounded-full" />
-            <p class="text-lg font-bold text-center">{{ auth0.user.value?.name }}</p>
+          <div class="border-2 border-base-100 shadow-md rounded-box flex items-center gap-2 p-1 text-center">
+            <p>
+              Logged in as:
+              <span class="font-bold">{{ auth0.user.value?.name }}</span>
+            </p>
+          </div>
+        </li>
+        <li>
+          <div class="border-2 border-base-100 shadow-md rounded-box flex items-center gap-2 p-1 text-center">
+            <p>
+              Backend Status:
+              <span v-if="healthy" class="text-success">LIVE</span>
+              <span v-else class="text-error">INACTIVE</span>
+            </p>
           </div>
         </li>
         <li>
@@ -34,7 +45,7 @@
 <script lang="ts" setup>
 import { useAuth0 } from "@auth0/auth0-vue";
 const auth0 = useAuth0();
-const {healthy} = await $fetch("/api/backendHealth");
+const { healthy } = await $fetch("/api/backendHealth");
 
 
 
