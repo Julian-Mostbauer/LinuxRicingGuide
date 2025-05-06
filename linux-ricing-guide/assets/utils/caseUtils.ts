@@ -14,4 +14,15 @@ function toHeaderCase(str: string) {
         })
 }
 
-export { toHeaderCase }
+function toBackendCase(str: string){
+    if (str === void 0) str = ''
+    if (!str) return ''
+
+    return String(str)
+    .replace("-", " ")
+    .split(" ")[0]
+    .trim()
+    .toLowerCase()
+}
+
+export { toHeaderCase, toBackendCase }

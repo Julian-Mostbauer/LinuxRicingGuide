@@ -50,16 +50,19 @@
 import { onMounted } from 'vue';
 import { useAuth0 } from "@auth0/auth0-vue";
 import { getUserPartOfUID } from '~/assets/utils/idUtils';
+import { toBackendCase } from '~/assets/utils/caseUtils';
+
 const auth0 = useAuth0();
 const id: Ref<string | null> = ref(null);
 
 onMounted(async () => {
   id.value = await getUserPartOfUID(auth0);
+  console.log(toBackendCase(jsonObject.name));
 
   const res = await $fetch(`/api/dbWrapper/distros/distroInfo`, {
     method: 'POST',
     body: {
-      name: 'debian',
+      name: toBackendCase(jsonObject.name),
       id: id.value,
     },
   }) as any;
@@ -80,7 +83,7 @@ const upvote = async () => {
   const res = await $fetch(`/api/dbWrapper/distros/upvote`, {
     method: 'POST',
     body: {
-      name: 'debian',
+      name: toBackendCase(jsonObject.name),
       id: id.value,
     },
   }) as any;
@@ -93,7 +96,7 @@ const downvote = async () => {
   const res = await $fetch(`/api/dbWrapper/distros/downvote`, {
     method: 'POST',
     body: {
-      name: 'debian',
+      name: toBackendCase(jsonObject.name),
       id: id.value,
     },
   }) as any;
