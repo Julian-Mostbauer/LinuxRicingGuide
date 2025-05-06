@@ -4,7 +4,7 @@ use crate::{
     db::SharedDb,
     models::{
         web_friendly::{WfComment, WfDistro},
-        User, VoteStatus,
+        User,
     },
 };
 

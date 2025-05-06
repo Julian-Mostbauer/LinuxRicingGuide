@@ -34,6 +34,9 @@
 <script lang="ts" setup>
 import { useAuth0 } from "@auth0/auth0-vue";
 const auth0 = useAuth0();
+const {healthy} = await $fetch("/api/backendHealth");
+
+
 
 // import { onMounted } from "vue";
 
