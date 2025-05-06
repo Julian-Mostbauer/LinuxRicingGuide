@@ -36,9 +36,9 @@ pub struct Comment {
 impl Comment {
     pub fn get_vote_status(&self, user: &User) -> VoteStatus {
         if self.upvotes.contains(user) {
-            VoteStatus::Upvoted
+            VoteStatus::Up
         } else if self.downvotes.contains(user) {
-            VoteStatus::Downvoted
+            VoteStatus::Down
         } else {
             VoteStatus::None
         }
