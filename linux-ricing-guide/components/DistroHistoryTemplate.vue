@@ -49,11 +49,13 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { useAuth0 } from "@auth0/auth0-vue";
-
+import { getUserPartOfUID } from '~/assets/utils/idUtils';
 const auth0 = useAuth0();
+const id: Ref<string | null> = ref(null);
 
 onMounted(async () => {
-  const id = await auth0.getAccessTokenSilently();
+  id.value = await getUserPartOfUID(auth0);
+
   const res = await $fetch(`/api/dbWrapper/distros/distroInfo`, {
     method: 'POST',
     body: {
@@ -75,12 +77,11 @@ const dynamicData = ref({
 });
 
 const upvote = async () => {
-  const id = await auth0.getAccessTokenSilently();
   const res = await $fetch(`/api/dbWrapper/distros/upvote`, {
     method: 'POST',
     body: {
       name: 'debian',
-      id: id,
+      id: id.value,
     },
   }) as any;
 
@@ -89,12 +90,11 @@ const upvote = async () => {
   }
 }
 const downvote = async () => {
-  const id = await auth0.getAccessTokenSilently();
   const res = await $fetch(`/api/dbWrapper/distros/downvote`, {
     method: 'POST',
     body: {
       name: 'debian',
-      id: id,
+      id: id.value,
     },
   }) as any;
 
