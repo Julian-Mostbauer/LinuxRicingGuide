@@ -2,6 +2,29 @@
 
 ## Auth
 
+### In our environment
+There is an additional layer of abstraction for all endpoints. There are vue endpoints that wrap the real endpoints. Please use the vue endpoints for all requests.
+
+Example:
+
+```ts
+import { getUserPartOfUID } from '~/assets/utils/idUtils'; // <------ Utils to get the user id
+
+const id = await getUserPartOfUID(auth0); // <--- Check if you need the whole id or just the user part or just the season part
+
+const res = await $fetch(`/api/dbWrapper/distros/distroInfo`, {
+    method: 'POST',
+    body: {
+      name: 'debian',
+      id: id,
+    },
+}) as any;
+```
+
+### In our vue Endpoints
+
+**ONLY WORK ON THEM IF YOU KNOW WHAT YOU ARE DOING**
+
 Users are differentiated by their auth0 sub field, which is an unchanging id for each user
 
 It should be provided in the `X-User-ID` header of any request.

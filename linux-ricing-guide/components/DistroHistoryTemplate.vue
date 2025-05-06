@@ -60,7 +60,7 @@ onMounted(async () => {
     method: 'POST',
     body: {
       name: 'debian',
-      id: id,
+      id: id.value,
     },
   }) as any;
 
