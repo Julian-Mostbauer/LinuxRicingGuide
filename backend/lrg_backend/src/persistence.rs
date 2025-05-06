@@ -1,11 +1,26 @@
-use crate::config::DATA_PATH;
+use crate::config::{BACKUP_DIR, DATA_PATH};
 use crate::db::{Db, SharedDb};
 use crate::models::Distro;
+use chrono::Utc;
 use std::collections::HashMap;
 use std::fs;
+use std::path::Path;
 use std::sync::{Arc, Mutex};
 
+fn back_up_file() -> Result<(), String> {
+    let backup_dir = Path::new(BACKUP_DIR);
+    let timestamp = Utc::now().format("%Y%m%d%H%M%S");
+    let backup_file = backup_dir.join(format!("db_backup_{}.json", timestamp));
+
+    fs::copy(DATA_PATH, &backup_file)
+        .map_err(|e| format!("Failed to copy file for backup: {}", e))?;
+
+    Ok(())
+}
+
 pub fn load_db() -> Result<Db, String> {
+    back_up_file().map_err(|e| format!("Failed to back up file: {}", e))?;
+
     let data = fs::read_to_string(DATA_PATH).map_err(|_| "Failed to read file".to_string())?;
     let mut db = serde_json::from_str::<Db>(&data)
         .map_err(|e| format!("Failed to parse database: {}", e))?;
