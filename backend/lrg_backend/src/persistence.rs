@@ -32,50 +32,48 @@ pub fn init_db() -> SharedDb {
     }
 }
 
+macro_rules! make_distro_w_key {
+    ($key:expr) => {
+        ($key.to_owned(), Distro::new($key.to_owned()))
+    };
+}
+
+macro_rules! make_distros {
+    ( $( $key:expr ),* $(,)? ) => {
+        [
+            $(
+                make_distro_w_key!($key),
+            )*
+        ]
+    };
+}
+
 fn default_distros() -> HashMap<String, Distro> {
-    HashMap::from([
-        ("ubuntu".to_owned(), Distro::new("ubuntu".to_owned())),
-        ("debian".to_string(), Distro::new("debian".to_string())),
-        ("arch".to_string(), Distro::new("arch".to_string())),
-        ("manjaro".to_string(), Distro::new("manjaro".to_string())),
-        ("pop".to_string(), Distro::new("pop".to_string())),
-        ("mint".to_string(), Distro::new("mint".to_string())),
-        (
-            "elementary".to_string(),
-            Distro::new("elementary".to_string()),
-        ),
-        ("cent".to_string(), Distro::new("cent".to_string())),
-        ("fedora".to_string(), Distro::new("fedora".to_string())),
-        ("void".to_string(), Distro::new("void".to_string())),
-        ("opensuse".to_string(), Distro::new("opensuse".to_string())),
-        ("qubes".to_string(), Distro::new("qubes".to_string())),
-        (
-            "slackware".to_string(),
-            Distro::new("slackware".to_string()),
-        ),
-        ("gentoo".to_string(), Distro::new("gentoo".to_string())),
-        ("alpine".to_string(), Distro::new("alpine".to_string())),
-        ("mx".to_string(), Distro::new("mx".to_string())),
-        (
-            "ubuntu-studio".to_string(),
-            Distro::new("ubuntu-studio".to_string()),
-        ),
-        (
-            "parrot-security".to_string(),
-            Distro::new("parrot-security".to_string()),
-        ),
-        ("kali".to_string(), Distro::new("kali".to_string())),
-        (
-            "black-arch".to_string(),
-            Distro::new("black-arch".to_string()),
-        ),
-        ("artix".to_string(), Distro::new("artix".to_string())),
-        (
-            "endeavour".to_string(),
-            Distro::new("endeavour".to_string()),
-        ),
-        ("garuda".to_string(), Distro::new("garuda".to_string())),
-        ("trisquel".to_string(), Distro::new("trisquel".to_string())),
+    HashMap::from(make_distros![
+        "ubuntu",
+        "debian",
+        "arch",
+        "manjaro",
+        "pop",
+        "mint",
+        "elementary",
+        "cent",
+        "fedora",
+        "void",
+        "opensuse",
+        "qubes",
+        "slackware",
+        "gentoo",
+        "alpine",
+        "mx",
+        "ubuntu-studio",
+        "parrot-security",
+        "kali",
+        "black-arch",
+        "artix",
+        "endeavour",
+        "garuda",
+        "trisquel"
     ])
 }
 
@@ -100,5 +98,11 @@ mod tests {
         distros.iter().for_each(|(key, distro)| {
             assert_eq!(key, &distro.name);
         });
+    }
+
+    #[test]
+    fn test_default_distros_correct_amount() {
+        let distros = default_distros();
+        assert_eq!(distros.len(), 24);
     }
 }
