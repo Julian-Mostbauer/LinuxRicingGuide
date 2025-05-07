@@ -1,4 +1,4 @@
-use crate::config::{BACKUP_DIR, DATA_PATH, TIMESTAMP_FORMAT};
+use crate::config::{BACKUP_DIR, BACKUP_PREFIX, DATA_PATH, TIMESTAMP_FORMAT};
 use crate::db::{Db, SharedDb};
 use crate::models::Distro;
 use chrono::{DateTime, Utc};
@@ -7,14 +7,22 @@ use std::fs;
 use std::path::Path;
 use std::sync::{Arc, Mutex};
 
-fn load_back_up(time: DateTime<Utc>) -> Result<Db, String> {
-    !todo!()
+pub fn available_backups() -> Vec<fs::DirEntry> {
+    fs::read_dir(Path::new(BACKUP_DIR))
+        .into_iter()
+        .flatten()
+        .filter_map(|entry| match entry {
+            Ok(f) if f.file_name().to_string_lossy().starts_with(BACKUP_PREFIX) => Some(f),
+            _ => None,
+        })
+        .collect::<Vec<_>>()
 }
 
-fn back_up_file() -> Result<(), String> {
+
+fn back_up_to_file() -> Result<(), String> {
     let backup_dir = Path::new(BACKUP_DIR);
     let timestamp = Utc::now().format(TIMESTAMP_FORMAT);
-    let backup_file = backup_dir.join(format!("db_backup_{}.json", timestamp));
+    let backup_file = backup_dir.join(format!("{}{}.json", BACKUP_PREFIX, timestamp));
 
     fs::copy(DATA_PATH, &backup_file)
         .map_err(|e| format!("Failed to copy file for backup: {}", e))?;
@@ -22,23 +30,27 @@ fn back_up_file() -> Result<(), String> {
     Ok(())
 }
 
-pub fn load_db() -> Result<Db, String> {
-    back_up_file().map_err(|e| format!("Failed to back up file: {}", e))?;
-
-    let data = fs::read_to_string(DATA_PATH).map_err(|_| "Failed to read file".to_string())?;
+pub fn load_db_from_file<P: std::convert::AsRef<std::path::Path>>(path: P) -> Result<Db, String> {
+    let data = fs::read_to_string::<P>(path).map_err(|_| "Failed to read file".to_string())?;
     let mut db = serde_json::from_str::<Db>(&data)
         .map_err(|e| format!("Failed to parse database: {}", e))?;
 
     db.update_factory();
-
     Ok(db)
 }
 
-pub fn store_db(db: &Db) -> Result<(), String> {
-    let data = serde_json::to_string(db)
-        .map_err(|e| format!("Failed to serialize database: {}", e))?;
+pub fn load_db() -> Result<Db, String> {
+    load_db_from_file(DATA_PATH)
+}
 
-    fs::write(DATA_PATH, data).map_err(|e| format!("Failed to write to file: {}", e))
+pub fn store_db(db: &Db) -> Result<(), String> {
+    fs::write(
+        DATA_PATH,
+        serde_json::to_string(db).map_err(|e| format!("Failed to serialize database: {}", e))?,
+    )
+    .map_err(|e| format!("Failed to write to file: {}", e))?;
+
+    back_up_to_file().map_err(|e| format!("Failed to back up file: {}", e))
 }
 
 pub fn init_db() -> SharedDb {
