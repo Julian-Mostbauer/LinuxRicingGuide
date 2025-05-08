@@ -54,6 +54,7 @@ const fetchHealth = async () => {
   try {
     const res = await $fetch("/api/backendHealth");
     healthy.value = res.healthy;
+    window.localStorage.setItem("backendHealth", JSON.stringify(res.healthy));
   } catch {
     healthy.value = false;
   }
