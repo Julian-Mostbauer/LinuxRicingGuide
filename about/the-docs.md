@@ -8,12 +8,12 @@ Goal of the docs is to provide the **'how'** part of the project. It will provid
 
 How to pick the right..
 
-- distro
-- Desktop Environment DE
-- Window Manager WM
-- Package Manager
-- Shell
-- Terminal
-     - Terminal Themes
+- [x] distro
+- [x] Desktop Environment DE
+- [ ] Window Manager WM
+- [ ] Package Manager
+- [ ] Shell
+- [x] Terminal
+     - [x] Terminal Themes 
 
 all will be completed with **installation guides** and tips.
