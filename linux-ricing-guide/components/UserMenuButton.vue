@@ -16,21 +16,11 @@
       </div>
       <ul tabindex="0" class="card card-body dropdown-content bg-base-300 z-1 p-4 shadow-2xl w-64 text-xl">
         <li>
-          <div class="border-2 border-base-100 shadow-md rounded-box flex items-center gap-2 p-1 text-center">
-            <p>
-              Logged in as:
+            <p class="text-center">
+              Welcome back,
+              <br>
               <span class="font-bold">{{ auth0.user.value?.name }}</span>
             </p>
-          </div>
-        </li>
-        <li>
-          <div class="border-2 border-base-100 shadow-md rounded-box flex items-center gap-2 p-1 text-center">
-            <p>
-              Backend Status:
-              <span v-if="healthy" class="text-success">LIVE</span>
-              <span v-else class="text-error">INACTIVE</span>
-            </p>
-          </div>
         </li>
         <li>
           <div class="btn btn-error justify-start m-1 p-1 text-center w-full" @click="logout()">
@@ -46,28 +36,6 @@
 import { useAuth0 } from "@auth0/auth0-vue";
 const auth0 = useAuth0();
 import { ref, onMounted, onUnmounted } from "vue";
-
-const healthy = ref(false);
-let intervalId: number | undefined;
-
-const fetchHealth = async () => {
-  try {
-    const res = await $fetch("/api/backendHealth");
-    healthy.value = res.healthy;
-    window.localStorage.setItem("backendHealth", JSON.stringify(res.healthy));
-  } catch {
-    healthy.value = false;
-  }
-};
-
-onMounted(() => {
-  fetchHealth();
-  intervalId = window.setInterval(fetchHealth, 10000);
-});
-
-onUnmounted(() => {
-  if (intervalId) clearInterval(intervalId);
-});
 
 // import { onMounted } from "vue";
 
