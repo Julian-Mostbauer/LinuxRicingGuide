@@ -100,7 +100,7 @@ export default defineComponent({
 
     calculatePositions(node: Node, depth: number, angle: number, parentNode?: TreeNode): TreeNode {
       const baseClusterRadius = 200;
-      const extraRadiusIfHasChildren = Math.max(node.Children.length - 1, 0) * 20;
+      const extraRadiusIfHasChildren = Math.max(node.Children.length - 1, 0) * 60;
       const clusterRadius = baseClusterRadius + extraRadiusIfHasChildren;
 
       let nodeX = parentNode ? parentNode.x + Math.cos(angle * Math.PI / 180) * clusterRadius : 0;
@@ -156,9 +156,11 @@ export default defineComponent({
         let childAngle = baseAngleOffset + angle - totalArc / 2;
 
         for (const child of node.Children) {
-          const childNode = this.calculatePositions(child, depth + 1, childAngle, radialPosition);
+          // Add extra spacing if the child has children
+          const extraSpacing = child.Children.length > 0 ? spreadAngle / 2 : 0;
+          const childNode = this.calculatePositions(child, depth + 1, childAngle + extraSpacing, radialPosition);
           radialPosition.children.push(childNode);
-          childAngle += spreadAngle;
+          childAngle += spreadAngle + extraSpacing;
         }
       }
 
