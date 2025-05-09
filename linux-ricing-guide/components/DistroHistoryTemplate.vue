@@ -51,6 +51,7 @@ import { onMounted } from 'vue';
 import { useAuth0 } from "@auth0/auth0-vue";
 import { getUserPartOfUID } from '~/assets/utils/idUtils';
 import { toBackendCase } from '~/assets/utils/caseUtils';
+import IntervalManager from '~/assets/utils/intervalManager';
 
 const auth0 = useAuth0();
 const id: Ref<string | null> = ref(null);
@@ -64,14 +65,14 @@ const fetchHealth = async () => {
   }
 };
 
-let intervalId: number | undefined;
+let intervalManager = new IntervalManager();
 
 onMounted(async () => {
   id.value = await getUserPartOfUID(auth0);
 
   fetchHealth();
-  intervalId = window.setInterval(fetchHealth, 10000);
-
+  intervalManager.start(fetchHealth, 10000);
+  
   const res = await $fetch(`/api/dbWrapper/distros/distroInfo`, {
     method: 'POST',
     body: {
@@ -86,7 +87,7 @@ onMounted(async () => {
 });
 
 onUnmounted(() => {
-  if (intervalId) clearInterval(intervalId);
+  intervalManager.stop();
 });
 
 const dynamicData = ref({
