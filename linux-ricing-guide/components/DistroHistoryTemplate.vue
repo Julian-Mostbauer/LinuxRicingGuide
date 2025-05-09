@@ -49,7 +49,7 @@
 <script setup lang="ts">
 import { onMounted } from 'vue';
 import { useAuth0 } from "@auth0/auth0-vue";
-import { getUserPartOfUID } from '~/assets/utils/idUtils';
+import { getUserID } from '~/assets/utils/idUtils';
 import { toBackendCase } from '~/assets/utils/caseUtils';
 import IntervalManager from '~/assets/utils/intervalManager';
 
@@ -68,7 +68,7 @@ const fetchHealth = async () => {
 let intervalManager = new IntervalManager();
 
 onMounted(async () => {
-  id.value = await getUserPartOfUID(auth0);
+  id.value = await getUserID(auth0);
 
   fetchHealth();
   intervalManager.start(fetchHealth, 10000);

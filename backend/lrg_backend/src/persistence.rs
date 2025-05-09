@@ -1,7 +1,7 @@
 use crate::config::{BACKUP_DIR, BACKUP_PREFIX, DATA_PATH, TIMESTAMP_FORMAT};
 use crate::db::{Db, SharedDb};
 use crate::models::Distro;
-use chrono::{DateTime, Utc};
+use chrono::Utc;
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
