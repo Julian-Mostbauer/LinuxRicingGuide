@@ -53,7 +53,7 @@ const closeNav = () => {
 
 const calculateGraphHeight = () => {
   const windowHeight = window.innerHeight;
-  return windowHeight - 150; // Adjust for margins
+  return windowHeight - 100; // Adjust for margins
 
 };
 

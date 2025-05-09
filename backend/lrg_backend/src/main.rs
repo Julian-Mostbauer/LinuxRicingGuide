@@ -1,8 +1,10 @@
 mod config;
+mod db;
 mod endpoints;
 mod models;
 mod persistence;
 mod tui;
+mod auth0_integration;
 
 use actix_web::{web, App, HttpServer};
 

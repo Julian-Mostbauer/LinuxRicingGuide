@@ -16,10 +16,9 @@
         <g v-for="(node, index) in allNodes" :key="'node-' + index" :transform="`translate(${node.x},${node.y})`">
           <NuxtLink :to="node.link" class="node-link">
             <rect :x="!node.parent ? -60 : node.children.length == 0 ? -45 : -50"
-                  :y="!node.parent ? -60 : node.children.length == 0 ? -45 : -50"
-                  :width="!node.parent ? 120 : node.children.length == 0 ? 90 : 100"
-                  :height="!node.parent ? 120 : node.children.length == 0 ? 90 : 100"
-                  class="node-circle mask mask-squircle"
+              :y="!node.parent ? -60 : node.children.length == 0 ? -45 : -50"
+              :width="!node.parent ? 120 : node.children.length == 0 ? 90 : 100"
+              :height="!node.parent ? 120 : node.children.length == 0 ? 90 : 100" class="node-circle mask mask-squircle"
               @click="() => { toggleNode(node); closeNav(); }" />
           </NuxtLink>
           <text class="node-text"
@@ -76,7 +75,7 @@ export default defineComponent({
     return {
       allNodes: [] as TreeNode[],
       connections: [] as Array<{ path: string }>,
-      radius: 150,
+      radius: 15,
       angleStep: 45,
       isPanning: false,
       startPanPosition: { x: 0, y: 0 },
@@ -100,12 +99,12 @@ export default defineComponent({
     },
 
     calculatePositions(node: Node, depth: number, angle: number, parentNode?: TreeNode): TreeNode {
-      const baseClusterRadius = 200
-      const extraRadiusIfHasChildren = Math.max(node.Children.length - 1, 0) * 20
-      const clusterRadius = baseClusterRadius + extraRadiusIfHasChildren
+      const baseClusterRadius = 200;
+      const extraRadiusIfHasChildren = Math.max(node.Children.length - 1, 0) * 20;
+      const clusterRadius = baseClusterRadius + extraRadiusIfHasChildren;
 
-      const nodeX = parentNode ? parentNode.x + Math.cos(angle * Math.PI / 180) * clusterRadius : 0
-      const nodeY = parentNode ? parentNode.y + Math.sin(angle * Math.PI / 180) * clusterRadius : 0
+      let nodeX = parentNode ? parentNode.x + Math.cos(angle * Math.PI / 180) * clusterRadius : 0;
+      let nodeY = parentNode ? parentNode.y + Math.sin(angle * Math.PI / 180) * clusterRadius : 0;
 
       const radialPosition: TreeNode = {
         x: nodeX,
@@ -114,43 +113,57 @@ export default defineComponent({
         link: node.Value?.path || '/',
         children: [],
         parent: parentNode,
-        expanded: true
-      }
+        expanded: true,
+      };
 
-      this.allNodes.push(radialPosition)
+      // Resolve collisions
+      const pushRadius = this.radius * 11;
+      for (const existingNode of this.allNodes) {
+        const dx = radialPosition.x - existingNode.x;
+        const dy = radialPosition.y - existingNode.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
 
-      if (parentNode) {
-        this.connections.push({
-          path: this.createConnectionPath(parentNode, radialPosition)
-        })
-      }
+        if (distance < pushRadius) {
+          const overlap = pushRadius - distance;
+          const angleToExistingNode = Math.atan2(dy, dx);
 
-      const childCount = node.Children.length
-      if (childCount > 0) {
-        // Use a narrower spread for small clusters
-        const totalArc = childCount <= 3 ? 120 : childCount <= 6 ? 180 : 330
-        const spreadAngle = totalArc / (childCount || 1)
-
-        let baseAngleOffset =
-          (parentNode?.x === undefined || parentNode?.y === undefined)
-            ? 0
-            : Math.atan2(parentNode.y - nodeY, parentNode.x - nodeX) * 180 / Math.PI
-
-        baseAngleOffset = (baseAngleOffset + 360) % 360 // Normalize angle to [0, 360)
-
-        let childAngle = baseAngleOffset + angle - (totalArc / 2)
-
-        for (const child of node.Children) {
-          const childNode = this.calculatePositions(child, depth + 1, childAngle, radialPosition)
-          radialPosition.children.push(childNode)
-          childAngle += spreadAngle
+          // Push the node away
+          radialPosition.x += Math.cos(angleToExistingNode) * overlap;
+          radialPosition.y += Math.sin(angleToExistingNode) * overlap;
         }
       }
 
+      this.allNodes.push(radialPosition);
 
-      return radialPosition
+      if (parentNode) {
+        this.connections.push({
+          path: this.createConnectionPath(parentNode, radialPosition),
+        });
+      }
+
+      const childCount = node.Children.length;
+      if (childCount > 0) {
+        const totalArc = childCount <= 3 ? 120 : childCount <= 6 ? 180 : 330;
+        const spreadAngle = totalArc / (childCount || 1);
+
+        let baseAngleOffset =
+          parentNode?.x === undefined || parentNode?.y === undefined
+            ? 0
+            : (Math.atan2(parentNode.y - nodeY, parentNode.x - nodeX) * 180) / Math.PI;
+
+        baseAngleOffset = (baseAngleOffset + 360) % 360; // Normalize angle to [0, 360)
+
+        let childAngle = baseAngleOffset + angle - totalArc / 2;
+
+        for (const child of node.Children) {
+          const childNode = this.calculatePositions(child, depth + 1, childAngle, radialPosition);
+          radialPosition.children.push(childNode);
+          childAngle += spreadAngle;
+        }
+      }
+
+      return radialPosition;
     },
-
 
     createConnectionPath(start: TreeNode, end: TreeNode): string {
       return `M ${start.x} ${start.y} Q ${(start.x + end.x) / 2} ${(start.y + end.y) / 2} ${end.x} ${end.y}`
@@ -259,7 +272,7 @@ export default defineComponent({
   scale: 1.2;
 }
 
-g:hover > .node-text {
+g:hover>.node-text {
   fill: var(--color-base-100);
 }
 

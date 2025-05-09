@@ -14,4 +14,15 @@ function toHeaderCase(str: string) {
         })
 }
 
-export { toHeaderCase }
+function toBackendCase(str: string){
+    if (str === void 0) str = ''
+    if (!str) return ''
+
+    return String(str)
+    .replace("-linux", "")
+    .replace("-os", "")
+    .trim()
+    .toLowerCase()
+}
+
+export { toHeaderCase, toBackendCase }

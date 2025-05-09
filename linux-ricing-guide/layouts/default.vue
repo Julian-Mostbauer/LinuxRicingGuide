@@ -1,10 +1,37 @@
 <template>
+  <div
+    class="fixed z-100 bottom-4 right-4 transform bg-base-200 p-4 rounded-xl flex items-center outline-error outline-2 hover:cursor-pointer hover:bg-base-100"
+    v-if="!healthy" @click="() => { showWarn() }">
+    <div class="inline-grid *:[grid-area:1/1] mr-2">
+      <div class="status status-error animate-ping"></div>
+      <div class="status status-error"></div>
+    </div>
+    <p class="text-error text-xl">Backend is disconnected</p>
+  </div>
+  <dialog id="health_warn" class="modal">
+    <div class="modal-box outline-error outline-2">
+      <form method="dialog">
+        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+      </form>
+      <div class="flex items-center text-error">
+        <div class="inline-grid *:[grid-area:1/1] mr-2">
+          <DynamicIcon :names="{ 'default': 'triangle-exclamation' }" :size="22" class="mr-2 animate-ping" />
+          <DynamicIcon :names="{ 'default': 'triangle-exclamation' }" :size="22" class="mr-2" />
+        </div>
+        <h3 class="text-lg font-bold">Warning!</h3>
+      </div>
+
+      <p class="py-4">No connection to the backend server could be established. Please note that some parts and some
+        functionality of the website may be unavailable at this time.</p>
+    </div>
+  </dialog>
   <div class="background overflow-clip">
     <AppNavbar />
     <div ref="content">
       <slot />
     </div>
   </div>
+
 </template>
 
 <style scoped>
@@ -20,6 +47,32 @@ import { useRoute } from "#vue-router";
 import { ref, watch } from "vue";
 import { toHeaderCase } from "assets/utils/caseUtils";
 import { createAuth0 } from "@auth0/auth0-vue";
+
+const healthy = ref(false);
+
+const fetchHealth = async () => {
+  try {
+    const res = await $fetch("/api/backendHealth");
+    healthy.value = res.healthy;
+    window.localStorage.setItem("backendHealth", JSON.stringify(res.healthy));
+  } catch {
+    healthy.value = false;
+  }
+};
+
+// @ts-ignore // ignore undefined value for health_warn
+const showWarn = () => health_warn.showModal();
+
+let intervalManager = new IntervalManager();
+
+onMounted(() => {
+  intervalManager.start(fetchHealth, 10000);
+  fetchHealth();
+});
+
+onUnmounted(() => {
+  intervalManager.stop();
+});
 
 const route = useRoute()
 
@@ -39,6 +92,7 @@ nxt.vueApp.use(
 );
 
 import { onMounted } from 'vue'
+import IntervalManager from "~/assets/utils/intervalManager";
 
 const content = ref<HTMLElement | null>(null)
 
@@ -50,8 +104,8 @@ function highlightText(node: Node, word: string): void {
     if (regex.test(node.textContent)) {
       const spanWrapper = document.createElement('span')
       spanWrapper.innerHTML = node.textContent.replace(
-          regex,
-          '<span class="bg-accent">$1</span>'
+        regex,
+        '<span class="bg-accent">$1</span>'
       )
 
       const parent = node.parentNode
@@ -85,15 +139,15 @@ onMounted(() => {
   }
 })
 watch(
-    () => route.query.q,
-    async (q) => {
-      const keyword = typeof q === 'string' ? q.trim() : ''
-      if (content.value && keyword) {
-        // Wait until slot content is rendered
-        await nextTick()
-        highlightText(content.value, keyword)
-      }
-    },
-    { immediate: true }
+  () => route.query.q,
+  async (q) => {
+    const keyword = typeof q === 'string' ? q.trim() : ''
+    if (content.value && keyword) {
+      // Wait until slot content is rendered
+      await nextTick()
+      highlightText(content.value, keyword)
+    }
+  },
+  { immediate: true }
 )
 </script>
