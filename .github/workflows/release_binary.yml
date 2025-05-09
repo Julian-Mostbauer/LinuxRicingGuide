@@ -25,7 +25,7 @@ jobs:
 
       # Step 3: Build the binary
       - name: Build binary
-        run: cargo build --release
+        run: cd backend/lrg_backend && cargo build --release
 
       # Step 4: Create a release (if triggered manually)
       - name: Create Release
@@ -46,6 +46,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ github.event.release.upload_url || github.event.inputs.upload_url }}
-          asset_path: target/release/<your-binary-name>
-          asset_name: <your-binary-name>
+          asset_path: target/release/lrg_backend
+          asset_name: lrg_backend
           asset_content_type: application/octet-stream
