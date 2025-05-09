@@ -4,7 +4,7 @@ on:
   push:
     tags:
       - 'v*' # Trigger workflow on version tags (e.g., v1.0.0)
-    workflow_dispatch: # Allow manual trigger
+  workflow_dispatch: # Allow manual triggering of the workflow
 
 jobs:
   build:
@@ -27,28 +27,25 @@ jobs:
       - name: Build binary
         run: cargo build --release
 
-      # Step 4: Upload the binary as a release asset
-      - name: Upload Release Asset
-        uses: actions/upload-release-asset@v1
-        with:
-          upload_url: ${{ github.event.release.upload_url }}
-          asset_path: target/release/lrg_backend
-          asset_name: lrg_backend
-          asset_content_type: application/octet-stream
-
-  create-release:
-    name: Create GitHub Release
-    needs: build
-    runs-on: ubuntu-latest
-
-    steps:
-      # Step 1: Create a release
+      # Step 4: Create a release (if triggered manually)
       - name: Create Release
+        if: github.event_name == 'workflow_dispatch'
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name || 'manual-release' }}
+          release_name: Release ${{ github.ref_name || 'manual-release' }}
           draft: false
           prerelease: false
+
+      # Step 5: Upload the binary as a release asset
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url || github.event.inputs.upload_url }}
+          asset_path: target/release/<your-binary-name>
+          asset_name: <your-binary-name>
+          asset_content_type: application/octet-stream
