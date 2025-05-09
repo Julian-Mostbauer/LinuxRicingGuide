@@ -1,0 +1,26 @@
+{
+  "name": "Fedora",
+  "description": "Fedora is a cutting-edge, community-driven Linux distribution sponsored by Red Hat. Known for featuring the latest open-source technologies, Fedora serves as the upstream source for Red Hat Enterprise Linux (RHEL). It prioritizes innovation, freedom, and strong community involvement.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "Fedora was created in 2003 as the successor to Red Hat Linux after Red Hat shifted focus to its enterprise product line. The Fedora Project was established to provide a community-supported, rapidly evolving distribution with frequent release cycles."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "Fedora quickly became known for introducing new technologies early, such as systemd, Wayland, and PipeWire. The project is structured around editions—Workstation, Server, and IoT—each tailored to different use cases, with Workstation being the most popular desktop variant."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "Today, Fedora is a leading Linux distribution used by developers, enthusiasts, and professionals who want access to the latest free software. It is updated regularly, with each version supported for about 13 months, and continues to serve as the innovation platform for Red Hat technologies."
+    },
+    {
+      "title": "Upstream Role and Philosophy",
+      "icon": "arrow-up-right",
+      "text": "Fedora acts as the upstream testing and development ground for Red Hat Enterprise Linux (RHEL), meaning new features land in Fedora first. It emphasizes open governance, free software, and rapid innovation while maintaining stability for developers and power users."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "Linux Mint",
+  "description": "Linux Mint is a community-driven Linux distribution based on Ubuntu (and sometimes Debian), designed to be easy to use, stable, and elegant. It was first released in 2006 by Clement Lefebvre and has become one of the most popular desktop Linux distributions.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "Linux Mint started as an Ubuntu-based distribution with proprietary media codecs pre-installed, catering to users who wanted a more complete out-of-the-box desktop experience. It quickly gained popularity among new Linux users."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "Over time, Linux Mint developed its own desktop environments—Cinnamon, MATE, and Xfce—each focusing on usability and performance. Cinnamon, the flagship environment, was created from a fork of GNOME 3 to preserve the traditional desktop metaphor."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "Linux Mint remains one of the top Linux distributions for desktops. It is known for its stability, user-friendliness, and a commitment to not making disruptive UI changes. Mint provides long-term support releases and receives continuous improvements."
+    },
+    {
+      "title": "User-Centric Philosophy",
+      "icon": "user",
+      "text": "Linux Mint is focused on providing a consistent and pleasant experience for desktop users. The project emphasizes simplicity, performance, and familiarity, making it ideal for people switching from Windows or macOS."
+    }
+  ]
+}

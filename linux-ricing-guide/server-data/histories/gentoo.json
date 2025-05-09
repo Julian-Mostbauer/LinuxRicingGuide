@@ -1,0 +1,26 @@
+{
+  "name": "Gentoo",
+  "description": "Gentoo is a source-based Linux distribution known for its extreme configurability, performance optimization, and flexibility. It uses the Portage package system and allows users to compile everything from source with custom options.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "Gentoo was founded by Daniel Robbins in 2000. It was inspired by the FreeBSD ports system and designed to give users maximum control over their system environment."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "Gentoo introduced Portage, a powerful package management system that uses ebuild scripts and user-defined compile flags (USE flags) to tailor software builds to individual needs."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "Gentoo remains popular among advanced users and developers who need granular control over performance and dependencies. It has an active community and regular updates."
+    },
+    {
+      "title": "Compile-Time Optimization",
+      "icon": "gauge",
+      "text": "Gentoo's hallmark is that software is built from source with user-defined optimization settings. This allows fine-tuned performance tailored to specific hardware and use cases."
+    }
+  ]
+}

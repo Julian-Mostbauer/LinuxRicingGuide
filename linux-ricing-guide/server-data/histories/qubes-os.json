@@ -1,0 +1,26 @@
+{
+  "name": "Qubes OS",
+  "description": "Qubes OS is a security-focused Linux distribution that uses virtualization to isolate different tasks into secure compartments called qubes. It is based on Fedora but also supports Debian, Whonix, and others as template OSes.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "Qubes OS began in 2012 as a project by security expert Joanna Rutkowska, aiming to provide a desktop OS designed for extreme security through compartmentalization."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "Qubes OS evolved into a fully compartmentalized system using Xen-based virtualization to isolate applications and operating environments into disposable or persistent virtual machines."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "Qubes is actively maintained and used by journalists, activists, and security professionals. It remains one of the most security-focused operating systems available."
+    },
+    {
+      "title": "Security Model",
+      "icon": "shield-check",
+      "text": "Qubes OS enforces strong isolation using lightweight VMs for different activities. Even if one qube is compromised, the others remain unaffected, adhering to the security-through-compartmentalization model."
+    }
+  ]
+}
