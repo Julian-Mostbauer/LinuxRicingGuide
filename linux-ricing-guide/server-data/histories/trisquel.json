@@ -1,0 +1,26 @@
+{
+  "name": "Trisquel",
+  "description": "Trisquel is a fully free GNU/Linux distribution based on Ubuntu, endorsed by the Free Software Foundation. It removes all non-free software, firmware, and drivers.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "Trisquel was launched in 2007 with support from the University of Vigo, aiming to provide a fully free alternative to Ubuntu."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "Trisquel built a niche user base focused on software freedom. It includes only free software components and uses Abrowser, a de-branded version of Firefox, as its web browser."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "Trisquel is maintained by a small team and endorsed by the Free Software Foundation. It is used in environments that require strict adherence to software freedom principles."
+    },
+    {
+      "title": "100% Free Software Mission",
+      "icon": "handshake",
+      "text": "Trisquel removes proprietary drivers, blobs, and software, focusing on ethical computing and supporting users who value digital freedom above all else."
+    }
+  ]
+}

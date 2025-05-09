@@ -1,0 +1,26 @@
+{
+  "name": "CentOS",
+  "description": "CentOS (Community ENTerprise Operating System) was a Linux distribution designed to provide a free, enterprise-class, community-supported computing platform compatible with Red Hat Enterprise Linux (RHEL). It was first released in 2004 and became widely used in server environments.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "CentOS was created to provide a free alternative to Red Hat Enterprise Linux by recompiling its source code. From its early days, it gained popularity in server deployments due to its stability and long support cycles."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "CentOS grew into one of the most used server operating systems. It was known for its binary compatibility with RHEL, which made it an ideal choice for organizations needing enterprise-level reliability without licensing fees."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "In December 2020, Red Hat announced a shift in focus to CentOS Stream, a rolling-release distribution that sits just ahead of RHEL. Traditional CentOS (CentOS Linux) reached end-of-life in 2021, prompting many users to migrate to alternatives like AlmaLinux or Rocky Linux."
+    },
+    {
+      "title": "CentOS Stream Transition",
+      "icon": "shuffle",
+      "text": "CentOS Stream now serves as a preview of what's next in RHEL, allowing developers and contributors to see and influence upcoming changes. While it's still maintained by Red Hat, it no longer serves the same role as the old CentOS for production environments."
+    }
+  ]
+}

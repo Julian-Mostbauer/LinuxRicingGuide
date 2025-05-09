@@ -1,0 +1,26 @@
+{
+  "name": "BlackArch Linux",
+  "description": "BlackArch is an Arch Linux-based penetration testing distribution for security researchers and ethical hackers. It includes thousands of tools organized into categories.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "BlackArch was launched in 2013 as an unofficial Arch spin focused on cybersecurity, designed to be lightweight, modular, and comprehensive."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "The distro expanded its repository to include over 2,800 tools for penetration testing and security research, which can be installed individually or in groups."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "BlackArch is continuously updated and maintained by a global community. It is available as a live ISO or as a repository for existing Arch installs."
+    },
+    {
+      "title": "Modular Tool Integration",
+      "icon": "tools",
+      "text": "BlackArch allows users to install specific categories of tools without bloating the system, making it ideal for tailored security setups."
+    }
+  ]
+}

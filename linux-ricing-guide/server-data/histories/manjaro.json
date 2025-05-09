@@ -1,0 +1,26 @@
+{
+  "name": "Manjaro",
+  "description": "Manjaro is a user-friendly Linux distribution based on the Arch operating system. It was first released in July 2011 by Roland Singer, Guillaume Benoit, and Philip Müller. Manjaro aims to provide all the power of Arch Linux with a more accessible and easier-to-use interface.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "In its early years, Manjaro began as a project to make Arch Linux more user-friendly. The initial releases focused on simplifying the installation process and providing a pre-configured desktop environment."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "Manjaro quickly gained popularity due to its balance of performance, simplicity, and rolling release model. The project introduced tools like the Manjaro Settings Manager, MHWD (Manjaro Hardware Detection), and an intuitive installer, making it ideal for new Linux users while retaining power for advanced users."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "Today, Manjaro is one of the most popular Linux distributions. It is available in multiple desktop editions such as XFCE, KDE, and GNOME, and has an active community. Despite being based on Arch, Manjaro maintains its own repositories to ensure stability and reliability."
+    },
+    {
+      "title": "Relation to Arch Linux",
+      "icon": "link",
+      "text": "While Manjaro is based on Arch Linux, it is not Arch itself. It delays package updates for additional testing, includes graphical interfaces for package management, and aims to provide a stable and user-friendly out-of-the-box experience."
+    }
+  ]
+}
