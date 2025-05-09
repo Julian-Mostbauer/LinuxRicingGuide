@@ -1,6 +1,5 @@
 <template>
-  <div
-    class="fixed z-100 bottom-4 right-4 transform bg-base-200 p-4 rounded-xl flex items-center outline-error outline-2 hover:cursor-pointer hover:bg-base-100"
+  <div class="fixed z-100 bottom-4 right-4 transform bg-base-200 p-4 rounded-xl flex items-center outline-error outline-2 hover:cursor-pointer hover:bg-base-100"
     v-if="!healthy" @click="() => { showWarn() }">
     <div class="inline-grid *:[grid-area:1/1] mr-2">
       <div class="status status-error animate-ping"></div>
@@ -23,6 +22,9 @@
 
       <p class="py-4">No connection to the backend server could be established. Please note that some parts and some
         functionality of the website may be unavailable at this time.</p>
+      <form method="dialog">
+        <button class="btn btn-error" @click="() => {fetchHealth()}">Refresh</button>
+      </form>
     </div>
   </dialog>
   <div class="background overflow-clip">
@@ -66,12 +68,7 @@ const showWarn = () => health_warn.showModal();
 let intervalManager = new IntervalManager();
 
 onMounted(() => {
-  intervalManager.start(fetchHealth, 10000);
   fetchHealth();
-});
-
-onUnmounted(() => {
-  intervalManager.stop();
 });
 
 const route = useRoute()
