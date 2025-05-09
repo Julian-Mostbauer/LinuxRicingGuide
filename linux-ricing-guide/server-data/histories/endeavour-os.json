@@ -1,0 +1,26 @@
+{
+  "name": "EndeavourOS",
+  "description": "EndeavourOS is a user-friendly Arch-based Linux distribution that aims to ease the installation and setup of a fully customizable Arch environment.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "EndeavourOS was launched in 2019 as the spiritual successor to Antergos, following its discontinuation. It sought to simplify Arch installation without hiding its complexity."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "EndeavourOS grew rapidly thanks to its strong community, graphical installer (Calamares), and friendly documentation while remaining close to pure Arch."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "EndeavourOS is now a leading Arch-based distro for users who want an accessible entry point to Arch with the freedom to customize everything."
+    },
+    {
+      "title": "Arch Without Hassle",
+      "icon": "rocket",
+      "text": "EndeavourOS bridges the gap between user-friendliness and Arch power by offering preconfigured desktop environments and a guided installation process."
+    }
+  ]
+}
