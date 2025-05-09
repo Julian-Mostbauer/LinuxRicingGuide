@@ -1,7 +1,8 @@
 use actix_web::HttpRequest;
 use serde::{Deserialize, Serialize};
+use std::hash::{Hash, Hasher};
 
-#[derive(Deserialize, Serialize, Clone, Debug, Eq, Hash)]
+#[derive(Deserialize, Serialize, Clone, Debug, Eq)]
 pub struct User {
     /// The auth0 sub field is used as a unique identifier for the user.
     /// <br>Primary Key of struct
@@ -37,8 +38,10 @@ impl PartialEq for User {
     fn eq(&self, other: &Self) -> bool {
         self.id == other.id
     }
+}
 
-    fn ne(&self, other: &Self) -> bool {
-        !self.eq(other)
+impl Hash for User {
+    fn hash<H: Hasher>(&self, state: &mut H) {
+        self.id.hash(state);
     }
 }

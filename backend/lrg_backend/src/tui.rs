@@ -1,4 +1,7 @@
-use crate::{db::SharedDb, persistence::store_db};
+use crate::{
+    db::SharedDb,
+    persistence::{available_backups, load_db_from_file, store_db},
+};
 use std::io::{self, Write};
 
 #[macro_export]
@@ -70,13 +73,46 @@ fn behavior_save(db: &SharedDb) {
     }
 }
 
+fn read_valid_num(lower: usize, upper: usize) -> usize {
+    loop {
+        print!("Enter a number ({}-{}): ", lower, upper);
+        io::stdout().flush().unwrap();
+
+        let mut input = String::new();
+        if io::stdin().read_line(&mut input).is_err() {
+            println!("Failed to read input. Try again.");
+            continue;
+        }
+
+        match input.trim().parse::<usize>() {
+            Ok(num) if num >= lower && num <= upper => return num,
+            _ => println!(
+                "Invalid input. Please enter a number between {} and {}.",
+                lower, upper
+            ),
+        }
+    }
+}
+
 fn behavior_rollback(db: &SharedDb) {
-    println!("Rolling back to last saved state...");
+    println!("Available states:");
 
-    let mut db = db.lock().unwrap();
+    let available_backups = available_backups();
+    let backup_names: Vec<String> = available_backups
+        .iter()
+        .filter_map(|e| e.file_name().into_string().ok())
+        .collect();
 
-    match crate::persistence::load_db() {
+    for (i, name) in backup_names.iter().enumerate() {
+        println!("  {}: {}", i + 1, name);
+    }
+
+    let selected_idx = read_valid_num(1, backup_names.len()) - 1;
+    let selected_path = available_backups.get(selected_idx).unwrap();
+
+    match load_db_from_file(selected_path.path()) {
         Ok(new_db) => {
+            let mut db = db.lock().unwrap();
             db.clone_from(&new_db);
             println!("Rolled back to last saved state successfully")
         }
