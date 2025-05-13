@@ -14,15 +14,22 @@ function toHeaderCase(str: string) {
         })
 }
 
-function toBackendCase(str: string){
+function toBackendCase(str: string) {
     if (str === void 0) str = ''
     if (!str) return ''
 
+    console.log("Before: ", str)
+
     return String(str)
-    .replace("-linux", "")
-    .replace("-os", "")
-    .trim()
-    .toLowerCase()
+        .toLowerCase()
+        .replace("-linux", "")
+        .replace(" linux", "")
+        .replace("-os", "")
+        .replace("os", "")
+        .trim()
+        .split(" ").join('-')
+        .replace(/[!_&]+$/, '');
+        
 }
 
 export { toHeaderCase, toBackendCase }

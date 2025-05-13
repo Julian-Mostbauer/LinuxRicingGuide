@@ -1,0 +1,26 @@
+{
+  "name": "Slackware",
+  "description": "Slackware is one of the oldest surviving Linux distributions, known for its simplicity, minimalism, and adherence to UNIX-like principles. It was first released in 1993 by Patrick Volkerding.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "Slackware was released in 1993 and quickly gained a following for being a no-frills, stable distribution that closely follows the UNIX philosophy."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "Though it avoided trends like graphical installers and automatic dependency resolution, Slackware gained a loyal user base that appreciated its simplicity and transparency."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "Slackware is still actively developed, although updates are less frequent. It is considered a solid choice for advanced users who prefer manual configuration and a deep understanding of their system."
+    },
+    {
+      "title": "UNIX-Like Simplicity",
+      "icon": "terminal",
+      "text": "Slackware avoids abstraction and automation. It uses plain text files for configuration, minimal patching, and manual dependency management, providing complete control to the user."
+    }
+  ]
+}

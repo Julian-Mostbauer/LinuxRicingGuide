@@ -1,7 +1,8 @@
 use crate::config::{BACKUP_DIR, BACKUP_PREFIX, DATA_PATH, TIMESTAMP_FORMAT};
 use crate::db::{Db, SharedDb};
+use crate::models::distro::default_distros;
 use crate::models::Distro;
-use chrono::{DateTime, Utc};
+use chrono::Utc;
 use std::collections::HashMap;
 use std::fs;
 use std::path::Path;
@@ -61,51 +62,6 @@ pub fn init_db() -> SharedDb {
             Arc::new(Mutex::new(Db::new(default_distros(), HashMap::new())))
         }
     }
-}
-
-macro_rules! make_distro_w_key {
-    ($key:expr) => {
-        ($key.to_owned(), Distro::new($key.to_owned()))
-    };
-}
-
-macro_rules! make_distros {
-    ( $( $key:expr ),* $(,)? ) => {
-        [
-            $(
-                make_distro_w_key!($key),
-            )*
-        ]
-    };
-}
-
-fn default_distros() -> HashMap<String, Distro> {
-    HashMap::from(make_distros![
-        "ubuntu",
-        "debian",
-        "arch",
-        "manjaro",
-        "pop",
-        "mint",
-        "elementary",
-        "cent",
-        "fedora",
-        "void",
-        "opensuse",
-        "qubes",
-        "slackware",
-        "gentoo",
-        "alpine",
-        "mx",
-        "ubuntu-studio",
-        "parrot-security",
-        "kali",
-        "black-arch",
-        "artix",
-        "endeavour",
-        "garuda",
-        "trisquel"
-    ])
 }
 
 #[cfg(test)]

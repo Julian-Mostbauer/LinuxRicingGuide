@@ -1,0 +1,26 @@
+{
+  "name": "MX Linux",
+  "description": "MX Linux is a midweight desktop-oriented Linux distribution based on Debian Stable. It focuses on simplicity, performance, and efficient resource usage, with a friendly user interface built around XFCE.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "MX Linux was founded in 2014 as a collaborative project between antiX and former MEPIS developers. It aimed to combine the best of both systems into a user-friendly desktop experience."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "MX Linux built a reputation for being lightweight yet highly functional. It provides useful custom tools, excellent hardware support, and a stable Debian base."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "MX Linux consistently ranks highly in popularity on Linux tracking sites. It is appreciated by both new and experienced users for its reliability and ease of use."
+    },
+    {
+      "title": "User-Friendly Toolset",
+      "icon": "wrench",
+      "text": "MX Linux includes the MX Tools suite, offering GUI utilities for system maintenance, snapshot creation, driver installation, and more, making system management accessible to all."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "Garuda Linux",
+  "description": "Garuda Linux is a visually stunning, performance-oriented Arch-based distribution. It features out-of-the-box enhancements, gaming optimizations, and a focus on user experience.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "Garuda was founded in 2020 to offer a more accessible, modern Arch experience, with performance and visual appeal at the forefront."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "It rapidly gained a following for its Btrfs filesystem with auto-snapshots, integrated gaming tools, and eye-catching desktop environments like KDE Dr460nized."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "Garuda is actively developed and features a wide variety of editions targeting different users—from gamers to developers to minimalists."
+    },
+    {
+      "title": "Performance and Visuals",
+      "icon": "gamepad-2",
+      "text": "Garuda is tailored for gaming and performance with Zen kernel, auto-tuning, and bold visual themes, making it stand out among Arch-based distros."
+    }
+  ]
+}

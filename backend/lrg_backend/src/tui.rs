@@ -95,20 +95,26 @@ fn read_valid_num(lower: usize, upper: usize) -> usize {
 }
 
 fn behavior_rollback(db: &SharedDb) {
-    println!("Available states:");
-
     let available_backups = available_backups();
     let backup_names: Vec<String> = available_backups
         .iter()
         .filter_map(|e| e.file_name().into_string().ok())
         .collect();
 
+    println!("Available states:");
+    println!("  0: Cancel");
     for (i, name) in backup_names.iter().enumerate() {
         println!("  {}: {}", i + 1, name);
     }
 
-    let selected_idx = read_valid_num(1, backup_names.len()) - 1;
-    let selected_path = available_backups.get(selected_idx).unwrap();
+    let selected_opt = read_valid_num(0, backup_names.len());
+    
+    if selected_opt == 0 {
+        println!("Cancelled rollback.");
+        return;
+    }
+
+    let selected_path = available_backups.get(selected_opt - 1).unwrap();
 
     match load_db_from_file(selected_path.path()) {
         Ok(new_db) => {
