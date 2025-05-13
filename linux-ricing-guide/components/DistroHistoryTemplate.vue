@@ -72,6 +72,9 @@ const fetchHealth = async () => {
 let intervalManager = new IntervalManager();
 
 onMounted(async () => {
+  
+  console.log("After: ", toBackendCase(jsonObject.name))
+
   auth0Id.value = await getUserID(auth0);
 
   fetchHealth();

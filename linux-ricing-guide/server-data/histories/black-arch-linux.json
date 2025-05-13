@@ -1,6 +1,6 @@
 {
-  "name": "BlackArch Linux",
-  "description": "BlackArch is an Arch Linux-based penetration testing distribution for security researchers and ethical hackers. It includes thousands of tools organized into categories.",
+  "name": "Black Arch Linux",
+  "description": "Black Arch is an Arch Linux-based penetration testing distribution for security researchers and ethical hackers. It includes thousands of tools organized into categories.",
   "sections": [
     {
       "title": "Early Years",
@@ -19,7 +19,7 @@
     },
     {
       "title": "Modular Tool Integration",
-      "icon": "tools",
+      "icon": "toolbox",
       "text": "BlackArch allows users to install specific categories of tools without bloating the system, making it ideal for tailored security setups."
     }
   ]
