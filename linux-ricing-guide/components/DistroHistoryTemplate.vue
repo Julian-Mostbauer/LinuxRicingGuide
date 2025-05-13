@@ -14,7 +14,7 @@
                   <path d="M12 4l-7 8h4v8h6v-8h4z" />
                 </svg>
               </div>
-              <div>
+              <div class="flex flex-col flex-grow">
                 <h2 class="mb-4 text-xl text-primary font-bold flex flex-row items-center">
                   <DynamicIcon :names="{ default: 'circle-info' }" class="mr-2" /> {{ jsonObject.name }}
                 </h2>
