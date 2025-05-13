@@ -18,8 +18,6 @@ function toBackendCase(str: string) {
     if (str === void 0) str = ''
     if (!str) return ''
 
-    console.log("Before: ", str)
-
     return String(str)
         .toLowerCase()
         .replace("-linux", "")

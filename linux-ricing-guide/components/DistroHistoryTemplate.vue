@@ -152,10 +152,8 @@ onMounted(async () => {
     }
   }), 10000)
 
-  backendWrapper.value.distroInfo((res) => {
-    dynamicData.value = res.data
-    dynamicData.value.comments = dummyComments
-  })
+  backendWrapper.value.distroInfo((res) => dynamicData.value = res.data)
+  backendWrapper.value.getComments((res) => dynamicData.value.comments = res.data)
 })
 
 onUnmounted(() => {

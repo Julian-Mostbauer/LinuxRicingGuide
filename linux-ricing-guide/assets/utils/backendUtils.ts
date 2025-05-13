@@ -8,6 +8,7 @@ interface IBackendWrapper {
     downvote(setResCallback: SetResCallback): Promise<boolean>
     postComment(content: string): Promise<boolean>
     distroInfo(setResCallback: SetResCallback): Promise<boolean>
+    getComments(setResCallback: SetResCallback): Promise<boolean>
 }
 
 class BackendWrapper implements IBackendWrapper {
@@ -17,6 +18,19 @@ class BackendWrapper implements IBackendWrapper {
     constructor(auth0Id: string, distroName: string) {
         this.auth0Id = auth0Id
         this.distroName = toBackendCase(distroName)
+    }
+
+    public async getComments(setResCallback: SetResCallback): Promise<boolean> {
+        const res = (await $fetch('/api/dbWrapper/distros/getComments', {
+            method: 'POST',
+            body: {
+                name: this.distroName, //toBackendCase(jsonObject.name),
+                id: this.auth0Id,
+            },
+        })) as any
+
+        setResCallback(res)
+        return true
     }
 
     public async upvote(setResCallback: SetResCallback): Promise<boolean> {
@@ -73,6 +87,12 @@ class BackendWrapper implements IBackendWrapper {
 
 class DisabledBackendWrapper implements IBackendWrapper {
     constructor() {}
+
+    public async getComments(setResCallback: SetResCallback): Promise<boolean> {
+        console.log('getComments disabled')
+        return false
+    }
+
     public async upvote(): Promise<boolean> {
         console.log('upvote disabled')
         return false

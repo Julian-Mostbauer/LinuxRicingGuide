@@ -1,7 +1,6 @@
 import type { Auth0VueClient } from '@auth0/auth0-vue'
 
 const isValidID = (id: string): boolean => {
-    console.log('isValidID', id)
     if (id === undefined || id === null) return false
 
     const parts = id.split('|')

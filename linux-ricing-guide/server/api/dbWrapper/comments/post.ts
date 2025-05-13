@@ -2,7 +2,7 @@ export default defineEventHandler(async (event) => {
     const endPoint: string = useRuntimeConfig().public.backendAddress as string
 
     const { name, id, content } = await readBody(event)
-    console.log('Received data:', { name, id, content })
+    
     if (!id) {
         return { error: 'ID is required' }
     }
