@@ -61,11 +61,7 @@
                 " class="mt-2 space-y-3">
                   <div v-for="(comment, idx) in dynamicData.comments" :key="idx" class="p-3 rounded bg-base-100 border">
                     <div class="text-sm text-base-content font-medium mb-1">
-                      {{
-                        epochToDate(
-                          comment.timestamp_epoch
-                        ) ?? 'Some unknown time'
-                      }}
+                      {{ comment.timestamp_epoch }}
                     </div>
                     <div class="text-base-content text-sm">
                       {{ comment.content }}
@@ -116,7 +112,10 @@ const healthy = ref(false)
 const commentContent = ref('')
 const backendWrapper = ref<IBackendWrapper>(BWF.createDisabled())
 
-const epochToDate = (epoch: number) => {
+const epochToDate = (epoch: number): string => {
+  if (!epoch) {
+    return 'Some unknown time'
+  }
   const date = new Date(epoch * 1000)
   return date.toLocaleString()
 }
@@ -153,7 +152,11 @@ onMounted(async () => {
   }), 10000)
 
   backendWrapper.value.distroInfo((res) => dynamicData.value = res.data)
-  backendWrapper.value.getComments((res) => dynamicData.value.comments = res.data)
+  backendWrapper.value.getComments((res) => {
+    dynamicData.value.comments = res.data;
+    // @ts-ignore
+    dynamicData.value.comments.forEach((c) => c.timestamp_epoch = epochToDate(c.timestamp_epoch))
+  })
 })
 
 onUnmounted(() => {
