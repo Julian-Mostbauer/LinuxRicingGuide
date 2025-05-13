@@ -109,13 +109,13 @@ import { useAuth0 } from '@auth0/auth0-vue'
 import { getUserID } from '~/assets/utils/idUtils'
 import { toBackendCase } from '~/assets/utils/caseUtils'
 import IntervalManager from '~/assets/utils/intervalManager'
-import { BackendWrapper, BackendWrapperFactory, DisabledBackendWrapper } from '~/assets/utils/backendUtils'
+import { BackendWrapperFactory as BWF, type IBackendWrapper } from '~/assets/utils/backendUtils'
 
 const auth0 = useAuth0()
 const auth0Id: Ref<string | null> = ref(null)
 const healthy = ref(false)
 const commentContent = ref('')
-const backendWrapper = ref<BackendWrapper | DisabledBackendWrapper>(new DisabledBackendWrapper())
+const backendWrapper = ref<IBackendWrapper>(BWF.createDisabled())
 
 const epochToDate = (epoch: number) => {
   const date = new Date(epoch * 1000)
@@ -137,20 +137,14 @@ let intervalManager = new IntervalManager()
 onMounted(async () => {
   auth0Id.value = await getUserID(auth0)
 
-  backendWrapper.value = BackendWrapperFactory.create(auth0Id.value, jsonObject.name)
+  backendWrapper.value = healthy.value
+    ? BWF.create(auth0Id.value, jsonObject.name)
+    : BWF.createDisabled()
 
   fetchHealth()
   intervalManager.start(fetchHealth, 10000)
 
-  const res = (await $fetch(`/api/dbWrapper/distros/distroInfo`, {
-    method: 'POST',
-    body: {
-      name: toBackendCase(jsonObject.name),
-      id: auth0Id.value,
-    },
-  })) as any
-
-  if (res.data) {
+  backendWrapper.value.distroInfo((res) => {
     dynamicData.value = res.data
     dynamicData.value.comments = [
       {
@@ -176,9 +170,9 @@ onMounted(async () => {
         upvote_count: -1,
         downvote_count: -1,
         your_vote: 'Up',
-      }
+      },
     ]
-  }
+  })
 })
 
 onUnmounted(() => {

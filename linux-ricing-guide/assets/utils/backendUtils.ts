@@ -1,6 +1,15 @@
 import { toBackendCase } from './caseUtils'
 
-class BackendWrapper {
+type SetResCallback = (res: any) => void
+
+interface IBackendWrapper {
+    upvote(setResCallback: SetResCallback): Promise<boolean>
+    downvote(setResCallback: SetResCallback): Promise<boolean>
+    postComment(content: string): Promise<boolean>
+    distroInfo(setResCallback: SetResCallback): Promise<boolean>
+}
+
+class BackendWrapper implements IBackendWrapper {
     private auth0Id: string
     private distroName: string
 
@@ -9,7 +18,7 @@ class BackendWrapper {
         this.distroName = toBackendCase(distroName)
     }
 
-    public async upvote(setResCallback: (res: any) => void): Promise<boolean> {
+    public async upvote(setResCallback: SetResCallback): Promise<boolean> {
         const res = (await $fetch('/api/dbWrapper/distros/upvote', {
             method: 'POST',
             body: {
@@ -20,17 +29,10 @@ class BackendWrapper {
 
         setResCallback(res)
         return true
-        /*
-  if (res.data) {
-    dynamicData.value = res.data
-  }
-  */
     }
 
-    public async downvote(
-        setResCallback: (res: any) => void
-    ): Promise<boolean> {
-        const res = (await $fetch(`/api/dbWrapper/distros/downvote`, {
+    public async downvote(setResCallback: SetResCallback): Promise<boolean> {
+        const res = (await $fetch('/api/dbWrapper/distros/downvote', {
             method: 'POST',
             body: {
                 name: this.distroName, //toBackendCase(jsonObject.name),
@@ -40,17 +42,12 @@ class BackendWrapper {
 
         setResCallback(res)
         return true
-        /*
-  if (res.data) {
-    dynamicData.value = res.data
-  }
-  */
     }
 
     public async postComment(content: string): Promise<boolean> {
         console.log('Posting comment:', content)
         return false
-        const res = (await $fetch(`/api/dbWrapper/distros/postComment`, {
+        const res = (await $fetch('/api/dbWrapper/distros/postComment', {
             method: 'POST',
             body: {
                 name: this.distroName, //toBackendCase(jsonObject.name),
@@ -59,37 +56,44 @@ class BackendWrapper {
             },
         })) as any
         return true
-        /*
-    if (res.data) {
-      dynamicData.value = res.data
     }
-  */
+
+    public async distroInfo(setResCallback: SetResCallback): Promise<boolean> {
+        const res = (await $fetch('/api/dbWrapper/distros/distroInfo', {
+            method: 'POST',
+            body: {
+                name: this.distroName,
+                id: this.auth0Id,
+            },
+        })) as any
+
+        setResCallback(res)
+        return true
     }
 }
 
-class DisabledBackendWrapper extends BackendWrapper {
-    constructor() {
-        super('disabled', 'disabled')
-    }
-    public override async upvote(): Promise<boolean> {
+class DisabledBackendWrapper implements IBackendWrapper {
+    constructor() {}
+    public async upvote(): Promise<boolean> {
         console.log('upvote disabled')
         return false
     }
-    public override async downvote(): Promise<boolean> {
+    public async downvote(): Promise<boolean> {
         console.log('downvote disabled')
         return false
     }
-    public override async postComment(): Promise<boolean> {
+    public async postComment(): Promise<boolean> {
         console.log('postComment disabled')
+        return false
+    }
+    public async distroInfo(): Promise<boolean> {
+        console.log('distroInfo disabled')
         return false
     }
 }
 
 class BackendWrapperFactory {
-    public static create(
-        auth0Id: string,
-        distroName: string
-    ): BackendWrapper | DisabledBackendWrapper {
+    public static create(auth0Id: string, distroName: string): IBackendWrapper {
         if (auth0Id === null || auth0Id === undefined) {
             console.error('auth0Id is null or undefined')
             return new DisabledBackendWrapper()
@@ -98,8 +102,13 @@ class BackendWrapperFactory {
             console.error('distroName is null or undefined')
             return new DisabledBackendWrapper()
         }
+        
         return new BackendWrapper(auth0Id, distroName)
+    }
+
+    public static createDisabled(): IBackendWrapper {
+        return new DisabledBackendWrapper()
     }
 }
 
-export { BackendWrapper, DisabledBackendWrapper, BackendWrapperFactory }
+export { type IBackendWrapper, BackendWrapperFactory }
