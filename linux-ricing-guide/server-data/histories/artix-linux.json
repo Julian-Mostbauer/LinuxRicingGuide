@@ -19,7 +19,7 @@
     },
     {
       "title": "Init System Diversity",
-      "icon": "toggle-right",
+      "icon": "hand-fist",
       "text": "Artix’s defining feature is its flexibility in init systems, offering users a choice between OpenRC, runit, s6, and dinit for maximum transparency and control."
     }
   ]

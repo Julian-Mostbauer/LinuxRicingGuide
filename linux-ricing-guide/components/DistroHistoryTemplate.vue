@@ -36,7 +36,7 @@
                 </svg>
               </div>
             </section>
-            <section class="mt-4">
+            <section v-if="healthy && (auth0Id ?? false)" class="mt-4">
               <h2 class="mb-4 text-xl font-bold flex flex-row items-center">
                 <DynamicIcon :names="{ default: 'comment' }" class="mr-2" />
                 Post a comment
@@ -48,7 +48,7 @@
                   Comment</button>
               </div>
             </section>
-            <section>
+            <section v-if="healthy && (auth0Id ?? false)">
               <details class="mt-4">
                 <summary class="cursor-pointer text-lg font-semibold text-primary">
                   Comments ({{
@@ -122,27 +122,27 @@ const epochToDate = (epoch: number) => {
   return date.toLocaleString()
 }
 
-const fetchHealth = async () => {
-  try {
-    healthy.value = JSON.parse(
-      window.localStorage.getItem('backendHealth') || 'false'
-    )
-  } catch {
-    healthy.value = false
-  }
-}
-
 let intervalManager = new IntervalManager()
+
+const updateBackendWrapper = async () => {
+  backendWrapper.value = auth0Id.value && healthy.value
+    ? BWF.create(auth0Id.value, jsonObject.name)
+    : BWF.createDisabled()
+}
 
 onMounted(async () => {
   auth0Id.value = await getUserID(auth0)
 
-  backendWrapper.value = healthy.value
-    ? BWF.create(auth0Id.value, jsonObject.name)
-    : BWF.createDisabled()
-
-  fetchHealth()
-  intervalManager.start(fetchHealth, 10000)
+  intervalManager.start((async () => {
+    try {
+      healthy.value = JSON.parse(
+        window.localStorage.getItem('backendHealth') || 'false'
+      )
+      await updateBackendWrapper()
+    } catch {
+      healthy.value = false
+    }
+  }), 10000)
 
   backendWrapper.value.distroInfo((res) => {
     dynamicData.value = res.data
