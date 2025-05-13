@@ -7,7 +7,8 @@
           <div class="card bg-base-200 text-base-content p-6 h-full border-primary">
             <section class="h-full flex">
               <div v-if="healthy && (auth0Id ?? false)"
-                class="flex flex-col justify-center items-center mr-4 border-r-4" @click="upvote()" :class="{
+                class="flex flex-col justify-center items-center mr-4 border-r-4"
+                @click="backendWrapper.upvote((res) => dynamicData = res.data)" :class="{
                   'text-primary':
                     dynamicData.your_vote == 'Up',
                 }">
@@ -24,7 +25,8 @@
                 <p class="text-md flex-grow" v-html="jsonObject.description"></p>
               </div>
               <div v-if="healthy && (auth0Id ?? false)"
-                class="flex flex-col justify-center items-center ml-4 border-l-4" @click="downvote()" :class="{
+                class="flex flex-col justify-center items-center ml-4 border-l-4"
+                @click="backendWrapper.downvote((res) => dynamicData = res.data)" :class="{
                   'text-primary':
                     dynamicData.your_vote == 'Down',
                 }">
@@ -40,8 +42,10 @@
                 Post a comment
               </h2>
               <div class="flex flex-col space-y-3">
-                <textarea v-model="commentContent" class="textarea textarea-bordered w-full" placeholder="Write your comment here..."></textarea>
-                <button @click="postComment(commentContent)" class="btn btn-primary">Post Comment</button>
+                <textarea v-model="commentContent" class="textarea textarea-bordered w-full"
+                  placeholder="Write your comment here..."></textarea>
+                <button @click="backendWrapper.postComment(commentContent)" class="btn btn-primary">Post
+                  Comment</button>
               </div>
             </section>
             <section>
@@ -105,11 +109,13 @@ import { useAuth0 } from '@auth0/auth0-vue'
 import { getUserID } from '~/assets/utils/idUtils'
 import { toBackendCase } from '~/assets/utils/caseUtils'
 import IntervalManager from '~/assets/utils/intervalManager'
+import { BackendWrapper, BackendWrapperFactory, DisabledBackendWrapper } from '~/assets/utils/backendUtils'
 
 const auth0 = useAuth0()
 const auth0Id: Ref<string | null> = ref(null)
 const healthy = ref(false)
 const commentContent = ref('')
+const backendWrapper = ref<BackendWrapper | DisabledBackendWrapper>(new DisabledBackendWrapper())
 
 const epochToDate = (epoch: number) => {
   const date = new Date(epoch * 1000)
@@ -130,6 +136,8 @@ let intervalManager = new IntervalManager()
 
 onMounted(async () => {
   auth0Id.value = await getUserID(auth0)
+
+  backendWrapper.value = BackendWrapperFactory.create(auth0Id.value, jsonObject.name)
 
   fetchHealth()
   intervalManager.start(fetchHealth, 10000)
@@ -194,50 +202,6 @@ const dynamicData = ref({
   ],
 })
 
-const upvote = async () => {
-  const res = (await $fetch(`/api/dbWrapper/distros/upvote`, {
-    method: 'POST',
-    body: {
-      name: toBackendCase(jsonObject.name),
-      id: auth0Id.value,
-    },
-  })) as any
-
-  if (res.data) {
-    dynamicData.value = res.data
-  }
-}
-
-const downvote = async () => {
-  const res = (await $fetch(`/api/dbWrapper/distros/downvote`, {
-    method: 'POST',
-    body: {
-      name: toBackendCase(jsonObject.name),
-      id: auth0Id.value,
-    },
-  })) as any
-
-  if (res.data) {
-    dynamicData.value = res.data
-  }
-}
-
-const postComment = async (content: string) => {
-  console.log('Posting comment:', content)
-  return 0;
-  const res = (await $fetch(`/api/dbWrapper/distros/postComment`, {
-    method: 'POST',
-    body: {
-      name: toBackendCase(jsonObject.name),
-      id: auth0Id.value,
-      comment: content,
-    },
-  })) as any
-
-  if (res.data) {
-    dynamicData.value = res.data
-  }
-}
 
 const container = {
   hidden: { opacity: 0, scale: 0.95 }, // Adjusted to avoid layout shift
