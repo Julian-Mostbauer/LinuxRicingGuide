@@ -1,4 +1,5 @@
 import { toBackendCase } from './caseUtils'
+import { isValidID } from './idUtils'
 
 type SetResCallback = (res: any) => void
 
@@ -94,15 +95,16 @@ class DisabledBackendWrapper implements IBackendWrapper {
 
 class BackendWrapperFactory {
     public static create(auth0Id: string, distroName: string): IBackendWrapper {
-        if (auth0Id === null || auth0Id === undefined) {
+        if (!isValidID(auth0Id)) {
             console.error('auth0Id is null or undefined')
             return new DisabledBackendWrapper()
         }
+
         if (distroName === null || distroName === undefined) {
             console.error('distroName is null or undefined')
             return new DisabledBackendWrapper()
         }
-        
+
         return new BackendWrapper(auth0Id, distroName)
     }
 

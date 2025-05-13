@@ -107,7 +107,6 @@
 import { onMounted } from 'vue'
 import { useAuth0 } from '@auth0/auth0-vue'
 import { getUserID } from '~/assets/utils/idUtils'
-import { toBackendCase } from '~/assets/utils/caseUtils'
 import IntervalManager from '~/assets/utils/intervalManager'
 import { BackendWrapperFactory as BWF, type IBackendWrapper } from '~/assets/utils/backendUtils'
 
@@ -146,38 +145,40 @@ onMounted(async () => {
 
   backendWrapper.value.distroInfo((res) => {
     dynamicData.value = res.data
-    dynamicData.value.comments = [
-      {
-        id: 1,
-        content: 'I am a dummy comment',
-        timestamp_epoch: 0,
-        upvote_count: -1,
-        downvote_count: -1,
-        your_vote: 'Down',
-      },
-      {
-        id: 2,
-        content: 'THIS IS A TEST COMMENT',
-        timestamp_epoch: 1231212320,
-        upvote_count: -1,
-        downvote_count: -1,
-        your_vote: 'None',
-      },
-      {
-        id: 3,
-        content: 'Hi there, I am a comment',
-        timestamp_epoch: 2231212320,
-        upvote_count: -1,
-        downvote_count: -1,
-        your_vote: 'Up',
-      },
-    ]
+    dynamicData.value.comments = dummyComments
   })
 })
 
 onUnmounted(() => {
   intervalManager.stop()
 })
+
+const dummyComments = [
+  {
+    id: 1,
+    content: 'I am a dummy comment',
+    timestamp_epoch: 0,
+    upvote_count: -1,
+    downvote_count: -1,
+    your_vote: 'Down',
+  },
+  {
+    id: 2,
+    content: 'THIS IS A TEST COMMENT',
+    timestamp_epoch: 1231212320,
+    upvote_count: -1,
+    downvote_count: -1,
+    your_vote: 'None',
+  },
+  {
+    id: 3,
+    content: 'Hi there, I am a comment',
+    timestamp_epoch: 2231212320,
+    upvote_count: -1,
+    downvote_count: -1,
+    your_vote: 'Up',
+  },
+]
 
 const dynamicData = ref({
   name: '',
