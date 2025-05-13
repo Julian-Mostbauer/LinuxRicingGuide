@@ -34,6 +34,16 @@
                 </svg>
               </div>
             </section>
+            <section class="mt-4">
+              <h2 class="mb-4 text-xl font-bold flex flex-row items-center">
+                <DynamicIcon :names="{ default: 'comment' }" class="mr-2" />
+                Post a comment
+              </h2>
+              <div class="flex flex-col space-y-3">
+                <textarea v-model="commentContent" class="textarea textarea-bordered w-full" placeholder="Write your comment here..."></textarea>
+                <button @click="postComment(commentContent)" class="btn btn-primary">Post Comment</button>
+              </div>
+            </section>
             <section>
               <details class="mt-4">
                 <summary class="cursor-pointer text-lg font-semibold text-primary">
@@ -99,6 +109,7 @@ import IntervalManager from '~/assets/utils/intervalManager'
 const auth0 = useAuth0()
 const auth0Id: Ref<string | null> = ref(null)
 const healthy = ref(false)
+const commentContent = ref('')
 
 const epochToDate = (epoch: number) => {
   const date = new Date(epoch * 1000)
@@ -196,12 +207,30 @@ const upvote = async () => {
     dynamicData.value = res.data
   }
 }
+
 const downvote = async () => {
   const res = (await $fetch(`/api/dbWrapper/distros/downvote`, {
     method: 'POST',
     body: {
       name: toBackendCase(jsonObject.name),
       id: auth0Id.value,
+    },
+  })) as any
+
+  if (res.data) {
+    dynamicData.value = res.data
+  }
+}
+
+const postComment = async (content: string) => {
+  console.log('Posting comment:', content)
+  return 0;
+  const res = (await $fetch(`/api/dbWrapper/distros/postComment`, {
+    method: 'POST',
+    body: {
+      name: toBackendCase(jsonObject.name),
+      id: auth0Id.value,
+      comment: content,
     },
   })) as any
 
