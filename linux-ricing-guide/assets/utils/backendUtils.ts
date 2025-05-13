@@ -46,14 +46,12 @@ class BackendWrapper implements IBackendWrapper {
     }
 
     public async postComment(content: string): Promise<boolean> {
-        console.log('Posting comment:', content)
-        return false
-        const res = (await $fetch('/api/dbWrapper/distros/postComment', {
+        const res = (await $fetch('/api/dbWrapper/comments/post', {
             method: 'POST',
             body: {
                 name: this.distroName, //toBackendCase(jsonObject.name),
                 id: this.auth0Id,
-                comment: content,
+                content,
             },
         })) as any
         return true
@@ -79,14 +77,17 @@ class DisabledBackendWrapper implements IBackendWrapper {
         console.log('upvote disabled')
         return false
     }
+
     public async downvote(): Promise<boolean> {
         console.log('downvote disabled')
         return false
     }
+
     public async postComment(): Promise<boolean> {
         console.log('postComment disabled')
         return false
     }
+
     public async distroInfo(): Promise<boolean> {
         console.log('distroInfo disabled')
         return false

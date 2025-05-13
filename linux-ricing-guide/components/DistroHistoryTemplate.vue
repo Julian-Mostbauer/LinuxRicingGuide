@@ -44,7 +44,7 @@
               <div class="flex flex-col space-y-3">
                 <textarea v-model="commentContent" class="textarea textarea-bordered w-full"
                   placeholder="Write your comment here..."></textarea>
-                <button @click="backendWrapper.postComment(commentContent)" class="btn btn-primary">Post
+                <button @click="postComment()" class="btn btn-primary">Post
                   Comment</button>
               </div>
             </section>
@@ -119,6 +119,15 @@ const backendWrapper = ref<IBackendWrapper>(BWF.createDisabled())
 const epochToDate = (epoch: number) => {
   const date = new Date(epoch * 1000)
   return date.toLocaleString()
+}
+
+const postComment = async () => {
+  if (commentContent.value.trim() === '') {
+    return
+  }
+
+  await backendWrapper.value.postComment(commentContent.value)
+  commentContent.value = ''
 }
 
 let intervalManager = new IntervalManager()
