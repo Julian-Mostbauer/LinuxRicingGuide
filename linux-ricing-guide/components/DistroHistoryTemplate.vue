@@ -6,7 +6,8 @@
         <GradientOutline circle-width="200px">
           <div class="card bg-base-200 text-base-content p-6 h-full border-primary">
             <section class="h-full flex">
-              <div v-if="healthy" class="flex flex-col justify-center items-center mr-4 border-r-4" @click="upvote()"
+              <div v-if="healthy && (auth0Id ?? false)"
+                class="flex flex-col justify-center items-center mr-4 border-r-4" @click="upvote()"
                 :class="{ 'text-primary': dynamicData.your_vote == 'Up' }">
                 {{ dynamicData.upvote_count }}
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -19,7 +20,8 @@
                 </h2>
                 <p class="text-md flex-grow" v-html="jsonObject.description"></p>
               </div>
-              <div v-if="healthy" class="flex flex-col justify-center items-center ml-4 border-l-4" @click="downvote()"
+              <div v-if="healthy && (auth0Id ?? false)"
+                class="flex flex-col justify-center items-center ml-4 border-l-4" @click="downvote()"
                 :class="{ 'text-primary': dynamicData.your_vote == 'Down' }">
                 {{ dynamicData.downvote_count }}
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -54,7 +56,7 @@ import { toBackendCase } from '~/assets/utils/caseUtils';
 import IntervalManager from '~/assets/utils/intervalManager';
 
 const auth0 = useAuth0();
-const id: Ref<string | null> = ref(null);
+const auth0Id: Ref<string | null> = ref(null);
 const healthy = ref(false);
 
 const fetchHealth = async () => {
@@ -68,16 +70,16 @@ const fetchHealth = async () => {
 let intervalManager = new IntervalManager();
 
 onMounted(async () => {
-  id.value = await getUserID(auth0);
+  auth0Id.value = await getUserID(auth0);
 
   fetchHealth();
   intervalManager.start(fetchHealth, 10000);
-  
+
   const res = await $fetch(`/api/dbWrapper/distros/distroInfo`, {
     method: 'POST',
     body: {
       name: toBackendCase(jsonObject.name),
-      id: id.value,
+      id: auth0Id.value,
     },
   }) as any;
 
@@ -102,7 +104,7 @@ const upvote = async () => {
     method: 'POST',
     body: {
       name: toBackendCase(jsonObject.name),
-      id: id.value,
+      id: auth0Id.value,
     },
   }) as any;
 
@@ -115,7 +117,7 @@ const downvote = async () => {
     method: 'POST',
     body: {
       name: toBackendCase(jsonObject.name),
-      id: id.value,
+      id: auth0Id.value,
     },
   }) as any;
 

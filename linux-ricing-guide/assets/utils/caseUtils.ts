@@ -19,10 +19,11 @@ function toBackendCase(str: string){
     if (!str) return ''
 
     return String(str)
+    .toLowerCase()
     .replace("-linux", "")
     .replace("-os", "")
+    .replace("os", "")
     .trim()
-    .toLowerCase()
 }
 
 export { toHeaderCase, toBackendCase }
