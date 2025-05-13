@@ -2,7 +2,7 @@
   <div class="container mx-auto p-4">
     <Motion as="div" :variants="container" initial="hidden" animate="visible"
       class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-      <Motion :variants="items" :class="`w-full ${jsonObject.sections.length % 2 == 0 ? 'col-span-full' : ''}`">
+      <Motion :variants="items" class=" col-span-full">
         <GradientOutline circle-width="200px">
           <div class="card bg-base-200 text-base-content p-6 h-full border-primary">
             <section class="h-full flex">
@@ -32,7 +32,9 @@
           </div>
         </GradientOutline>
       </Motion>
-      <Motion v-for="(section, index) in jsonObject.sections" :key="index" :variants="items" class="w-full">
+      <Motion v-for="(section, index) in jsonObject.sections" :key="index" :variants="items" :class="index === jsonObject.sections.length - 1
+        ? `w-full ${jsonObject.sections.length % 2 != 0 ? 'col-span-full' : ''}`
+        : 'w-full'">
         <GradientOutline circle-width="200px">
           <div class="card bg-base-200 text-base-content p-6 h-full">
             <section class="mb-6 h-full flex flex-col">
