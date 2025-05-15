@@ -6,17 +6,9 @@
         <GradientOutline circle-width="200px">
           <div class="card bg-base-200 text-base-content p-6 h-full border-primary">
             <section class="h-full flex">
-              <div v-if="healthy && (auth0Id ?? false)"
-                class="flex flex-col justify-center items-center mr-4 border-r-4"
-                @click="backendWrapper.upvote((res) => dynamicData = res.data)" :class="{
-                  'text-primary':
-                    dynamicData.your_vote == 'Up',
-                }">
-                {{ dynamicData.upvote_count }}
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 4l-7 8h4v8h6v-8h4z" />
-                </svg>
-              </div>
+              <VoteButton v-if="healthy && (auth0Id ?? false)"
+                @click="backendWrapper.upvote((res) => dynamicData = res.data)" :data="dynamicData" vote-type="Up"
+                :voter="backendWrapper" />
               <div class="flex flex-col flex-grow">
                 <h2 class="mb-4 text-xl text-primary font-bold flex flex-row items-center">
                   <DynamicIcon :names="{ default: 'circle-info' }" class="mr-2" />
@@ -24,17 +16,9 @@
                 </h2>
                 <p class="text-md flex-grow" v-html="jsonObject.description"></p>
               </div>
-              <div v-if="healthy && (auth0Id ?? false)"
-                class="flex flex-col justify-center items-center ml-4 border-l-4"
-                @click="backendWrapper.downvote((res) => dynamicData = res.data)" :class="{
-                  'text-primary':
-                    dynamicData.your_vote == 'Down',
-                }">
-                {{ dynamicData.downvote_count }}
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 20l7-8h-4V4h-6v8H5z" />
-                </svg>
-              </div>
+              <VoteButton v-if="healthy && (auth0Id ?? false)"
+                @click="backendWrapper.downvote((res) => dynamicData = res.data)" :data="dynamicData" vote-type="Down"
+                :voter="backendWrapper" />
             </section>
             <section v-if="healthy && (auth0Id ?? false)" class="mt-4">
               <h2 class="mb-4 text-xl font-bold flex flex-row items-center">
@@ -91,6 +75,7 @@ import { getUserID } from '~/assets/utils/idUtils'
 import IntervalManager from '~/assets/utils/intervalManager'
 import { BackendWrapperFactory as BWF, type IBackendWrapper } from '~/assets/utils/backendUtils'
 import type { DistroInfo, DistroWithComments, Comment, CommentWithParsedDate } from '~/assets/types/backendTypes'
+import VoteButton from './VoteButton.vue'
 
 const auth0 = useAuth0()
 const auth0Id: Ref<string | null> = ref(null)
