@@ -143,6 +143,9 @@ onMounted(async () => {
     dynamicData.value.comments.forEach((comment: CommentWithParsedDate) => {
       comment.date = epochToDate(comment.timestamp_epoch)
     })
+    dynamicData.value.comments.sort((a: CommentWithParsedDate, b: CommentWithParsedDate) => {
+      return b.timestamp_epoch - a.timestamp_epoch
+    })
   })
 })
 
