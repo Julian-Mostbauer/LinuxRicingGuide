@@ -55,22 +55,7 @@
                     dynamicData.comments?.length ?? 0
                   }})
                 </summary>
-                <div v-if="
-                  dynamicData.comments &&
-                  dynamicData.comments.length > 0
-                " class="mt-2 space-y-3">
-                  <div v-for="(comment, idx) in dynamicData.comments" :key="idx" class="p-3 rounded bg-base-100 border">
-                    <div class="text-sm text-base-content font-medium mb-1">
-                      {{ comment.timestamp_epoch }}
-                    </div>
-                    <div class="text-base-content text-sm">
-                      {{ comment.content }}
-                    </div>
-                  </div>
-                </div>
-                <div v-else class="mt-2 text-base-content/60 text-sm">
-                  No comments yet.
-                </div>
+                <CommentSection :comments="dynamicData.comments ?? []" />
               </details>
             </section>
           </div>
@@ -105,6 +90,7 @@ import { useAuth0 } from '@auth0/auth0-vue'
 import { getUserID } from '~/assets/utils/idUtils'
 import IntervalManager from '~/assets/utils/intervalManager'
 import { BackendWrapperFactory as BWF, type IBackendWrapper } from '~/assets/utils/backendUtils'
+import type { DistroInfo, DistroWithComments, Comment, CommentWithParsedDate } from '~/assets/types/backendTypes'
 
 const auth0 = useAuth0()
 const auth0Id: Ref<string | null> = ref(null)
@@ -154,8 +140,9 @@ onMounted(async () => {
   backendWrapper.value.distroInfo((res) => dynamicData.value = res.data)
   backendWrapper.value.getComments((res) => {
     dynamicData.value.comments = res.data;
-    // @ts-ignore
-    dynamicData.value.comments.forEach((c) => c.timestamp_epoch = epochToDate(c.timestamp_epoch))
+    dynamicData.value.comments.forEach((comment: CommentWithParsedDate) => {
+      comment.date = epochToDate(comment.timestamp_epoch)
+    })
   })
 })
 
@@ -163,34 +150,8 @@ onUnmounted(() => {
   intervalManager.stop()
 })
 
-const dummyComments = [
-  {
-    id: 1,
-    content: 'I am a dummy comment',
-    timestamp_epoch: 0,
-    upvote_count: -1,
-    downvote_count: -1,
-    your_vote: 'Down',
-  },
-  {
-    id: 2,
-    content: 'THIS IS A TEST COMMENT',
-    timestamp_epoch: 1231212320,
-    upvote_count: -1,
-    downvote_count: -1,
-    your_vote: 'None',
-  },
-  {
-    id: 3,
-    content: 'Hi there, I am a comment',
-    timestamp_epoch: 2231212320,
-    upvote_count: -1,
-    downvote_count: -1,
-    your_vote: 'Up',
-  },
-]
 
-const dynamicData = ref({
+const dynamicData = ref<DistroWithComments>({
   name: '',
   upvote_count: -1,
   downvote_count: -1,
@@ -203,6 +164,7 @@ const dynamicData = ref({
       upvote_count: -1,
       downvote_count: -1,
       your_vote: 'None',
+      date: 'Some unknown time',
     },
   ],
 })

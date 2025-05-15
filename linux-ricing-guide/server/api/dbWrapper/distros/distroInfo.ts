@@ -1,3 +1,5 @@
+import { DistroInfo } from "~/assets/types/backendTypes";
+
 export default defineEventHandler(async (event) => {
   const endPoint: string = useRuntimeConfig().public.backendAddress as string
 
@@ -8,7 +10,10 @@ export default defineEventHandler(async (event) => {
   }
 
   try {
-    const response = await $fetch(`${endPoint}/distros/${name}`, { timeout: 5000, headers: { 'X-User-ID': id } })
+    const response: DistroInfo = await $fetch(`${endPoint}/distros/${name}`, {
+        timeout: 5000,
+        headers: { 'X-User-ID': id },
+    })
     return { data: response }
   }catch (error: any) {
     console.error('Error fetching distro info:', error)
