@@ -21,16 +21,7 @@
                 :voter="backendWrapper" />
             </section>
             <section v-if="healthy && (auth0Id ?? false)" class="mt-4">
-              <h2 class="mb-4 text-xl font-bold flex flex-row items-center">
-                <DynamicIcon :names="{ default: 'comment' }" class="mr-2" />
-                Post a comment
-              </h2>
-              <div class="flex flex-col space-y-3">
-                <textarea v-model="commentContent" class="textarea textarea-bordered w-full"
-                  placeholder="Write your comment here..."></textarea>
-                <button @click="postComment()" class="btn btn-primary">Post
-                  Comment</button>
-              </div>
+              <CommentWriter :comment-poster="backendWrapper" />
             </section>
             <section v-if="healthy && (auth0Id ?? false)">
               <details class="mt-4">
@@ -74,13 +65,11 @@ import { useAuth0 } from '@auth0/auth0-vue'
 import { getUserID } from '~/assets/utils/idUtils'
 import IntervalManager from '~/assets/utils/intervalManager'
 import { BackendWrapperFactory as BWF, type IBackendWrapper } from '~/assets/utils/backendUtils'
-import type { DistroInfo, DistroWithComments, Comment, CommentWithParsedDate } from '~/assets/types/backendTypes'
-import VoteButton from './VoteButton.vue'
+import type { DistroWithComments, CommentWithParsedDate } from '~/assets/types/backendTypes'
 
 const auth0 = useAuth0()
 const auth0Id: Ref<string | null> = ref(null)
 const healthy = ref(false)
-const commentContent = ref('')
 const backendWrapper = ref<IBackendWrapper>(BWF.createDisabled())
 
 const epochToDate = (epoch: number): string => {
@@ -89,15 +78,6 @@ const epochToDate = (epoch: number): string => {
   }
   const date = new Date(epoch * 1000)
   return date.toLocaleString()
-}
-
-const postComment = async () => {
-  if (commentContent.value.trim() === '') {
-    return
-  }
-
-  await backendWrapper.value.postComment(commentContent.value)
-  commentContent.value = ''
 }
 
 let intervalManager = new IntervalManager()
