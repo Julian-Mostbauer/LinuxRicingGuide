@@ -1,0 +1,26 @@
+{
+  "name": "openSUSE",
+  "description": "openSUSE is a community-driven Linux distribution sponsored by SUSE. Known for its robust tools like YaST and options for both stable and rolling releases, openSUSE is aimed at developers, sysadmins, and desktop users alike.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "The project began in 2005 as an open-source version of SUSE Linux, following Novell's acquisition of SUSE. It aimed to build a strong community around enterprise-quality tools."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "openSUSE introduced powerful tools such as YaST for system configuration and zypper for package management. It offers two release models: Leap (stable) and Tumbleweed (rolling)."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "openSUSE is widely used in enterprise and development environments. Tumbleweed provides access to the latest packages, while Leap closely follows SUSE Linux Enterprise releases."
+    },
+    {
+      "title": "Dual Release Strategy",
+      "icon": "layers",
+      "text": "openSUSE gives users the choice between Leap for long-term stability and Tumbleweed for rolling-release bleeding-edge updates, catering to a wide range of needs."
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "name": "Alpine Linux",
+  "description": "Alpine Linux is a security-oriented, lightweight Linux distribution based on musl libc and busybox. It’s widely used in container environments for its small size and minimal attack surface.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "Alpine started in 2005 as a fork of LEAF Project. It was designed to be small and secure, suitable for routers, firewalls, and embedded systems."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "Alpine switched to musl and busybox to further reduce size and complexity. It uses OpenRC instead of systemd and apk as its package manager."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "Alpine is now widely adopted in Docker containers due to its small footprint (just a few MBs). It is also popular in security-critical environments."
+    },
+    {
+      "title": "Container Dominance",
+      "icon": "box",
+      "text": "Alpine is the default base image in many Docker containers. Its minimal size, speed, and security posture make it ideal for microservices and cloud-native applications."
+    }
+  ]
+}

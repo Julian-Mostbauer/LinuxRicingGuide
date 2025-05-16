@@ -1,0 +1,26 @@
+{
+  "name": "Pop!_OS",
+  "description": "Pop!_OS is a Linux distribution developed by System76, based on Ubuntu. Designed for creators, developers, and engineers, Pop!_OS emphasizes productivity, ease of use, and powerful hardware support, especially for System76’s own line of computers.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "Pop!_OS was first released in 2017 by System76 after the company decided to create its own distribution tailored for its hardware. It was built on Ubuntu, but with customizations to enhance the user experience, especially in terms of GPU support and desktop workflow."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "Since its release, Pop!_OS has gained recognition for its sleek user interface, excellent support for NVIDIA and AMD GPUs, and developer-centric features. It introduced innovations like auto-tiling window management and a custom GNOME-based desktop environment to boost productivity."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "Pop!_OS continues to evolve with regular updates and community feedback. It is used widely in educational, creative, and development environments. System76 is also working on a new desktop environment called COSMIC written in Rust, moving further from GNOME."
+    },
+    {
+      "title": "Focus on Productivity",
+      "icon": "rocket",
+      "text": "Pop!_OS is designed to streamline workflows for engineers, developers, and creatives. Features like workspaces, auto-tiling, keyboard navigation, and built-in power profiles make it an efficient tool for getting things done."
+    }
+  ]
+}

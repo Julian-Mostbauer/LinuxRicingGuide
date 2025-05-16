@@ -48,7 +48,7 @@ async fn get_distro(
     match db.get_distro(&name) {
         Some(distro) => {
             let wf_distro = match User::try_from(req) {
-                Ok(user) => WfDistro::from_distro_specific(&distro, &user),
+                Ok(user) => WfDistro::from_distro_specific(distro, &user),
                 Err(_) => WfDistro::from(distro),
             };
 

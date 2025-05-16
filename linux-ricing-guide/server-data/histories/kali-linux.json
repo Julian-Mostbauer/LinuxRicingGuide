@@ -1,0 +1,26 @@
+{
+  "name": "Kali Linux",
+  "description": "Kali Linux is a Debian-based distribution developed by Offensive Security, designed for penetration testing and ethical hacking. It is one of the most recognized Linux distros in cybersecurity.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "Kali Linux was released in 2013 as the successor to BackTrack, consolidating and improving a wide array of security tools under a new architecture."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "Kali became the go-to OS for penetration testing, featuring over 600 tools, frequent updates, and a rolling-release model to ensure testers have the latest software."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "Kali Linux is used worldwide by cybersecurity professionals and students. It supports live booting, secure environments, and multiple desktop environments."
+    },
+    {
+      "title": "Penetration Testing Arsenal",
+      "icon": "bug",
+      "text": "Kali is tailored for ethical hackers, with tools for network analysis, reverse engineering, wireless attacks, digital forensics, and more."
+    }
+  ]
+}
