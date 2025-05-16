@@ -13,6 +13,8 @@
                                 {{ section.title }}
                             </h2>
                             <p class="text-md flex-grow" v-html="section.content"></p>
+
+                            <CodeBlock v-if="section.command" :command="section.command" />
                         </section>
                     </div>
                 </GradientOutline>
@@ -83,14 +85,32 @@ const sections = [
         content: `
       <ClientOnly>
       <p>To install software using a package manager, you typically use a command in the terminal. Here are some examples:</p>
-      <ul>
-        <li><strong>APT</strong>: <code>sudo apt install package-name</code></li>
-        <li><strong>DNF</strong>: <code>sudo dnf install package-name</code></li>
-        <li><strong>Pacman</strong>: <code>sudo pacman -S package-name</code></li>
-        <li><strong>Zypper</strong>: <code>sudo zypper install package-name</code></li>
-      </ul>
       </ClientOnly>
     `,
+    },
+    {
+        content: 'To install package-name on APT',
+        command: `
+        sudo apt install package-name
+        `,
+    },
+    {
+        content: 'To install package-name on DNF',
+        command: `
+        sudo dnf install package-name
+        `,
+    },
+    {
+        content: 'To install package-name on Pacman',
+        command: `
+        sudo pacman -S package-name
+        `,
+    },
+    {
+        content: 'To install package-name on Zypper',
+        command: `
+        sudo zypper install package-name
+        `,
     },
     {
         title: 'Finding Software',
@@ -98,14 +118,32 @@ const sections = [
         content: `
       <ClientOnly>
       <p>To find software available for installation, you can use the following commands:</p>
-        <ul>
-          <li><strong>APT</strong>: <code>apt search package-name</code></li>
-          <li><strong>DNF</strong>: <code>dnf search package-name</code></li>
-          <li><strong>Pacman</strong>: <code>pacman -Ss package-name</code></li>
-          <li><strong>Zypper</strong>: <code>zypper search package-name</code></li>
-        </ul>
       </ClientOnly>
     `,
+    },
+    {
+        content: 'To search package-name on APT',
+        command: `
+        apt search package-name
+        `,
+    },
+    {
+        content: 'To search package-name on DNF',
+        command: `
+        dnf search package-name
+        `,
+    },
+    {
+        content: 'To search package-name on Pacman',
+        command: `
+        pacman -Ss package-name
+        `,
+    },
+    {
+        content: 'To search package-name on Zypper',
+        command: `
+        zypper search package-name
+        `,
     },
     {
         title: 'Updating and Maintaining Software',
@@ -113,14 +151,44 @@ const sections = [
         content: `
         <CLientOnly>
         <p>To keep your system and software up to date, you can use the following commands:</p>
-        <ul>
-          <li><strong>APT</strong>: <code>sudo apt update && sudo apt upgrade</code></li>
-          <li><strong>DNF</strong>: <code>sudo dnf upgrade</code></li>
-          <li><strong>Pacman</strong>: <code>sudo pacman -Syu</code></li>
-          <li><strong>Zypper</strong>: <code>sudo zypper refresh && sudo zypper update</code></li>
-        </ul>
         </ClientOnly>
-        `
+        `,
+    },
+    {
+        content: 'To update package-name on APT',
+        command: `
+        sudo apt update
+        `,
+    },
+    {
+        content: 'or',
+        command: `
+        sudo apt upgrade
+        `,
+    },
+    {
+        content: 'To update package-name on DNF',
+        command: `
+        sudo dnf upgrad
+        `,
+    },
+    {
+        content: 'To update package-name on Pacman',
+        command: `
+        sudo pacman -Syu
+        `,
+    },
+    {
+        content: 'To update package-name on Zypper',
+        command: `
+        sudo zypper refresh
+        `,
+    },
+    {
+        content: 'or',
+        command: `
+        sudo zypper update
+        `,
     },
 ]
 
