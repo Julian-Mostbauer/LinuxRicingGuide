@@ -12,7 +12,7 @@
                                 <DynamicIcon :names="{ default: section.icon }" class="mr-2" />
                                 {{ section.title }}
                             </h2>
-                            <p class="text-md flex-grow" v-html="section.content"></p>
+                            <span class="text-md flex-grow" v-html="section.content"></span>
 
                             <CodeBlock v-if="section.command" :command="section.command" />
                         </section>
@@ -63,29 +63,25 @@ const sections = [
       <strong>Package managers</strong> are tools that automate the process of installing, upgrading, configuring, and removing software packages.
       <br>
       They are essential for managing software on Linux systems.
-    `,
+`,
     },
     {
         title: 'Popular Package Managers',
         icon: 'clock',
         content: `
-      <ClientOnly>
       <ul>
         <li><strong>APT</strong> (Advanced Package Tool) - Used in Debian-based distributions like Ubuntu.</li>
         <li><strong>DNF</strong> (Dandified YUM) - Used in Fedora and Red Hat-based distributions.</li>
         <li><strong>Pacman</strong> - The package manager for Arch Linux and its derivatives.</li>
         <li><strong>Zypper</strong> - The command line package manager for openSUSE.</li>
       </ul>
-      </ClientOnly>
     `,
     },
     {
         title: 'Installing Software',
         icon: 'download',
         content: `
-      <ClientOnly>
       <p>To install software using a package manager, you typically use a command in the terminal. Here are some examples:</p>
-      </ClientOnly>
     `,
     },
     {
@@ -116,9 +112,7 @@ const sections = [
         title: 'Finding Software',
         icon: 'magnifying-glass',
         content: `
-      <ClientOnly>
       <p>To find software available for installation, you can use the following commands:</p>
-      </ClientOnly>
     `,
     },
     {
@@ -149,9 +143,7 @@ const sections = [
         title: 'Updating and Maintaining Software',
         icon: 'rotate',
         content: `
-        <CLientOnly>
         <p>To keep your system and software up to date, you can use the following commands:</p>
-        </ClientOnly>
         `,
     },
     {
