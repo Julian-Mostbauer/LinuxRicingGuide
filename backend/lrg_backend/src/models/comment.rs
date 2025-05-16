@@ -73,7 +73,7 @@ impl CommentFactory {
         }
 
         let timestamp_epoch = SystemTime::now()
-            .elapsed()
+            .duration_since(SystemTime::UNIX_EPOCH)
             .map_err(|err| err.to_string())?
             .as_secs();
 

@@ -1,19 +1,19 @@
-import { DistroInfo } from '~/assets/types/backendTypes'
-
 export default defineEventHandler(async (event) => {
     const endPoint: string = useRuntimeConfig().public.backendAddress as string
 
-    const { name, id } = await readBody(event)
-
+    const { name, id, content } = await readBody(event)
+    
     if (!id) {
         return { error: 'ID is required' }
     }
 
     try {
-        const response: DistroInfo = await $fetch(
-            `${endPoint}/distros/${name}/downvote`,
-            { timeout: 5000, method: 'POST', headers: { 'X-User-ID': id } }
-        )
+        const response = await $fetch(`${endPoint}/comments/post/${name}`, {
+            timeout: 5000,
+            method: 'POST',
+            headers: { 'X-User-ID': id },
+            body: { content: content },
+        })
         return { data: response }
     } catch (error: any) {
         console.error('Error fetching distro info:', error)

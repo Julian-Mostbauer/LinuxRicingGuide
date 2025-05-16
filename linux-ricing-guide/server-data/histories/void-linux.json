@@ -1,0 +1,26 @@
+{
+  "name": "Void Linux",
+  "description": "Void Linux is an independent, general-purpose Linux distribution known for its simplicity, performance, and unique design choices such as using runit instead of systemd and its own package manager, xbps.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "Void Linux was created in 2008 by Juan Romero Pardines, a former NetBSD developer. It was developed from scratch, independent of any other major distribution."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "Void gained attention for its minimalism, fast boot times, and unique design choices, including its own xbps package manager and the adoption of runit as an init system."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "Void Linux remains a niche but respected choice among power users. It is maintained by a community of contributors and supports both glibc and musl libc versions."
+    },
+    {
+      "title": "Init System Philosophy",
+      "icon": "zap",
+      "text": "Void Linux deliberately avoids systemd, using runit for a simpler, more transparent init system. This appeals to users who want more control over their system startup and services."
+    }
+  ]
+}

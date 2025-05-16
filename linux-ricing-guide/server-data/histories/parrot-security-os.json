@@ -1,0 +1,26 @@
+{
+  "name": "Parrot Security OS",
+  "description": "Parrot Security OS is a Debian-based Linux distribution designed for security experts, developers, and privacy-conscious users. It includes tools for penetration testing, forensics, and secure browsing.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "Parrot OS was launched in 2013 by the Frozenbox team, aiming to provide a lightweight, secure, and privacy-oriented operating system."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "Parrot evolved to include a full suite of tools for ethical hacking, cryptography, programming, and anonymous internet usage via Tor and Anonsurf."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "Today, Parrot Security OS is a popular choice among penetration testers and security researchers, offering both Security and Home editions for various use cases."
+    },
+    {
+      "title": "Privacy & Security Toolkit",
+      "icon": "lock",
+      "text": "Parrot emphasizes secure development and browsing environments, providing sandboxing, anonymity tools, and strong encryption by default."
+    }
+  ]
+}

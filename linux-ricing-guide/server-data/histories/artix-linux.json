@@ -1,0 +1,26 @@
+{
+  "name": "Artix Linux",
+  "description": "Artix Linux is a systemd-free Arch-based Linux distribution that uses alternative init systems such as OpenRC, runit, s6, and dinit. It appeals to users who want full control over their init system.",
+  "sections": [
+    {
+      "title": "Early Years",
+      "icon": "clock-rotate-left",
+      "text": "Artix was created as a continuation of the Arch-OpenRC project after Arch dropped support for non-systemd init systems in 2017."
+    },
+    {
+      "title": "Growth and Development",
+      "icon": "code",
+      "text": "Artix grew quickly as the go-to Arch-based system for users who prefer alternatives to systemd. It supports multiple init systems and offers several desktop editions."
+    },
+    {
+      "title": "Current Status",
+      "icon": "calendar",
+      "text": "Artix remains an active and popular systemd-free alternative to Arch. It has strong community support and frequent updates via Arch's rolling release model."
+    },
+    {
+      "title": "Init System Diversity",
+      "icon": "hand-fist",
+      "text": "Artix’s defining feature is its flexibility in init systems, offering users a choice between OpenRC, runit, s6, and dinit for maximum transparency and control."
+    }
+  ]
+}
