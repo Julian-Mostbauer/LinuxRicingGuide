@@ -8,6 +8,7 @@ class IntervalManager {
   start(callback: () => void, interval: number) {
     this.stop();
     this.intervalId = window.setInterval(callback, interval);
+    callback(); // Call first immediately on start
   }
 
   stop() {

@@ -1,4 +1,4 @@
-use std::collections::HashSet;
+use std::collections::{HashMap, HashSet};
 
 use serde::{Deserialize, Serialize};
 
@@ -35,4 +35,49 @@ impl Distro {
             VoteStatus::None
         }
     }
+}
+
+macro_rules! make_distro_w_key {
+    ($key:expr) => {
+        ($key.to_owned(), Distro::new($key.to_owned()))
+    };
+}
+
+macro_rules! make_distros {
+    ( $( $key:expr ),* $(,)? ) => {
+        [
+            $(
+                make_distro_w_key!($key),
+            )*
+        ]
+    };
+}
+
+pub fn default_distros() -> HashMap<String, Distro> {
+    HashMap::from(make_distros![
+        "ubuntu",
+        "debian",
+        "arch",
+        "manjaro",
+        "pop",
+        "mint",
+        "elementary",
+        "cent",
+        "fedora",
+        "void",
+        "opensuse",
+        "qubes",
+        "slackware",
+        "gentoo",
+        "alpine",
+        "mx",
+        "ubuntu-studio",
+        "parrot-security",
+        "kali",
+        "black-arch",
+        "artix",
+        "endeavour",
+        "garuda",
+        "trisquel"
+    ])
 }

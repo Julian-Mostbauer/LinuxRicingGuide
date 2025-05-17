@@ -4,12 +4,12 @@ import { devToolsEnabled } from './devTool.config'
 export default defineNuxtConfig({
     runtimeConfig: {
         public: {
-          auth0Domain: 'integr-0.eu.auth0.com',
-          auth0ClientId: 'jqQ95UJyIRnhLTpci9FsyrfgqkNyrptp',
-          hostDomain: 'https://example.com',
+            auth0Domain: 'integr-0.eu.auth0.com',
+            auth0ClientId: 'jqQ95UJyIRnhLTpci9FsyrfgqkNyrptp',
+            hostDomain: 'https://example.com',
             backendAddress: 'http://localhost:8080',
         }
-      },
+    },
     compatibilityDate: '2024-11-01',
     devtools: { enabled: devToolsEnabled },
     vite: {

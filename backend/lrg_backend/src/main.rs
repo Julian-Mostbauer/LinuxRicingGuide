@@ -1,27 +1,29 @@
+mod auth0_integration;
 mod config;
 mod db;
 mod endpoints;
 mod models;
 mod persistence;
 mod tui;
-mod auth0_integration;
 
 use actix_web::{web, App, HttpServer};
+use persistence::PersistenceManager;
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
-    println!("Starting server on port {}", config::PORT);
-    println!("Data path: {}", config::DATA_PATH);
+    let config = PersistenceManager::init_config();
+    
+    let persistence_manager = PersistenceManager::new(config.clone());
+    let tui_manager = tui::TuiManager::new(persistence_manager.clone());
+    let user_db = persistence_manager.init_db();
 
-    let user_db = persistence::init_db();
-
-    tui::spawn_tui(user_db.clone());
+    tui::spawn_tui(tui_manager, user_db.clone());
     HttpServer::new(move || {
         App::new()
             .app_data(web::Data::new(user_db.clone()))
             .configure(endpoints::config)
     })
-    .bind(config::SOCKET_ADDRESS)?
+    .bind((config.address, config.port))?
     .run()
     .await
 }

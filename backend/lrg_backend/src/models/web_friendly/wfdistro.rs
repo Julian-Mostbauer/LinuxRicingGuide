@@ -27,7 +27,7 @@ impl From<&Distro> for WfDistro {
 impl WfDistro{
     pub fn from_distro_specific(distro: &Distro, user: &User) -> Self {
         let mut wf_distro: WfDistro = distro.into();
-        wf_distro.your_vote = distro.get_vote_status(&user);
+        wf_distro.your_vote = distro.get_vote_status(user);
 
         wf_distro
     }

@@ -47,6 +47,8 @@ import { useRoute } from "#vue-router";
 import { ref, watch } from "vue";
 import { toHeaderCase } from "assets/utils/caseUtils";
 import { createAuth0 } from "@auth0/auth0-vue";
+import { onMounted } from 'vue'
+import IntervalManager from "~/assets/utils/intervalManager";
 
 const healthy = ref(false);
 
@@ -62,17 +64,6 @@ const fetchHealth = async () => {
 
 // @ts-ignore // ignore undefined value for health_warn
 const showWarn = () => health_warn.showModal();
-
-let intervalManager = new IntervalManager();
-
-onMounted(() => {
-  intervalManager.start(fetchHealth, 10000);
-  fetchHealth();
-});
-
-onUnmounted(() => {
-  intervalManager.stop();
-});
 
 const route = useRoute()
 
@@ -90,9 +81,6 @@ nxt.vueApp.use(
     },
   })
 );
-
-import { onMounted } from 'vue'
-import IntervalManager from "~/assets/utils/intervalManager";
 
 const content = ref<HTMLElement | null>(null)
 
@@ -124,11 +112,14 @@ function highlightText(node: Node, word: string): void {
 function escapeRegExp(string: string): string {
   return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
+
 const updateRouteParts = () => {
   document.title = toHeaderCase((route.name === "index" ? "home" : route.name!).toString())
 };
 
+let intervalManager = new IntervalManager();
 onMounted(() => {
+  intervalManager.start(fetchHealth, 10000);
   watch(route, updateRouteParts, { immediate: true });
 
   const keywordParam = route.query.q
@@ -138,6 +129,11 @@ onMounted(() => {
     highlightText(content.value, keyword)
   }
 })
+
+onUnmounted(() => {
+  intervalManager.stop();
+});
+
 watch(
   () => route.query.q,
   async (q) => {

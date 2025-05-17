@@ -1,4 +1,4 @@
-import { DistroInfo } from '~/assets/types/backendTypes'
+import { Comment } from '~/assets/types/backendTypes'
 
 export default defineEventHandler(async (event) => {
     const endPoint: string = useRuntimeConfig().public.backendAddress as string
@@ -10,9 +10,9 @@ export default defineEventHandler(async (event) => {
     }
 
     try {
-        const response: DistroInfo = await $fetch(
-            `${endPoint}/distros/${name}/downvote`,
-            { timeout: 5000, method: 'POST', headers: { 'X-User-ID': id } }
+        const response: Comment[] = await $fetch(
+            `${endPoint}/distros/${name}/comments`,
+            { timeout: 5000, headers: { 'X-User-ID': id } }
         )
         return { data: response }
     } catch (error: any) {

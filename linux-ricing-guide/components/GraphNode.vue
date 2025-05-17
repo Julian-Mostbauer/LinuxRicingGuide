@@ -1,12 +1,14 @@
 <template>
-  <svg :width="width" :height="height" class="radial-tree" @mousedown="startPan" @mousemove="handlePan"
+  <svg :width="width" :height="height" class="radial-tree" @mousedown="startPan" @mousemove="onMouseMove"
     @mouseup="endPan" @mouseleave="endPan" @wheel.prevent="handleZoom">
+
     <defs>
       <clipPath id="circle-clip">
         <circle r="50" />
       </clipPath>
     </defs>
-    <g :transform="`translate(${view.x} ${view.y}) scale(${view.k})`">
+
+    <g ref="treeGroup">
       <g transform="translate(0 0)">
         <!-- Connections -->
         <path v-for="(connection, index) in connections" :key="'conn-' + index" :d="connection.path"
@@ -35,7 +37,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, type PropType } from 'vue'
+import { defineComponent, type PropType, nextTick } from 'vue'
 import type { Node } from 'assets/utils/routeTree'
 import { toHeaderCase } from '~/assets/utils/caseUtils'
 
@@ -76,19 +78,24 @@ export default defineComponent({
       allNodes: [] as TreeNode[],
       connections: [] as Array<{ path: string }>,
       radius: 15,
-      angleStep: 45,
       isPanning: false,
       startPanPosition: { x: 0, y: 0 },
       view: {
         k: 1,
         x: this.width / 2,
         y: this.height / 2
-      } as ViewState
+      } as ViewState,
+      panRaf: 0
     }
   },
 
   mounted() {
     this.layoutTree()
+    this.updateTransform()
+  },
+
+  updated() {
+    this.updateTransform()
   },
 
   methods: {
@@ -99,12 +106,16 @@ export default defineComponent({
     },
 
     calculatePositions(node: Node, depth: number, angle: number, parentNode?: TreeNode): TreeNode {
-      const baseClusterRadius = 200;
-      const extraRadiusIfHasChildren = Math.max(node.Children.length - 1, 0) * 20;
-      const clusterRadius = baseClusterRadius + extraRadiusIfHasChildren;
 
-      let nodeX = parentNode ? parentNode.x + Math.cos(angle * Math.PI / 180) * clusterRadius : 0;
-      let nodeY = parentNode ? parentNode.y + Math.sin(angle * Math.PI / 180) * clusterRadius : 0;
+      // Limit the number of children to 8 for performance
+      node.Children = node.Children.slice(0, 8) || []
+
+      const baseClusterRadius = 200;
+      const extraRadius = Math.max(node.Children.length - 1, 0) * 60;
+      const clusterRadius = baseClusterRadius + extraRadius;
+
+      const nodeX = parentNode ? parentNode.x + Math.cos(angle * Math.PI / 180) * clusterRadius : 0;
+      const nodeY = parentNode ? parentNode.y + Math.sin(angle * Math.PI / 180) * clusterRadius : 0;
 
       const radialPosition: TreeNode = {
         x: nodeX,
@@ -113,52 +124,42 @@ export default defineComponent({
         link: node.Value?.path || '/',
         children: [],
         parent: parentNode,
-        expanded: true,
+        expanded: true
       };
 
-      // Resolve collisions
-      const pushRadius = this.radius * 11;
       for (const existingNode of this.allNodes) {
         const dx = radialPosition.x - existingNode.x;
         const dy = radialPosition.y - existingNode.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
+        const pushRadius = this.radius * 11;
 
         if (distance < pushRadius) {
           const overlap = pushRadius - distance;
-          const angleToExistingNode = Math.atan2(dy, dx);
-
-          // Push the node away
-          radialPosition.x += Math.cos(angleToExistingNode) * overlap;
-          radialPosition.y += Math.sin(angleToExistingNode) * overlap;
+          const angleToExisting = Math.atan2(dy, dx);
+          radialPosition.x += Math.cos(angleToExisting) * overlap;
+          radialPosition.y += Math.sin(angleToExisting) * overlap;
         }
       }
 
       this.allNodes.push(radialPosition);
 
       if (parentNode) {
-        this.connections.push({
-          path: this.createConnectionPath(parentNode, radialPosition),
-        });
+        this.connections.push({ path: this.createConnectionPath(parentNode, radialPosition) });
       }
 
       const childCount = node.Children.length;
       if (childCount > 0) {
         const totalArc = childCount <= 3 ? 120 : childCount <= 6 ? 180 : 330;
-        const spreadAngle = totalArc / (childCount || 1);
-
-        let baseAngleOffset =
-          parentNode?.x === undefined || parentNode?.y === undefined
-            ? 0
-            : (Math.atan2(parentNode.y - nodeY, parentNode.x - nodeX) * 180) / Math.PI;
-
-        baseAngleOffset = (baseAngleOffset + 360) % 360; // Normalize angle to [0, 360)
-
-        let childAngle = baseAngleOffset + angle - totalArc / 2;
+        const spreadAngle = totalArc / childCount;
+        let baseAngle = parentNode ? Math.atan2(parentNode.y - nodeY, parentNode.x - nodeX) * 180 / Math.PI : 0;
+        baseAngle = (baseAngle + 360) % 360;
+        let childAngle = baseAngle + angle - totalArc / 2;
 
         for (const child of node.Children) {
-          const childNode = this.calculatePositions(child, depth + 1, childAngle, radialPosition);
+          const extraSpacing = child.Children.length > 0 ? spreadAngle / 2 : 0;
+          const childNode = this.calculatePositions(child, depth + 1, childAngle + extraSpacing, radialPosition);
           radialPosition.children.push(childNode);
-          childAngle += spreadAngle;
+          childAngle += spreadAngle + extraSpacing;
         }
       }
 
@@ -177,10 +178,15 @@ export default defineComponent({
       }
     },
 
-    handlePan(event: MouseEvent) {
-      if (!this.isPanning) return
-      this.view.x = event.clientX - this.startPanPosition.x
-      this.view.y = event.clientY - this.startPanPosition.y
+    onMouseMove(event: MouseEvent) {
+      if (!this.isPanning || this.panRaf) return
+
+      this.panRaf = requestAnimationFrame(() => {
+        this.view.x = event.clientX - this.startPanPosition.x
+        this.view.y = event.clientY - this.startPanPosition.y
+        this.panRaf = 0
+        this.updateTransform()
+      })
     },
 
     endPan() {
@@ -189,20 +195,27 @@ export default defineComponent({
 
     handleZoom(event: WheelEvent) {
       const scaleFactor = 0.95
-      const newScale = -event.deltaY < 0
-        ? this.view.k * scaleFactor
-        : this.view.k / scaleFactor
+      const newScale = -event.deltaY < 0 ? this.view.k * scaleFactor : this.view.k / scaleFactor
+      const limitedScale = Math.min(Math.max(0.5, newScale), 3)
 
-      // Limit zoom range
-      this.view.k = Math.min(Math.max(0.5, newScale), 3)
-
-      // Adjust position to zoom under cursor
       const rect = (event.target as SVGSVGElement).getBoundingClientRect()
       const mouseX = event.clientX - rect.left
       const mouseY = event.clientY - rect.top
 
-      this.view.x = mouseX - (mouseX - this.view.x) * (this.view.k / newScale)
-      this.view.y = mouseY - (mouseY - this.view.y) * (this.view.k / newScale)
+      this.view.x = mouseX - (mouseX - this.view.x) * (limitedScale / this.view.k)
+      this.view.y = mouseY - (mouseY - this.view.y) * (limitedScale / this.view.k)
+      this.view.k = limitedScale
+
+      this.updateTransform()
+    },
+
+    updateTransform() {
+      nextTick(() => {
+        const group = this.$refs.treeGroup as SVGGElement | undefined
+        if (group) {
+          group.setAttribute('transform', `translate(${this.view.x} ${this.view.y}) scale(${this.view.k})`)
+        }
+      })
     },
 
     toggleNode(node: TreeNode) {
@@ -211,7 +224,7 @@ export default defineComponent({
     },
 
     routeName(path: string) {
-      return path.split('/').pop() || 'Home' // Fallback to 'Home' if path is empty
+      return path.split('/').pop() || 'Home'
     },
 
     wrapText(text: string, maxChars: number): string[] {
@@ -243,9 +256,6 @@ export default defineComponent({
     }
   }
 })
-
-
-
 </script>
 
 <style>
@@ -253,6 +263,7 @@ export default defineComponent({
   cursor: grab;
   user-select: none;
   border-radius: 2rem;
+  will-change: transform;
 }
 
 .radial-tree:active {
@@ -276,7 +287,6 @@ g:hover>.node-text {
   fill: var(--color-base-100);
 }
 
-
 .node-text {
   fill: var(--color-base-content);
   text-anchor: middle;
@@ -289,5 +299,6 @@ g:hover>.node-text {
   stroke: var(--color-gray-300);
   stroke-width: 2;
   fill: none;
+  pointer-events: none;
 }
 </style>
