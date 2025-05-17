@@ -1,12 +1,8 @@
-use crate::config::{BACKUP_DIR, BACKUP_PREFIX, DATA_PATH, TIMESTAMP_FORMAT};
+use crate::config::{BACKUP_DIR, BACKUP_PREFIX, DATA_DIR, DATA_PATH, TIMESTAMP_FORMAT};
 use crate::db::{Db, SharedDb};
 use crate::models::distro::default_distros;
-use crate::models::Distro;
 use chrono::Utc;
-use std::collections::HashMap;
-use std::fs;
-use std::path::Path;
-use std::sync::{Arc, Mutex};
+use std::{collections::HashMap, fs, path::Path, sync::{Arc, Mutex}};
 
 pub fn available_backups() -> Vec<fs::DirEntry> {
     fs::read_dir(Path::new(BACKUP_DIR))
@@ -18,7 +14,6 @@ pub fn available_backups() -> Vec<fs::DirEntry> {
         })
         .collect::<Vec<_>>()
 }
-
 
 fn back_up_to_file() -> Result<(), String> {
     let backup_dir = Path::new(BACKUP_DIR);
@@ -44,7 +39,26 @@ pub fn load_db() -> Result<Db, String> {
     load_db_from_file(DATA_PATH)
 }
 
+fn handle_missing_files() -> Result<(), String> {
+    if !Path::new(DATA_DIR).exists() {
+        fs::create_dir_all(DATA_DIR)
+            .map_err(|e| format!("Failed to create data directory: {}", e))?;
+    }
+    if !Path::new(DATA_PATH).exists() {
+        fs::write(DATA_PATH, "[]").map_err(|e| format!("Failed to create file: {}", e))?;
+    }
+
+    if !Path::new(BACKUP_DIR).exists() {
+        fs::create_dir_all(BACKUP_DIR)
+            .map_err(|e| format!("Failed to create backup directory: {}", e))?;
+    }
+
+    Ok(())
+}
+
 pub fn store_db(db: &Db) -> Result<(), String> {
+    handle_missing_files()?;
+
     fs::write(
         DATA_PATH,
         serde_json::to_string(db).map_err(|e| format!("Failed to serialize database: {}", e))?,
