@@ -3,12 +3,28 @@ import { isValidID } from './idUtils'
 
 type SetResCallback = (res: any) => void
 
-interface IBackendWrapper {
+interface IDistroVoter {
     upvote(setResCallback: SetResCallback): Promise<boolean>
     downvote(setResCallback: SetResCallback): Promise<boolean>
-    postComment(content: string): Promise<boolean>
+}
+interface ICommentVoter {
+    upvoteComment(
+        commentId: number,
+        setResCallback: SetResCallback
+    ): Promise<boolean>
+    downvoteComment(
+        commentId: number,
+        setResCallback: SetResCallback
+    ): Promise<boolean>
+}
+interface IBackendWrapper extends ICommentVoter, IDistroVoter {
     distroInfo(setResCallback: SetResCallback): Promise<boolean>
+    postComment(content: string): Promise<boolean>
     getComments(setResCallback: SetResCallback): Promise<boolean>
+    deleteComment(
+        commentId: number,
+        setResCallback: SetResCallback
+    ): Promise<boolean>
 }
 
 class BackendWrapper implements IBackendWrapper {
@@ -18,6 +34,53 @@ class BackendWrapper implements IBackendWrapper {
     constructor(auth0Id: string, distroName: string) {
         this.auth0Id = auth0Id
         this.distroName = toBackendCase(distroName)
+    }
+
+    public async deleteComment(
+        commentId: number,
+        setResCallback: SetResCallback
+    ): Promise<boolean> {
+        const res = (await $fetch('/api/dbWrapper/comments/delete', {
+            method: 'DELETE',
+            body: {
+                id: this.auth0Id,
+                commentId,
+            },
+        })) as any
+
+        setResCallback(res)
+        return true
+    }
+
+    public async upvoteComment(
+        commentId: number,
+        setResCallback: SetResCallback
+    ): Promise<boolean> {
+        const res = (await $fetch('/api/dbWrapper/comments/delete', {
+            method: 'DELETE',
+            body: {
+                id: this.auth0Id,
+                commentId,
+            },
+        })) as any
+
+        setResCallback(res)
+        return true
+    }
+    public async downvoteComment(
+        commentId: number,
+        setResCallback: SetResCallback
+    ): Promise<boolean> {
+        const res = (await $fetch('/api/dbWrapper/comments/delete', {
+            method: 'DELETE',
+            body: {
+                id: this.auth0Id,
+                commentId,
+            },
+        })) as any
+
+        setResCallback(res)
+        return true
     }
 
     public async getComments(setResCallback: SetResCallback): Promise<boolean> {
@@ -87,8 +150,20 @@ class BackendWrapper implements IBackendWrapper {
 
 class DisabledBackendWrapper implements IBackendWrapper {
     constructor() {}
+    public async deleteComment(): Promise<boolean> {
+        console.log('deleteComment disabled')
+        return false
+    }
+    public async upvoteComment(): Promise<boolean> {
+        console.log('deleteComment disabled')
+        return false
+    }
+    public async downvoteComment(): Promise<boolean> {
+        console.log('deleteComment disabled')
+        return false
+    }
 
-    public async getComments(setResCallback: SetResCallback): Promise<boolean> {
+    public async getComments(): Promise<boolean> {
         console.log('getComments disabled')
         return false
     }
