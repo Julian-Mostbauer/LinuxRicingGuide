@@ -2,16 +2,16 @@
   <div v-if="
     comments.length > 0
   " class="mt-2 space-y-3">
-    <div v-for="(comment, idx) in comments" :key="idx" class="p-3 rounded bg-base-100 border min-w-full flex flex-row">
+    <div v-for="(comment, idx) in comments" :key="idx" class="p-3 rounded-xl bg-base-100 min-w-full flex flex-row">
       <div>
         <VoteButton vote-type="Up" :data="comment"
           @click="commentHandler.upvoteComment(comment.id, (res) => updateComment(comments, idx, res.data))" />
       </div>
       <div class="flex-grow">
-        <div class="text-sm text-base-content font-medium mb-1">
+        <div class="text-xs text-base-content font-medium mb-1">
           {{ comment.date }}
         </div>
-        <div class="text-base-content text-sm">
+        <div class="text-base-content text-md">
           {{ comment.content }}
         </div>
       </div>
