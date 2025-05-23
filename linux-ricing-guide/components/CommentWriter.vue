@@ -12,14 +12,16 @@
 </template>
 
 
-<script setup lang="ts" generic="TcP extends { postComment: (content: string) => Promise<boolean>; }">
+<script setup lang="ts">
+import type { ICommentPoster } from '~/assets/utils/backendUtils';
+
 const commentContent = ref('')
 
 defineProps<{
-  commentPoster: TcP;
+  commentPoster: ICommentPoster;
 }>()
 
-const postComment = async (cP: TcP) => {
+const postComment = async (cP: ICommentPoster) => {
   if (commentContent.value.trim() === '') {
     return
   }
