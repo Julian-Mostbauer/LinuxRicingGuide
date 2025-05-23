@@ -11,7 +11,7 @@
                 :voter="backendWrapper" />
               <div class="flex flex-col flex-grow">
                 <h2 class="mb-4 text-xl text-primary font-bold flex flex-row items-center">
-                  <DynamicIcon :names="{ default: 'circle-info' }" />
+                  <DynamicIcon :names="{ default: 'circle-info' }" class="mr-2"/>
                   {{ jsonObject.name }}
                 </h2>
                 <p class="text-md flex-grow" v-html="jsonObject.description"></p>
