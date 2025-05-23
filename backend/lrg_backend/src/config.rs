@@ -1,6 +1,26 @@
-pub const PORT: u16 = 8080;
-pub const DATA_PATH: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/data/users.json");
-pub const BACKUP_DIR: &str = concat!(env!("CARGO_MANIFEST_DIR"), "/data/backups");
-pub const SOCKET_ADDRESS: (&str, u16) = ("127.0.0.1", PORT);
-pub const TIMESTAMP_FORMAT: &str = "%Y_%m_%d_%H_%M_%S";
-pub const BACKUP_PREFIX: &str = "backup:";
+use serde::{Deserialize, Serialize};
+
+#[derive(Deserialize, Serialize, Debug,Clone)]
+pub struct Config {
+    pub port: u16,
+    pub address: String,
+    pub data_dir: String,
+    pub data_path: String,
+    pub backup_dir: String,
+    pub timestamp_format: String,
+    pub backup_prefix: String,
+}
+
+impl Default for Config {
+    fn default() -> Self {
+        Self {
+            port: 8080,
+            address: "127.0.0.1".to_owned(),
+            data_dir: "./data".to_owned(),
+            data_path: "./data/users.json".to_owned(),
+            backup_dir: "./data/backups".to_owned(),
+            timestamp_format: "%Y_%m_%d_%H_%M_%S".to_owned(),
+            backup_prefix: "backup:".to_owned(),
+        }
+    }
+}
