@@ -30,7 +30,7 @@
                     dynamicData.comments?.length ?? 0
                   }})
                 </summary>
-                <CommentSection :comments="dynamicData.comments ?? []" />
+                <CommentSection :comments="dynamicData.comments ?? []" :comment-voter="backendWrapper" />
               </details>
             </section>
           </div>
@@ -123,7 +123,7 @@ const dynamicData = ref<DistroWithComments>({
   name: '',
   upvote_count: -1,
   downvote_count: -1,
-  your_vote: '',
+  your_vote: 'None',
   comments: [
     {
       id: -1,

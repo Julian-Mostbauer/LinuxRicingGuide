@@ -7,6 +7,7 @@ interface IDistroVoter {
     upvote(setResCallback: SetResCallback): Promise<boolean>
     downvote(setResCallback: SetResCallback): Promise<boolean>
 }
+
 interface ICommentVoter {
     upvoteComment(
         commentId: number,
@@ -56,8 +57,8 @@ class BackendWrapper implements IBackendWrapper {
         commentId: number,
         setResCallback: SetResCallback
     ): Promise<boolean> {
-        const res = (await $fetch('/api/dbWrapper/comments/delete', {
-            method: 'DELETE',
+        const res = (await $fetch('/api/dbWrapper/comments/upvote', {
+            method: 'POST',
             body: {
                 id: this.auth0Id,
                 commentId,
@@ -71,8 +72,8 @@ class BackendWrapper implements IBackendWrapper {
         commentId: number,
         setResCallback: SetResCallback
     ): Promise<boolean> {
-        const res = (await $fetch('/api/dbWrapper/comments/delete', {
-            method: 'DELETE',
+        const res = (await $fetch('/api/dbWrapper/comments/downvote', {
+            method: 'POST',
             body: {
                 id: this.auth0Id,
                 commentId,
@@ -209,4 +210,4 @@ class BackendWrapperFactory {
     }
 }
 
-export { type IBackendWrapper, BackendWrapperFactory }
+export { type IBackendWrapper, type ICommentVoter, BackendWrapperFactory }

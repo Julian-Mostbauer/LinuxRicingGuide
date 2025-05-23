@@ -2,12 +2,22 @@
   <div v-if="
     comments.length > 0
   " class="mt-2 space-y-3">
-    <div v-for="(comment, idx) in comments" :key="idx" class="p-3 rounded bg-base-100 border">
-      <div class="text-sm text-base-content font-medium mb-1">
-        {{ comment.date }}
+    <div v-for="(comment, idx) in comments" :key="idx" class="p-3 rounded bg-base-100 border min-w-full flex flex-row">
+      <div>
+        <VoteButton vote-type="Up" :data="comment"
+          @click="commentVoter.upvoteComment(comment.id, (res) => updateComment(comments, idx, res.data))" />
       </div>
-      <div class="text-base-content text-sm">
-        {{ comment.content }}
+      <div class="flex-grow">
+        <div class="text-sm text-base-content font-medium mb-1">
+          {{ comment.date }}
+        </div>
+        <div class="text-base-content text-sm">
+          {{ comment.content }}
+        </div>
+      </div>
+      <div>
+        <VoteButton vote-type="Down" :data="comment"
+          @click="commentVoter.downvoteComment(comment.id, (res) => updateComment(comments, idx, res.data))" />
       </div>
     </div>
   </div>
@@ -18,8 +28,15 @@
 
 <script setup lang="ts">
 import type { CommentWithParsedDate } from '~/assets/types/backendTypes'
+import type { ICommentVoter } from '~/assets/utils/backendUtils';
 
 defineProps<{
-  comments: CommentWithParsedDate[]
+  comments: CommentWithParsedDate[],
+  commentVoter: ICommentVoter
 }>()
+
+const updateComment = (comments: CommentWithParsedDate[], idx: number, data: Comment) => {
+  //@ts-ignore
+  comments[idx] = { ...data, date: comments[idx].date }
+}
 </script>

@@ -24,10 +24,10 @@
 </template>
 
 <script setup lang="ts">
-import type { DistroInfo } from '~/assets/types/backendTypes';
+import type { IVoteInfo } from '~/assets/types/backendTypes';
 
 defineProps<{
-  data: DistroInfo,
+  data: IVoteInfo,
   voteType: 'Up' | 'Down',
 }>()
 </script>
