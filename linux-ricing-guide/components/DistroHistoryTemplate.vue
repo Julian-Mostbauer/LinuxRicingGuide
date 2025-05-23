@@ -24,19 +24,8 @@
                 }
               })" :data="dynamicData" vote-type="Down" :voter="backendWrapper" />
             </section>
-            <section v-if="healthy && (auth0Id ?? false)" class="mt-4">
-              <CommentWriter :comment-poster="backendWrapper" />
-            </section>
             <section v-if="healthy && (auth0Id ?? false)">
-              <details class="mt-8">
-                <summary class="cursor-pointer text-lg font-semibold">
-                  <span class="inline-flex content-center items-center">
-                    Comments
-                    <span class="badge badge-soft ml-2">{{ dynamicData.comments?.length ?? 0 }}</span>
-                  </span>
-                </summary>
-                <CommentSection :comments="dynamicData.comments ?? []" :commentHandler="backendWrapper" />
-              </details>
+              <CommentSection :comments="dynamicData.comments ?? []" :commentHandler="backendWrapper" />
             </section>
           </div>
         </GradientOutline>
