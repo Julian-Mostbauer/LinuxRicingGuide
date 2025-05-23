@@ -1,11 +1,15 @@
 <template>
-  <div class="flex flex-col justify-center items-center" :class="{
+  <div class="flex flex-col justify-center items-center btn h-full" :class="{
     'text-primary':
       data.your_vote == voteType,
-    'mr-4 border-r-4':
-      voteType == 'Up',
-    'ml-4 border-l-4':
-      voteType == 'Down',
+    'btn-soft text-primary':
+        data.your_vote == voteType,
+    'btn-soft':
+        data.your_vote != voteType,
+    'mr-4':
+        voteType == 'Up',
+    'ml-4':
+        voteType == 'Down',
   }">
     <p v-if="voteType == 'Up'">
       {{ data.upvote_count }}
