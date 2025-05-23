@@ -18,14 +18,18 @@ interface ICommentVoter {
         setResCallback: SetResCallback
     ): Promise<boolean>
 }
-interface IBackendWrapper extends ICommentVoter, IDistroVoter {
-    distroInfo(setResCallback: SetResCallback): Promise<boolean>
-    postComment(content: string): Promise<boolean>
-    getComments(setResCallback: SetResCallback): Promise<boolean>
+
+interface ICommentDeleter {
     deleteComment(
         commentId: number,
         setResCallback: SetResCallback
     ): Promise<boolean>
+}
+
+interface IBackendWrapper extends ICommentVoter, IDistroVoter, ICommentDeleter {
+    distroInfo(setResCallback: SetResCallback): Promise<boolean>
+    postComment(content: string): Promise<boolean>
+    getComments(setResCallback: SetResCallback): Promise<boolean>
 }
 
 class BackendWrapper implements IBackendWrapper {
@@ -210,4 +214,4 @@ class BackendWrapperFactory {
     }
 }
 
-export { type IBackendWrapper, type ICommentVoter, BackendWrapperFactory }
+export { type IBackendWrapper, type ICommentVoter,type ICommentDeleter, BackendWrapperFactory }

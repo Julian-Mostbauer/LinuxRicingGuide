@@ -30,7 +30,7 @@
                     dynamicData.comments?.length ?? 0
                   }})
                 </summary>
-                <CommentSection :comments="dynamicData.comments ?? []" :comment-voter="backendWrapper" />
+                <CommentSection :comments="dynamicData.comments ?? []" :commentHandler="backendWrapper" />
               </details>
             </section>
           </div>
