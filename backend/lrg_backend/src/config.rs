@@ -9,6 +9,7 @@ pub struct Config {
     pub backup_dir: String,
     pub timestamp_format: String,
     pub backup_prefix: String,
+    pub do_backup: bool,
 }
 
 impl Default for Config {
@@ -17,10 +18,11 @@ impl Default for Config {
             port: 8080,
             address: "127.0.0.1".to_owned(),
             data_dir: "./data".to_owned(),
-            data_path: "./data/users.json".to_owned(),
+            data_path: "./data/data.json".to_owned(),
             backup_dir: "./data/backups".to_owned(),
             timestamp_format: "%Y_%m_%d_%H_%M_%S".to_owned(),
             backup_prefix: "backup:".to_owned(),
+            do_backup: true,
         }
     }
 }
