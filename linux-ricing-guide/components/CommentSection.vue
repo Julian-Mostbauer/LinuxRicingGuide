@@ -36,7 +36,8 @@
             {{ comment.content }}
           </div>
         </div>
-        <div class="flex content-center items-center cursor-pointer btn btn-soft btn-error h- p-3"
+        <div v-if="isMyComment(comment.id)"
+          class="flex content-center items-center cursor-pointer btn btn-soft btn-error h- p-3"
           @click="commentHandler.deleteComment(comment.id, (res) => { deleteComment(comments, idx) })">
           <DynamicIcon :names="{ default: 'trash-can' }" :size="19" />
         </div>
@@ -56,10 +57,19 @@
 import type { CommentWithParsedDate } from '~/assets/types/backendTypes'
 import type { ICommentHandler } from '~/assets/utils/backendUtils';
 
-defineProps<{
+const props = defineProps<{
   comments: CommentWithParsedDate[],
   commentHandler: ICommentHandler
 }>()
+
+// always sorted
+const myComments = ref<number[]>([])
+
+onMounted(async () => {
+  await props.commentHandler.myComments((res) => myComments.value = res.data)
+  console.log('myComments', myComments.value)
+})
+
 
 const updateComment = (comments: CommentWithParsedDate[], idx: number, data: Comment) => {
   //@ts-ignore
@@ -81,7 +91,29 @@ const postComment = async (cH: ICommentHandler, comments: CommentWithParsedDate[
 
   let newCommentId = -1;
   await cH.postComment(input, (res) => newCommentId = res.data)
-  await cH.getComment(newCommentId, (res) => comments.push(res.data))
+  await cH.getComment(newCommentId, (res) => {
+    const newComment: CommentWithParsedDate = {
+      ...res.data,
+      date: new Date(res.data.timestamp_epoch).toLocaleString(),
+    }
+    console.log(res)
+    comments.push(newComment)
+  })
+  myComments.value.push(newCommentId)
+}
+
+// Binary search to check if a comment is mine
+const isMyComment = (commentId: number): boolean => {
+  const arr = myComments.value;
+  let left = 0, right = arr.length - 1;
+  while (left <= right) {
+    const mid = Math.floor((left + right) / 2);
+    if (arr[mid] === commentId) return true;
+    if (arr[mid] < commentId) left = mid + 1;
+    else right = mid - 1;
+  }
+
+  return false;
 }
 
 </script>

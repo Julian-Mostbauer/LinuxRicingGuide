@@ -169,11 +169,14 @@ impl Db {
         self.distros.values().collect()
     }
 
-    pub fn get_user_comments(&self, user: &User) -> Vec<&Comment> {
-        self.comments
+    pub fn get_user_comments(&self, user: &User) -> Vec<u32> {
+        let mut res = self.comments
             .values()
             .filter(|comment| &comment.author == user)
-            .collect()
+            .map(|comment| comment.id)
+            .collect::<Vec<u32>>();
+        res.sort_unstable();
+        res
     }
 }
 
