@@ -46,7 +46,8 @@ interface ICommentHandler
         ICommentGetter {}
 
 interface IBackendWrapper extends ICommentVoter, IDistroVoter, ICommentHandler {
-    distroInfo(setResCallback: SetResCallback): Promise<boolean>
+    distroInfo(setResCallback: SetResCallback): Promise<boolean>,
+    myComments(setResCallback: SetResCallback): Promise<boolean>
 }
 
 class BackendWrapper implements IBackendWrapper {
@@ -57,6 +58,19 @@ class BackendWrapper implements IBackendWrapper {
         this.auth0Id = auth0Id
         this.distroName = toBackendCase(distroName)
     }
+    
+    public async myComments(setResCallback: SetResCallback): Promise<boolean> {
+        const res = (await $fetch('/api/dbWrapper/comments/myComments', {
+            method: 'POST',
+            body: {
+                id: this.auth0Id,
+            },
+        })) as any
+
+        setResCallback(res)
+        return true    
+    }
+
     public async getComment(
         commentId: number,
         setResCallback: SetResCallback
@@ -191,6 +205,11 @@ class BackendWrapper implements IBackendWrapper {
 
 class DisabledBackendWrapper implements IBackendWrapper {
     constructor() {}
+
+    public async myComments(setResCallback: SetResCallback): Promise<boolean> {
+        console.log('myComments disabled')
+        return false   
+    }
 
     public async getComment(): Promise<boolean> {
         console.log('getComment disabled')

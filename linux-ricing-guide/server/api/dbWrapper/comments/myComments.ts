@@ -1,10 +1,14 @@
 export default defineEventHandler(async (event) => {
     const endPoint: string = useRuntimeConfig().public.backendAddress as string
 
-    const { id, commentId } = await readBody(event)
+    const { id } = await readBody(event)
+
+    if (!id) {
+        return { error: 'ID is required' }
+    }
 
     try {
-        const response = await $fetch(`${endPoint}/comments/${commentId}`, {
+        const response = await $fetch(`${endPoint}/my-comments`, {
             timeout: 5000,
             method: 'GET',
             headers: { 'X-User-ID': id },
