@@ -168,6 +168,13 @@ impl Db {
     pub fn get_all_distros(&self) -> Vec<&Distro> {
         self.distros.values().collect()
     }
+
+    pub fn get_user_comments(&self, user: &User) -> Vec<&Comment> {
+        self.comments
+            .values()
+            .filter(|comment| &comment.author == user)
+            .collect()
+    }
 }
 
 /// Type alias for a shared database.
