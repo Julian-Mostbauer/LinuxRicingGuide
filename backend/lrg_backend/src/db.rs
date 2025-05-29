@@ -22,7 +22,7 @@ pub struct Db {
 impl Default for Db {
     fn default() -> Self {
         Self {
-            distros: HashMap::from([("default".to_string(), Distro::new("default".to_string()))]),
+            distros: HashMap::from([("default".to_string(), Distro::new("default"))]),
             comments: HashMap::new(),
             comment_factory: CommentFactory::new(),
         }

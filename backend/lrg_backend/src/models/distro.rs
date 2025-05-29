@@ -17,10 +17,10 @@ pub struct Distro {
     pub downvotes: HashSet<User>,
 }
 
-impl Distro {
-    pub fn new(name: String) -> Self {
+impl Distro  {
+    pub fn new(name: impl Into<String>) -> Self {
         Self {
-            name,
+            name: name.into(),
             upvotes: HashSet::new(),
             downvotes: HashSet::new(),
         }
@@ -39,7 +39,7 @@ impl Distro {
 
 macro_rules! make_distro_w_key {
     ($key:expr) => {
-        ($key.to_owned(), Distro::new($key.to_owned()))
+        ($key.to_owned(), Distro::new($key))
     };
 }
 

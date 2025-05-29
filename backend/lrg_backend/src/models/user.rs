@@ -9,7 +9,8 @@ pub struct User {
     pub id: String,
 }
 impl User {
-    pub fn new(id: String) -> Option<Self> {
+    pub fn new(id: impl Into<String>) -> Option<Self> {
+        let id: String = id.into();
         match Self::is_valid_id(&id) {
             true => Some(Self { id }),
             false => None,
@@ -48,7 +49,7 @@ impl TryFrom<HttpRequest> for User {
         req.headers()
             .get("X-User-ID")
             .and_then(|value| value.to_str().ok())
-            .and_then(|s| User::new(s.to_string()))
+            .and_then(User::new)
             .ok_or_else(|| "Missing or invalid X-User-ID header".to_string())
     }
 }
