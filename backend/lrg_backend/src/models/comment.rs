@@ -65,9 +65,12 @@ impl CommentFactory {
     pub fn create(
         &mut self,
         author: User,
-        distro: String,
-        content: String,
+        distro: impl Into<String>,
+        content: impl Into<String>,
     ) -> Result<Comment, String> {
+        let content = content.into();
+        let distro = distro.into();
+        
         if content.trim().is_empty() {
             return Err("Content must not be empty".to_owned());
         }

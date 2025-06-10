@@ -6,33 +6,26 @@
         <GradientOutline circle-width="200px">
           <div class="card bg-base-200 text-base-content p-6 h-full border-primary">
             <section class="h-full flex">
-              <VoteButton v-if="healthy && (auth0Id ?? false)"
-                @click="backendWrapper.upvote((res) => dynamicData = res.data)" :data="dynamicData" vote-type="Up"
-                :voter="backendWrapper" />
+              <VoteButton v-if="healthy && (auth0Id ?? false)" @click="backendWrapper.upvote((res) => {
+                dynamicData = {
+                  ...res.data, comments: dynamicData.comments
+                }
+              })" :data="dynamicData" vote-type="Up" :voter="backendWrapper" />
               <div class="flex flex-col flex-grow">
                 <h2 class="mb-4 text-xl text-primary font-bold flex flex-row items-center">
-                  <DynamicIcon :names="{ default: 'circle-info' }" class="mr-2"/>
+                  <DynamicIcon :names="{ default: 'circle-info' }" class="mr-2" />
                   {{ jsonObject.name }}
                 </h2>
                 <p class="text-md flex-grow" v-html="jsonObject.description"></p>
               </div>
-              <VoteButton v-if="healthy && (auth0Id ?? false)"
-                @click="backendWrapper.downvote((res) => dynamicData = res.data)" :data="dynamicData" vote-type="Down"
-                :voter="backendWrapper" />
-            </section>
-            <section v-if="healthy && (auth0Id ?? false)" class="mt-4">
-              <CommentWriter :comment-poster="backendWrapper" />
+              <VoteButton v-if="healthy && (auth0Id ?? false)" @click="backendWrapper.downvote((res) => {
+                dynamicData = {
+                  ...res.data, comments: dynamicData.comments
+                }
+              })" :data="dynamicData" vote-type="Down" :voter="backendWrapper" />
             </section>
             <section v-if="healthy && (auth0Id ?? false)">
-              <details class="mt-8">
-                  <summary class="cursor-pointer text-lg font-semibold">
-                    <span class="inline-flex content-center items-center">
-                        Comments
-                        <span class="badge badge-soft ml-2">{{dynamicData.comments?.length ?? 0 }}</span>
-                    </span>
-                  </summary>
-                <CommentSection :comments="dynamicData.comments ?? []" :commentHandler="backendWrapper" />
-              </details>
+              <CommentSection :comments="dynamicData.comments ?? []" :commentHandler="backendWrapper" />
             </section>
           </div>
         </GradientOutline>
