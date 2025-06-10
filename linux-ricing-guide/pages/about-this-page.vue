@@ -20,6 +20,9 @@ definePageMeta({
                 <p class="py-6">
                     Whether you're a beginner looking to get started with Linux customization or an experienced user seeking new ideas, this site has something for everyone. We hope you find the resources helpful and inspiring!
                 </p>
+                <p class="py-6">
+                    This page was created as an assignment for the WMC Class of the year 2025 in the scope of Web Development and Project Management. It serves as a demonstration of our understanding of web development concepts and our ability to create a functional and informative website.
+                </p>
             </div>
         </div>
     </div>
