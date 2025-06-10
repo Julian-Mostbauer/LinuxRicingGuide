@@ -28,6 +28,7 @@ definePageMeta({
                     <li>GitHub - Code hosting platform</li>
                     <li>Rust - Backend server</li>
                     <li>DaisyUI - Frontend UI Framework</li>
+                    <li>Auth0 - Authorization and Authentication</li>
                 </ul>
 
                 <h2 class="text-3xl font-bold pt-6">Hosting and Deployment Services</h2>
