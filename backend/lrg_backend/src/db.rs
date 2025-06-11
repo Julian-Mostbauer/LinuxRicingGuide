@@ -22,7 +22,7 @@ pub struct Db {
 impl Default for Db {
     fn default() -> Self {
         Self {
-            distros: HashMap::from([("default".to_string(), Distro::new("default".to_string()))]),
+            distros: HashMap::from([("default".to_string(), Distro::new("default"))]),
             comments: HashMap::new(),
             comment_factory: CommentFactory::new(),
         }
@@ -167,6 +167,16 @@ impl Db {
 
     pub fn get_all_distros(&self) -> Vec<&Distro> {
         self.distros.values().collect()
+    }
+
+    pub fn get_user_comments(&self, user: &User) -> Vec<u32> {
+        let mut res = self.comments
+            .values()
+            .filter(|comment| &comment.author == user)
+            .map(|comment| comment.id)
+            .collect::<Vec<u32>>();
+        res.sort_unstable();
+        res
     }
 }
 

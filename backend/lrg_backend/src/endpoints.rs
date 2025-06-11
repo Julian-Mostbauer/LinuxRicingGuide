@@ -239,6 +239,22 @@ async fn post_comment(
     }
 }
 
+#[get("/my-comments")]
+async fn get_user_comments(
+    req: HttpRequest,
+    db: web::Data<SharedDb>,
+) -> impl Responder {
+    let db = db.lock().unwrap();
+    let user = User::try_from(req);
+    
+    let user = match user {
+        Ok(user) => user,
+        Err(_) => return HttpResponse::BadRequest().body("Invalid user ID"),
+    };
+
+    HttpResponse::Ok().json(db.get_user_comments(&user))
+}
+
 pub fn config(cfg: &mut web::ServiceConfig) {
     cfg.service(index)
         .service(get_distros)
@@ -250,5 +266,6 @@ pub fn config(cfg: &mut web::ServiceConfig) {
         .service(upvote_comment)
         .service(downvote_comment)
         .service(post_comment)
-        .service(delete_comment);
+        .service(delete_comment)
+        .service(get_user_comments);
 }

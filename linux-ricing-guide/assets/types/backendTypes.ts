@@ -1,22 +1,21 @@
-import type { C } from "vitest/dist/chunks/environment.d8YfPkTm.js"
+export interface IVoteInfo {
+    upvote_count: number
+    downvote_count: number
+    your_vote: 'Up' | 'Down' | 'None'
+}
 
-export type Comment = {
+export type Comment = IVoteInfo & {
     id: number
     content: string
     timestamp_epoch: number
-    upvote_count: number
-    downvote_count: number
-    your_vote: string
 }
+
 export type CommentWithParsedDate = Comment & {
     date: string
 }
 
-export type DistroInfo = {
+export type DistroInfo = IVoteInfo &{
     name: string
-    upvote_count: number
-    downvote_count: number
-    your_vote: string
 }
 
 export type DistroWithComments = DistroInfo & {
