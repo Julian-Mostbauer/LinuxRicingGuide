@@ -7,7 +7,7 @@ definePageMeta({
 </script>
 
 <template>
-    <div class="bg-base-300 p-20">
+    <div class="bg-base-300 p-20 w-full">
         <div class="text-left">
             <div class="max-w-md">
                 <h1 class="text-5xl font-bold">Tools and Services</h1>
