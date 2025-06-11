@@ -28,7 +28,7 @@
 import { Motion } from 'motion-v'
 
 definePageMeta({
-    icons: { default: 'database' },
+    icons: { default: 'cube' },
 })
 
 const container = {

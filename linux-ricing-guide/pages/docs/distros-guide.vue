@@ -33,7 +33,7 @@ import DistroChooser from "~/components/DistroChooser.vue";
 import {Motion} from 'motion-v'
 
 definePageMeta({
-  icons: {default: 'database'},
+  icons: {default: 'laptop'},
 });
 
 const container = {
