@@ -7,7 +7,7 @@
           <div class="card bg-base-200 text-base-content p-6 h-full">
             <section class="mb-6 h-full flex flex-col">
               <h2 class="mb-4 text-xl font-bold flex flex-row items-center">
-                <DynamicIcon :names="{ default: section.icon }" class="mr-2"/> {{ section.title }}
+                <DynamicIcon :names="{ default: section.icon }" class="mr-2" /> {{ section.title }}
               </h2>
               <p class="text-md flex-grow" v-html="section.content"></p>
             </section>
@@ -17,8 +17,8 @@
     </Motion>
 
     <div>
-      <ImageGrid :entries="entries" :dimensions="{ width: 8, height: 3 }" :mobileDimensions="{ width: 2, height: 12 }"
-        linkPrefix='distros/' />
+      <ImageGrid :entries="entries" :dimensions="{ width: 8, height: 3 }"
+        :mobileDimensions="{ width: 2, height: 12 }" />
     </div>
   </div>
 </template>
