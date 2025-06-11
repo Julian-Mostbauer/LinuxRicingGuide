@@ -21,7 +21,7 @@ definePageMeta({
                     <li>WebStorm - Code editor</li>
                     <li>Node.js - JavaScript runtime</li>
                     <li>Nuxt.js - Framework for building Vue.js applications</li>
-                    <li>Vue.js - The Javascript framework</li>
+                    <li>Vue.js - The JavaScript framework</li>
                     <li>TypeScript - Superset of JavaScript for static typing</li>
                     <li>Tailwind CSS - Utility-first CSS framework</li>
                     <li>Git - Version control system</li>
