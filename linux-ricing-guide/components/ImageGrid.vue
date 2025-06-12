@@ -3,7 +3,7 @@
     '--desktop-cols': dimensions.width,
     '--mobile-cols': mobileDimensions.width
   }">
-    <div v-for="(entry, index) in entries" :key="index" @click="navigateTo(entry.link, linkPrefix)">
+    <div v-for="(entry, index) in entries" :key="index" @click="navigateTo(entry.link)">
       <GradientOutline circle-width="200px">
         <div class="cursor-pointer bg-base-200 relative p-4 hover:bg-base-100 rounded-[var(--radius-box)]">
           <div class="p-[0.2rem]">
@@ -26,11 +26,10 @@ defineProps<{
   entries: Entry[];
   dimensions: Dimensions;
   mobileDimensions: Dimensions;
-  linkPrefix?: string;
 }>();
 
-const navigateTo = (link: string, linkPrefix?: string) => {
-  router.push(linkPrefix ? `${linkPrefix}${link}` : link);
+const navigateTo = (link: string) => {
+  router.push(link);
 };
 </script>
 
