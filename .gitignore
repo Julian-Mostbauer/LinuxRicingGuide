@@ -1,5 +1,4 @@
 .vscode
-*.pdf
 node_modules
 *.py
 frontend/package-lock.json
