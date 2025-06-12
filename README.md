@@ -2,12 +2,20 @@
 
 ## About
 
-School project for WMC. Guide to ricing linux systems
+A school project for WMC 2024/25 at the [HTL Leonding](https://www.htl-leonding.at/)
+
+A Site to guide and teach how to ricing linux systems
+
+---
+
+## Project Description
 
 [Project Description](./about/project-description.md)
 
-![Use Case Diagram](./about/use-case-diagram.svg)
+---
 
-## Hosting
+## Use case
 
-Currently no hosting
+![Use Case Diagram](./about/use-case.svg)
+
+---
