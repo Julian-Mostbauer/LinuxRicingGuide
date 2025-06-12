@@ -72,7 +72,7 @@ const ConfiguratorData = {
     }
 }
 
-let downloadLinks =  ref<Record<string, string>>({})
+let downloadLinks = ref<Record<string, string>>({})
 
 function submitForm(event: Event) {
     event.preventDefault();
@@ -96,48 +96,52 @@ function submitForm(event: Event) {
 </script>
 
 <template>
-    <Motion :initial="{ scale: 0 }" :while-in-view="{ scale: 1 }" :in-view-options="{ once: true }" :transition="{ type: 'spring', stiffness: 250, damping: 20, delay: 0.25 }">
-        <GradientOutline circle-width="300px" class-name="w-96 mr-10">
-            <div class="card h-full w-full bg-base-200 shadow-lg">
-                <div class="card-body w-full">
-                    <h2 class="card-title">Configurator</h2>
-                    <form id="configurator" @submit="submitForm">
-                        <div v-for="(dropdown, dropdownName) in ConfiguratorData.dropdowns" class="mt-2 w-full" :key="dropdownName">
-                            <label :for="dropdownName" class="label">{{dropdownName}}</label>
-                            <select :id="dropdownName" class="select">
-                                <option v-for="(link, name) in dropdown" :key="name" :value="name">
-                                    {{ name }}
-                                </option>
-                            </select>
-                        </div>
-                        <button @click="" class="btn btn-primary text-base-200 mt-4">
-                            <DynamicIcon :names="{default: 'paper-plane'}" />
-                            Submit
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </GradientOutline>
-    </Motion>
-
-    <Motion :initial="{ scale: 0 }" :while-in-view="{ scale: 1 }" :in-view-options="{ once: true }" :transition="{ type: 'spring', stiffness: 250, damping: 20, delay: 0.25 }" class="hidden" id="links-wrapper">
-        <GradientOutline circle-width="300px" class-name="w-170 ml-10">
-            <div class="card h-full w-full bg-base-200 shadow-lg">
-                <div class="card-body w-full">
-                    <h2 class="card-title">Download Links</h2>
-                    <div id="links" style="display: flex; flex-direction: column">
-                        <a v-for="(text, link) in downloadLinks" :key="link" class="btn btn-soft mt-3" target="_blank" :href="link">
-                            <DynamicIcon :names="{default: 'arrow-up-right-from-square'}" />
-                            {{ text }}
-                        </a>
+    <div class="m-10 flex flex-row items-center justify-center">
+        <Motion :initial="{ scale: 0 }" :while-in-view="{ scale: 1 }" :in-view-options="{ once: true }"
+            :transition="{ type: 'spring', stiffness: 250, damping: 20, delay: 0.25 }">
+            <GradientOutline circle-width="300px" class-name="w-96 mr-10">
+                <div class="card h-full w-full bg-base-200 shadow-lg">
+                    <div class="card-body w-full">
+                        <h2 class="card-title">Configurator</h2>
+                        <form id="configurator" @submit="submitForm">
+                            <div v-for="(dropdown, dropdownName) in ConfiguratorData.dropdowns" class="mt-2 w-full"
+                                :key="dropdownName">
+                                <label :for="dropdownName" class="label">{{ dropdownName }}</label>
+                                <select :id="dropdownName" class="select">
+                                    <option v-for="(link, name) in dropdown" :key="name" :value="name">
+                                        {{ name }}
+                                    </option>
+                                </select>
+                            </div>
+                            <button @click="" class="btn btn-primary text-base-200 mt-4">
+                                <DynamicIcon :names="{ default: 'paper-plane' }" />
+                                Submit
+                            </button>
+                        </form>
                     </div>
                 </div>
-            </div>
-        </GradientOutline>
-    </Motion>
+            </GradientOutline>
+        </Motion>
 
+        <Motion :initial="{ scale: 0 }" :while-in-view="{ scale: 1 }" :in-view-options="{ once: true }"
+            :transition="{ type: 'spring', stiffness: 250, damping: 20, delay: 0.25 }" class="hidden"
+            id="links-wrapper">
+            <GradientOutline circle-width="300px" class-name="w-170 ml-10">
+                <div class="card h-full w-full bg-base-200 shadow-lg">
+                    <div class="card-body w-full">
+                        <h2 class="card-title">Download Links</h2>
+                        <div id="links" style="display: flex; flex-direction: column">
+                            <a v-for="(text, link) in downloadLinks" :key="link" class="btn btn-soft mt-3"
+                                target="_blank" :href="link">
+                                <DynamicIcon :names="{ default: 'arrow-up-right-from-square' }" />
+                                {{ text }}
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </GradientOutline>
+        </Motion>
+    </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>
