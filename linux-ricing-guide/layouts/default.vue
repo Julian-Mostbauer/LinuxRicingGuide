@@ -6,8 +6,9 @@
       <div class="status status-error animate-ping"></div>
       <div class="status status-error"></div>
     </div>
-    <p class="text-error text-xl">Backend is disconnected</p>
+    <p class="text-error text-xl">Disconnected</p>
   </div>
+
   <dialog id="health_warn" class="modal">
     <div class="modal-box outline-error outline-2">
       <form method="dialog">
@@ -25,12 +26,36 @@
         functionality of the website may be unavailable at this time.</p>
     </div>
   </dialog>
-  <div class="background overflow-clip">
+
+  <div class="background overflow-clip min-h-screen flex flex-col">
     <AppNavbar />
-    <div ref="content">
+
+    <div ref="content" class="flex-grow flex items-center justify-center min-h-[60vh] w-full">
       <slot />
     </div>
+
+    <footer class="footer sm:footer-horizontal bg-base-200 text-base-content p-10">
+      <aside>
+        <DynamicIcon :names="{ default: 'book' }" :size="60" class="mb-2" />
+        <p>
+          <strong>Linux Ricing Guide</strong>
+          <br />
+          Your one-stop resource for all things Linux ricing.
+        </p>
+      </aside>
+      <nav>
+        <h6 class="footer-title">Credits</h6>
+        <NuxtLink to="/about-this-page" class="link link-hover">About this page</NuxtLink>
+        <NuxtLink to="/tools-and-services-used" class="link link-hover">Tools and Services used</NuxtLink>
+      </nav>
+      <nav>
+        <h6 class="footer-title">Our Team</h6>
+        <NuxtLink to="/about-us" class="link link-hover">About us</NuxtLink>
+        <NuxtLink to="/contributions" class="link link-hover">Contributions</NuxtLink>
+      </nav>
+    </footer>
   </div>
+
 
 </template>
 

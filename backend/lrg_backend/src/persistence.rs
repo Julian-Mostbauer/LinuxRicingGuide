@@ -92,8 +92,12 @@ impl PersistenceManager {
         )
         .map_err(|e| format!("Failed to write to file: {}", e))?;
 
-        self.back_up_to_file()
-            .map_err(|e| format!("Failed to back up file: {}", e))
+        if self.0.do_backup {
+            self.back_up_to_file()
+                .map_err(|e| format!("Failed to back up file: {}", e))?;
+        };
+        
+        Ok(())
     }
 
     pub fn init_db(&self) -> SharedDb {

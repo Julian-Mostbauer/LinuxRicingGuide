@@ -1,42 +1,86 @@
 @startuml
 actor User
 
-rectangle "Linux ricing guide" {
+rectangle "Linux Ricing Guide Website" {
 
-  package "Utilities" {
-    usecase "Configurator Tool" as UC11
-    usecase "Search Utility" as UC12
-
-    package "Custom Downloader" {
-      usecase "Choose Linux Distributions" as UC1
-      usecase "Select Window Managers" as UC2
-      usecase "Explore Desktop Environments" as UC3
-      usecase "Pick Terminals and Themes" as UC4
-      usecase "Select Shells" as UC5
-      usecase "Add Package Managers" as UC6
-      usecase "Download Custom Setup" as UC7
-    }
+  package "User Accounts" {
+    usecase "Log in with Google" as UC_LoginGoogle
+    usecase "Log in with GitHub" as UC_LoginGitHub
   }
 
-
-  package "History and Information" {
-    usecase "Explore Linux Distributions" as UC8
-    usecase "View Distro Histories" as UC9
-    usecase "View example Setups" as UC10
+  package "Community & Feedback" {
+    usecase "Participate in Discussions" as UC_Discuss
+    usecase "Leave Comments" as UC_Comment
+    usecase "Rate Comments" as UC_RateComments
+    usecase "Rate Distros" as UC_RateDistros
   }
 
-  UC8 --> UC9
-  UC11 --> UC7
-  UC1 --> UC11
-  UC2 --> UC11
-  UC3 --> UC11
-  UC4 --> UC11
-  UC5 --> UC11
-  UC6 --> UC11
+  package "System Setup Configurator" {
+    usecase "Select Linux Distribution" as UC_SelectDistro
+    usecase "Select Window Manager" as UC_SelectWM
+    usecase "Select Desktop Environment" as UC_SelectDE
+    usecase "Choose Terminals and Themes" as UC_SelectTerm
+    usecase "Choose Shell" as UC_SelectShell
+    usecase "Add Package Manager" as UC_AddPkgMgr
+    usecase "Visit Project Homepages" as UC_Homepages
+  }
 
-  User --> UC11
-  User --> UC12
-  User --> UC8
-  User --> UC10
+  package "Documentation & Guides" {
+    usecase "Linux Concepts Overview" as UC_LinuxOverview
+    usecase "Installation Guides" as UC_InstallGuides
+    usecase "Distro & Linux History" as UC_History
+  }
+
+  package "About the Project" {
+    usecase "View Our Setups" as UC_OurSetups
+    usecase "Technologies Used" as UC_TechUsed
+    usecase "About Us" as UC_AboutUs
+    usecase "About This Page" as UC_AboutPage
+    usecase "Contributions Page" as UC_Contributions
+  }
+
+  
+  package "Navigation Methods" {
+    usecase "Browse via File Tree" as UC_TreeNav
+    usecase "Browse via Node Graph" as UC_NodeNav
+    usecase "Search with Highlighting" as UC_Search
+  }
+
+  UC_Discuss --> UC_Comment
+  UC_Discuss --> UC_RateComments
+
+  UC_SelectDistro --> UC_Homepages
+  UC_SelectWM --> UC_Homepages
+  UC_SelectDE --> UC_Homepages
+  UC_SelectTerm --> UC_Homepages
+  UC_SelectShell --> UC_Homepages
+  UC_AddPkgMgr --> UC_Homepages
+
+  User --> UC_LoginGoogle
+  User --> UC_LoginGitHub
+
+  User --> UC_Discuss
+  User --> UC_RateDistros
+
+  User --> UC_SelectDistro
+  User --> UC_SelectWM
+  User --> UC_SelectDE
+  User --> UC_SelectTerm
+  User --> UC_SelectShell
+  User --> UC_AddPkgMgr
+
+  User --> UC_LinuxOverview
+  User --> UC_InstallGuides
+  User --> UC_History
+
+  User --> UC_OurSetups
+  User --> UC_TechUsed
+  User --> UC_AboutUs
+  User --> UC_AboutPage
+  User --> UC_Contributions
+
+  User --> UC_TreeNav
+  User --> UC_NodeNav
+  User --> UC_Search
 }
 @enduml

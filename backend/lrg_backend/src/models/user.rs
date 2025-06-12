@@ -9,8 +9,36 @@ pub struct User {
     pub id: String,
 }
 impl User {
-    pub fn new(id: String) -> Self {
-        Self { id }
+    pub fn new(id: impl Into<String>) -> Option<Self> {
+        let id: String = id.into();
+        match Self::is_valid_id(&id) {
+            true => Some(Self { id }),
+            false => None,
+        }
+    }
+
+    pub fn is_valid_id(id: &str) -> bool {
+        let parts: Vec<&str> = id.split('|').collect();
+
+        if parts.len() != 2 {
+            return false;
+        }
+
+        match parts[0] {
+            "windowslive" => {
+                let s = parts[1];
+                s.len() == 16 && s.chars().all(|c| c.is_ascii_hexdigit())
+            }
+            "google-oauth2" => {
+                let s = parts[1];
+                s.len() == 21 && s.chars().all(|c| c.is_ascii_digit())
+            }
+            "github" => {
+                let s = parts[1];
+                !s.is_empty() && s.chars().all(|c| c.is_ascii_digit())
+            }
+            _ => false,
+        }
     }
 }
 
@@ -21,8 +49,8 @@ impl TryFrom<HttpRequest> for User {
         req.headers()
             .get("X-User-ID")
             .and_then(|value| value.to_str().ok())
-            .map(|s| User::new(s.to_string()))
-            .ok_or_else(|| "Missing X-User-ID header".to_string())
+            .and_then(User::new)
+            .ok_or_else(|| "Missing or invalid X-User-ID header".to_string())
     }
 }
 
