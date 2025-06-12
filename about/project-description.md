@@ -1,74 +1,75 @@
 # Linux ricing guide
 
-**Team members**
+## Team Members
+
 Mostbauer, Reitbauer, Hassani, Dirnberger
 
-**Project Name:**  
-Linux ricing
+---
+
+## Project Name
+
+Linux Ricing Guide
 
 ---
 
 ## Initial Situation
 
-Ricing(customizing) linux can be difficult for beginners.
-A guid to explain what a ricing is and how to do it, can
-help introduce people to the topic, and help them get the
-result they want
+Customizing (or “ricing”) a Linux environment can be overwhelming, especially for beginners. With so many options for window managers, terminals, shells, and themes, it’s difficult to know where to start. This project addresses that gap by providing a clear, interactive guide to help users understand what ricing is and how to build a setup tailored to their needs.
 
 ---
 
 ## Goals | Non-Goals
 
-**Project Goals:**
-Showcasing how to customize the terminal, the window manager, etc.
+### Project Goals (All completed)
 
-**Non-Goals:**
-Showcasing base linux usage. Knowledge of linux is required.
-A detailed guide for each of the many listed technologies.
+- Provide an undestandable guide to customize key components of a Linux system:
+  - Terminal
+  - Window Manager (WM)
+  - Desktop Environment (DE)
+  - Shell
+  - Package Manager
+  - Themes and utilities
+
+- Easy navigation experience
+- Enable users to log into an account for the site.
+- Allow commenting and rating** on individual technologies and setups.
+- Show homepage for each tool.
+- Feature example setups from the team.
+- Include documentation about ricing, Linux concepts, history, and installation guides.
+- Provide an overview of the tools and technologies used in the project.
+- Style the entire site for both desktop and mobile users.
+
+### Non-Goals
+
+- Teaching basic Linux usage.
+  - Terminal, root/sudo, hardware/drivers (webcames, etc)
+- Providing very deep and hyper specific tutorials for every listed technology.
 
 ---
 
 ## Project Contents
 
-Tutorial on how to customize certain aspects of your linux environment.
+- Interactive Linux ricing configurator.
+- Good feeling and simple navigation (tree, graph, search).
+- Community features: discussions, comments, ratings.
+- Informational pages on Linux customization and background.
+- Personal setups with screenshots.
+- Authentication via Google and GitHub (auth0).
+- UI designed for both desktop and mobile.
 
 ---
 
 ## Critical Success Factors
 
-List of factors that are critical to the project's success.
-
--   Listing technologies for customization
-
-    -   Adding links to the repo and/or home page of each program.
-
--   Styling the site for desktop and mobile devices.
+- Clear structure to find what you need easily.
+- Smooth user experience on both desktop and mobile.
+- Active user interaction features (comments, ratings).
+- Visually appealing and accessible presentation.
 
 ---
 
-## Milestones
+## Project Status
 
-**Project Start:**
+All goals and features listed above have been completed.
 
--   Event: Initial meeting in class during wmc lesson
--   Date: 18.10.2024
-
-**Pre Coding**
-
--   [x] Find Idea
--   [x] Create Project Skeleton
--   [x] Create Repo
--   [x] Invite Members
--   [x] Assign tasks
-
-**Milestones:**
-
--   [ ] Ricing introduction complete: 1. Dez.
--   [ ] Personal-Setups complete: 10. Dez.
--   [ ] Main page complete: 11. Dez.
--   [ ] Styling complete: 12. Dez.
-
-**Project End:**
-
--   Event: Showcase of final site
--   Date: 12. Dez.
+---
