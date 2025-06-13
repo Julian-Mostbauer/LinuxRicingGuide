@@ -17,7 +17,9 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 const router = useRouter()
+const route = useRoute()
 
 type Dimensions = { width: number; height: number };
 type Entry = { imagePath: string; link: string };
@@ -28,8 +30,13 @@ defineProps<{
   mobileDimensions: Dimensions;
 }>();
 
+
 const navigateTo = (link: string) => {
-  router.push(link);
+  if (route.path.endsWith('/')) {
+    router.push(link)
+  } else {
+    router.push(`distros/${link}`)
+  }
 };
 </script>
 
