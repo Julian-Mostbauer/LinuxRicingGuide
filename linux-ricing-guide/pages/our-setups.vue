@@ -41,11 +41,23 @@ export default defineComponent({
           'Shell Configurations': 'Fish',
           'Starship Preset': 'Custom',
           'File Manager': 'Nemo'
-        }
+        },
+          {
+              Name: 'Koorosh',
+              OS: 'Arch',
+              'Desktop Environment': 'Wayland',
+              'Window Manager': 'XFCE - KDEPlasma',
+              'Terminal Emulator': 'xfce4-terminal',
+              'Terminal Theme': 'Chicago95',
+              'Shell Configurations': 'bash',
+              'Starship Preset': 'Custom',
+              'File Manager': 'Thunar'
+          }
       ],
       userImages: [
         'img/desktop-julian.webp',
-        'img/desktop-erik.webp'
+        'img/desktop-erik.webp',
+          'img/desktop-koorosh.webp'
       ]
     };
   }
