@@ -94,7 +94,7 @@ const postComment = async (cH: ICommentHandler, comments: CommentWithParsedDate[
   await cH.getComment(newCommentId, (res) => {
     const newComment: CommentWithParsedDate = {
       ...res.data,
-      date: new Date(res.data.timestamp_epoch).toLocaleString(),
+      date: new Date(res.data.timestamp_epoch * 1000).toLocaleString(),
     }
     console.log(res)
     comments.push(newComment)
