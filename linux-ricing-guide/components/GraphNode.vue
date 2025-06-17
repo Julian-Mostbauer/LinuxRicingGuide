@@ -24,9 +24,9 @@
               @click="() => { toggleNode(node); closeNav(); }" />
           </NuxtLink>
           <text class="node-text"
-            :style="{ fontSize: !node.parent ? '28px' : node.children.length == 0 ? '14px' : '20px' }">
-            <tspan v-for="(line, lineIndex) in wrapText(node.name, 10)" :key="lineIndex" x="0"
-              :dy="lineIndex === 0 ? `-${(wrapText(node.name, 10).length - 1) * 0.6}em` : '1.2em'">
+            :style="{ fontSize: ((!node.parent ? 28 : node.children.length == 0 ? 14 : 20) - node.name.length / 10) + 'px' }">
+            <tspan v-for="(line, lineIndex) in wrapText(node.name, 14)" :key="lineIndex" x="0"
+              :dy="lineIndex === 0 ? `-${(wrapText(node.name, 14).length - 1) * 0.6}em` : '1.2em'">
               {{ line }}
             </tspan>
           </text>
